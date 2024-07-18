@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://bgnkk2mx50dym"]
+
+[ext_resource type="Texture2D" uid="uid://cp7vlmsri2q2s" path="res://Resources/Images/Menus/Rabbid4240 - Logo.png" id="1_urgqw"]
+[ext_resource type="Texture2D" uid="uid://bnabb2p2005pc" path="res://Resources/Images/Menus/Gemini0 - Subtitle.png" id="2_11mew"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+metadata/_edit_use_anchors_ = true
+
+[node name="Logo" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(448, 96)
+scale = Vector2(2, 2)
+texture = ExtResource("1_urgqw")
+
+[node name="Subtitle" type="Sprite2D" parent="Logo"]
+texture_filter = 1
+position = Vector2(0, 16)
+texture = ExtResource("2_11mew")

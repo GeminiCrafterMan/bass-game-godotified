@@ -1,0 +1,70 @@
+--== WEAPONS AND MODULES? ==--
+When defeated, Robot Masters give Bass a WEAPON and a MODULE
+
+WEAPON: Special Weapons are weapons that have limited ammunition but are more powerful than your regular buster.
+
+MODULE: An item that gives you passive boosts, such as a double jump or shadow dash.
+
+You can use either a boss's weapon or their module, but not both. You can switch them out from the stage select.
+
+--== SHOP ITEMS ==--
+
+(Weapon) Bass Buster
+A rapid fire buster that fires regular shots, up to 5 on screen. Shots cannot pass through walls.
+
+(Weapon) Spread Buster
+A slower firing buster that fires triple spread shots.
+
+(Weapon) Bass Buster Type-F
+A semi automatic buster that fires more powerful shots that cannot be aimed, up to 3 on screen at a time. You can hold down the button to charge it up to 2 levels.
+
+
+(Module) HP Up Parts 1
+Increases Max HP by 8
+
+(Module) HP Up Parts 2
+Increases Max HP by 8 more
+
+
+
+--== BLAZE MAN ==--
+
+(Weapon) Scorch Barrier
+A shield much like Water Shield that incinerates enemies and projectiles alike. You can release the attack to fly forward at enemies in a spiraling attack. It burns wood, incinerates trash, and melts any ice you touch while using it. It's only drawback is that it generates very slowly. The particles act like Junk shields, being trailed clusters
+
+(Module) Houshou-geki 鳳昇撃 (Phoenix's Rising Attack)
+An upwards dash that kinda works as a super double jump and hurts enemies directly below you by sending flames from bass's legs downwards.
+
+--== VIDEO MAN ==--
+
+(Weapon) Freeze Frame
+Freeze the game for a few seconds with each use. During Freeze Frame, Bass's shots ignore shields.
+
+(Module) Track 2
+Summon a copy of yourself that continuously fires forward. Only one at a time.
+
+--== SMOG MAN ==--
+
+(Weapon) Poison Cloud
+
+(Module) Mist Dash
+Your dashes make you invulnerable and able to pass through enemies, certain walls, and one block high gaps.
+
+--== SHARK MAN ==--
+
+(Weapon) Fin Shredder
+Fire a spinning water blade that crawls along the ground and walls, falling off ledges at an angle.
+
+(Module) Aqua Drive
+Allows you to freely move around in the water by jumping in the "air" underwater. Press jump again to fall down.
+
+--== ORIGAMI MAN ==--
+
+(Weapon) Origami Star
+Sort of like Shadow Blade, but omnidirectional and you can pause it to multihit by holding B.
+
+(Module) ???
+???
+
+--==  ==--
+--==  ==--
