@@ -3,16 +3,24 @@ extends CharacterBody2D
 class_name PlatformerController2D
 
 signal jumped(is_ground_jump: bool)
+signal dashed(is_ground_dash: bool)
 signal hit_ground()
 
+var is_dashing : bool
 
 # Set these to the name of your action (in the Input Map)
+## Name of input action to climb up or generally press up.
+@export var input_up : String = "move_up"
+## Name of input action to climb down or generally press down.
+@export var input_down : String = "move_down"
 ## Name of input action to move left.
 @export var input_left : String = "move_left"
 ## Name of input action to move right.
 @export var input_right : String = "move_right"
 ## Name of input action to jump.
 @export var input_jump : String = "jump"
+## Name of input action to dash.
+@export var input_dash : String = "dash"
 
 
 const DEFAULT_MAX_JUMP_HEIGHT = 150
@@ -166,12 +174,21 @@ func _physics_process(delta):
 			jump()
 		
 		hit_ground.emit()
+		$Audio/LandSound.play()
 	
 	
 	# Cannot do this in _input because it needs to be checked every frame
 	if Input.is_action_pressed(input_jump):
 		if can_ground_jump() and can_hold_jump:
 			jump()
+	
+	if Input.is_action_pressed(input_dash):
+		if can_ground_jump():
+			dash()
+		else:
+			is_dashing = false
+	else:
+		is_dashing = false
 	
 	var gravity = apply_gravity_multipliers_to(default_gravity)
 	acc.y = gravity
@@ -245,11 +262,11 @@ func is_feet_on_ground():
 
 ## Perform a ground jump, or a double jump if the character is in the air.
 func jump():
+	$Audio/JumpSound.play()
 	if can_double_jump():
 		double_jump()
 	else:
 		ground_jump()
-
 
 ## Perform a double jump without checking if the player is able to.
 func double_jump():
@@ -272,6 +289,20 @@ func ground_jump():
 	coyote_timer.stop()
 	jumped.emit(true)
 
+## Perform a ground dash, or an air dash if... we ever add that?
+func dash():
+	if (is_dashing == false):
+		$Audio/DashSound.play()
+		is_dashing = true
+		ground_dash()
+
+## Perform a ground dash without checking if the player is able to.
+func ground_dash():
+	$DashTimer.start
+	if ($AnimatedSprite2D.flip_h == false):
+		acc.x = max_acceleration*3
+	else:
+		acc.x = -max_acceleration*3
 
 func apply_gravity_multipliers_to(gravity) -> float:
 	if velocity.y * sign(default_gravity) > 0: # If we are falling
@@ -323,18 +354,36 @@ func calculate_speed(p_max_speed, p_friction):
 	return (p_max_speed / p_friction) - p_max_speed
 
 func animate():
-	if (is_feet_on_ground):
-		if (velocity.x != 0):
-			if ($AnimatedSprite2D.animation != "Walk"):
-				$AnimatedSprite2D.play("Step")
-				await ($AnimatedSprite2D.animation_finished)
-				$AnimatedSprite2D.play("Walk")
+	if (is_feet_on_ground() == true):
+		if (is_dashing):
+			$AnimatedSprite2D.play("Dash")
+			return
+		if (abs(velocity.x) == 0):
+			$AnimatedSprite2D.play("Idle")
 		else:
-			$AnimatedSprite2D.animation = "Idle"
+			if (abs(velocity.x) > 40):
+				$AnimatedSprite2D.play("Walk")
+			else:
+				$AnimatedSprite2D.play("Step")
 	else:
 		if (velocity.y < 0):
-			$AnimatedSprite2D.play("Step")
+			$AnimatedSprite2D.play("Jump")
 		else:
-			$AnimatedSprite2D.play("Step")
-			await ($AnimatedSprite2D.animation_finished)
-			$AnimatedSprite2D.play("Walk")
+			$AnimatedSprite2D.play("Jump Transition")
+		if (velocity.y > 100):
+			$AnimatedSprite2D.play("Fall")
+
+# lol i plucked this from the example for .play(), this'll be useful for firing anims
+# Change the animation with keeping the frame index and progress.
+#var current_frame = $AnimatedSprite2D.get_frame()
+#var current_progress = $AnimatedSprite2D.get_frame_progress()
+#$AnimatedSprite2D.play("Walk-Shoot")
+#$AnimatedSprite2D.set_frame_and_progress(current_frame, current_progress)
+
+func kill():
+	get_tree().reload_current_scene()
+	print("dingus")
+
+
+func _on_death_plane_body_entered(body):
+	kill()

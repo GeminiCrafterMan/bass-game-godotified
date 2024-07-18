@@ -78,7 +78,6 @@ normal = Vector2(1, 0)
 script = ExtResource("1_44wag")
 
 [node name="ref" type="Sprite2D" parent="."]
-visible = false
 texture_filter = 1
 position = Vector2(2560, 360)
 texture = ExtResource("2_mwmqv")
@@ -264,3 +263,12 @@ position = Vector2(128, 112)
 
 [node name="Player" parent="." instance=ExtResource("4_ki4m4")]
 position = Vector2(128, 114)
+
+[node name="DeathPlane" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="DeathPlane"]
+polygon = PackedVector2Array(0, 240, 2304, 240, 2304, 248, 0, 248)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="DeathPlane"]
+position = Vector2(2304, 480)
+polygon = PackedVector2Array(0, 240, 2816, 240, 2816, 248, 0, 248)

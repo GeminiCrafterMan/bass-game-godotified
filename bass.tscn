@@ -1,7 +1,18 @@
-[gd_scene load_steps=14 format=3 uid="uid://kfk1dq7hqeyc"]
+[gd_scene load_steps=21 format=3 uid="uid://kfk1dq7hqeyc"]
 
 [ext_resource type="Script" path="res://platformer_controller/platformer_controller.gd" id="1_anofo"]
 [ext_resource type="Texture2D" uid="uid://b56gnn6pfhbv4" path="res://Sprites/Players/Bass/spritesheet.png" id="1_ci3qt"]
+[ext_resource type="AudioStream" uid="uid://d2oevy2xek073" path="res://Sounds/jump.wav" id="3_jevqg"]
+[ext_resource type="AudioStream" uid="uid://cgaetckoiu15m" path="res://Sounds/land.wav" id="4_66xts"]
+[ext_resource type="AudioStream" uid="uid://h87d8b65n30n" path="res://Sounds/slide.wav" id="5_ectoy"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_csggn"]
+atlas = ExtResource("1_ci3qt")
+region = Rect2(1912, 8, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hsgh4"]
+atlas = ExtResource("1_ci3qt")
+region = Rect2(2080, 8, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kcyq8"]
 atlas = ExtResource("1_ci3qt")
@@ -10,6 +21,14 @@ region = Rect2(8, 8, 48, 48)
 [sub_resource type="AtlasTexture" id="AtlasTexture_e1pvw"]
 atlas = ExtResource("1_ci3qt")
 region = Rect2(64, 8, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ntln"]
+atlas = ExtResource("1_ci3qt")
+region = Rect2(1968, 8, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mpvp7"]
+atlas = ExtResource("1_ci3qt")
+region = Rect2(2024, 8, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m64dd"]
 atlas = ExtResource("1_ci3qt")
@@ -42,6 +61,22 @@ region = Rect2(456, 8, 48, 48)
 [sub_resource type="SpriteFrames" id="SpriteFrames_3xc12"]
 animations = [{
 "frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_csggn")
+}],
+"loop": true,
+"name": &"Dash",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hsgh4")
+}],
+"loop": true,
+"name": &"Fall",
+"speed": 8.57
+}, {
+"frames": [{
 "duration": 16.0,
 "texture": SubResource("AtlasTexture_kcyq8")
 }, {
@@ -51,6 +86,22 @@ animations = [{
 "loop": true,
 "name": &"Idle",
 "speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3ntln")
+}],
+"loop": true,
+"name": &"Jump",
+"speed": 8.57
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mpvp7")
+}],
+"loop": false,
+"name": &"Jump Transition",
+"speed": 8.57
 }, {
 "frames": [{
 "duration": 1.0,
@@ -92,6 +143,7 @@ script = ExtResource("1_anofo")
 max_jump_height = 80.0
 min_jump_height = 10.0
 jump_duration = 0.4
+falling_gravity_multiplier = 1.25
 max_acceleration = 2500
 friction = 30
 
@@ -99,8 +151,21 @@ friction = 30
 texture_filter = 1
 position = Vector2(0, -2)
 sprite_frames = SubResource("SpriteFrames_3xc12")
-animation = &"Step"
+animation = &"Dash"
 autoplay = "Idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_gv3ns")
+
+[node name="Audio" type="Node" parent="."]
+
+[node name="JumpSound" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("3_jevqg")
+
+[node name="LandSound" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("4_66xts")
+
+[node name="DashSound" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("5_ectoy")
+
+[node name="DashTimer" type="Timer" parent="."]
