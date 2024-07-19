@@ -1,6 +1,6 @@
 [gd_scene load_steps=21 format=3 uid="uid://simok2manqka"]
 
-[ext_resource type="Script" path="res://airman_stage.gd" id="1_44wag"]
+[ext_resource type="Script" path="res://Scenes/Stages/airman_stage.gd" id="1_wxve4"]
 [ext_resource type="Texture2D" uid="uid://dx0kjtv5qrprh" path="res://Resources/airman.png" id="2_mwmqv"]
 [ext_resource type="Texture2D" uid="uid://63kwqi5jdugg" path="res://Sprites/Tilesets/Test.png" id="3_urcbs"]
 [ext_resource type="PackedScene" uid="uid://kfk1dq7hqeyc" path="res://Scenes/Objects/Players/bass.tscn" id="4_ki4m4"]
@@ -75,7 +75,7 @@ size = Vector2(256, 16)
 normal = Vector2(1, 0)
 
 [node name="AirManStage" type="Node"]
-script = ExtResource("1_44wag")
+script = ExtResource("1_wxve4")
 
 [node name="ref" type="Sprite2D" parent="."]
 texture_filter = 1

@@ -1,6 +1,6 @@
 [gd_scene load_steps=18 format=3 uid="uid://by07rq184shwd"]
 
-[ext_resource type="Script" path="res://test_stage.gd" id="1_bfwns"]
+[ext_resource type="Script" path="res://Scenes/Stages/test_stage.gd" id="1_bsefd"]
 [ext_resource type="Texture2D" uid="uid://c5ew83lm77qou" path="res://Resources/testmap.png" id="2_0sb7e"]
 [ext_resource type="PackedScene" uid="uid://7vytwtvvonec" path="res://Scenes/Objects/Enemies/jumbro.tscn" id="3_8qce2"]
 [ext_resource type="Texture2D" uid="uid://63kwqi5jdugg" path="res://Sprites/Tilesets/Test.png" id="3_tw2mt"]
@@ -63,7 +63,7 @@ size = Vector2(64, 160)
 size = Vector2(704, 32)
 
 [node name="TestStage" type="Node"]
-script = ExtResource("1_bfwns")
+script = ExtResource("1_bsefd")
 
 [node name="Enemies" type="Node" parent="."]
 

@@ -2,23 +2,23 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://hpvif84laihb"
-path="res://.godot/imported/OrbRecolor.png-4d069279f0f307e3287d654532374e25.ctex"
+uid="uid://bxq6p7pu7rfn3"
+path="res://.godot/imported/logo.png-1c2cb0b06378f894a7920b1df0368d1b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://OrbRecolor.png"
-dest_files=["res://.godot/imported/OrbRecolor.png-4d069279f0f307e3287d654532374e25.ctex"]
+source_file="res://loading/logo.png"
+dest_files=["res://.godot/imported/logo.png-1c2cb0b06378f894a7920b1df0368d1b.ctex"]
 
 [params]
 
 compress/mode=0
+compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
-compress/bptc_ldr=0
 compress/normal_map=0
 compress/channel_pack=0
 mipmaps/generate=false
@@ -31,4 +31,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=0
+detect_3d/compress_to=1

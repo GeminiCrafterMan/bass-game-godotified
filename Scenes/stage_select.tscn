@@ -1,6 +1,7 @@
-[gd_scene load_steps=17 format=3 uid="uid://bdjh5mq7h0j2"]
+[gd_scene load_steps=18 format=3 uid="uid://nlrnwd1bwqmg"]
 
 [ext_resource type="Texture2D" uid="uid://diukfgrcpw6sy" path="res://Sprites/Tilesets/Stage Select.png" id="1_khlxf"]
+[ext_resource type="Script" path="res://Scenes/stage_select.gd" id="1_v0p28"]
 [ext_resource type="Texture2D" uid="uid://be7afqj7g3eow" path="res://Sprites/Menus/Stage Select - Sprites.png" id="2_pk014"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vytrk"]
@@ -129,6 +130,7 @@ offset_bottom = 252.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.5, 0.5)
+script = ExtResource("1_v0p28")
 
 [node name="BG color" type="ColorRect" parent="."]
 layout_mode = 0
@@ -225,3 +227,30 @@ animation = &"Normal"
 position = Vector2(296, 192)
 sprite_frames = SubResource("SpriteFrames_bf1ns")
 animation = &"Normal"
+
+[node name="Placeholder buttons" type="Node" parent="."]
+
+[node name="Test Stage" type="Button" parent="Placeholder buttons"]
+offset_left = 8.0
+offset_top = 32.0
+offset_right = 120.0
+offset_bottom = 64.0
+text = "Test Stage"
+
+[node name="Air Man Stage" type="Button" parent="Placeholder buttons"]
+offset_left = 8.0
+offset_top = 104.0
+offset_right = 124.0
+offset_bottom = 136.0
+text = "Air Man Stage"
+
+[node name="Mengo Stage" type="Button" parent="Placeholder buttons"]
+offset_left = 8.0
+offset_top = 176.0
+offset_right = 124.0
+offset_bottom = 208.0
+text = "Mengo Stage"
+
+[connection signal="pressed" from="Placeholder buttons/Test Stage" to="." method="_on_test_stage_pressed"]
+[connection signal="pressed" from="Placeholder buttons/Air Man Stage" to="." method="_on_air_man_stage_pressed"]
+[connection signal="pressed" from="Placeholder buttons/Mengo Stage" to="." method="_on_mengo_stage_pressed"]
