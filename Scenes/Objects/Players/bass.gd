@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-class_name PlatformerController2D
+class_name BassPlayer
 
 signal jumped(is_ground_jump: bool)
 signal dashed(is_ground_dash: bool)
