@@ -212,6 +212,7 @@ animations = [{
 size = Vector2(16, 28)
 
 [node name="Player" type="CharacterBody2D"]
+floor_snap_length = 5.0
 script = ExtResource("1_lug7r")
 max_jump_height = 80.0
 min_jump_height = 10.0

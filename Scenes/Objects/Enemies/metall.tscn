@@ -1,0 +1,104 @@
+[gd_scene load_steps=11 format=3 uid="uid://bpd4uso3ynaeo"]
+
+[ext_resource type="Texture2D" uid="uid://cp7ew5kapy7xr" path="res://Sprites/Enemies/Metall.png" id="1_6rq1x"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v1y3w"]
+atlas = ExtResource("1_6rq1x")
+region = Rect2(0, 0, 18, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6fcm3"]
+atlas = ExtResource("1_6rq1x")
+region = Rect2(64, 0, 18, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g5gux"]
+atlas = ExtResource("1_6rq1x")
+region = Rect2(32, 0, 18, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n87pf"]
+atlas = ExtResource("1_6rq1x")
+region = Rect2(96, 0, 18, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s0clu"]
+atlas = ExtResource("1_6rq1x")
+region = Rect2(128, 0, 18, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_emr47"]
+atlas = ExtResource("1_6rq1x")
+region = Rect2(160, 0, 18, 20)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_62nvj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v1y3w")
+}],
+"loop": false,
+"name": &"Closed",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6fcm3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g5gux")
+}],
+"loop": false,
+"name": &"Closing",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n87pf")
+}],
+"loop": true,
+"name": &"Opened",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g5gux")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6fcm3")
+}],
+"loop": false,
+"name": &"Opening",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s0clu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_emr47")
+}],
+"loop": true,
+"name": &"Walk",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wp5vq"]
+size = Vector2(18, 18)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_btiql"]
+size = Vector2(18, 10)
+
+[node name="Metall" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 3
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -2)
+sprite_frames = SubResource("SpriteFrames_62nvj")
+animation = &"Closed"
+autoplay = "Closed"
+
+[node name="OpenHitbox" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_wp5vq")
+
+[node name="ClosedHitbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_btiql")
