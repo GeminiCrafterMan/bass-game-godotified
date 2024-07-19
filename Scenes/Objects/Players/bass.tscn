@@ -100,9 +100,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_csggn")
 }],
-"loop": true,
+"loop": false,
 "name": &"Dash",
-"speed": 5.0
+"speed": 2.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -224,9 +224,8 @@ friction = 30
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_3xc12")
-animation = &"Idle"
+animation = &"Dash"
 autoplay = "Idle"
-frame_progress = 0.0774269
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2)
@@ -242,8 +241,3 @@ stream = ExtResource("4_66xts")
 
 [node name="DashSound" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("5_ectoy")
-
-[node name="DashTimer" type="Timer" parent="."]
-process_callback = 0
-wait_time = 0.25
-one_shot = true

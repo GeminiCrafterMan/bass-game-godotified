@@ -297,10 +297,16 @@ func dash():
 		$Audio/DashSound.play()
 		is_dashing = true
 		ground_dash()
+	if (is_dashing == true):
+		await $AnimatedSprite2D.animation_finished # Set animation length to dash length.
+# ...yes, somehow this worked *BETTER* than the actual fucking timer node.
+		is_dashing = false
+		if not (Input.is_action_pressed(input_left) or Input.is_action_pressed(input_right)):
+			acc.x = 0
+		
 
 ## Perform a ground dash without checking if the player is able to.
 func ground_dash():
-	$DashTimer.start
 	if ($AnimatedSprite2D.flip_h == false):
 		acc.x = max_acceleration*3
 	else:
