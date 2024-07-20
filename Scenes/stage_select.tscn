@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://nlrnwd1bwqmg"]
+[gd_scene load_steps=21 format=3 uid="uid://bb1e018s8kwu7"]
 
 [ext_resource type="Texture2D" uid="uid://diukfgrcpw6sy" path="res://Sprites/Tilesets/Stage Select.png" id="1_khlxf"]
 [ext_resource type="Script" path="res://Scenes/stage_select.gd" id="1_v0p28"]
