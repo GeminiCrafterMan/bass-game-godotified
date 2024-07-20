@@ -209,7 +209,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gv3ns"]
-size = Vector2(16, 28)
+size = Vector2(14, 26)
 
 [node name="Player" type="CharacterBody2D"]
 floor_snap_length = 5.0
@@ -228,7 +228,7 @@ animation = &"Fall"
 autoplay = "Idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 2)
+position = Vector2(0, 3)
 shape = SubResource("RectangleShape2D_gv3ns")
 
 [node name="Audio" type="Node" parent="."]

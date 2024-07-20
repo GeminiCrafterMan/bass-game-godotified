@@ -1,7 +1,6 @@
-[gd_scene load_steps=18 format=3 uid="uid://by07rq184shwd"]
+[gd_scene load_steps=17 format=3 uid="uid://by07rq184shwd"]
 
 [ext_resource type="Script" path="res://Scenes/Stages/test_stage.gd" id="1_bsefd"]
-[ext_resource type="Texture2D" uid="uid://c5ew83lm77qou" path="res://Resources/testmap.png" id="2_0sb7e"]
 [ext_resource type="PackedScene" uid="uid://7vytwtvvonec" path="res://Scenes/Objects/Enemies/jumbro.tscn" id="3_8qce2"]
 [ext_resource type="Texture2D" uid="uid://63kwqi5jdugg" path="res://Sprites/Tilesets/Test.png" id="3_tw2mt"]
 [ext_resource type="PackedScene" uid="uid://kfk1dq7hqeyc" path="res://Scenes/Objects/Players/bass.tscn" id="4_0kdup"]
@@ -75,11 +74,6 @@ position = Vector2(672, 296)
 
 [node name="Sniper Joe" parent="Enemies" instance=ExtResource("8_ffb0a")]
 position = Vector2(904, 280)
-
-[node name="Testmap" type="Sprite2D" parent="."]
-modulate = Color(0.281187, 0.281187, 0.281187, 1)
-position = Vector2(960, 464)
-texture = ExtResource("2_0sb7e")
 
 [node name="TileMap" type="TileMap" parent="."]
 texture_filter = 1

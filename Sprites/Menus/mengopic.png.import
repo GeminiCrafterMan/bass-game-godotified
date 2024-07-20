@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c5ew83lm77qou"
-path="res://.godot/imported/testmap.png-572cc1da0f290961c28537fe91dc67c0.ctex"
+uid="uid://cx2hc3npwbfsq"
+path="res://.godot/imported/mengopic.png-b814cb32330e3fec2c7a10a2a8a7bb30.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/testmap.png"
-dest_files=["res://.godot/imported/testmap.png-572cc1da0f290961c28537fe91dc67c0.ctex"]
+source_file="res://Sprites/Menus/mengopic.png"
+dest_files=["res://.godot/imported/mengopic.png-b814cb32330e3fec2c7a10a2a8a7bb30.ctex"]
 
 [params]
 

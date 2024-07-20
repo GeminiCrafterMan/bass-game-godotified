@@ -19,3 +19,6 @@ func _on_air_man_stage_pressed():
 
 func _on_mengo_stage_pressed():
 	Loading.load_scene("res://Scenes/Stages/mengo.tscn")
+
+func _on_pump_man_stage_pressed():
+	Loading.load_scene("res://Scenes/Stages/pumpman_stage.tscn")
