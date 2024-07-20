@@ -11,7 +11,6 @@ func _ready():
 	add_child(player)
 	player.position = $StartPosition.position
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	process_camera()

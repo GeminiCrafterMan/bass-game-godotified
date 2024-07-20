@@ -1,9 +1,8 @@
-[gd_scene load_steps=21 format=3 uid="uid://dkes3n7rxd5nd"]
+[gd_scene load_steps=20 format=3 uid="uid://dkes3n7rxd5nd"]
 
 [ext_resource type="Script" path="res://Scenes/Stages/airman_stage.gd" id="1_44wag"]
 [ext_resource type="Texture2D" uid="uid://dx0kjtv5qrprh" path="res://Resources/airman.png" id="2_mwmqv"]
 [ext_resource type="Texture2D" uid="uid://63kwqi5jdugg" path="res://Sprites/Tilesets/Test.png" id="3_urcbs"]
-[ext_resource type="PackedScene" uid="uid://kfk1dq7hqeyc" path="res://Scenes/Objects/Players/bass.tscn" id="4_ki4m4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dlclr"]
 resource_name = "Test"
@@ -259,7 +258,4 @@ shape = SubResource("WorldBoundaryShape2D_g3hdr")
 polygon = PackedVector2Array(2352, 432, 2352, 448, 2560, 448, 2560, 432, 2496, 432, 2496, 400, 2480, 400, 2480, 432, 2416, 432, 2416, 400, 2400, 400, 2400, 432)
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(128, 112)
-
-[node name="Player" parent="." instance=ExtResource("4_ki4m4")]
 position = Vector2(128, 112)

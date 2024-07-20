@@ -1,8 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://bag0oi3h5wdtn"]
+[gd_scene load_steps=11 format=3 uid="uid://bag0oi3h5wdtn"]
 
 [ext_resource type="Script" path="res://Scenes/Stages/mengo.gd" id="1_juw27"]
 [ext_resource type="Texture2D" uid="uid://63kwqi5jdugg" path="res://Sprites/Tilesets/Test.png" id="3_taadd"]
-[ext_resource type="PackedScene" uid="uid://kfk1dq7hqeyc" path="res://Scenes/Objects/Players/bass.tscn" id="4_ie2cm"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dlclr"]
 resource_name = "Test"
@@ -111,9 +110,6 @@ shape = SubResource("RectangleShape2D_qao2o")
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(128, 112)
 
-[node name="Player" parent="." instance=ExtResource("4_ie2cm")]
-position = Vector2(128, 112)
-
 [node name="DeathPlane" type="Area2D" parent="."]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="DeathPlane"]
@@ -122,3 +118,6 @@ polygon = PackedVector2Array(0, 240, 2304, 240, 2304, 248, 0, 248)
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="DeathPlane"]
 position = Vector2(2304, 480)
 polygon = PackedVector2Array(0, 240, 2816, 240, 2816, 248, 0, 248)
+
+[node name="StartPosition" type="Marker2D" parent="."]
+position = Vector2(128, 112)
