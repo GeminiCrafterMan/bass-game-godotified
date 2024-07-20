@@ -177,10 +177,11 @@ func _input(_event):
 			acc.x = max_acceleration
 	
 	if Input.is_action_just_pressed(input_jump):
-		holding_jump = true
-		start_jump_buffer_timer()
-		if (not can_hold_jump and can_ground_jump()) or can_double_jump():
-			jump()
+		if (not Input.is_action_pressed(input_down) or is_sliding == true):
+			holding_jump = true
+			start_jump_buffer_timer()
+			if (not can_hold_jump and can_ground_jump()) or can_double_jump():
+				jump()
 	
 	if Input.is_action_just_released(input_jump):
 		holding_jump = false

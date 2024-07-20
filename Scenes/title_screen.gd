@@ -12,6 +12,8 @@ func _process(delta):
 		await Fade.fade_out().finished
 		Loading.load_scene("res://Scenes/stage_select.tscn")
 
-
-func _on_check_button_toggled(toggled_on):
-	GlobalVars.character_selected = toggled_on
+func _on_option_button_item_selected(index):
+	if index == 0:
+		GlobalVars.character_selected = false
+	if index == 1:
+		GlobalVars.character_selected = true

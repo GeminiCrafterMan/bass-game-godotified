@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://b2qdyqi73m1nh"]
+[gd_scene load_steps=8 format=3 uid="uid://b2qdyqi73m1nh"]
 
 [ext_resource type="Script" path="res://Scenes/title_screen.gd" id="1_8u8ci"]
 [ext_resource type="Texture2D" uid="uid://cp7vlmsri2q2s" path="res://Resources/Images/Menus/Rabbid4240 - Logo.png" id="1_urgqw"]
 [ext_resource type="Texture2D" uid="uid://bnabb2p2005pc" path="res://Resources/Images/Menus/Gemini0 - Subtitle.png" id="2_11mew"]
 [ext_resource type="Texture2D" uid="uid://iqatecmiuy6e" path="res://Sprites/Menus/Title Screen - Bass.png" id="3_u5ruh"]
 [ext_resource type="AudioStream" uid="uid://clpoq4xfb5h38" path="res://Music/Mega Man 5 (NES) Music - Intro Part 2.mp3" id="5_4bqo4"]
+[ext_resource type="Texture2D" uid="uid://crw5rnku666q8" path="res://Resources/Images/Menus/lifecounter-b.png" id="6_v60x2"]
+[ext_resource type="Texture2D" uid="uid://b2aq0xkhprjvm" path="res://Resources/Images/Menus/lifecounter-c.png" id="7_5mrgu"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -36,12 +38,19 @@ texture = ExtResource("3_u5ruh")
 stream = ExtResource("5_4bqo4")
 autoplay = true
 
-[node name="CheckButton" type="CheckButton" parent="."]
+[node name="OptionButton" type="OptionButton" parent="."]
 layout_mode = 0
-offset_left = 298.0
-offset_top = 192.0
-offset_right = 614.0
-offset_bottom = 223.0
-text = "character switch: bass - copy robot"
+offset_left = 374.0
+offset_top = 172.0
+offset_right = 508.0
+offset_bottom = 203.0
+item_count = 2
+selected = 0
+popup/item_0/text = "Bass"
+popup/item_0/icon = ExtResource("6_v60x2")
+popup/item_0/id = 0
+popup/item_1/text = "Copy Robot"
+popup/item_1/icon = ExtResource("7_5mrgu")
+popup/item_1/id = 1
 
-[connection signal="toggled" from="CheckButton" to="." method="_on_check_button_toggled"]
+[connection signal="item_selected" from="OptionButton" to="." method="_on_option_button_item_selected"]
