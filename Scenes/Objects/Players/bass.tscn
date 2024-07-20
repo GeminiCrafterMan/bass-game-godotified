@@ -94,7 +94,7 @@ region = Rect2(400, 8, 48, 48)
 atlas = ExtResource("1_ci3qt")
 region = Rect2(456, 8, 48, 48)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_3xc12"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_s2qv6"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -223,8 +223,8 @@ friction = 30
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
-sprite_frames = SubResource("SpriteFrames_3xc12")
-animation = &"Dash"
+sprite_frames = SubResource("SpriteFrames_s2qv6")
+animation = &"Fall"
 autoplay = "Idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
