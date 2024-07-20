@@ -8,6 +8,10 @@
 
 config_version=5
 
+[addons]
+
+universal_fade/patterns_directory="res://addons/UniversalFade/Patterns"
+
 [application]
 
 config/name="bass-game"
@@ -17,7 +21,7 @@ config/icon="res://icon.png"
 
 [autoload]
 
-Loading="*res://loading/loading.tscn"
+Loading="*res://addons/loading/loading.tscn"
 
 [display]
 

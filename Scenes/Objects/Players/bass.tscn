@@ -1,10 +1,17 @@
-[gd_scene load_steps=30 format=3 uid="uid://kfk1dq7hqeyc"]
+[gd_scene load_steps=32 format=3 uid="uid://kfk1dq7hqeyc"]
 
 [ext_resource type="Texture2D" uid="uid://b56gnn6pfhbv4" path="res://Sprites/Players/Bass/spritesheet.png" id="1_ci3qt"]
 [ext_resource type="Script" path="res://Scenes/Objects/Players/bass.gd" id="1_lug7r"]
+[ext_resource type="Shader" path="res://PaletteSwap.gdshader" id="2_m015p"]
 [ext_resource type="AudioStream" uid="uid://d2oevy2xek073" path="res://Sounds/jump.wav" id="3_jevqg"]
 [ext_resource type="AudioStream" uid="uid://cgaetckoiu15m" path="res://Sounds/land.wav" id="4_66xts"]
 [ext_resource type="AudioStream" uid="uid://h87d8b65n30n" path="res://Sounds/slide.wav" id="5_ectoy"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7773x"]
+shader = ExtResource("2_m015p")
+shader_parameter/skip_first_row = true
+shader_parameter/use_palette_alpha = false
+shader_parameter/fps = 6.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_csggn"]
 atlas = ExtResource("1_ci3qt")
@@ -214,17 +221,11 @@ size = Vector2(14, 26)
 [node name="Player" type="CharacterBody2D"]
 floor_snap_length = 5.0
 script = ExtResource("1_lug7r")
-max_jump_height = 80.0
-min_jump_height = 10.0
-jump_duration = 0.4
-falling_gravity_multiplier = 1.25
-max_acceleration = 2500
-friction = 30
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-texture_filter = 1
+material = SubResource("ShaderMaterial_7773x")
 sprite_frames = SubResource("SpriteFrames_s2qv6")
-animation = &"Fall"
+animation = &"Idle"
 autoplay = "Idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

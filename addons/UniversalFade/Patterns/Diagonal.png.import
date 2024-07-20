@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bxq6p7pu7rfn3"
-path="res://.godot/imported/logo.png-1c2cb0b06378f894a7920b1df0368d1b.ctex"
+uid="uid://c1nex6wxbe8hf"
+path="res://.godot/imported/Diagonal.png-356ca26798abe0ab8f5ef500742481a3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://loading/logo.png"
-dest_files=["res://.godot/imported/logo.png-1c2cb0b06378f894a7920b1df0368d1b.ctex"]
+source_file="res://addons/UniversalFade/Patterns/Diagonal.png"
+dest_files=["res://.godot/imported/Diagonal.png-356ca26798abe0ab8f5ef500742481a3.ctex"]
 
 [params]
 

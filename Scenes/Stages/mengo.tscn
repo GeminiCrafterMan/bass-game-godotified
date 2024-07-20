@@ -112,7 +112,7 @@ shape = SubResource("RectangleShape2D_qao2o")
 position = Vector2(128, 112)
 
 [node name="Player" parent="." instance=ExtResource("4_ie2cm")]
-position = Vector2(128, 114)
+position = Vector2(128, 112)
 
 [node name="DeathPlane" type="Area2D" parent="."]
 

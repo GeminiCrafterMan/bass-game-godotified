@@ -13,3 +13,5 @@ func process_camera():
 	if (get_tree().get_root().has_node("TestStage/Player")): # Null check!
 		$Camera2D.position = $Player.position
 		$Camera2D.limit_left = 0
+		$Camera2D.limit_right = 1920
+		$Camera2D.limit_bottom = 928

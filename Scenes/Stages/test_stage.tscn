@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://by07rq184shwd"]
+[gd_scene load_steps=20 format=3 uid="uid://by07rq184shwd"]
 
 [ext_resource type="Script" path="res://Scenes/Stages/test_stage.gd" id="1_bsefd"]
 [ext_resource type="PackedScene" uid="uid://7vytwtvvonec" path="res://Scenes/Objects/Enemies/jumbro.tscn" id="3_8qce2"]
@@ -60,6 +60,14 @@ size = Vector2(64, 160)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l3cs4"]
 size = Vector2(704, 32)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_7mfj0"]
+normal = Vector2(1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_3n5w0"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_dssws"]
+normal = Vector2(-1, 0)
 
 [node name="TestStage" type="Node"]
 script = ExtResource("1_bsefd")
@@ -297,8 +305,74 @@ one_way_collision = true
 position = Vector2(928, 912)
 shape = SubResource("RectangleShape2D_l3cs4")
 
+[node name="CollisionShape2D41" type="CollisionShape2D" parent="TileMap/StaticBody2D"]
+shape = SubResource("WorldBoundaryShape2D_7mfj0")
+
+[node name="CollisionShape2D42" type="CollisionShape2D" parent="TileMap/StaticBody2D"]
+shape = SubResource("WorldBoundaryShape2D_7mfj0")
+
+[node name="CollisionShape2D43" type="CollisionShape2D" parent="TileMap/StaticBody2D"]
+position = Vector2(1920, 928)
+shape = SubResource("WorldBoundaryShape2D_3n5w0")
+
+[node name="CollisionShape2D44" type="CollisionShape2D" parent="TileMap/StaticBody2D"]
+position = Vector2(1920, 928)
+shape = SubResource("WorldBoundaryShape2D_dssws")
+
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(128, 112)
 
 [node name="Player" parent="." instance=ExtResource("4_0kdup")]
 position = Vector2(72, 368)
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="ParallaxBackground"]
+offset_right = 1920.0
+offset_bottom = 928.0
+color = Color(0.266667, 0.533333, 0.933333, 1)
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.5, 1)
+
+[node name="Polygon2D" type="Polygon2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2(79, 15)
+polygon = PackedVector2Array(60, 176, 74, 185, 89, 171, 110, 169, 127, 181, 156, 172, 169, 177, 176, 190, 172, 204, 155, 213, 131, 216, 105, 220, 75, 219, 55, 213, 42, 204, 30, 189, 45, 173)
+
+[node name="Polygon2D2" type="Polygon2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2(303, -62)
+polygon = PackedVector2Array(60, 176, 74, 185, 89, 171, 110, 169, 127, 181, 156, 172, 169, 177, 176, 190, 172, 204, 155, 213, 131, 216, 105, 220, 75, 219, 55, 213, 42, 204, 30, 189, 45, 173)
+
+[node name="Polygon2D3" type="Polygon2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2(535, -17)
+polygon = PackedVector2Array(60, 176, 74, 185, 89, 171, 110, 169, 127, 181, 156, 172, 169, 177, 176, 190, 172, 204, 155, 213, 131, 216, 105, 220, 75, 219, 55, 213, 42, 204, 30, 189, 45, 173)
+
+[node name="Polygon2D4" type="Polygon2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2(766, -73)
+polygon = PackedVector2Array(60, 176, 74, 185, 89, 171, 110, 169, 127, 181, 156, 172, 169, 177, 176, 190, 172, 204, 155, 213, 131, 216, 105, 220, 75, 219, 55, 213, 42, 204, 30, 189, 45, 173)
+
+[node name="Polygon2D5" type="Polygon2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2(942, 32)
+polygon = PackedVector2Array(60, 176, 74, 185, 89, 171, 110, 169, 127, 181, 156, 172, 169, 177, 176, 190, 172, 204, 155, 213, 131, 216, 105, 220, 75, 219, 55, 213, 42, 204, 30, 189, 45, 173)
+
+[node name="Polygon2D6" type="Polygon2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2(1118, -27)
+polygon = PackedVector2Array(60, 176, 74, 185, 89, 171, 110, 169, 127, 181, 156, 172, 169, 177, 176, 190, 172, 204, 155, 213, 131, 216, 105, 220, 75, 219, 55, 213, 42, 204, 30, 189, 45, 173)
+
+[node name="Polygon2D7" type="Polygon2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2(1351, 61)
+polygon = PackedVector2Array(60, 176, 74, 185, 89, 171, 110, 169, 127, 181, 156, 172, 169, 177, 176, 190, 172, 204, 155, 213, 131, 216, 105, 220, 75, 219, 55, 213, 42, 204, 30, 189, 45, 173)
+
+[node name="Polygon2D8" type="Polygon2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2(1435, -82)
+polygon = PackedVector2Array(60, 176, 74, 185, 89, 171, 110, 169, 127, 181, 156, 172, 169, 177, 176, 190, 172, 204, 155, 213, 131, 216, 105, 220, 75, 219, 55, 213, 42, 204, 30, 189, 45, 173)
+
+[node name="Polygon2D9" type="Polygon2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2(1656, 32)
+polygon = PackedVector2Array(60, 176, 74, 185, 89, 171, 110, 169, 127, 181, 156, 172, 169, 177, 176, 190, 172, 204, 155, 213, 131, 216, 105, 220, 75, 219, 55, 213, 42, 204, 30, 189, 45, 173)
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+
+[node name="Polygon2D" type="Polygon2D" parent="ParallaxBackground/ParallaxLayer2"]
+color = Color(0.27, 0.1215, 0, 1)
+polygon = PackedVector2Array(0, 475, 204, 475, 335, 561, 587, 505, 785, 579, 1060, 504, 1287, 573, 1475, 493, 1707, 635, 1805, 512, 1920, 542, 1920, 928, 0, 928)

@@ -9,4 +9,5 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if Input.is_action_just_pressed("start"):
+		await Fade.fade_out().finished
 		Loading.load_scene("res://Scenes/stage_select.tscn")
