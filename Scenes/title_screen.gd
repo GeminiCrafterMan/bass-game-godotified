@@ -11,3 +11,7 @@ func _process(delta):
 	if Input.is_action_just_pressed("start"):
 		await Fade.fade_out().finished
 		Loading.load_scene("res://Scenes/stage_select.tscn")
+
+
+func _on_check_button_toggled(toggled_on):
+	GlobalVars.character_selected = toggled_on

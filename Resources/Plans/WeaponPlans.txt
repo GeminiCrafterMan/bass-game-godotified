@@ -66,5 +66,12 @@ Sort of like Shadow Blade, but omnidirectional and you can pause it to multihit 
 (Module) ???
 ???
 
---==  ==--
+--== GALE WOMAN ==--
+
+(Weapon) ???
+???
+
+(Module) ???
+???
+
 --==  ==--

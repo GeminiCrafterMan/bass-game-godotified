@@ -3,8 +3,9 @@ extends Control
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	if GlobalVars.character_selected: # Copy Robot was selected
+		$Player.texture = load("res://Sprites/Menus/Stage Select - Copy Robot.png")
 	await Fade.fade_in().finished
-	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

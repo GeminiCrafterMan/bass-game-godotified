@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b7syata42ykfv"
-path="res://.godot/imported/icon.png-75b606a0862cd0e66579c4f65a0dda6f.ctex"
+uid="uid://2fqywuncsjyo"
+path="res://.godot/imported/Fin Shredder.png-051ade84f920531eff86476c2d042f2d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/nklbdev.parallax/icon.png"
-dest_files=["res://.godot/imported/icon.png-75b606a0862cd0e66579c4f65a0dda6f.ctex"]
+source_file="res://Sprites/Players/Bass/Palettes/Fin Shredder.png"
+dest_files=["res://.godot/imported/Fin Shredder.png-051ade84f920531eff86476c2d042f2d.ctex"]
 
 [params]
 

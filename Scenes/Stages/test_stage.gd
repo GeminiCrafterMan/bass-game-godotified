@@ -2,7 +2,14 @@ extends Node
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	var player_scene : PackedScene
+	if GlobalVars.character_selected:
+		player_scene = load("res://Scenes/Objects/Players/copy_robot.tscn")
+	else:
+		player_scene = load("res://Scenes/Objects/Players/bass.tscn")
+	var player = player_scene.instantiate()
+	add_child(player)
+	player.position = $StartPosition.position
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

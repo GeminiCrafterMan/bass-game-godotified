@@ -1,25 +1,32 @@
 extends CharacterBody2D
 
-class_name BassPlayer
+class_name CopyRobotPlayer
 
 signal jumped(is_ground_jump: bool)
 signal dashed(is_ground_dash: bool)
 signal hit_ground()
 
-var is_dashing : bool
+var is_sliding : bool
 var current_weapon : int
 var weapon_palette = [
-	"res://Sprites/Players/Bass/Palettes/None.png",
-	"res://Sprites/Players/Bass/Palettes/Scorch Barrier.png",
-	"res://Sprites/Players/Bass/Palettes/Freeze Frame.png",
-	"res://Sprites/Players/Bass/Palettes/Poison Cloud.png",
-	"res://Sprites/Players/Bass/Palettes/Fin Shredder.png",
-	"res://Sprites/Players/Bass/Palettes/Origami Star.png",
-	"res://Sprites/Players/Bass/Palettes/None.png",
-	"res://Sprites/Players/Bass/Palettes/None.png",
-	"res://Sprites/Players/Bass/Palettes/Metal Blade.png",
-	"res://Sprites/Players/Bass/Palettes/Treble.png",
-	"res://Sprites/Players/Bass/Palettes/Proto Buster.png"
+	"res://Sprites/Players/Copy Robot/Palettes/None.png",
+	"res://Sprites/Players/Copy Robot/Palettes/Scorch Barrier.png",
+	"res://Sprites/Players/Copy Robot/Palettes/Track 2.png",
+	"res://Sprites/Players/Copy Robot/Palettes/Poison Cloud.png",
+	"res://Sprites/Players/Copy Robot/Palettes/Fin Shredder.png",
+	"res://Sprites/Players/Copy Robot/Palettes/Origami Star.png",
+	"res://Sprites/Players/Copy Robot/Palettes/None.png",
+	"res://Sprites/Players/Copy Robot/Palettes/None.png",
+	"res://Sprites/Players/Copy Robot/Palettes/Metal Blade.png",
+	"res://Sprites/Players/Copy Robot/Palettes/Carry.png",
+	"res://Sprites/Players/Copy Robot/Palettes/Super Arrow.png"
+]
+var charge_palette = [
+	"res://Sprites/Players/Copy Robot/Palettes/None.png",
+	"res://Sprites/Players/Copy Robot/Palettes/Charge 1.png",
+	"res://Sprites/Players/Copy Robot/Palettes/Charge 2.png",
+	"res://Sprites/Players/Copy Robot/Palettes/Charge 3.png",
+	"res://Sprites/Players/Copy Robot/Palettes/Charge Release.png"
 ]
 
 # Set these to the name of your action (in the Input Map)
@@ -159,7 +166,7 @@ func _ready():
 
 
 func _input(_event):
-	if (is_dashing == false || is_feet_on_ground() == false || !(Input.is_action_pressed(input_dash))):
+	if (is_sliding == false || is_feet_on_ground() == false):
 		acc.x = 0
 		if Input.is_action_pressed(input_left):
 			$AnimatedSprite2D.flip_h = true
@@ -207,21 +214,20 @@ func _physics_process(delta):
 		
 		hit_ground.emit()
 		$Audio/LandSound.play()
-	
-	
+
 	# Cannot do this in _input because it needs to be checked every frame
 	if Input.is_action_pressed(input_jump):
-		if can_ground_jump() and can_hold_jump:
+		if can_ground_jump() and can_hold_jump and (!Input.is_action_pressed(input_down) or is_sliding == false):
 			jump()
-	
-	if Input.is_action_pressed(input_dash):
+
+	if Input.is_action_pressed(input_down):
 		if can_ground_jump():
-			if Input.is_action_just_pressed(input_dash):
-				dash()
+			if Input.is_action_just_pressed(input_jump):
+				slide()
 		else:
-			is_dashing = false
+			is_sliding = false
 	else:
-		is_dashing = false
+		is_sliding = false
 	
 	var gravity = apply_gravity_multipliers_to(default_gravity)
 	acc.y = gravity
@@ -323,21 +329,21 @@ func ground_jump():
 	jumped.emit(true)
 
 ## Perform a ground dash, or an air dash if... we ever add that?
-func dash():
-	if (is_dashing == false):
-		$Audio/DashSound.play()
-		is_dashing = true
-		ground_dash()
-	if (is_dashing == true):
+func slide():
+	if (is_sliding == false):
+		$Audio/SlideSound.play()
+		is_sliding = true
+		ground_slide()
+	if (is_sliding == true):
 		await $AnimatedSprite2D.animation_finished # Set animation length to dash length.
 # ...yes, somehow this worked *BETTER* than the actual fucking timer node.
-		is_dashing = false
+		is_sliding = false
 		if not (Input.is_action_pressed(input_left) or Input.is_action_pressed(input_right)):
 			acc.x = 0
 		
 
 ## Perform a ground dash without checking if the player is able to.
-func ground_dash():
+func ground_slide():
 	if ($AnimatedSprite2D.flip_h == false):
 		acc.x = max_acceleration*3
 	else:
@@ -394,7 +400,7 @@ func calculate_speed(p_max_speed, p_friction):
 
 func animate():
 	if (is_feet_on_ground() == true):
-		if (is_dashing):
+		if (is_sliding):
 			$AnimatedSprite2D.play("Dash")
 			return
 		if (abs(velocity.x) == 0):

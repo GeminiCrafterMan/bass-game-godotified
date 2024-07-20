@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bb1e018s8kwu7"]
+[gd_scene load_steps=22 format=3 uid="uid://bb1e018s8kwu7"]
 
 [ext_resource type="Texture2D" uid="uid://diukfgrcpw6sy" path="res://Sprites/Tilesets/Stage Select.png" id="1_khlxf"]
 [ext_resource type="Script" path="res://Scenes/stage_select.gd" id="1_v0p28"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://c36ibssucboa3" path="res://Sprites/Menus/airpic.png" id="4_etxjm"]
 [ext_resource type="Texture2D" uid="uid://cx2hc3npwbfsq" path="res://Sprites/Menus/mengopic.png" id="5_d13ei"]
 [ext_resource type="Texture2D" uid="uid://bxyk8yxkbam44" path="res://Sprites/Menus/pumppic.png" id="6_xowim"]
+[ext_resource type="Texture2D" uid="uid://dflaoj7u7edb1" path="res://Sprites/Menus/Stage Select - Bass.png" id="7_l4mmt"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vytrk"]
 texture = ExtResource("1_khlxf")
@@ -269,6 +270,13 @@ offset_left = 280.0
 offset_top = 176.0
 offset_right = 312.0
 offset_bottom = 208.0
+
+[node name="Player" type="Sprite2D" parent="."]
+position = Vector2(448, 240)
+scale = Vector2(2, 2)
+texture = ExtResource("7_l4mmt")
+hframes = 9
+frame = 4
 
 [connection signal="pressed" from="Placeholder buttons/Test Stage" to="." method="_on_test_stage_pressed"]
 [connection signal="pressed" from="Placeholder buttons/Air Man Stage" to="." method="_on_air_man_stage_pressed"]
