@@ -259,3 +259,6 @@ polygon = PackedVector2Array(2352, 432, 2352, 448, 2560, 448, 2560, 432, 2496, 4
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(128, 112)
+
+[node name="StartPosition" type="Marker2D" parent="."]
+position = Vector2(128, 112)

@@ -115,7 +115,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"Dash",
-"speed": 2.0
+"speed": 3.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -234,9 +234,8 @@ material = SubResource("ShaderMaterial_7773x")
 sprite_frames = SubResource("SpriteFrames_s2qv6")
 animation = &"Idle"
 autoplay = "Teleport"
-frame_progress = 0.825351
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="MainHitbox" type="CollisionShape2D" parent="."]
 position = Vector2(0, 3)
 shape = SubResource("RectangleShape2D_gv3ns")
 

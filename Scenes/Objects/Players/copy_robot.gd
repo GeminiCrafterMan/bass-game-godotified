@@ -204,6 +204,13 @@ func _input(_event):
 
 
 func _physics_process(delta):
+	if is_feet_on_ground() and is_sliding:
+		$MainHitbox.set_disabled(true)
+		$SlideHitbox.set_disabled(false)
+	else:
+		$MainHitbox.set_disabled(false)
+		$SlideHitbox.set_disabled(true)
+
 	if is_coyote_timer_running() or current_jump_type == JumpType.NONE:
 		jumps_left = max_jump_amount
 	if is_feet_on_ground() and current_jump_type == JumpType.NONE:
@@ -348,9 +355,9 @@ func slide():
 ## Perform a ground dash without checking if the player is able to.
 func ground_slide():
 	if ($AnimatedSprite2D.flip_h == false):
-		acc.x = max_acceleration*3
+		acc.x = max_acceleration*2
 	else:
-		acc.x = -max_acceleration*3
+		acc.x = -max_acceleration*2
 
 func apply_gravity_multipliers_to(gravity) -> float:
 	if velocity.y * sign(default_gravity) > 0: # If we are falling

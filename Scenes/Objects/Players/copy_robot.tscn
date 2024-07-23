@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://cnpcm2juvcutu"]
+[gd_scene load_steps=38 format=3 uid="uid://cnpcm2juvcutu"]
 
 [ext_resource type="Shader" path="res://PaletteSwap.gdshader" id="1_hk0hv"]
 [ext_resource type="Script" path="res://Scenes/Objects/Players/copy_robot.gd" id="2_we56i"]
@@ -288,6 +288,9 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gv3ns"]
 size = Vector2(14, 26)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k00s1"]
+size = Vector2(26, 14)
+
 [node name="Player" type="CharacterBody2D"]
 material = SubResource("ShaderMaterial_qymoq")
 floor_snap_length = 5.0
@@ -296,14 +299,17 @@ script = ExtResource("2_we56i")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_7773x")
 sprite_frames = SubResource("SpriteFrames_kjdkg")
-animation = &"Step"
+animation = &"Dash"
 autoplay = "Teleport"
-frame = 1
-frame_progress = 1.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="MainHitbox" type="CollisionShape2D" parent="."]
 position = Vector2(0, 3)
 shape = SubResource("RectangleShape2D_gv3ns")
+
+[node name="SlideHitbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, 9)
+shape = SubResource("RectangleShape2D_k00s1")
+disabled = true
 
 [node name="Audio" type="Node" parent="."]
 

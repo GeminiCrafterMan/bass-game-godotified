@@ -1,6 +1,19 @@
 extends Node
 
 var character_selected : bool
+var weapons_unlocked = [
+	true, # Buster
+	false, # Blaze
+	false, # Video
+	false, # Smog
+	false, # Shark
+	false, # Origami
+	false, # Gale
+	false, # ???
+	false, # ???
+	false # ???
+]
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
