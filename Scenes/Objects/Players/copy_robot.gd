@@ -171,7 +171,7 @@ func _ready():
 		jump_buffer_timer.one_shot = true
 
 
-func _input(_event):			
+func _input(_event):
 	if Input.is_action_just_pressed(input_jump):
 		if (not Input.is_action_pressed(input_down) or is_sliding == true):
 			holding_jump = true
@@ -193,9 +193,11 @@ func _input(_event):
 	if (is_sliding == true):
 		if Input.is_action_pressed(input_left) && $AnimatedSprite2D.flip_h == false:
 			is_sliding = false
+			slide_timer = 0
 			
 		if Input.is_action_pressed(input_right) && $AnimatedSprite2D.flip_h == true:
 			is_sliding = false
+			slide_timer = 0
 	
 	if Input.is_action_just_released(input_jump):
 		holding_jump = false
@@ -257,8 +259,8 @@ func _physics_process(delta):
 		if can_ground_jump():
 			if Input.is_action_just_pressed(input_jump) && slide_stopped == false:
 				slide()
-	else:
-		slide_stopped = false
+	if slide_stopped == false:
+		check_slide()
 	
 	var gravity = apply_gravity_multipliers_to(default_gravity)
 	acc.y = gravity
@@ -326,7 +328,6 @@ func is_feet_on_ground():
 		return true
 	if is_on_ceiling() and default_gravity <= 0:
 		return true
-	
 	is_sliding = false
 	slide_timer = 0
 	return false
@@ -360,7 +361,6 @@ func ground_jump():
 	jumps_left -= 1
 	coyote_timer.stop()
 	jumped.emit(true)
-	is_sliding = false
 
 ## Perform a ground dash, or an air dash if... we ever add that?
 func slide():
@@ -368,19 +368,6 @@ func slide():
 		$Audio/SlideSound.play()
 		is_sliding = true
 		ground_slide()
-		
-	if (is_sliding == true):
-		await $AnimatedSprite2D.animation_finished # Set animation length to dash length.
-		is_sliding = false
-		slide_stopped = true
-		acc.x = 0
-			
-	else:
-		ground_slide()
-		slide_timer = slide_timer+1
-		#if not (Input.is_action_pressed(input_left) or Input.is_action_pressed(input_right)):
-		#acc.x = 0
-		
 
 ## Perform a ground dash without checking if the player is able to.
 func ground_slide():
@@ -388,8 +375,15 @@ func ground_slide():
 		acc.x = max_acceleration*2
 	else:
 		acc.x = -max_acceleration*2
-	
-		
+
+func check_slide():
+	if slide_timer > 25:
+		is_sliding = false
+		slide_timer = 0
+		slide_stopped = true
+		acc.x = 0
+	if is_sliding == true:
+		slide_timer = slide_timer + 1
 
 func apply_gravity_multipliers_to(gravity) -> float:
 	if velocity.y * sign(default_gravity) > 0: # If we are falling
@@ -443,7 +437,7 @@ func calculate_speed(p_max_speed, p_friction):
 func animate():
 	if (is_feet_on_ground() == true):
 		if (is_sliding):
-			$AnimatedSprite2D.play("Dash")
+			$AnimatedSprite2D.play("Slide")
 			return
 		if (abs(velocity.x) == 0):
 			$AnimatedSprite2D.play("Idle")

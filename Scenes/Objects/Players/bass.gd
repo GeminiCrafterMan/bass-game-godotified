@@ -9,6 +9,8 @@ signal hit_ground()
 var fall_animator : int
 
 var is_dashing : bool
+var dash_timer : int
+
 var current_weapon : int
 var weapon_palette = [
 	"res://Sprites/Players/Bass/Palettes/None.png",
@@ -210,6 +212,13 @@ func _input(_event):
 
 
 func _physics_process(delta):
+	if is_feet_on_ground() and is_dashing and GlobalVars.modules_enabled[3] == true:
+		$MainHitbox.set_disabled(true)
+		$MistDashHitbox.set_disabled(false)
+	else:
+		$MainHitbox.set_disabled(false)
+		$MistDashHitbox.set_disabled(true)
+
 	if is_coyote_timer_running() or current_jump_type == JumpType.NONE:
 		jumps_left = max_jump_amount
 	if is_feet_on_ground() and current_jump_type == JumpType.NONE:
@@ -236,8 +245,11 @@ func _physics_process(delta):
 				dash()
 		else:
 			is_dashing = false
+			dash_timer = 0
 	else:
 		is_dashing = false
+		dash_timer = 0
+	check_dash()
 	
 	var gravity = apply_gravity_multipliers_to(default_gravity)
 	acc.y = gravity
@@ -305,7 +317,8 @@ func is_feet_on_ground():
 		return true
 	if is_on_ceiling() and default_gravity <= 0:
 		return true
-	
+	is_dashing = false
+	dash_timer = 0
 	return false
 
 
@@ -337,6 +350,8 @@ func ground_jump():
 	jumps_left -= 1
 	coyote_timer.stop()
 	jumped.emit(true)
+	is_dashing = false
+	dash_timer = 0
 
 ## Perform a ground dash, or an air dash if... we ever add that?
 func dash():
@@ -344,20 +359,33 @@ func dash():
 		$Audio/DashSound.play()
 		is_dashing = true
 		ground_dash()
-	if (is_dashing == true):
-		await $AnimatedSprite2D.animation_finished # Set animation length to dash length.
-# ...yes, somehow this worked *BETTER* than the actual fucking timer node.
-		is_dashing = false
-		if not (Input.is_action_pressed(input_left) or Input.is_action_pressed(input_right)):
-			acc.x = 0
-		
 
 ## Perform a ground dash without checking if the player is able to.
 func ground_dash():
 	if ($AnimatedSprite2D.flip_h == false):
-		acc.x = max_acceleration*3
+		acc.x = max_acceleration*2.25
 	else:
-		acc.x = -max_acceleration*3
+		acc.x = -max_acceleration*2.25
+
+func check_dash():
+
+	if dash_timer > 37:
+		is_dashing = false
+		dash_timer = 0
+		#if not (Input.is_action_pressed(input_left) or Input.is_action_pressed(input_right)):
+		acc.x = 0
+	if is_dashing == true:
+		dash_timer = dash_timer + 1
+
+	if Input.is_action_pressed(input_left) && $AnimatedSprite2D.flip_h == false:
+		is_dashing = false
+		dash_timer = 0
+		velocity.x = 0
+			
+	if Input.is_action_pressed(input_right) && $AnimatedSprite2D.flip_h == true:
+		is_dashing = false
+		dash_timer = 0
+		velocity.x = 0
 
 func apply_gravity_multipliers_to(gravity) -> float:
 	if velocity.y * sign(default_gravity) > 0: # If we are falling
@@ -411,8 +439,12 @@ func calculate_speed(p_max_speed, p_friction):
 func animate():
 	if (is_feet_on_ground() == true):
 		if (is_dashing):
-			$AnimatedSprite2D.play("Dash")
-			return
+			if (GlobalVars.modules_enabled[3] == true):
+				$AnimatedSprite2D.play("Mist Dash")
+				return
+			else:
+				$AnimatedSprite2D.play("Dash")
+				return
 		if (abs(velocity.x) == 0):
 			$AnimatedSprite2D.play("Idle")
 		else:
