@@ -414,10 +414,13 @@ func animate():
 	else:
 		if (velocity.y < 0):
 			$AnimatedSprite2D.play("Jump")
-		else:
-			$AnimatedSprite2D.play("Jump Transition")
-		if (velocity.y > 100):
-			$AnimatedSprite2D.play("Fall")
+			fall_animator = 0
+		if (velocity.y > 0):
+			fall_animator = fall_animator + 1
+			if  fall_animator < 4:
+				$AnimatedSprite2D.play("Jump Transition")
+			else:
+				$AnimatedSprite2D.play("Fall")
 
 # lol i plucked this from the example for .play(), this'll be useful for firing anims
 # Change the animation with keeping the frame index and progress.

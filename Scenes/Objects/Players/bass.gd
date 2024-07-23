@@ -22,6 +22,9 @@ var weapon_palette = [
 	"res://Sprites/Players/Bass/Palettes/Proto Buster.png"
 ]
 
+var fall_animator : int
+
+
 # Set these to the name of your action (in the Input Map)
 ## Name of input action to climb up or generally press up.
 @export var input_up : String = "move_up"
@@ -211,7 +214,7 @@ func _physics_process(delta):
 	
 	# Cannot do this in _input because it needs to be checked every frame
 	if Input.is_action_pressed(input_jump):
-		if can_ground_jump() and can_hold_jump:
+		if can_ground_jump() and can_hold_jump and velocity.y>-20:
 			jump()
 	
 	if Input.is_action_pressed(input_dash):
@@ -407,10 +410,13 @@ func animate():
 	else:
 		if (velocity.y < 0):
 			$AnimatedSprite2D.play("Jump")
-		else:
-			$AnimatedSprite2D.play("Jump Transition")
-		if (velocity.y > 100):
-			$AnimatedSprite2D.play("Fall")
+			fall_animator = 0
+		if (velocity.y > 0):
+			fall_animator = fall_animator + 1
+			if  fall_animator < 4:
+				$AnimatedSprite2D.play("Jump Transition")
+			else:
+				$AnimatedSprite2D.play("Fall")
 
 # lol i plucked this from the example for .play(), this'll be useful for firing anims
 # Change the animation with keeping the frame index and progress.
