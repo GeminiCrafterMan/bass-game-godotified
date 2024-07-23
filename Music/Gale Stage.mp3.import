@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://c850opo200te3"
+path="res://.godot/imported/Gale Stage.mp3-3ba9276249401cd5b85eef218151c966.mp3str"
+
+[deps]
+
+source_file="res://Music/Gale Stage.mp3"
+dest_files=["res://.godot/imported/Gale Stage.mp3-3ba9276249401cd5b85eef218151c966.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

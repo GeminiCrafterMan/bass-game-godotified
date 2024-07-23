@@ -1,8 +1,9 @@
-[gd_scene load_steps=20 format=3 uid="uid://dkes3n7rxd5nd"]
+[gd_scene load_steps=21 format=3 uid="uid://dkes3n7rxd5nd"]
 
 [ext_resource type="Script" path="res://Scenes/Stages/airman_stage.gd" id="1_44wag"]
 [ext_resource type="Texture2D" uid="uid://dx0kjtv5qrprh" path="res://Resources/airman.png" id="2_mwmqv"]
 [ext_resource type="Texture2D" uid="uid://63kwqi5jdugg" path="res://Sprites/Tilesets/Test.png" id="3_urcbs"]
+[ext_resource type="AudioStream" uid="uid://c850opo200te3" path="res://Music/Gale Stage.mp3" id="4_5gjpl"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dlclr"]
 resource_name = "Test"
@@ -262,3 +263,7 @@ position = Vector2(128, 112)
 
 [node name="StartPosition" type="Marker2D" parent="."]
 position = Vector2(128, 112)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_5gjpl")
+autoplay = true

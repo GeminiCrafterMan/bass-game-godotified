@@ -1,7 +1,8 @@
-[gd_scene load_steps=21 format=3 uid="uid://df4r3pdof4kbs"]
+[gd_scene load_steps=22 format=3 uid="uid://df4r3pdof4kbs"]
 
 [ext_resource type="Script" path="res://Scenes/Stages/pumpman_stage.gd" id="1_u0lko"]
 [ext_resource type="Texture2D" uid="uid://d0qxgr551ccow" path="res://Resources/pumpman.png" id="2_hlmt3"]
+[ext_resource type="AudioStream" uid="uid://datcsgpr6efto" path="res://Music/Stage 8.mp3" id="4_4nnht"]
 [ext_resource type="Texture2D" uid="uid://63kwqi5jdugg" path="res://Sprites/Tilesets/Test.png" id="6_883nr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dlclr"]
@@ -233,3 +234,7 @@ position = Vector2(128, 112)
 
 [node name="StartPosition" type="Marker2D" parent="."]
 position = Vector2(128, 128)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_4nnht")
+autoplay = true

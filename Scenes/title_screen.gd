@@ -17,3 +17,14 @@ func _on_option_button_item_selected(index):
 		GlobalVars.character_selected = false
 	if index == 1:
 		GlobalVars.character_selected = true
+
+
+func _on_bassbutton_pressed():
+	await Fade.fade_out().finished
+	GlobalVars.character_selected = false
+	Loading.load_scene("res://Scenes/Stages/test_stage.tscn")
+
+func _on_button_2_pressed():
+	await Fade.fade_out().finished
+	GlobalVars.character_selected = true
+	Loading.load_scene("res://Scenes/Stages/test_stage.tscn")

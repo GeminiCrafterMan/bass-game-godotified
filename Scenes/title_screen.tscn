@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cp7vlmsri2q2s" path="res://Resources/Images/Menus/Rabbid4240 - Logo.png" id="1_urgqw"]
 [ext_resource type="Texture2D" uid="uid://bnabb2p2005pc" path="res://Resources/Images/Menus/Gemini0 - Subtitle.png" id="2_11mew"]
 [ext_resource type="Texture2D" uid="uid://iqatecmiuy6e" path="res://Sprites/Menus/Title Screen - Bass.png" id="3_u5ruh"]
-[ext_resource type="AudioStream" uid="uid://clpoq4xfb5h38" path="res://Music/Mega Man 5 (NES) Music - Intro Part 2.mp3" id="5_4bqo4"]
+[ext_resource type="AudioStream" uid="uid://clpoq4xfb5h38" path="res://Music/Title Screen.mp3" id="5_4bqo4"]
 [ext_resource type="Texture2D" uid="uid://crw5rnku666q8" path="res://Resources/Images/Menus/lifecounter-b.png" id="6_v60x2"]
 [ext_resource type="Texture2D" uid="uid://b2aq0xkhprjvm" path="res://Resources/Images/Menus/lifecounter-c.png" id="7_5mrgu"]
 
@@ -53,4 +53,22 @@ popup/item_1/text = "Copy Robot"
 popup/item_1/icon = ExtResource("7_5mrgu")
 popup/item_1/id = 1
 
+[node name="BASSBUTTON" type="Button" parent="."]
+layout_mode = 0
+offset_left = 374.0
+offset_top = 374.0
+offset_right = 421.0
+offset_bottom = 405.0
+text = "BASS"
+
+[node name="Button2" type="Button" parent="."]
+layout_mode = 0
+offset_left = 482.0
+offset_top = 374.0
+offset_right = 533.0
+offset_bottom = 405.0
+text = "COPY"
+
 [connection signal="item_selected" from="OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="pressed" from="BASSBUTTON" to="." method="_on_bassbutton_pressed"]
+[connection signal="pressed" from="Button2" to="." method="_on_button_2_pressed"]

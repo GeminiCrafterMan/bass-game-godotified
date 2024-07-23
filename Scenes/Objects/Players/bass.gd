@@ -187,6 +187,7 @@ func _input(_event):
 			current_weapon = 10
 		else:
 			current_weapon = current_weapon - 1
+		$Audio/SwitchSound.play()
 		$AnimatedSprite2D.material.set_shader_parameter("palette",load(weapon_palette[current_weapon]))
 	
 	if Input.is_action_just_pressed(input_switch_right):
@@ -194,6 +195,17 @@ func _input(_event):
 			current_weapon = 0
 		else:
 			current_weapon = current_weapon + 1
+		$Audio/SwitchSound.play()
+		$AnimatedSprite2D.material.set_shader_parameter("palette",load(weapon_palette[current_weapon]))
+
+	if  (Input.is_action_just_pressed(input_switch_left) && Input.is_action_pressed(input_switch_right)):
+		current_weapon = 0
+		$Audio/SwitchSound.play()
+		$AnimatedSprite2D.material.set_shader_parameter("palette",load(weapon_palette[current_weapon]))
+	
+	if  (Input.is_action_pressed(input_switch_left) && Input.is_action_just_pressed(input_switch_right)):
+		current_weapon = 0
+		$Audio/SwitchSound.play()
 		$AnimatedSprite2D.material.set_shader_parameter("palette",load(weapon_palette[current_weapon]))
 
 
@@ -215,7 +227,7 @@ func _physics_process(delta):
 	
 	# Cannot do this in _input because it needs to be checked every frame
 	if Input.is_action_pressed(input_jump):
-		if can_ground_jump() and can_hold_jump and velocity.y>-20:
+		if can_ground_jump() and can_hold_jump and velocity.y<2:
 			jump()
 	
 	if Input.is_action_pressed(input_dash):

@@ -9,6 +9,10 @@ signal hit_ground()
 var fall_animator : int
 
 var is_sliding : bool
+var slide_stopped : bool
+
+var slide_timer : int
+
 var current_weapon : int
 var weapon_palette = [
 	"res://Sprites/Players/Copy Robot/Palettes/None.png",
@@ -167,7 +171,15 @@ func _ready():
 		jump_buffer_timer.one_shot = true
 
 
-func _input(_event):
+func _input(_event):			
+	if Input.is_action_just_pressed(input_jump):
+		if (not Input.is_action_pressed(input_down) or is_sliding == true):
+			holding_jump = true
+			start_jump_buffer_timer()
+			if (not can_hold_jump and can_ground_jump()) or can_double_jump():
+				jump()
+		
+	
 	if (is_sliding == false || is_feet_on_ground() == false):
 		acc.x = 0
 		if Input.is_action_pressed(input_left):
@@ -177,13 +189,13 @@ func _input(_event):
 		if Input.is_action_pressed(input_right):
 			$AnimatedSprite2D.flip_h = false
 			acc.x = max_acceleration
-	
-	if Input.is_action_just_pressed(input_jump):
-		if (not Input.is_action_pressed(input_down) or is_sliding == true):
-			holding_jump = true
-			start_jump_buffer_timer()
-			if (not can_hold_jump and can_ground_jump()) or can_double_jump():
-				jump()
+			
+	if (is_sliding == true):
+		if Input.is_action_pressed(input_left) && $AnimatedSprite2D.flip_h == false:
+			is_sliding = false
+			
+		if Input.is_action_pressed(input_right) && $AnimatedSprite2D.flip_h == true:
+			is_sliding = false
 	
 	if Input.is_action_just_released(input_jump):
 		holding_jump = false
@@ -193,6 +205,7 @@ func _input(_event):
 			current_weapon = 10
 		else:
 			current_weapon = current_weapon - 1
+		$Audio/SwitchSound.play()
 		$AnimatedSprite2D.material.set_shader_parameter("palette",load(weapon_palette[current_weapon]))
 	
 	if Input.is_action_just_pressed(input_switch_right):
@@ -200,8 +213,18 @@ func _input(_event):
 			current_weapon = 0
 		else:
 			current_weapon = current_weapon + 1
+		$Audio/SwitchSound.play()
 		$AnimatedSprite2D.material.set_shader_parameter("palette",load(weapon_palette[current_weapon]))
 
+	if  (Input.is_action_just_pressed(input_switch_left) && Input.is_action_pressed(input_switch_right)):
+		current_weapon = 0
+		$Audio/SwitchSound.play()
+		$AnimatedSprite2D.material.set_shader_parameter("palette",load(weapon_palette[current_weapon]))
+	
+	if  (Input.is_action_pressed(input_switch_left) && Input.is_action_just_pressed(input_switch_right)):
+		current_weapon = 0
+		$Audio/SwitchSound.play()
+		$AnimatedSprite2D.material.set_shader_parameter("palette",load(weapon_palette[current_weapon]))
 
 func _physics_process(delta):
 	if is_feet_on_ground() and is_sliding:
@@ -232,12 +255,10 @@ func _physics_process(delta):
 
 	if Input.is_action_pressed(input_down):
 		if can_ground_jump():
-			if Input.is_action_just_pressed(input_jump):
+			if Input.is_action_just_pressed(input_jump) && slide_stopped == false:
 				slide()
-		else:
-			is_sliding = false
 	else:
-		is_sliding = false
+		slide_stopped = false
 	
 	var gravity = apply_gravity_multipliers_to(default_gravity)
 	acc.y = gravity
@@ -306,6 +327,8 @@ func is_feet_on_ground():
 	if is_on_ceiling() and default_gravity <= 0:
 		return true
 	
+	is_sliding = false
+	slide_timer = 0
 	return false
 
 
@@ -337,6 +360,7 @@ func ground_jump():
 	jumps_left -= 1
 	coyote_timer.stop()
 	jumped.emit(true)
+	is_sliding = false
 
 ## Perform a ground dash, or an air dash if... we ever add that?
 func slide():
@@ -344,12 +368,18 @@ func slide():
 		$Audio/SlideSound.play()
 		is_sliding = true
 		ground_slide()
+		
 	if (is_sliding == true):
 		await $AnimatedSprite2D.animation_finished # Set animation length to dash length.
-# ...yes, somehow this worked *BETTER* than the actual fucking timer node.
 		is_sliding = false
-		if not (Input.is_action_pressed(input_left) or Input.is_action_pressed(input_right)):
-			acc.x = 0
+		slide_stopped = true
+		acc.x = 0
+			
+	else:
+		ground_slide()
+		slide_timer = slide_timer+1
+		#if not (Input.is_action_pressed(input_left) or Input.is_action_pressed(input_right)):
+		#acc.x = 0
 		
 
 ## Perform a ground dash without checking if the player is able to.
@@ -358,6 +388,8 @@ func ground_slide():
 		acc.x = max_acceleration*2
 	else:
 		acc.x = -max_acceleration*2
+	
+		
 
 func apply_gravity_multipliers_to(gravity) -> float:
 	if velocity.y * sign(default_gravity) > 0: # If we are falling
@@ -415,11 +447,13 @@ func animate():
 			return
 		if (abs(velocity.x) == 0):
 			$AnimatedSprite2D.play("Idle")
+			slide_stopped = false
 		else:
 			if (abs(velocity.x) > 50):
 				$AnimatedSprite2D.play("Walk")
 			else:
 				$AnimatedSprite2D.play("Step")
+				slide_stopped = false
 	else:
 		if (velocity.y < 0):
 			$AnimatedSprite2D.play("Jump")

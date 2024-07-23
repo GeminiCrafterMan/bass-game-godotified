@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://cnpcm2juvcutu"]
+[gd_scene load_steps=39 format=3 uid="uid://cnpcm2juvcutu"]
 
 [ext_resource type="Shader" path="res://PaletteSwap.gdshader" id="1_hk0hv"]
 [ext_resource type="Script" path="res://Scenes/Objects/Players/copy_robot.gd" id="2_we56i"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dolddeab1tc5g" path="res://Sprites/Players/Copy Robot/spritesheet.png" id="4_oq3cr"]
 [ext_resource type="AudioStream" uid="uid://cgaetckoiu15m" path="res://Sounds/land.wav" id="5_sdcle"]
 [ext_resource type="AudioStream" uid="uid://h87d8b65n30n" path="res://Sounds/slide.wav" id="6_fcc4r"]
+[ext_resource type="AudioStream" uid="uid://ds4m68uui1avq" path="res://Sounds/switch.wav" id="8_utf8u"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qymoq"]
 shader = ExtResource("1_hk0hv")
@@ -289,7 +290,7 @@ animations = [{
 size = Vector2(14, 26)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k00s1"]
-size = Vector2(26, 14)
+size = Vector2(16, 14)
 
 [node name="Player" type="CharacterBody2D"]
 material = SubResource("ShaderMaterial_qymoq")
@@ -321,3 +322,6 @@ stream = ExtResource("5_sdcle")
 
 [node name="SlideSound" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("6_fcc4r")
+
+[node name="SwitchSound" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("8_utf8u")
