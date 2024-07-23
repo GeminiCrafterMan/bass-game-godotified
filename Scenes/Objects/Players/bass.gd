@@ -10,6 +10,7 @@ var fall_animator : int
 
 var is_dashing : bool
 var dash_timer : int
+var blast_jumped : bool
 
 var current_weapon : int
 var weapon_palette = [
@@ -227,6 +228,7 @@ func _physics_process(delta):
 	# Check if we just hit the ground this frame
 	if not _was_on_ground and is_feet_on_ground():
 		current_jump_type = JumpType.NONE
+		blast_jumped = false
 		if is_jump_buffer_timer_running() and not can_hold_jump: 
 			jump()
 		
@@ -238,6 +240,10 @@ func _physics_process(delta):
 	if Input.is_action_pressed(input_jump):
 		if can_ground_jump() and can_hold_jump and velocity.y<2:
 			jump()
+	
+	if Input.is_action_pressed(input_up) && Input.is_action_just_pressed(input_jump):
+		if blast_jumped == false && (GlobalVars.modules_enabled[1] == true):
+			blastjump()
 	
 	if Input.is_action_pressed(input_dash):
 		if can_ground_jump():
@@ -329,6 +335,16 @@ func jump():
 		double_jump()
 	else:
 		ground_jump()
+
+func blastjump():
+	$Audio/BJumpSound.play()
+	velocity.y = -jump_velocity
+	current_jump_type = JumpType.GROUND
+	jumped.emit(true)
+	is_dashing = false
+	blast_jumped = true
+	dash_timer = 0
+	
 
 ## Perform a double jump without checking if the player is able to.
 func double_jump():

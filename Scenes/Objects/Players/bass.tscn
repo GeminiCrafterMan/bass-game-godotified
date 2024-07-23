@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://kfk1dq7hqeyc"]
+[gd_scene load_steps=38 format=3 uid="uid://kfk1dq7hqeyc"]
 
 [ext_resource type="Texture2D" uid="uid://b56gnn6pfhbv4" path="res://Sprites/Players/Bass/spritesheet.png" id="1_ci3qt"]
 [ext_resource type="Script" path="res://Scenes/Objects/Players/bass.gd" id="1_lug7r"]
@@ -7,6 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://cgaetckoiu15m" path="res://Sounds/land.wav" id="4_66xts"]
 [ext_resource type="AudioStream" uid="uid://h87d8b65n30n" path="res://Sounds/slide.wav" id="5_ectoy"]
 [ext_resource type="AudioStream" uid="uid://ds4m68uui1avq" path="res://Sounds/switch.wav" id="7_e2j2h"]
+[ext_resource type="AudioStream" uid="uid://bgfwytu8kifqv" path="res://Sounds/blastjump.wav" id="8_xq33u"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qymoq"]
 shader = ExtResource("2_m015p")
@@ -281,3 +282,6 @@ stream = ExtResource("5_ectoy")
 
 [node name="SwitchSound" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("7_e2j2h")
+
+[node name="BJumpSound" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("8_xq33u")
