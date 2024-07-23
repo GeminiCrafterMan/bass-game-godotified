@@ -6,6 +6,8 @@ signal jumped(is_ground_jump: bool)
 signal dashed(is_ground_dash: bool)
 signal hit_ground()
 
+var fall_animator : int
+
 var is_dashing : bool
 var current_weapon : int
 var weapon_palette = [
@@ -22,7 +24,6 @@ var weapon_palette = [
 	"res://Sprites/Players/Bass/Palettes/Proto Buster.png"
 ]
 
-var fall_animator : int
 
 
 # Set these to the name of your action (in the Input Map)

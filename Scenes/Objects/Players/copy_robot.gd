@@ -6,6 +6,8 @@ signal jumped(is_ground_jump: bool)
 signal dashed(is_ground_dash: bool)
 signal hit_ground()
 
+var fall_animator : int
+
 var is_sliding : bool
 var current_weapon : int
 var weapon_palette = [
