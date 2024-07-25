@@ -7,6 +7,7 @@ A 2D platformer class for godot.
 ### Version 2.0.2
 
 - Fixed bug where falling off a cliff would give an extra jump
+- sure man
 
 - Fixed bug where setting coyote_time or jump_buffer to 0 would raise an error
 

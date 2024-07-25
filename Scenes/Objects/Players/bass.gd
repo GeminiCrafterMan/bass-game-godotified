@@ -13,6 +13,8 @@ var dash_timer : int
 var blast_jumped : bool
 
 var current_weapon : int
+var old_weapon : int
+
 var weapon_palette = [
 	"res://Sprites/Players/Bass/Palettes/None.png",
 	"res://Sprites/Players/Bass/Palettes/Scorch Barrier.png",
@@ -22,9 +24,10 @@ var weapon_palette = [
 	"res://Sprites/Players/Bass/Palettes/Origami Star.png",
 	"res://Sprites/Players/Bass/Palettes/None.png",
 	"res://Sprites/Players/Bass/Palettes/None.png",
-	"res://Sprites/Players/Bass/Palettes/Metal Blade.png",
-	"res://Sprites/Players/Bass/Palettes/Treble.png",
-	"res://Sprites/Players/Bass/Palettes/Proto Buster.png"
+	#"res://Sprites/Players/Bass/Palettes/Metal Blade.png",
+	"res://Sprites/Players/Bass/Palettes/Proto Buster.png",
+	"res://Sprites/Players/Bass/Palettes/Treble.png"
+	
 ]
 
 
@@ -185,32 +188,92 @@ func _input(_event):
 	if Input.is_action_just_released(input_jump):
 		holding_jump = false
 	
+	
+	
+	#if (GlobalVars.weapons_unlocked[current_weapon] == false):
+	
 	if Input.is_action_just_pressed(input_switch_left):
+		old_weapon = current_weapon
 		if (current_weapon == 0):
 			current_weapon = 10
+			
 		else:
 			current_weapon = current_weapon - 1
-		$Audio/SwitchSound.play()
+			
+			#make sure to clean this up later, I don't wanna -mengo
+		if (current_weapon == 10 && GlobalVars.weapons_unlocked[10] == false):
+			current_weapon = current_weapon - 1
+		if (current_weapon == 9 && GlobalVars.weapons_unlocked[9] == false):
+			current_weapon = current_weapon - 1
+		if (current_weapon == 8 && GlobalVars.weapons_unlocked[8] == false):
+			current_weapon = current_weapon - 1
+		if (current_weapon == 7 && GlobalVars.weapons_unlocked[7] == false):
+			current_weapon = current_weapon - 1
+		if (current_weapon == 6 && GlobalVars.weapons_unlocked[6] == false):
+			current_weapon = current_weapon - 1
+		if (current_weapon == 5 && GlobalVars.weapons_unlocked[5] == false):
+			current_weapon = current_weapon - 1
+		if (current_weapon == 4 && GlobalVars.weapons_unlocked[4] == false):
+			current_weapon = current_weapon - 1
+		if (current_weapon == 3 && GlobalVars.weapons_unlocked[3] == false):
+			current_weapon = current_weapon - 1
+		if (current_weapon == 2 && GlobalVars.weapons_unlocked[2] == false):
+			current_weapon = current_weapon - 1
+		if (current_weapon == 1 && GlobalVars.weapons_unlocked[1] == false):
+			current_weapon = current_weapon - 1
+			
+		if old_weapon != current_weapon:
+			$Audio/SwitchSound.play()
 		$AnimatedSprite2D.material.set_shader_parameter("palette",load(weapon_palette[current_weapon]))
 	
+	
+	
 	if Input.is_action_just_pressed(input_switch_right):
+		old_weapon = current_weapon
 		if (current_weapon == 10):
 			current_weapon = 0
+			
 		else:
 			current_weapon = current_weapon + 1
-		$Audio/SwitchSound.play()
+			
+		#make sure to clean this up later, I don't wanna -mengo
+		if (current_weapon == 1 && GlobalVars.weapons_unlocked[1] == false):
+			current_weapon = current_weapon + 1
+		if (current_weapon == 2 && GlobalVars.weapons_unlocked[2] == false):
+			current_weapon = current_weapon + 1
+		if (current_weapon == 3 && GlobalVars.weapons_unlocked[3] == false):
+			current_weapon = current_weapon + 1
+		if (current_weapon == 4 && GlobalVars.weapons_unlocked[4] == false):
+			current_weapon = current_weapon + 1
+		if (current_weapon == 5 && GlobalVars.weapons_unlocked[5] == false):
+			current_weapon = current_weapon + 1
+		if (current_weapon == 6 && GlobalVars.weapons_unlocked[6] == false):
+			current_weapon = current_weapon + 1
+		if (current_weapon == 7 && GlobalVars.weapons_unlocked[7] == false):
+			current_weapon = current_weapon + 1
+		if (current_weapon == 8 && GlobalVars.weapons_unlocked[8] == false):
+			current_weapon = current_weapon + 1
+		if (current_weapon == 9 && GlobalVars.weapons_unlocked[9] == false):
+			current_weapon = current_weapon + 1
+		if (current_weapon == 10 && GlobalVars.weapons_unlocked[10] == false):
+			current_weapon = 0
+
+
+		if old_weapon != current_weapon:
+			$Audio/SwitchSound.play()
 		$AnimatedSprite2D.material.set_shader_parameter("palette",load(weapon_palette[current_weapon]))
 
 	if  (Input.is_action_just_pressed(input_switch_left) && Input.is_action_pressed(input_switch_right)):
 		current_weapon = 0
-		$Audio/SwitchSound.play()
+		if old_weapon != current_weapon:
+			$Audio/SwitchSound.play()
 		$AnimatedSprite2D.material.set_shader_parameter("palette",load(weapon_palette[current_weapon]))
 	
 	if  (Input.is_action_pressed(input_switch_left) && Input.is_action_just_pressed(input_switch_right)):
 		current_weapon = 0
-		$Audio/SwitchSound.play()
+		if old_weapon != current_weapon:
+			$Audio/SwitchSound.play()
 		$AnimatedSprite2D.material.set_shader_parameter("palette",load(weapon_palette[current_weapon]))
-
 
 func _physics_process(delta):
 	if is_feet_on_ground() and is_dashing and GlobalVars.modules_enabled[3] == true:
