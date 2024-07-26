@@ -21,11 +21,17 @@ var weapon_palette = [
 	"res://Sprites/Players/Copy Robot/Palettes/Poison Cloud.png",
 	"res://Sprites/Players/Copy Robot/Palettes/Fin Shredder.png",
 	"res://Sprites/Players/Copy Robot/Palettes/Origami Star.png",
-	"res://Sprites/Players/Copy Robot/Palettes/None.png",
-	"res://Sprites/Players/Copy Robot/Palettes/None.png",
-	"res://Sprites/Players/Copy Robot/Palettes/Metal Blade.png",
+	"res://Sprites/Players/Copy Robot/Palettes/None.png", # Gale ???
+	"res://Sprites/Players/Copy Robot/Palettes/None.png", # ???
+	"res://Sprites/Players/Copy Robot/Palettes/None.png", # ???
+	"res://Sprites/Players/Copy Robot/Palettes/None.png", # Proto Shield
+	"res://Sprites/Players/Copy Robot/Palettes/None.png", # "Treble Boost" (skip it)
 	"res://Sprites/Players/Copy Robot/Palettes/Carry.png",
-	"res://Sprites/Players/Copy Robot/Palettes/Super Arrow.png"
+	"res://Sprites/Players/Copy Robot/Palettes/Super Arrow.png",
+	"res://Sprites/Players/Copy Robot/Palettes/Mirror Buster.png",
+	"res://Sprites/Players/Copy Robot/Palettes/Screw Crusher.png",
+	"res://Sprites/Players/Copy Robot/Palettes/Ballade Cracker.png",
+	"res://Sprites/Players/Copy Robot/Palettes/Sakugarne.png"
 ]
 var charge_palette = [
 	"res://Sprites/Players/Copy Robot/Palettes/None.png",
@@ -203,15 +209,19 @@ func _input(_event):
 		holding_jump = false
 	
 	if Input.is_action_just_pressed(input_switch_left):
+		if (current_weapon == 11):
+			current_weapon = 9
 		if (current_weapon == 0):
-			current_weapon = 10
+			current_weapon = 16
 		else:
 			current_weapon = current_weapon - 1
 		$Audio/SwitchSound.play()
 		$AnimatedSprite2D.material.set_shader_parameter("palette",load(weapon_palette[current_weapon]))
 	
 	if Input.is_action_just_pressed(input_switch_right):
-		if (current_weapon == 10):
+		if (current_weapon == 9):
+			current_weapon = 11
+		if (current_weapon == 16):
 			current_weapon = 0
 		else:
 			current_weapon = current_weapon + 1

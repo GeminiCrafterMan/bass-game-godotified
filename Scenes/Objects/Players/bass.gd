@@ -24,7 +24,7 @@ var weapon_palette = [
 	"res://Sprites/Players/Bass/Palettes/Origami Star.png",
 	"res://Sprites/Players/Bass/Palettes/None.png",
 	"res://Sprites/Players/Bass/Palettes/None.png",
-	#"res://Sprites/Players/Bass/Palettes/Metal Blade.png",
+	"res://Sprites/Players/Bass/Palettes/None.png",
 	"res://Sprites/Players/Bass/Palettes/Proto Buster.png",
 	"res://Sprites/Players/Bass/Palettes/Treble.png"
 	

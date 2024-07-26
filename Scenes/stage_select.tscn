@@ -1,8 +1,9 @@
-[gd_scene load_steps=23 format=3 uid="uid://bb1e018s8kwu7"]
+[gd_scene load_steps=24 format=3 uid="uid://bb1e018s8kwu7"]
 
 [ext_resource type="Texture2D" uid="uid://diukfgrcpw6sy" path="res://Sprites/Tilesets/Stage Select.png" id="1_khlxf"]
 [ext_resource type="Script" path="res://Scenes/stage_select.gd" id="1_v0p28"]
 [ext_resource type="Texture2D" uid="uid://be7afqj7g3eow" path="res://Sprites/Menus/Stage Select - Sprites.png" id="2_pk014"]
+[ext_resource type="Script" path="res://Scenes/Robot Master Portraits.gd" id="3_dtooj"]
 [ext_resource type="Texture2D" uid="uid://c36ibssucboa3" path="res://Sprites/Menus/airpic.png" id="4_etxjm"]
 [ext_resource type="Texture2D" uid="uid://cx2hc3npwbfsq" path="res://Sprites/Menus/mengopic.png" id="5_d13ei"]
 [ext_resource type="Texture2D" uid="uid://bxyk8yxkbam44" path="res://Sprites/Menus/pumppic.png" id="6_xowim"]
@@ -64,6 +65,33 @@ texture_region_size = Vector2i(8, 8)
 tile_size = Vector2i(8, 8)
 sources/0 = SubResource("TileSetAtlasSource_vytrk")
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ssum0"]
+atlas = ExtResource("1_khlxf")
+region = Rect2(6, 80, 52, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xfc76"]
+atlas = ExtResource("1_khlxf")
+region = Rect2(0, 32, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bf1ns"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ssum0")
+}],
+"loop": false,
+"name": &"Destroyed",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xfc76")
+}],
+"loop": false,
+"name": &"Normal",
+"speed": 5.0
+}]
+
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_aofde"]
 load_path = "res://.godot/imported/Stage Select - Sprites.png-033db349e872b74e49c62f66cdcc2c53.ctex"
 
@@ -99,33 +127,6 @@ region = Rect2(288, 8, 32, 32)
 atlas = ExtResource("2_pk014")
 region = Rect2(328, 8, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ssum0"]
-atlas = ExtResource("1_khlxf")
-region = Rect2(6, 80, 52, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xfc76"]
-atlas = ExtResource("1_khlxf")
-region = Rect2(0, 32, 48, 48)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_bf1ns"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ssum0")
-}],
-"loop": false,
-"name": &"Destroyed",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xfc76")
-}],
-"loop": false,
-"name": &"Normal",
-"speed": 5.0
-}]
-
 [node name="Control" type="Control"]
 layout_mode = 3
 anchor_right = 0.5
@@ -155,8 +156,52 @@ tile_set = SubResource("TileSet_fwulp")
 format = 2
 layer_0/tile_data = PackedInt32Array(589842, 393216, 4, 655379, 655360, 5, 655380, 393216, 4, 1769499, 393216, 8, 1769508, 393216, 8, 589840, 458752, 4, 1179664, 524288, 6, 589841, 589824, 5, 589843, 458752, 7, 1245203, 655360, 5, 589844, 655360, 4, 1245204, 393216, 4, 655381, 720896, 5, 1245205, 720896, 5, 589849, 720896, 6, 1769498, 393216, 8, 917531, 0, 4, 1114139, 0, 9, 655388, 655360, 5, 1769500, 393216, 8, 655389, 393216, 4, 1769501, 393216, 8, 655390, 720896, 5, 917534, 327680, 4, 1114142, 327680, 9, 1179681, 786432, 5, 589858, 524288, 6, 1769507, 393216, 8, 655397, 655360, 5, 1245221, 655360, 5, 1769509, 393216, 8, 655398, 393216, 4, 1245222, 393216, 4, 1769510, 393216, 8, 655399, 720896, 5, 1245223, 720896, 5, 589850, 393216, 5, 589851, 589824, 4, 589852, 655360, 4, 589853, 786432, 5, 589859, 655360, 5, 589860, 786432, 5, 589861, 786432, 4, 1179665, 851968, 4, 1179666, 393216, 4, 1179667, 458752, 6, 1179668, 524288, 5, 1179683, 393216, 5, 1179687, 393216, 5, 1179684, 786432, 4, 1179685, 393216, 4, 1179686, 655360, 5, 1179682, 458752, 6, 1179674, 589824, 6, 1179675, 655360, 4, 1179676, 524288, 6, 1179677, 589824, 6, 1769488, 786432, 4, 1769489, 393216, 4, 1769490, 589824, 5, 1769491, 655360, 4, 1835025, 786432, 6, 1835026, 786432, 5, 1835027, 655360, 5, 1835029, 720896, 5, 1835028, 393216, 4)
 
+[node name="Borders" type="Node2D" parent="."]
+scale = Vector2(2, 2)
+
+[node name="Blaze Man" type="AnimatedSprite2D" parent="Borders"]
+position = Vector2(152, 48)
+sprite_frames = SubResource("SpriteFrames_bf1ns")
+animation = &"Normal"
+
+[node name="Video Man" type="AnimatedSprite2D" parent="Borders"]
+position = Vector2(224, 48)
+sprite_frames = SubResource("SpriteFrames_bf1ns")
+animation = &"Normal"
+
+[node name="Smog Man" type="AnimatedSprite2D" parent="Borders"]
+position = Vector2(296, 48)
+sprite_frames = SubResource("SpriteFrames_bf1ns")
+animation = &"Normal"
+
+[node name="Shark Man" type="AnimatedSprite2D" parent="Borders"]
+position = Vector2(152, 120)
+sprite_frames = SubResource("SpriteFrames_bf1ns")
+animation = &"Normal"
+
+[node name="Origami Man" type="AnimatedSprite2D" parent="Borders"]
+position = Vector2(296, 120)
+sprite_frames = SubResource("SpriteFrames_bf1ns")
+animation = &"Normal"
+
+[node name="Gale Woman" type="AnimatedSprite2D" parent="Borders"]
+position = Vector2(152, 192)
+sprite_frames = SubResource("SpriteFrames_bf1ns")
+animation = &"Normal"
+
+[node name="???? 2" type="AnimatedSprite2D" parent="Borders"]
+position = Vector2(224, 192)
+sprite_frames = SubResource("SpriteFrames_bf1ns")
+animation = &"Normal"
+
+[node name="???? 3" type="AnimatedSprite2D" parent="Borders"]
+position = Vector2(296, 192)
+sprite_frames = SubResource("SpriteFrames_bf1ns")
+animation = &"Normal"
+
 [node name="Robot Master Portraits" type="Node2D" parent="."]
 scale = Vector2(2, 2)
+script = ExtResource("3_dtooj")
 
 [node name="Blaze Man" type="Sprite2D" parent="Robot Master Portraits"]
 position = Vector2(152, 48)
@@ -202,49 +247,6 @@ texture = ExtResource("5_d13ei")
 [node name="Pump Man" type="Sprite2D" parent="Robot Master Portraits"]
 position = Vector2(296, 192)
 texture = ExtResource("6_xowim")
-
-[node name="Borders" type="Node2D" parent="."]
-scale = Vector2(2, 2)
-
-[node name="Blaze Man" type="AnimatedSprite2D" parent="Borders"]
-position = Vector2(152, 48)
-sprite_frames = SubResource("SpriteFrames_bf1ns")
-animation = &"Normal"
-
-[node name="Video Man" type="AnimatedSprite2D" parent="Borders"]
-position = Vector2(224, 48)
-sprite_frames = SubResource("SpriteFrames_bf1ns")
-animation = &"Normal"
-
-[node name="Smog Man" type="AnimatedSprite2D" parent="Borders"]
-position = Vector2(296, 48)
-sprite_frames = SubResource("SpriteFrames_bf1ns")
-animation = &"Normal"
-
-[node name="Shark Man" type="AnimatedSprite2D" parent="Borders"]
-position = Vector2(152, 120)
-sprite_frames = SubResource("SpriteFrames_bf1ns")
-animation = &"Normal"
-
-[node name="Origami Man" type="AnimatedSprite2D" parent="Borders"]
-position = Vector2(296, 120)
-sprite_frames = SubResource("SpriteFrames_bf1ns")
-animation = &"Normal"
-
-[node name="Gale Woman" type="AnimatedSprite2D" parent="Borders"]
-position = Vector2(152, 192)
-sprite_frames = SubResource("SpriteFrames_bf1ns")
-animation = &"Normal"
-
-[node name="???? 2" type="AnimatedSprite2D" parent="Borders"]
-position = Vector2(224, 192)
-sprite_frames = SubResource("SpriteFrames_bf1ns")
-animation = &"Normal"
-
-[node name="???? 3" type="AnimatedSprite2D" parent="Borders"]
-position = Vector2(296, 192)
-sprite_frames = SubResource("SpriteFrames_bf1ns")
-animation = &"Normal"
 
 [node name="Placeholder buttons" type="Node" parent="."]
 

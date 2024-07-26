@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://b0opfnom6gmbo"]
+[gd_scene load_steps=23 format=3 uid="uid://b0opfnom6gmbo"]
 
 [ext_resource type="Script" path="res://module_tester.gd" id="1_8wlr0"]
 [ext_resource type="Texture2D" uid="uid://bibwir0ixhtww" path="res://Sprites/HUD/Modules.png" id="1_8ymmp"]
@@ -72,9 +72,13 @@ region = Rect2(96, 0, 16, 16)
 atlas = ExtResource("4_1yx8r")
 region = Rect2(112, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_bblnj"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_wrgr6"]
 atlas = ExtResource("4_1yx8r")
 region = Rect2(128, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bblnj"]
+atlas = ExtResource("4_1yx8r")
+region = Rect2(144, 0, 16, 16)
 
 [node name="Module Tester" type="Control"]
 layout_mode = 3
@@ -158,6 +162,7 @@ offset_bottom = 91.0
 icon = SubResource("AtlasTexture_10ksf")
 
 [node name="CheckButton10" type="CheckButton" parent="."]
+layout_mode = 0
 offset_left = -226.0
 offset_top = -125.0
 offset_right = -166.0
@@ -165,6 +170,7 @@ offset_bottom = -101.0
 icon = SubResource("AtlasTexture_7cw5a")
 
 [node name="CheckButton11" type="CheckButton" parent="."]
+layout_mode = 0
 offset_left = -226.0
 offset_top = -101.0
 offset_right = -166.0
@@ -172,6 +178,7 @@ offset_bottom = -77.0
 icon = SubResource("AtlasTexture_kcs77")
 
 [node name="CheckButton12" type="CheckButton" parent="."]
+layout_mode = 0
 offset_left = -226.0
 offset_top = -77.0
 offset_right = -166.0
@@ -179,6 +186,7 @@ offset_bottom = -53.0
 icon = SubResource("AtlasTexture_d1swg")
 
 [node name="CheckButton13" type="CheckButton" parent="."]
+layout_mode = 0
 offset_left = -226.0
 offset_top = -53.0
 offset_right = -166.0
@@ -186,6 +194,7 @@ offset_bottom = -29.0
 icon = SubResource("AtlasTexture_3qihf")
 
 [node name="CheckButton14" type="CheckButton" parent="."]
+layout_mode = 0
 offset_left = -226.0
 offset_top = -29.0
 offset_right = -166.0
@@ -193,6 +202,7 @@ offset_bottom = -5.0
 icon = SubResource("AtlasTexture_mou86")
 
 [node name="CheckButton15" type="CheckButton" parent="."]
+layout_mode = 0
 offset_left = -226.0
 offset_top = -5.0
 offset_right = -166.0
@@ -200,6 +210,7 @@ offset_bottom = 19.0
 icon = SubResource("AtlasTexture_xv3ud")
 
 [node name="CheckButton16" type="CheckButton" parent="."]
+layout_mode = 0
 offset_left = -226.0
 offset_top = 19.0
 offset_right = -166.0
@@ -207,6 +218,7 @@ offset_bottom = 43.0
 icon = SubResource("AtlasTexture_ce3wq")
 
 [node name="CheckButton17" type="CheckButton" parent="."]
+layout_mode = 0
 offset_left = -226.0
 offset_top = 43.0
 offset_right = -166.0
@@ -214,10 +226,19 @@ offset_bottom = 67.0
 icon = SubResource("AtlasTexture_se0rd")
 
 [node name="CheckButton18" type="CheckButton" parent="."]
+layout_mode = 0
 offset_left = -226.0
 offset_top = 67.0
 offset_right = -166.0
 offset_bottom = 91.0
+icon = SubResource("AtlasTexture_wrgr6")
+
+[node name="CheckButton19" type="CheckButton" parent="."]
+layout_mode = 0
+offset_left = -226.0
+offset_top = 91.0
+offset_right = -166.0
+offset_bottom = 115.0
 icon = SubResource("AtlasTexture_bblnj")
 
 [connection signal="toggled" from="CheckButton1" to="." method="_on_check_button_1_toggled"]
@@ -238,3 +259,4 @@ icon = SubResource("AtlasTexture_bblnj")
 [connection signal="toggled" from="CheckButton16" to="." method="_on_check_button_16_toggled"]
 [connection signal="toggled" from="CheckButton17" to="." method="_on_check_button_17_toggled"]
 [connection signal="toggled" from="CheckButton18" to="." method="_on_check_button_18_toggled"]
+[connection signal="toggled" from="CheckButton19" to="." method="_on_check_button_19_toggled"]

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bgoviu6yt8aw5"
-path="res://.godot/imported/Metal Blade.png-4dea6a494506381c5072865de6c5fc97.ctex"
+uid="uid://7ntx5a6lp2o0"
+path="res://.godot/imported/Sakugarne.png-063856bc727d185e1f50ffb811cb2282.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Players/Bass/Palettes/Metal Blade.png"
-dest_files=["res://.godot/imported/Metal Blade.png-4dea6a494506381c5072865de6c5fc97.ctex"]
+source_file="res://Sprites/Players/Copy Robot/Palettes/Sakugarne.png"
+dest_files=["res://.godot/imported/Sakugarne.png-063856bc727d185e1f50ffb811cb2282.ctex"]
 
 [params]
 

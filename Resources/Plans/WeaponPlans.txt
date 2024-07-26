@@ -25,7 +25,12 @@ Increases Max HP by 8
 (Module) HP Up Parts 2
 Increases Max HP by 8 more
 
+--== OTHER UNLOCKABLES ==--
 
+(Weapon) Treble Boost
+The Mega Man Killers, now known as the Bass Bashers, have stolen Treble and pulled the Evil Energy out of him to power themselves up.
+All this ends up doing to Treble is reverting the wing design for Treble Boost to the MM7 one.
+Otherwise, it functions identically to the usual.
 
 --== BLAZE MAN ==--
 
@@ -69,9 +74,53 @@ Sort of like Shadow Blade, but omnidirectional and you can pause it to multihit 
 --== GALE WOMAN ==--
 
 (Weapon) ???
+Screen nuke, a la Power Gear (tundra wep i forgot the name of)
+
+(Module) ???
+???
+
+--== ??? ==--
+
+(Weapon) ???
 ???
 
 (Module) ???
 ???
 
---==  ==--
+--== ??? ==--
+
+(Weapon) ???
+???
+
+(Module) ???
+???
+
+--== PROTO MAN ==--
+
+(Weapon) Proto Buster
+Stronger Buster that takes weapon energy.
+
+(Module) Proto Shield
+It's a shield. MM7, but you can charge (as CR) without sticking your arm out -- so, Anniversary Collection MM7.
+
+----==== CR-only weapons ====----
+
+--== ENKER ==--
+
+(Weapon) Mirror Buster
+It's Mirror Buster. Maybe make it work more like 8BDM?
+
+--== PUNK ==--
+
+(Weapon) Screw Crusher
+It's Screw Crusher.
+
+--== BALLADE ==--
+
+(Weapon) Ballade Cracker
+It's Ballade Cracker.
+
+--== QUINT ==--
+
+(Weapon) Sakugarne
+Bounce, stop in place, hold jump to bounce higher. Press B to throw rocks up?
