@@ -15,6 +15,9 @@ var blast_jumped : bool
 var current_weapon : int
 var old_weapon : int
 
+var teleporting = true
+var targetpos : float
+
 var weapon_palette = [
 	"res://Sprites/Players/Bass/Palettes/None.png",
 	"res://Sprites/Players/Bass/Palettes/Scorch Barrier.png",
@@ -154,9 +157,9 @@ func _init():
 	release_gravity_multiplier = calculate_release_gravity_multiplier(
 			jump_velocity, min_jump_height, default_gravity)
 
-
 func _ready():
-	Fade.fade_in()
+	await Fade.fade_in()
+		
 	if is_coyote_time_enabled:
 		add_child(coyote_timer)
 		coyote_timer.wait_time = coyote_time
@@ -167,8 +170,9 @@ func _ready():
 		jump_buffer_timer.wait_time = jump_buffer
 		jump_buffer_timer.one_shot = true
 
-
 func _input(_event):
+	if teleporting == true:
+		return
 	if (is_dashing == false || is_feet_on_ground() == false || !(Input.is_action_pressed(input_dash))):
 		acc.x = 0
 		if Input.is_action_pressed(input_left):
@@ -276,9 +280,26 @@ func _input(_event):
 		$AnimatedSprite2D.material.set_shader_parameter("palette",load(weapon_palette[current_weapon]))
 
 func _physics_process(delta):
+	if teleporting == true:
+#		$MainHitbox.set_disabled(true)
+		if position.y == targetpos or position.y > targetpos:
+			position.y = targetpos
+			if not $AnimatedSprite2D.animation == "Teleport In":
+				$AnimatedSprite2D.play("Teleport In")
+				$Audio/WarpInSound.play()
+			await $AnimatedSprite2D.animation_finished
+			$AnimatedSprite2D.play("Idle")
+			teleporting = false
+#			$MainHitbox.set_disabled(false)
+		else:
+			position.y = position.y + 7
+			return
+
 	if is_feet_on_ground() and is_dashing and GlobalVars.modules_enabled[3] == true:
 		$MainHitbox.set_disabled(true)
 		$MistDashHitbox.set_disabled(false)
+		if $CeilingCheck.is_colliding():
+			dash_timer = 10
 	else:
 		$MainHitbox.set_disabled(false)
 		$MistDashHitbox.set_disabled(true)
@@ -287,17 +308,16 @@ func _physics_process(delta):
 		jumps_left = max_jump_amount
 	if is_feet_on_ground() and current_jump_type == JumpType.NONE:
 		start_coyote_timer()
-		
-	# Check if we just hit the ground this frame
-	if not _was_on_ground and is_feet_on_ground():
-		current_jump_type = JumpType.NONE
-		blast_jumped = false
-		if is_jump_buffer_timer_running() and not can_hold_jump: 
-			jump()
-		
-		hit_ground.emit()
-		$Audio/LandSound.play()
-	
+
+	if teleporting == false:
+		# Check if we just hit the ground this frame
+		if not _was_on_ground and is_feet_on_ground():
+			current_jump_type = JumpType.NONE
+			blast_jumped = false
+			if is_jump_buffer_timer_running() and not can_hold_jump: 
+				jump()
+			hit_ground.emit()
+			$Audio/LandSound.play()
 	
 	# Cannot do this in _input because it needs to be checked every frame
 	if Input.is_action_pressed(input_jump):
@@ -316,8 +336,9 @@ func _physics_process(delta):
 			is_dashing = false
 			dash_timer = 0
 	else:
-		is_dashing = false
-		dash_timer = 0
+		if not $CeilingCheck.is_colliding():
+			is_dashing = false
+			dash_timer = 0
 	check_dash()
 	
 	var gravity = apply_gravity_multipliers_to(default_gravity)
@@ -329,8 +350,8 @@ func _physics_process(delta):
 	
 	_was_on_ground = is_feet_on_ground()
 	move_and_slide()
-	
 	animate()
+	
 
 ## Use this instead of coyote_timer.start() to check if the coyote_timer is enabled first
 func start_coyote_timer():

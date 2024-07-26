@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://cnpcm2juvcutu"]
+[gd_scene load_steps=42 format=3 uid="uid://cnpcm2juvcutu"]
 
 [ext_resource type="Shader" path="res://PaletteSwap.gdshader" id="1_hk0hv"]
 [ext_resource type="Script" path="res://Scenes/Objects/Players/copy_robot.gd" id="2_we56i"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dolddeab1tc5g" path="res://Sprites/Players/Copy Robot/spritesheet.png" id="4_oq3cr"]
 [ext_resource type="AudioStream" uid="uid://cgaetckoiu15m" path="res://Sounds/land.wav" id="5_sdcle"]
 [ext_resource type="AudioStream" uid="uid://h87d8b65n30n" path="res://Sounds/slide.wav" id="6_fcc4r"]
+[ext_resource type="AudioStream" uid="uid://dr1p57c1kr6na" path="res://Sounds/warp.wav" id="8_i1h0k"]
 [ext_resource type="AudioStream" uid="uid://ds4m68uui1avq" path="res://Sounds/switch.wav" id="8_utf8u"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qymoq"]
@@ -346,3 +347,10 @@ stream = ExtResource("6_fcc4r")
 [node name="SwitchSound" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("8_utf8u")
 pitch_scale = 0.75
+
+[node name="WarpInSound" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("8_i1h0k")
+
+[node name="CeilingCheck" type="RayCast2D" parent="."]
+position = Vector2(0, 12)
+target_position = Vector2(0, -12)

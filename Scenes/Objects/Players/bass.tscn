@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://kfk1dq7hqeyc"]
+[gd_scene load_steps=40 format=3 uid="uid://kfk1dq7hqeyc"]
 
 [ext_resource type="Texture2D" uid="uid://b56gnn6pfhbv4" path="res://Sprites/Players/Bass/spritesheet.png" id="1_ci3qt"]
 [ext_resource type="Script" path="res://Scenes/Objects/Players/bass.gd" id="1_lug7r"]
@@ -8,6 +8,8 @@
 [ext_resource type="AudioStream" uid="uid://h87d8b65n30n" path="res://Sounds/slide.wav" id="5_ectoy"]
 [ext_resource type="AudioStream" uid="uid://ds4m68uui1avq" path="res://Sounds/switch.wav" id="7_e2j2h"]
 [ext_resource type="AudioStream" uid="uid://bgfwytu8kifqv" path="res://Sounds/blastjump.wav" id="8_xq33u"]
+[ext_resource type="AudioStream" uid="uid://pk86bd6damih" path="res://Sounds/start_bass.wav" id="9_e7if1"]
+[ext_resource type="AudioStream" uid="uid://dr1p57c1kr6na" path="res://Sounds/warp.wav" id="10_kmnn1"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qymoq"]
 shader = ExtResource("2_m015p")
@@ -256,9 +258,8 @@ script = ExtResource("1_lug7r")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_7773x")
 sprite_frames = SubResource("SpriteFrames_s2qv6")
-animation = &"Mist Dash"
+animation = &"Teleport In"
 autoplay = "Teleport"
-frame_progress = 0.865358
 
 [node name="MainHitbox" type="CollisionShape2D" parent="."]
 position = Vector2(0, 3)
@@ -285,3 +286,13 @@ stream = ExtResource("7_e2j2h")
 
 [node name="BJumpSound" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("8_xq33u")
+
+[node name="StartSound" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("9_e7if1")
+
+[node name="WarpInSound" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("10_kmnn1")
+
+[node name="CeilingCheck" type="RayCast2D" parent="."]
+position = Vector2(0, 12)
+target_position = Vector2(0, -12)

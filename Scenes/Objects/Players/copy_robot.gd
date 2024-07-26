@@ -14,6 +14,11 @@ var slide_stopped : bool
 var slide_timer : int
 
 var current_weapon : int
+#var old_weapon : int
+
+var teleporting = true
+var targetpos : float
+
 var weapon_palette = [
 	"res://Sprites/Players/Copy Robot/Palettes/None.png",
 	"res://Sprites/Players/Copy Robot/Palettes/Scorch Barrier.png",
@@ -165,7 +170,8 @@ func _init():
 
 
 func _ready():
-	Fade.fade_in()
+	await Fade.fade_in()
+
 	if is_coyote_time_enabled:
 		add_child(coyote_timer)
 		coyote_timer.wait_time = coyote_time
@@ -176,8 +182,9 @@ func _ready():
 		jump_buffer_timer.wait_time = jump_buffer
 		jump_buffer_timer.one_shot = true
 
-
 func _input(_event):
+	if (teleporting == true):
+		return
 	if Input.is_action_just_pressed(input_jump):
 		if (not Input.is_action_pressed(input_down) or is_sliding == true):
 			holding_jump = true
@@ -239,9 +246,26 @@ func _input(_event):
 		$AnimatedSprite2D.material.set_shader_parameter("palette",load(weapon_palette[current_weapon]))
 
 func _physics_process(delta):
+	if teleporting == true:
+#		$MainHitbox.set_disabled(true)
+		if position.y == targetpos or position.y > targetpos:
+			position.y = targetpos
+			if not $AnimatedSprite2D.animation == "Teleport In":
+				$AnimatedSprite2D.play("Teleport In")
+				$Audio/WarpInSound.play()
+			await $AnimatedSprite2D.animation_finished
+			$AnimatedSprite2D.play("Idle")
+			teleporting = false
+#			$MainHitbox.set_disabled(false)
+		else:
+			position.y = position.y + 7
+			return
+
 	if is_feet_on_ground() and is_sliding:
 		$MainHitbox.set_disabled(true)
 		$SlideHitbox.set_disabled(false)
+		if $CeilingCheck.is_colliding():
+			slide_timer = 10
 	else:
 		$MainHitbox.set_disabled(false)
 		$SlideHitbox.set_disabled(true)
@@ -250,15 +274,15 @@ func _physics_process(delta):
 		jumps_left = max_jump_amount
 	if is_feet_on_ground() and current_jump_type == JumpType.NONE:
 		start_coyote_timer()
-		
-	# Check if we just hit the ground this frame
-	if not _was_on_ground and is_feet_on_ground():
-		current_jump_type = JumpType.NONE
-		if is_jump_buffer_timer_running() and not can_hold_jump: 
-			jump()
-		
-		hit_ground.emit()
-		$Audio/LandSound.play()
+	
+	if teleporting == false:
+		# Check if we just hit the ground this frame
+		if not _was_on_ground and is_feet_on_ground():
+			current_jump_type = JumpType.NONE
+			if is_jump_buffer_timer_running() and not can_hold_jump: 
+				jump()
+			hit_ground.emit()
+			$Audio/LandSound.play()
 
 	# Cannot do this in _input because it needs to be checked every frame
 	if Input.is_action_pressed(input_jump):
@@ -269,6 +293,10 @@ func _physics_process(delta):
 		if can_ground_jump():
 			if Input.is_action_just_pressed(input_jump) && slide_stopped == false:
 				slide()
+	else:
+		if not $CeilingCheck.is_colliding():
+			is_sliding = false
+			slide_timer = 0
 	if slide_stopped == false:
 		check_slide()
 	

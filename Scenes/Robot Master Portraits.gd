@@ -29,14 +29,14 @@ func _process(delta):
 		$"Gale Woman".visible = true
 		$"Air Man".visible = true
 	if GlobalVars.weapons_unlocked[7] == true:
-		$"???? 2".visible = false
+		$"Guerrilla Man".visible = false
 		$"Mengo".visible = false
 	else:
-		$"???? 2".visible = true
+		$"Guerrilla Man".visible = true
 		$"Mengo".visible = true
 	if GlobalVars.weapons_unlocked[8] == true:
-		$"???? 3".visible = false
+		$"????".visible = false
 		$"Pump Man".visible = false
 	else:
-		$"???? 3".visible = true
+		$"????".visible = true
 		$"Pump Man".visible = true
