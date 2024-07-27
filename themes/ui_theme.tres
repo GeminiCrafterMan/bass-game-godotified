@@ -1,0 +1,7 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://c1bun7kn776g1"]
+
+[ext_resource type="FontFile" uid="uid://btnhlkeo0mjc0" path="res://fonts/m5x7.ttf" id="1_uha4y"]
+
+[resource]
+default_font = ExtResource("1_uha4y")
+default_font_size = 16

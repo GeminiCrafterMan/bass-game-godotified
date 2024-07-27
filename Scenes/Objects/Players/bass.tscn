@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://b56gnn6pfhbv4" path="res://Sprites/Players/Bass/spritesheet.png" id="1_ci3qt"]
 [ext_resource type="Script" path="res://Scenes/Objects/Players/bass.gd" id="1_lug7r"]
-[ext_resource type="Shader" path="res://PaletteSwap.gdshader" id="2_m015p"]
+[ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="2_m015p"]
 [ext_resource type="AudioStream" uid="uid://d2oevy2xek073" path="res://Sounds/jump.wav" id="3_jevqg"]
 [ext_resource type="AudioStream" uid="uid://cgaetckoiu15m" path="res://Sounds/land.wav" id="4_66xts"]
 [ext_resource type="AudioStream" uid="uid://h87d8b65n30n" path="res://Sounds/slide.wav" id="5_ectoy"]

@@ -31,7 +31,7 @@ var stage_selected : int
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if GlobalVars.character_selected: # Copy Robot was selected
+	if GlobalVars.character_selected == 1: # Copy Robot was selected
 		$Player.texture = load("res://Sprites/Menus/Stage Select - Copy Robot.png")
 	$Cursor.position = $Player.position
 	stage_selected = 4

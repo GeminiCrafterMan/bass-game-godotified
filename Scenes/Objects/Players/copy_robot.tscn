@@ -1,6 +1,6 @@
 [gd_scene load_steps=42 format=3 uid="uid://cnpcm2juvcutu"]
 
-[ext_resource type="Shader" path="res://PaletteSwap.gdshader" id="1_hk0hv"]
+[ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="1_hk0hv"]
 [ext_resource type="Script" path="res://Scenes/Objects/Players/copy_robot.gd" id="2_we56i"]
 [ext_resource type="AudioStream" uid="uid://d2oevy2xek073" path="res://Sounds/jump.wav" id="4_8xyqo"]
 [ext_resource type="Texture2D" uid="uid://dolddeab1tc5g" path="res://Sprites/Players/Copy Robot/spritesheet.png" id="4_oq3cr"]

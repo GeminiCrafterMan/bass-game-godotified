@@ -1,11 +1,11 @@
 extends Node
 
 func _ready():
-	var player_scene : PackedScene
-	if GlobalVars.character_selected:
-		player_scene = load("res://Scenes/Objects/Players/copy_robot.tscn")
-	else:
-		player_scene = load("res://Scenes/Objects/Players/bass.tscn")
+	var player_scene : PackedScene = load(
+		GlobalVars.characters[
+			GlobalVars.character_selected
+		]
+	)
 	var player = player_scene.instantiate()
 	add_child(player)
 	player.position.x = $StartPosition.position.x

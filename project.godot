@@ -14,21 +14,34 @@ universal_fade/patterns_directory="res://addons/UniversalFade/Patterns"
 
 [application]
 
-config/name="bass-game"
+config/name="Bass Game"
 run/main_scene="res://Scenes/title_screen.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
+boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/image="res://Sprites/Menus/Title Screen - Logo.png"
+boot_splash/fullsize=false
+boot_splash/use_filter=false
 config/icon="res://icon.png"
 
 [autoload]
 
 Loading="*res://addons/loading/loading.tscn"
 GlobalVars="*res://Scenes/global_vars.gd"
+Fullscreen="*res://autoload/fullscreen.gd"
 
 [display]
 
-window/size/viewport_width=896
-window/size/viewport_height=504
-window/stretch/scale=2.0
+window/size/viewport_width=384
+window/size/viewport_height=216
+window/size/transparent=true
+window/stretch/mode="viewport"
+window/stretch/scale_mode="integer"
+
+[gui]
+
+theme/custom="res://themes/ui_theme.tres"
+theme/custom_font="res://fonts/m5x7.ttf"
+theme/default_font_hinting=2
 
 [input]
 

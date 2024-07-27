@@ -1,6 +1,11 @@
 extends Node
 
-var character_selected : bool
+const characters = [
+	"res://Scenes/Objects/Players/bass.tscn",
+	"res://Scenes/Objects/Players/copy_robot.tscn"
+]
+var character_selected : int
+
 var weapons_unlocked = [
 	#Buster, under no circumstances should this be disabled
 	true, # Buster

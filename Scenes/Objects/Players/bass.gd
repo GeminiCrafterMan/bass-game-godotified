@@ -158,7 +158,7 @@ func _init():
 			jump_velocity, min_jump_height, default_gravity)
 
 func _ready():
-	await Fade.fade_in()
+	Fade.fade_in()
 		
 	if is_coyote_time_enabled:
 		add_child(coyote_timer)

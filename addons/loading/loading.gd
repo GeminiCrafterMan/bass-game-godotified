@@ -10,7 +10,7 @@ var _scene_path: String
 
 @onready var _animator: AnimationPlayer = %animator
 @onready var _progress_bar: ProgressBar = %progress_bar
-@onready var _background: ColorRect = %background
+@onready var _background: PanelContainer = %background
 
 func _ready():
 	_background.visible = false
