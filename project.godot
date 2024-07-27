@@ -33,7 +33,6 @@ Fullscreen="*res://autoload/fullscreen.gd"
 
 window/size/viewport_width=384
 window/size/viewport_height=216
-window/size/transparent=true
 window/stretch/mode="viewport"
 window/stretch/scale_mode="integer"
 
