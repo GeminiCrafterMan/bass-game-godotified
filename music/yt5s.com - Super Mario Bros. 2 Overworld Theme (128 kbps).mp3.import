@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cw5hbl1a5b0so"
+path="res://.godot/imported/yt5s.com - Super Mario Bros. 2 Overworld Theme (128 kbps).mp3-40cab1c654f473d758a2cc5bb19db042.mp3str"
+
+[deps]
+
+source_file="res://music/yt5s.com - Super Mario Bros. 2 Overworld Theme (128 kbps).mp3"
+dest_files=["res://.godot/imported/yt5s.com - Super Mario Bros. 2 Overworld Theme (128 kbps).mp3-40cab1c654f473d758a2cc5bb19db042.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
