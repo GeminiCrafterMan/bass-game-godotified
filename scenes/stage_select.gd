@@ -3,16 +3,16 @@ extends Node2D
 var stages = [
 	# row 1
 	"res://scenes/Stages/Robot Masters/blaze_man.tscn",		# Blaze Man
-	"res://scenes/Stages/test_stage.tscn",		# Video Man
-	"res://scenes/Stages/test_stage.tscn",		# Smog Man
+	"res://scenes/Stages/Robot Masters/video_man.tscn",		# Video Man
+	"res://scenes/Stages/Robot Masters/smog_man.tscn",		# Smog Man
 	# row 2
-	"res://scenes/Stages/test_stage.tscn",		# Shark Man
-	"res://scenes/Stages/test_stage.tscn",		# Wily/Protoman/Bass Bashers...? Maybe those guys can hide in stages like the X-Hunters.
-	"res://scenes/Stages/test_stage.tscn",		# Origami Man
+	"res://scenes/Stages/Robot Masters/shark_man.tscn",		# Shark Man
+	"res://scenes/Stages/test_stage.tscn",					# Wily/Protoman/Bass Bashers...? Maybe those guys can hide in stages like the X-Hunters.
+	"res://scenes/Stages/Robot Masters/origami_man.tscn",	# Origami Man
 	# row 3
-	"res://scenes/Stages/test_stage.tscn",		# Gale Woman
-	"res://scenes/Stages/test_stage.tscn",		# Guerrilla Man
-	"res://scenes/Stages/test_stage.tscn"		# Reaper Man
+	"res://scenes/Stages/Robot Masters/gale_woman.tscn",	# Gale Woman
+	"res://scenes/Stages/Robot Masters/guerrilla_man.tscn",	# Guerrilla Man
+	"res://scenes/Stages/Robot Masters/reaper_man.tscn"		# Reaper Man
 ]
 
 @onready var positions = [

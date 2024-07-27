@@ -42,15 +42,16 @@ An upwards dash that kinda works as a super double jump and hurts enemies direct
 
 --== VIDEO MAN ==--
 
-(Weapon) Freeze Frame
+(Bass Weapon) Freeze Frame
 Freeze the game for a few seconds with each use. During Freeze Frame, Bass's shots ignore shields.
 
-(Module) Track 2
+(Bass Module + Copy Robot Weapon) Track 2
 Summon a copy of yourself that continuously fires forward. Only one at a time.
 
 --== SMOG MAN ==--
 
 (Weapon) Poison Cloud
+Slow, homing cloud that does damage over time.
 
 (Module) Mist Dash
 Your dashes make you invulnerable and able to pass through enemies, certain walls, and one block high gaps.
@@ -68,18 +69,18 @@ Allows you to freely move around in the water by jumping in the "air" underwater
 (Weapon) Origami Star
 Sort of like Shadow Blade, but omnidirectional and you can pause it to multihit by holding B.
 
-(Module) ???
-???
+(Module) Paper Cut
+Dashing melee attack. Cancels out Mist Dash.
 
 --== GALE WOMAN ==--
 
 (Weapon) ???
-Screen nuke, a la Power Gear (tundra wep i forgot the name of)
+Screen nuke, a la Power Gear Tundra Storm.
 
 (Module) ???
 ???
 
---== ??? ==--
+--== GUERRILLA MAN ==--
 
 (Weapon) ???
 ???
@@ -87,7 +88,7 @@ Screen nuke, a la Power Gear (tundra wep i forgot the name of)
 (Module) ???
 ???
 
---== ??? ==--
+--== REAPER MAN ==--
 
 (Weapon) ???
 ???
@@ -97,10 +98,10 @@ Screen nuke, a la Power Gear (tundra wep i forgot the name of)
 
 --== PROTO MAN ==--
 
-(Weapon) Proto Buster
+(Bass Weapon) Proto Buster
 Stronger Buster that takes weapon energy.
 
-(Module) Proto Shield
+(Bass Module + Copy Robot Weapon) Proto Shield
 It's a shield. MM7, but you can charge (as CR) without sticking your arm out -- so, Anniversary Collection MM7.
 
 ----==== CR-only weapons ====----
@@ -108,7 +109,7 @@ It's a shield. MM7, but you can charge (as CR) without sticking your arm out -- 
 --== ENKER ==--
 
 (Weapon) Mirror Buster
-It's Mirror Buster. Maybe make it work more like 8BDM?
+It's Mirror Buster.
 
 --== PUNK ==--
 

@@ -1,84 +1,84 @@
 [gd_scene load_steps=23 format=3 uid="uid://b0opfnom6gmbo"]
 
 [ext_resource type="Script" path="res://scenes/module_tester.gd" id="1_8wlr0"]
-[ext_resource type="Texture2D" uid="uid://bibwir0ixhtww" path="res://sprites/HUD/Modules.png" id="1_8ymmp"]
-[ext_resource type="Texture2D" uid="uid://bsvs8u76num74" path="res://sprites/HUD/Weapons.png" id="4_1yx8r"]
+[ext_resource type="Texture2D" uid="uid://cau6vfnef7e7f" path="res://sprites/HUD/Bass Modules.png" id="2_41jk2"]
+[ext_resource type="Texture2D" uid="uid://bu1d7yfrawcb5" path="res://sprites/HUD/Bass Weapons.png" id="3_t6oby"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dxhje"]
-atlas = ExtResource("1_8ymmp")
+atlas = ExtResource("2_41jk2")
 region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dug54"]
-atlas = ExtResource("1_8ymmp")
+atlas = ExtResource("2_41jk2")
 region = Rect2(16, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_88bhy"]
-atlas = ExtResource("1_8ymmp")
+atlas = ExtResource("2_41jk2")
 region = Rect2(32, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_peh2g"]
-atlas = ExtResource("1_8ymmp")
+atlas = ExtResource("2_41jk2")
 region = Rect2(48, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iv3f2"]
-atlas = ExtResource("1_8ymmp")
+atlas = ExtResource("2_41jk2")
 region = Rect2(64, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_phrux"]
-atlas = ExtResource("1_8ymmp")
+atlas = ExtResource("2_41jk2")
 region = Rect2(80, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vqdw6"]
-atlas = ExtResource("1_8ymmp")
+atlas = ExtResource("2_41jk2")
 region = Rect2(96, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2s3sn"]
-atlas = ExtResource("1_8ymmp")
+atlas = ExtResource("2_41jk2")
 region = Rect2(112, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_10ksf"]
-atlas = ExtResource("1_8ymmp")
+atlas = ExtResource("2_41jk2")
 region = Rect2(128, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7cw5a"]
-atlas = ExtResource("4_1yx8r")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kcs77"]
-atlas = ExtResource("4_1yx8r")
+atlas = ExtResource("3_t6oby")
 region = Rect2(16, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_d1swg"]
-atlas = ExtResource("4_1yx8r")
+[sub_resource type="AtlasTexture" id="AtlasTexture_kcs77"]
+atlas = ExtResource("3_t6oby")
 region = Rect2(32, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_3qihf"]
-atlas = ExtResource("4_1yx8r")
+[sub_resource type="AtlasTexture" id="AtlasTexture_d1swg"]
+atlas = ExtResource("3_t6oby")
 region = Rect2(48, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_mou86"]
-atlas = ExtResource("4_1yx8r")
+[sub_resource type="AtlasTexture" id="AtlasTexture_3qihf"]
+atlas = ExtResource("3_t6oby")
 region = Rect2(64, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_xv3ud"]
-atlas = ExtResource("4_1yx8r")
+[sub_resource type="AtlasTexture" id="AtlasTexture_mou86"]
+atlas = ExtResource("3_t6oby")
 region = Rect2(80, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ce3wq"]
-atlas = ExtResource("4_1yx8r")
+[sub_resource type="AtlasTexture" id="AtlasTexture_xv3ud"]
+atlas = ExtResource("3_t6oby")
 region = Rect2(96, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_se0rd"]
-atlas = ExtResource("4_1yx8r")
+[sub_resource type="AtlasTexture" id="AtlasTexture_ce3wq"]
+atlas = ExtResource("3_t6oby")
 region = Rect2(112, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_wrgr6"]
-atlas = ExtResource("4_1yx8r")
+[sub_resource type="AtlasTexture" id="AtlasTexture_se0rd"]
+atlas = ExtResource("3_t6oby")
 region = Rect2(128, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_bblnj"]
-atlas = ExtResource("4_1yx8r")
+[sub_resource type="AtlasTexture" id="AtlasTexture_wrgr6"]
+atlas = ExtResource("3_t6oby")
 region = Rect2(144, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bblnj"]
+atlas = ExtResource("3_t6oby")
+region = Rect2(160, 0, 16, 16)
 
 [node name="Module Tester" type="Control"]
 layout_mode = 3
