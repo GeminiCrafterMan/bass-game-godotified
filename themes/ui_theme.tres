@@ -1,7 +1,46 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://c1bun7kn776g1"]
+[gd_resource type="Theme" load_steps=9 format=3 uid="uid://c1bun7kn776g1"]
 
-[ext_resource type="FontFile" uid="uid://btnhlkeo0mjc0" path="res://fonts/m5x7.ttf" id="1_uha4y"]
+[ext_resource type="Texture2D" uid="uid://5p4sf5vffvvi" path="res://sprites/Tilesets/image.png" id="1_2oupw"]
+[ext_resource type="Texture2D" uid="uid://whp0011lohqj" path="res://sprites/Tilesets/border.tres" id="1_5vpme"]
+[ext_resource type="Texture2D" uid="uid://diukfgrcpw6sy" path="res://sprites/Tilesets/Stage Select.png" id="2_8qgm8"]
+[ext_resource type="FontFile" uid="uid://cd37r82y033w8" path="res://fonts/font.png" id="2_w24ss"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gejau"]
+texture = ExtResource("1_2oupw")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7urhl"]
+texture = ExtResource("1_5vpme")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4sl0d"]
+atlas = ExtResource("2_8qgm8")
+region = Rect2(6, 80, 52, 48)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_i0rqu"]
+texture = SubResource("AtlasTexture_4sl0d")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
 
 [resource]
-default_font = ExtResource("1_uha4y")
+default_font = ExtResource("2_w24ss")
 default_font_size = 16
+PanelContainer/styles/panel = SubResource("StyleBoxTexture_gejau")
+RobotMasterPanel/base_type = &"PanelContainer"
+RobotMasterPanel/styles/panel = SubResource("StyleBoxTexture_7urhl")
+RobotMasterPanelDestroyed/base_type = &"PanelContainer"
+RobotMasterPanelDestroyed/styles/panel = SubResource("StyleBoxTexture_i0rqu")

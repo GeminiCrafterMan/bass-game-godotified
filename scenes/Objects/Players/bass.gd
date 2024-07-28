@@ -116,7 +116,7 @@ var _jump_duration: float = DEFAULT_JUMP_DURATION
 @export var friction = 30
 @export var can_hold_jump : bool = false
 ## You can still jump this many seconds after falling off a ledge.
-@export var coyote_time : float = 0.1
+@export var coyote_time : float = 0
 ## Pressing jump this many seconds before hitting the ground will still make you jump.
 ## Only neccessary when can_hold_jump is unchecked.
 @export var jump_buffer : float = 0.1
@@ -414,10 +414,11 @@ func is_feet_on_ground():
 
 ## Perform a ground jump, or a double jump if the character is in the air.
 func jump():
-	$Audio/JumpSound.play()
 	if can_double_jump():
+		$Audio/JumpSound.play()
 		double_jump()
-	else:
+	elif is_feet_on_ground():
+		$Audio/JumpSound.play()
 		ground_jump()
 
 func blastjump():

@@ -15,7 +15,7 @@ universal_fade/patterns_directory="res://addons/UniversalFade/Patterns"
 [application]
 
 config/name="Bass Game"
-run/main_scene="res://scenes/title_screen.tscn"
+run/main_scene="res://scenes/menus/title_screen.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/image="res://sprites/Menus/Title Screen - Logo.png"
@@ -35,6 +35,11 @@ window/size/viewport_width=384
 window/size/viewport_height=216
 window/stretch/mode="viewport"
 window/stretch/scale_mode="integer"
+
+[editor]
+
+movie_writer/movie_file="C:/Users/Poly/Documents/bass-game-godotified/lol.avi"
+movie_writer/disable_vsync=true
 
 [gui]
 

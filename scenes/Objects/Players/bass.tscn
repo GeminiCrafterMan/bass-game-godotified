@@ -252,7 +252,7 @@ size = Vector2(16, 14)
 
 [node name="Player" type="CharacterBody2D"]
 material = SubResource("ShaderMaterial_qymoq")
-floor_snap_length = 5.0
+floor_constant_speed = true
 script = ExtResource("1_lug7r")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

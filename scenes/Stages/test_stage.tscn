@@ -1,6 +1,6 @@
 [gd_scene load_steps=14 format=3 uid="uid://by07rq184shwd"]
 
-[ext_resource type="Script" path="res://scenes/Stages/test_stage.gd" id="1_bsefd"]
+[ext_resource type="Script" path="res://scenes/Stages/Stage.gd" id="1_ac8st"]
 [ext_resource type="Texture2D" uid="uid://63kwqi5jdugg" path="res://sprites/Tilesets/Test.png" id="2_n2bxu"]
 [ext_resource type="PackedScene" uid="uid://7vytwtvvonec" path="res://scenes/Objects/Enemies/jumbro.tscn" id="3_8qce2"]
 [ext_resource type="PackedScene" uid="uid://bpd4uso3ynaeo" path="res://scenes/Objects/Enemies/metall.tscn" id="5_pn607"]
@@ -133,8 +133,8 @@ normal = Vector2(-1, 0)
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_janwy"]
 
-[node name="TestStage" type="Node"]
-script = ExtResource("1_bsefd")
+[node name="TestStage" type="Node2D"]
+script = ExtResource("1_ac8st")
 
 [node name="StartPosition" type="Marker2D" parent="."]
 position = Vector2(64, 368)
@@ -157,6 +157,7 @@ position = Vector2(672, 296)
 position = Vector2(904, 280)
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+visible = false
 
 [node name="ColorRect" type="ColorRect" parent="ParallaxBackground"]
 offset_right = 1920.0
@@ -227,6 +228,9 @@ position = Vector2(960, 928)
 shape = SubResource("WorldBoundaryShape2D_janwy")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+limit_left = 0
+limit_right = 1920
+limit_bottom = 928
 
 [node name="Module Tester" parent="Camera2D" instance=ExtResource("6_l6yt6")]
 visible = false

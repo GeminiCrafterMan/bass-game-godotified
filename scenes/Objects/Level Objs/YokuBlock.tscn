@@ -7,19 +7,21 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vdur6"]
 size = Vector2(16, 16)
 
-[node name="YokuBlock" type="Node2D"]
+[node name="YokuBlock" type="StaticBody2D"]
 script = ExtResource("1_jphyu")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(8, 10.5)
+visible = false
 texture = ExtResource("2_vhyso")
+centered = false
 hframes = 2
+frame = 1
 
-[node name="YokuSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_y5jt4")
-
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="Shape" type="CollisionShape2D" parent="."]
 position = Vector2(8, 8)
-
-[node name="MainHitbox" type="CollisionShape2D" parent="StaticBody2D"]
 shape = SubResource("RectangleShape2D_vdur6")
+disabled = true
+
+[node name="Sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_y5jt4")
+bus = &"SFX"

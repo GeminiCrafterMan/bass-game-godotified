@@ -1,0 +1,47 @@
+[gd_scene load_steps=2 format=3 uid="uid://b2a31403a0ai5"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_p8ce6"]
+line_spacing = 4.0
+
+[node name="Control" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 2
+color = Color(0, 0.00784314, 0.137255, 1)
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="ScrollContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+
+[node name="Label" type="Label" parent="ScrollContainer/MarginContainer"]
+custom_minimum_size = Vector2(320, 216)
+layout_mode = 2
+text = "ONCE YOU BEAT THE BIG BADASSES AND
+CLEAN OUT THE MOON BASE YOU'RE SUPPOSED
+TO WIN, AREN'T YOU? AREN'T YOU? WHERE'S
+YOUR FAT REWARD AND TICKET HOME? WHAT
+THE HELL IS THIS? IT'S NOT SUPPOSED TO
+END THIS WAY!
+
+IT STINKS LIKE ROTTEN MEAT, BUT LOOKS
+LIKE THE LOST DEIMOS BASE. LOOKS LIKE
+YOU'RE STUCK ON THE SHORES OF HELL.
+THE ONLY WAY OUT IS THROUGH.
+
+TO CONTINUE THE DOOM EXPERIENCE, PLAY
+THE SHORES OF HELL AND IT'S AMAZING
+SEQUEL, INFERNO!"
+label_settings = SubResource("LabelSettings_p8ce6")
+autowrap_mode = 2
