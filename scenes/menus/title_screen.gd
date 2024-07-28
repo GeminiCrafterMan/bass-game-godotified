@@ -4,7 +4,7 @@ extends Control
 func _process(delta):
 	if Input.is_action_just_pressed("start"):
 		await Fade.fade_out().finished
-		Loading.load_scene("res://scenes/stage_select.tscn")
+		Loading.load_scene("res://scenes/menus/stage_select.tscn")
 
 func _on_startbutton_pressed():
 	await Fade.fade_out().finished

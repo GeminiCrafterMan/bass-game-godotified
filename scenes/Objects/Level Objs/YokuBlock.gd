@@ -25,9 +25,12 @@ const styles = [
 var timer : int
 
 func _ready():
-	$Sprite2D.texture = load(styles[style])
+	if not Engine.is_editor_hint():
+		$Sprite2D.texture = load(styles[style])
 
 func _physics_process(delta):
+	if Engine.is_editor_hint():
+		$Sprite2D.texture = load(styles[style])
 	if timer == interval * 60:
 		if not Engine.is_editor_hint():
 			$Sound.play()
