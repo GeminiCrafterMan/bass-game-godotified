@@ -207,10 +207,14 @@ func _input(_event):
 		if Input.is_action_pressed(input_left) && $AnimatedSprite2D.flip_h == false:
 			is_sliding = false
 			slide_timer = 0
+			$AnimatedSprite2D.flip_h = true
+			acc.x = -max_acceleration
 			
 		if Input.is_action_pressed(input_right) && $AnimatedSprite2D.flip_h == true:
 			is_sliding = false
 			slide_timer = 0
+			$AnimatedSprite2D.flip_h = false
+			acc.x = max_acceleration
 	
 	if Input.is_action_just_released(input_jump):
 		holding_jump = false
@@ -289,7 +293,7 @@ func _physics_process(delta):
 		if can_ground_jump() and can_hold_jump and (!Input.is_action_pressed(input_down) or is_sliding == false):
 			jump()
 
-	if Input.is_action_pressed(input_down):
+	if Input.is_action_pressed(input_down) || is_sliding == true:
 		if can_ground_jump():
 			if Input.is_action_just_pressed(input_jump) && slide_stopped == false:
 				slide()
@@ -419,7 +423,17 @@ func check_slide():
 		is_sliding = false
 		slide_timer = 0
 		slide_stopped = true
+		
 		acc.x = 0
+	
+		if Input.is_action_pressed(input_left):
+				$AnimatedSprite2D.flip_h = true
+				acc.x = -max_acceleration
+		
+		if Input.is_action_pressed(input_right):
+			$AnimatedSprite2D.flip_h = false
+			acc.x = max_acceleration
+		
 	if is_sliding == true:
 		slide_timer = slide_timer + 1
 
