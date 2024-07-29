@@ -26,9 +26,9 @@ var weapon_palette = [
 	"res://sprites/Players/Copy Robot/Palettes/Poison Cloud.png",
 	"res://sprites/Players/Copy Robot/Palettes/Fin Shredder.png",
 	"res://sprites/Players/Copy Robot/Palettes/Origami Star.png",
-	"res://sprites/Players/Copy Robot/Palettes/None.png", # Gale ???
-	"res://sprites/Players/Copy Robot/Palettes/None.png", # ???
-	"res://sprites/Players/Copy Robot/Palettes/None.png", # ???
+	"res://sprites/Players/Copy Robot/Palettes/Wild Gale.png",
+	"res://sprites/Players/Copy Robot/Palettes/Rolling Bomb.png",
+	"res://sprites/Players/Copy Robot/Palettes/Boomerang Scythe.png",
 	"res://sprites/Players/Copy Robot/Palettes/None.png", # Proto Shield
 	"res://sprites/Players/Copy Robot/Palettes/None.png", # "Treble Boost" (skip it)
 	"res://sprites/Players/Copy Robot/Palettes/Carry.png",

@@ -233,4 +233,3 @@ limit_right = 1920
 limit_bottom = 928
 
 [node name="Module Tester" parent="Camera2D" instance=ExtResource("6_l6yt6")]
-visible = false

@@ -25,9 +25,9 @@ var weapon_palette = [
 	"res://sprites/Players/Bass/Palettes/Poison Cloud.png",
 	"res://sprites/Players/Bass/Palettes/Fin Shredder.png",
 	"res://sprites/Players/Bass/Palettes/Origami Star.png",
-	"res://sprites/Players/Bass/Palettes/None.png",
-	"res://sprites/Players/Bass/Palettes/None.png",
-	"res://sprites/Players/Bass/Palettes/None.png",
+	"res://sprites/Players/Bass/Palettes/Wild Gale.png",
+	"res://sprites/Players/Bass/Palettes/Rolling Bomb.png",
+	"res://sprites/Players/Bass/Palettes/Boomerang Scythe.png",
 	"res://sprites/Players/Bass/Palettes/Proto Buster.png",
 	"res://sprites/Players/Bass/Palettes/Treble.png"
 	
