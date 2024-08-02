@@ -2,7 +2,7 @@ extends CanvasLayer
 
 func _process(delta: float) -> void:
 	transform = get_parent().transform
-	offset = get_viewport().size / -2
+	offset -= Vector2(384/2, 216/2) 
 
 func _on_check_button_1_toggled(toggled_on):
 	GameState.modules_enabled[1] = toggled_on

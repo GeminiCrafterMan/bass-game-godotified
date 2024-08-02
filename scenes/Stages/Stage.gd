@@ -15,6 +15,8 @@ func _ready():
 	add_child(player)
 	player.position.x = $StartPosition.position.x
 	player.targetpos = $StartPosition.position.y
+	await player.teleported
+	$Music.play()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):

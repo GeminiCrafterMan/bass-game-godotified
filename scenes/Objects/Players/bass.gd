@@ -17,20 +17,20 @@ var old_weapon : int
 
 var teleporting = true
 var targetpos : float
+signal teleported
 
-var weapon_palette = [
-	"res://sprites/Players/Bass/Palettes/None.png",
-	"res://sprites/Players/Bass/Palettes/Scorch Barrier.png",
-	"res://sprites/Players/Bass/Palettes/Freeze Frame.png",
-	"res://sprites/Players/Bass/Palettes/Poison Cloud.png",
-	"res://sprites/Players/Bass/Palettes/Fin Shredder.png",
-	"res://sprites/Players/Bass/Palettes/Origami Star.png",
-	"res://sprites/Players/Bass/Palettes/Wild Gale.png",
-	"res://sprites/Players/Bass/Palettes/Rolling Bomb.png",
-	"res://sprites/Players/Bass/Palettes/Boomerang Scythe.png",
-	"res://sprites/Players/Bass/Palettes/Proto Buster.png",
-	"res://sprites/Players/Bass/Palettes/Treble.png"
-	
+var weapon_palette: Array[Texture2D] = [
+	preload("res://sprites/Players/Bass/Palettes/None.png"),
+	preload("res://sprites/Players/Bass/Palettes/Scorch Barrier.png"),
+	preload("res://sprites/Players/Bass/Palettes/Freeze Frame.png"),
+	preload("res://sprites/Players/Bass/Palettes/Poison Cloud.png"),
+	preload("res://sprites/Players/Bass/Palettes/Fin Shredder.png"),
+	preload("res://sprites/Players/Bass/Palettes/Origami Star.png"),
+	preload("res://sprites/Players/Bass/Palettes/Wild Gale.png"),
+	preload("res://sprites/Players/Bass/Palettes/Rolling Bomb.png"),
+	preload("res://sprites/Players/Bass/Palettes/Boomerang Scythe.png"),
+	preload("res://sprites/Players/Bass/Palettes/Proto Buster.png"),
+	preload("res://sprites/Players/Bass/Palettes/Treble.png")
 ]
 
 
@@ -226,7 +226,7 @@ func _input(_event):
 			
 		if old_weapon != current_weapon:
 			$Audio/SwitchSound.play()
-		$AnimatedSprite2D.material.set_shader_parameter("palette",load(weapon_palette[current_weapon]))
+		$AnimatedSprite2D.material.set_shader_parameter("palette", weapon_palette[current_weapon])
 	
 	
 	
@@ -263,19 +263,19 @@ func _input(_event):
 
 		if old_weapon != current_weapon:
 			$Audio/SwitchSound.play()
-		$AnimatedSprite2D.material.set_shader_parameter("palette",load(weapon_palette[current_weapon]))
+		$AnimatedSprite2D.material.set_shader_parameter("palette", weapon_palette[current_weapon])
 
 	if  (Input.is_action_just_pressed(input_switch_left) && Input.is_action_pressed(input_switch_right)):
 		current_weapon = 0
 		if old_weapon != current_weapon:
 			$Audio/SwitchSound.play()
-		$AnimatedSprite2D.material.set_shader_parameter("palette",load(weapon_palette[current_weapon]))
+		$AnimatedSprite2D.material.set_shader_parameter("palette", weapon_palette[current_weapon])
 	
 	if  (Input.is_action_pressed(input_switch_left) && Input.is_action_just_pressed(input_switch_right)):
 		current_weapon = 0
 		if old_weapon != current_weapon:
 			$Audio/SwitchSound.play()
-		$AnimatedSprite2D.material.set_shader_parameter("palette",load(weapon_palette[current_weapon]))
+		$AnimatedSprite2D.material.set_shader_parameter("palette", weapon_palette[current_weapon])
 
 func _physics_process(delta):
 	if teleporting == true:
@@ -288,6 +288,7 @@ func _physics_process(delta):
 			await $AnimatedSprite2D.animation_finished
 			$AnimatedSprite2D.play("Idle")
 			teleporting = false
+			teleported.emit()
 #			$MainHitbox.set_disabled(false)
 		else:
 			position.y = position.y + 7

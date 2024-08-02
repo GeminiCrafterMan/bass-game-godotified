@@ -18,6 +18,7 @@ var current_weapon : int
 
 var teleporting = true
 var targetpos : float
+signal teleported
 
 var weapon_palette = [
 	"res://sprites/Players/Copy Robot/Palettes/None.png",
@@ -258,6 +259,7 @@ func _physics_process(delta):
 			await $AnimatedSprite2D.animation_finished
 			$AnimatedSprite2D.play("Idle")
 			teleporting = false
+			teleported.emit()
 #			$MainHitbox.set_disabled(false)
 		else:
 			position.y = position.y + 7

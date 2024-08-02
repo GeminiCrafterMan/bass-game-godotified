@@ -1,4 +1,7 @@
-extends Control
+class_name TitleScreen extends CanvasLayer
+
+func _ready() -> void:
+	$CenterContainer/HBoxContainer/VBoxContainer/ItemList.select(GameState.character_selected, true)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
