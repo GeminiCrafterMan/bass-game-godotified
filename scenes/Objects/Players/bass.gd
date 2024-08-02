@@ -158,8 +158,6 @@ func _init():
 			jump_velocity, min_jump_height, default_gravity)
 
 func _ready():
-	Fade.fade_in()
-		
 	if is_coyote_time_enabled:
 		add_child(coyote_timer)
 		coyote_timer.wait_time = coyote_time
@@ -194,7 +192,7 @@ func _input(_event):
 	
 	
 	
-	#if (GlobalVars.weapons_unlocked[current_weapon] == false):
+	#if (GameState.weapons_unlocked[current_weapon] == false):
 	
 	if Input.is_action_just_pressed(input_switch_left):
 		old_weapon = current_weapon
@@ -205,25 +203,25 @@ func _input(_event):
 			current_weapon = current_weapon - 1
 			
 			#make sure to clean this up later, I don't wanna -mengo
-		if (current_weapon == 10 && GlobalVars.weapons_unlocked[10] == false):
+		if (current_weapon == 10 && GameState.weapons_unlocked[10] == false):
 			current_weapon = current_weapon - 1
-		if (current_weapon == 9 && GlobalVars.weapons_unlocked[9] == false):
+		if (current_weapon == 9 && GameState.weapons_unlocked[9] == false):
 			current_weapon = current_weapon - 1
-		if (current_weapon == 8 && GlobalVars.weapons_unlocked[8] == false):
+		if (current_weapon == 8 && GameState.weapons_unlocked[8] == false):
 			current_weapon = current_weapon - 1
-		if (current_weapon == 7 && GlobalVars.weapons_unlocked[7] == false):
+		if (current_weapon == 7 && GameState.weapons_unlocked[7] == false):
 			current_weapon = current_weapon - 1
-		if (current_weapon == 6 && GlobalVars.weapons_unlocked[6] == false):
+		if (current_weapon == 6 && GameState.weapons_unlocked[6] == false):
 			current_weapon = current_weapon - 1
-		if (current_weapon == 5 && GlobalVars.weapons_unlocked[5] == false):
+		if (current_weapon == 5 && GameState.weapons_unlocked[5] == false):
 			current_weapon = current_weapon - 1
-		if (current_weapon == 4 && GlobalVars.weapons_unlocked[4] == false):
+		if (current_weapon == 4 && GameState.weapons_unlocked[4] == false):
 			current_weapon = current_weapon - 1
-		if (current_weapon == 3 && GlobalVars.weapons_unlocked[3] == false):
+		if (current_weapon == 3 && GameState.weapons_unlocked[3] == false):
 			current_weapon = current_weapon - 1
-		if (current_weapon == 2 && GlobalVars.weapons_unlocked[2] == false):
+		if (current_weapon == 2 && GameState.weapons_unlocked[2] == false):
 			current_weapon = current_weapon - 1
-		if (current_weapon == 1 && GlobalVars.weapons_unlocked[1] == false):
+		if (current_weapon == 1 && GameState.weapons_unlocked[1] == false):
 			current_weapon = current_weapon - 1
 			
 		if old_weapon != current_weapon:
@@ -241,25 +239,25 @@ func _input(_event):
 			current_weapon = current_weapon + 1
 			
 		#make sure to clean this up later, I don't wanna -mengo
-		if (current_weapon == 1 && GlobalVars.weapons_unlocked[1] == false):
+		if (current_weapon == 1 && GameState.weapons_unlocked[1] == false):
 			current_weapon = current_weapon + 1
-		if (current_weapon == 2 && GlobalVars.weapons_unlocked[2] == false):
+		if (current_weapon == 2 && GameState.weapons_unlocked[2] == false):
 			current_weapon = current_weapon + 1
-		if (current_weapon == 3 && GlobalVars.weapons_unlocked[3] == false):
+		if (current_weapon == 3 && GameState.weapons_unlocked[3] == false):
 			current_weapon = current_weapon + 1
-		if (current_weapon == 4 && GlobalVars.weapons_unlocked[4] == false):
+		if (current_weapon == 4 && GameState.weapons_unlocked[4] == false):
 			current_weapon = current_weapon + 1
-		if (current_weapon == 5 && GlobalVars.weapons_unlocked[5] == false):
+		if (current_weapon == 5 && GameState.weapons_unlocked[5] == false):
 			current_weapon = current_weapon + 1
-		if (current_weapon == 6 && GlobalVars.weapons_unlocked[6] == false):
+		if (current_weapon == 6 && GameState.weapons_unlocked[6] == false):
 			current_weapon = current_weapon + 1
-		if (current_weapon == 7 && GlobalVars.weapons_unlocked[7] == false):
+		if (current_weapon == 7 && GameState.weapons_unlocked[7] == false):
 			current_weapon = current_weapon + 1
-		if (current_weapon == 8 && GlobalVars.weapons_unlocked[8] == false):
+		if (current_weapon == 8 && GameState.weapons_unlocked[8] == false):
 			current_weapon = current_weapon + 1
-		if (current_weapon == 9 && GlobalVars.weapons_unlocked[9] == false):
+		if (current_weapon == 9 && GameState.weapons_unlocked[9] == false):
 			current_weapon = current_weapon + 1
-		if (current_weapon == 10 && GlobalVars.weapons_unlocked[10] == false):
+		if (current_weapon == 10 && GameState.weapons_unlocked[10] == false):
 			current_weapon = 0
 
 
@@ -295,7 +293,7 @@ func _physics_process(delta):
 			position.y = position.y + 7
 			return
 
-	if is_feet_on_ground() and is_dashing and GlobalVars.modules_enabled[3] == true:
+	if is_feet_on_ground() and is_dashing and GameState.modules_enabled[3] == true:
 		$MainHitbox.set_disabled(true)
 		$MistDashHitbox.set_disabled(false)
 		if $CeilingCheck.is_colliding():
@@ -325,7 +323,7 @@ func _physics_process(delta):
 			jump()
 	
 	if Input.is_action_pressed(input_up) && Input.is_action_just_pressed(input_jump):
-		if blast_jumped == false && (GlobalVars.modules_enabled[1] == true):
+		if blast_jumped == false && (GameState.modules_enabled[1] == true):
 			blastjump()
 	
 	if Input.is_action_pressed(input_dash):
@@ -540,7 +538,7 @@ func calculate_speed(p_max_speed, p_friction):
 func animate():
 	if (is_feet_on_ground() == true):
 		if (is_dashing):
-			if (GlobalVars.modules_enabled[3] == true):
+			if (GameState.modules_enabled[3] == true):
 				$AnimatedSprite2D.play("Mist Dash")
 				return
 			else:

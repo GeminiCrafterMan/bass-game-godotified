@@ -4,9 +4,11 @@ extends Node2D
 @onready var player
 
 func _ready():
+	$Camera2D.position = $StartPosition.position
+	await Fade.fade_in().finished
 	var player_scene : PackedScene = load(
-		GlobalVars.characters[
-			GlobalVars.character_selected
+		GameState.characters[
+			GameState.character_selected
 		]
 	)
 	player = player_scene.instantiate()
@@ -19,7 +21,7 @@ func _process(_delta):
 	process_camera()
 	
 func process_camera():
-	if (is_instance_valid(player)): # Null check!
+	if (player): # Null check!
 		if (player.teleporting == false):
 			$Camera2D.position = player.position
 		else:

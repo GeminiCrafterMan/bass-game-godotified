@@ -80,187 +80,128 @@ region = Rect2(144, 0, 16, 16)
 atlas = ExtResource("3_t6oby")
 region = Rect2(160, 0, 16, 16)
 
-[node name="Module Tester" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 32.0
-offset_top = 40.0
-offset_right = 32.0
-offset_bottom = 40.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Module Tester" type="CanvasLayer"]
+follow_viewport_enabled = true
 script = ExtResource("1_8wlr0")
 
-[node name="CheckButton1" type="CheckButton" parent="."]
-layout_mode = 0
-offset_left = -166.0
-offset_top = -125.0
-offset_right = -106.0
-offset_bottom = -101.0
+[node name="GridContainer" type="GridContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = -8
+columns = 2
+
+[node name="CheckButton1" type="CheckButton" parent="GridContainer"]
+layout_mode = 2
+focus_mode = 0
 icon = SubResource("AtlasTexture_dxhje")
 
-[node name="CheckButton2" type="CheckButton" parent="."]
-layout_mode = 0
-offset_left = -166.0
-offset_top = -107.0
-offset_right = -106.0
-offset_bottom = -83.0
+[node name="CheckButton2" type="CheckButton" parent="GridContainer"]
+layout_mode = 2
+focus_mode = 0
 icon = SubResource("AtlasTexture_dug54")
 
-[node name="CheckButton3" type="CheckButton" parent="."]
-layout_mode = 0
-offset_left = -166.0
-offset_top = -90.0
-offset_right = -106.0
-offset_bottom = -66.0
+[node name="CheckButton3" type="CheckButton" parent="GridContainer"]
+layout_mode = 2
+focus_mode = 0
 icon = SubResource("AtlasTexture_88bhy")
 
-[node name="CheckButton4" type="CheckButton" parent="."]
-layout_mode = 0
-offset_left = -166.0
-offset_top = -73.0
-offset_right = -106.0
-offset_bottom = -49.0
+[node name="CheckButton4" type="CheckButton" parent="GridContainer"]
+layout_mode = 2
+focus_mode = 0
 icon = SubResource("AtlasTexture_peh2g")
 
-[node name="CheckButton5" type="CheckButton" parent="."]
-layout_mode = 0
-offset_left = -166.0
-offset_top = -56.0
-offset_right = -106.0
-offset_bottom = -32.0
+[node name="CheckButton5" type="CheckButton" parent="GridContainer"]
+layout_mode = 2
+focus_mode = 0
 icon = SubResource("AtlasTexture_iv3f2")
 
-[node name="CheckButton6" type="CheckButton" parent="."]
-layout_mode = 0
-offset_left = -166.0
-offset_top = -39.0
-offset_right = -106.0
-offset_bottom = -15.0
+[node name="CheckButton6" type="CheckButton" parent="GridContainer"]
+layout_mode = 2
+focus_mode = 0
 icon = SubResource("AtlasTexture_phrux")
 
-[node name="CheckButton7" type="CheckButton" parent="."]
-layout_mode = 0
-offset_left = -166.0
-offset_top = -22.0
-offset_right = -106.0
-offset_bottom = 2.0
+[node name="CheckButton7" type="CheckButton" parent="GridContainer"]
+layout_mode = 2
+focus_mode = 0
 icon = SubResource("AtlasTexture_vqdw6")
 
-[node name="CheckButton8" type="CheckButton" parent="."]
-layout_mode = 0
-offset_left = -166.0
-offset_top = -5.0
-offset_right = -106.0
-offset_bottom = 19.0
+[node name="CheckButton8" type="CheckButton" parent="GridContainer"]
+layout_mode = 2
+focus_mode = 0
 icon = SubResource("AtlasTexture_2s3sn")
 
-[node name="CheckButton9" type="CheckButton" parent="."]
-layout_mode = 0
-offset_left = -166.0
-offset_top = 12.0
-offset_right = -106.0
-offset_bottom = 36.0
+[node name="CheckButton9" type="CheckButton" parent="GridContainer"]
+layout_mode = 2
+focus_mode = 0
 icon = SubResource("AtlasTexture_10ksf")
 
-[node name="CheckButton10" type="CheckButton" parent="."]
-layout_mode = 0
-offset_left = -226.0
-offset_top = -125.0
-offset_right = -166.0
-offset_bottom = -101.0
+[node name="CheckButton10" type="CheckButton" parent="GridContainer"]
+layout_mode = 2
+focus_mode = 0
 icon = SubResource("AtlasTexture_7cw5a")
 
-[node name="CheckButton11" type="CheckButton" parent="."]
-layout_mode = 0
-offset_left = -226.0
-offset_top = -107.0
-offset_right = -166.0
-offset_bottom = -83.0
+[node name="CheckButton11" type="CheckButton" parent="GridContainer"]
+layout_mode = 2
+focus_mode = 0
 icon = SubResource("AtlasTexture_kcs77")
 
-[node name="CheckButton12" type="CheckButton" parent="."]
-layout_mode = 0
-offset_left = -226.0
-offset_top = -90.0
-offset_right = -166.0
-offset_bottom = -66.0
+[node name="CheckButton12" type="CheckButton" parent="GridContainer"]
+layout_mode = 2
+focus_mode = 0
 icon = SubResource("AtlasTexture_d1swg")
 
-[node name="CheckButton13" type="CheckButton" parent="."]
-layout_mode = 0
-offset_left = -226.0
-offset_top = -73.0
-offset_right = -166.0
-offset_bottom = -49.0
+[node name="CheckButton13" type="CheckButton" parent="GridContainer"]
+layout_mode = 2
+focus_mode = 0
 icon = SubResource("AtlasTexture_3qihf")
 
-[node name="CheckButton14" type="CheckButton" parent="."]
-layout_mode = 0
-offset_left = -226.0
-offset_top = -56.0
-offset_right = -166.0
-offset_bottom = -32.0
+[node name="CheckButton14" type="CheckButton" parent="GridContainer"]
+layout_mode = 2
+focus_mode = 0
 icon = SubResource("AtlasTexture_mou86")
 
-[node name="CheckButton15" type="CheckButton" parent="."]
-layout_mode = 0
-offset_left = -226.0
-offset_top = -39.0
-offset_right = -166.0
-offset_bottom = -15.0
+[node name="CheckButton15" type="CheckButton" parent="GridContainer"]
+layout_mode = 2
+focus_mode = 0
 icon = SubResource("AtlasTexture_xv3ud")
 
-[node name="CheckButton16" type="CheckButton" parent="."]
-layout_mode = 0
-offset_left = -226.0
-offset_top = -22.0
-offset_right = -166.0
-offset_bottom = 2.0
+[node name="CheckButton16" type="CheckButton" parent="GridContainer"]
+layout_mode = 2
+focus_mode = 0
 icon = SubResource("AtlasTexture_ce3wq")
 
-[node name="CheckButton17" type="CheckButton" parent="."]
-layout_mode = 0
-offset_left = -226.0
-offset_top = -5.0
-offset_right = -166.0
-offset_bottom = 19.0
+[node name="CheckButton17" type="CheckButton" parent="GridContainer"]
+layout_mode = 2
+focus_mode = 0
 icon = SubResource("AtlasTexture_se0rd")
 
-[node name="CheckButton18" type="CheckButton" parent="."]
-layout_mode = 0
-offset_left = -226.0
-offset_top = 12.0
-offset_right = -166.0
-offset_bottom = 36.0
+[node name="CheckButton18" type="CheckButton" parent="GridContainer"]
+layout_mode = 2
+focus_mode = 0
 icon = SubResource("AtlasTexture_wrgr6")
 
-[node name="CheckButton19" type="CheckButton" parent="."]
-layout_mode = 0
-offset_left = -226.0
-offset_top = 29.0
-offset_right = -166.0
-offset_bottom = 53.0
+[node name="CheckButton19" type="CheckButton" parent="GridContainer"]
+layout_mode = 2
+focus_mode = 0
 icon = SubResource("AtlasTexture_bblnj")
 
-[connection signal="toggled" from="CheckButton1" to="." method="_on_check_button_1_toggled"]
-[connection signal="toggled" from="CheckButton2" to="." method="_on_check_button_2_toggled"]
-[connection signal="toggled" from="CheckButton3" to="." method="_on_check_button_3_toggled"]
-[connection signal="toggled" from="CheckButton4" to="." method="_on_check_button_4_toggled"]
-[connection signal="toggled" from="CheckButton5" to="." method="_on_check_button_5_toggled"]
-[connection signal="toggled" from="CheckButton6" to="." method="_on_check_button_6_toggled"]
-[connection signal="toggled" from="CheckButton7" to="." method="_on_check_button_7_toggled"]
-[connection signal="toggled" from="CheckButton8" to="." method="_on_check_button_8_toggled"]
-[connection signal="toggled" from="CheckButton9" to="." method="_on_check_button_9_toggled"]
-[connection signal="toggled" from="CheckButton10" to="." method="_on_check_button_10_toggled"]
-[connection signal="toggled" from="CheckButton11" to="." method="_on_check_button_11_toggled"]
-[connection signal="toggled" from="CheckButton12" to="." method="_on_check_button_12_toggled"]
-[connection signal="toggled" from="CheckButton13" to="." method="_on_check_button_13_toggled"]
-[connection signal="toggled" from="CheckButton14" to="." method="_on_check_button_14_toggled"]
-[connection signal="toggled" from="CheckButton15" to="." method="_on_check_button_15_toggled"]
-[connection signal="toggled" from="CheckButton16" to="." method="_on_check_button_16_toggled"]
-[connection signal="toggled" from="CheckButton17" to="." method="_on_check_button_17_toggled"]
-[connection signal="toggled" from="CheckButton18" to="." method="_on_check_button_18_toggled"]
-[connection signal="toggled" from="CheckButton19" to="." method="_on_check_button_19_toggled"]
+[connection signal="toggled" from="GridContainer/CheckButton1" to="." method="_on_check_button_1_toggled"]
+[connection signal="toggled" from="GridContainer/CheckButton2" to="." method="_on_check_button_2_toggled"]
+[connection signal="toggled" from="GridContainer/CheckButton3" to="." method="_on_check_button_3_toggled"]
+[connection signal="toggled" from="GridContainer/CheckButton4" to="." method="_on_check_button_4_toggled"]
+[connection signal="toggled" from="GridContainer/CheckButton5" to="." method="_on_check_button_5_toggled"]
+[connection signal="toggled" from="GridContainer/CheckButton6" to="." method="_on_check_button_6_toggled"]
+[connection signal="toggled" from="GridContainer/CheckButton7" to="." method="_on_check_button_7_toggled"]
+[connection signal="toggled" from="GridContainer/CheckButton8" to="." method="_on_check_button_8_toggled"]
+[connection signal="toggled" from="GridContainer/CheckButton9" to="." method="_on_check_button_9_toggled"]
+[connection signal="toggled" from="GridContainer/CheckButton10" to="." method="_on_check_button_10_toggled"]
+[connection signal="toggled" from="GridContainer/CheckButton11" to="." method="_on_check_button_11_toggled"]
+[connection signal="toggled" from="GridContainer/CheckButton12" to="." method="_on_check_button_12_toggled"]
+[connection signal="toggled" from="GridContainer/CheckButton13" to="." method="_on_check_button_13_toggled"]
+[connection signal="toggled" from="GridContainer/CheckButton14" to="." method="_on_check_button_14_toggled"]
+[connection signal="toggled" from="GridContainer/CheckButton15" to="." method="_on_check_button_15_toggled"]
+[connection signal="toggled" from="GridContainer/CheckButton16" to="." method="_on_check_button_16_toggled"]
+[connection signal="toggled" from="GridContainer/CheckButton17" to="." method="_on_check_button_17_toggled"]
+[connection signal="toggled" from="GridContainer/CheckButton18" to="." method="_on_check_button_18_toggled"]
+[connection signal="toggled" from="GridContainer/CheckButton19" to="." method="_on_check_button_19_toggled"]

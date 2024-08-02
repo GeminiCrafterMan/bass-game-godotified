@@ -11,15 +11,20 @@ size = Vector2(16, 16)
 script = ExtResource("1_jphyu")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
 texture = ExtResource("2_vhyso")
 centered = false
 hframes = 2
+frame = 1
 
 [node name="Shape" type="CollisionShape2D" parent="."]
 position = Vector2(8, 8)
 shape = SubResource("RectangleShape2D_vdur6")
+disabled = true
 
-[node name="Sound" type="AudioStreamPlayer2D" parent="."]
+[node name="YokuSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_y5jt4")
-max_distance = 200.0
+max_distance = 9.22337e+18
+attenuation = 1e-05
+panning_strength = 0.0
 bus = &"SFX"

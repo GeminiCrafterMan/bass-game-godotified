@@ -170,8 +170,6 @@ func _init():
 
 
 func _ready():
-	await Fade.fade_in()
-
 	if is_coyote_time_enabled:
 		add_child(coyote_timer)
 		coyote_timer.wait_time = coyote_time

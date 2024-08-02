@@ -2,6 +2,7 @@
 class_name YokuBlock
 extends StaticBody2D
 
+static var static_audio_player : AudioStreamPlayer2D
 const styles = [
 	"res://sprites/Objects/Yoku Blocks/Test.png",
 	"res://sprites/Objects/Yoku Blocks/Blaze.png",
@@ -13,8 +14,18 @@ const styles = [
 	"res://sprites/Objects/Yoku Blocks/Guerrilla.png",
 	"res://sprites/Objects/Yoku Blocks/Reaper.png"
 ]
-@export var style : int = 0
 
+var _style : int = 0
+## Yoku Block sprite set to display
+@export var style : int :
+	get:
+		return _style
+	set(value):
+		if (value < styles.size()) && (value >= 0):
+			_style = value;
+			$Sprite2D.texture = load(styles[_style])
+			
+#@onready var player = get_tree().get_nodes_in_group("Player")[0] 
 
 ## there are 4 slots, each should bleed a bit into the next a good bit.
 ## INTERVAL 0: STARTS 0   ENDS 105
@@ -22,18 +33,20 @@ const styles = [
 ## INTERVAL 2: STARTS 120 ENDS 225
 ## INTERVAL 3: STARTS 180 ENDS 45
 @export_range(0,3) var interval : int
-var timer : int
+var timer : int = 0
 
 func _ready():
-	if not Engine.is_editor_hint():
-		$Sprite2D.texture = load(styles[style])
+	if !static_audio_player:
+		static_audio_player = $YokuSound
+	$Sprite2D.texture = load(styles[_style])
 
 func _physics_process(delta):
-	if Engine.is_editor_hint():
-		$Sprite2D.texture = load(styles[style])
 	if timer == interval * 60:
 		if not Engine.is_editor_hint():
-			$Sound.play()
+			var players = get_tree().get_nodes_in_group("Player")
+			if static_audio_player && players.size() >= 1:
+				if position.distance_to(players[0].position) < 216:
+					static_audio_player.play()
 		$Sprite2D.frame = 1
 		$Sprite2D.visible = true
 		$Shape.set_disabled(false)
@@ -49,4 +62,3 @@ func _physics_process(delta):
 		$Shape.set_disabled(true)
 	
 	timer = (timer + 1) % 240 ## advance the timer per tick and wrap at 240
-

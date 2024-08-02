@@ -1,0 +1,81 @@
+[gd_scene load_steps=8 format=3 uid="uid://d3bthms0xcmi1"]
+
+[ext_resource type="Script" path="res://scenes/Objects/menus/stage_select/StageSelectPanel.gd" id="1_k1tp0"]
+[ext_resource type="Theme" uid="uid://c1bun7kn776g1" path="res://themes/ui_theme.tres" id="1_o6l8c"]
+[ext_resource type="PackedScene" uid="uid://by07rq184shwd" path="res://scenes/Stages/test_stage.tscn" id="2_alciw"]
+[ext_resource type="AudioStream" uid="uid://1ujjh0m4lfmf" path="res://sounds/menumove.wav" id="4_jgr38"]
+[ext_resource type="Texture2D" uid="uid://dc1wr52i7yf05" path="res://sprites/Menus/Stage Select - Lights.png" id="5_7fyoy"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_1yrwy"]
+size = Vector2(32, 32)
+
+[sub_resource type="LabelSettings" id="LabelSettings_kcuv3"]
+line_spacing = 0.0
+font_size = 8
+
+[node name="StageSelectPanel" type="MarginContainer"]
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 2
+script = ExtResource("1_k1tp0")
+stageName = "LOREM"
+stageTitle = "IPSUM"
+portrait = SubResource("PlaceholderTexture2D_1yrwy")
+scene = ExtResource("2_alciw")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="Portrait" type="CenterContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Border" type="PanelContainer" parent="VBoxContainer/Portrait"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+mouse_filter = 1
+theme = ExtResource("1_o6l8c")
+theme_type_variation = &"RobotMasterPanel"
+
+[node name="Image" type="TextureRect" parent="VBoxContainer/Portrait/Border"]
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_1yrwy")
+stretch_mode = 4
+
+[node name="Lights" type="TextureRect" parent="VBoxContainer/Portrait"]
+visible = false
+layout_mode = 2
+texture = ExtResource("5_7fyoy")
+
+[node name="Text" type="CenterContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Text"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Name" type="Label" parent="VBoxContainer/Text/VBoxContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(48, 8)
+layout_mode = 2
+mouse_filter = 1
+text = "LOREM"
+label_settings = SubResource("LabelSettings_kcuv3")
+max_lines_visible = 1
+
+[node name="Title" type="Label" parent="VBoxContainer/Text/VBoxContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(48, 8)
+layout_mode = 2
+mouse_filter = 1
+text = "IPSUM"
+label_settings = SubResource("LabelSettings_kcuv3")
+horizontal_alignment = 2
+autowrap_mode = 2
+max_lines_visible = 1
+
+[node name="SelectSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_jgr38")
+bus = &"SFX"

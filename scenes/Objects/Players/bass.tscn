@@ -250,7 +250,7 @@ size = Vector2(14, 26)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3mf6s"]
 size = Vector2(16, 14)
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
 material = SubResource("ShaderMaterial_qymoq")
 floor_constant_speed = true
 script = ExtResource("1_lug7r")
@@ -274,24 +274,31 @@ disabled = true
 
 [node name="JumpSound" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("3_jevqg")
+bus = &"SFX"
 
 [node name="LandSound" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("4_66xts")
+bus = &"SFX"
 
 [node name="DashSound" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("5_ectoy")
+bus = &"SFX"
 
 [node name="SwitchSound" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("7_e2j2h")
+bus = &"SFX"
 
 [node name="BJumpSound" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("8_xq33u")
+bus = &"SFX"
 
 [node name="StartSound" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("9_e7if1")
+bus = &"SFX"
 
 [node name="WarpInSound" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("10_kmnn1")
+bus = &"SFX"
 
 [node name="CeilingCheck" type="RayCast2D" parent="."]
 position = Vector2(0, 12)

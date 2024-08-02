@@ -1,26 +1,21 @@
+class_name StageSelect
 extends Control
 
-const stages = [
-	# row 1
-	"res://scenes/Stages/Robot Masters/blaze_man.tscn",		# Blaze Man
-	"res://scenes/Stages/Robot Masters/video_man.tscn",		# Video Man
-	"res://scenes/Stages/Robot Masters/smog_man.tscn",		# Smog Man
-	# row 2
-	"res://scenes/Stages/Robot Masters/shark_man.tscn",		# Shark Man
-	"res://scenes/Stages/test_stage.tscn",					# Wily/Protoman/Bass Bashers...? Maybe those guys can hide in stages like the X-Hunters.
-	"res://scenes/Stages/Robot Masters/origami_man.tscn",	# Origami Man
-	# row 3
-	"res://scenes/Stages/Robot Masters/gale_woman.tscn",	# Gale Woman
-	"res://scenes/Stages/Robot Masters/guerrilla_man.tscn",	# Guerrilla Man
-	"res://scenes/Stages/Robot Masters/reaper_man.tscn"		# Reaper Man
+const _playerPortraits := [
+	preload("res://sprites/Menus/Stage Select - Bass - Atlas.tres"),
+	preload("res://sprites/Menus/Stage Select - Copy Robot - Atlas.tres")
 ]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if GlobalVars.character_selected == 1: # Copy Robot was selected
-		%Player.texture = load("res://sprites/Menus/Stage Select - Copy Robot.png")
+	var player := %Player as StageSelectPanel
+	player.portrait = _playerPortraits[GameState.character_selected]
 	await Fade.fade_in().finished
-
-
-func _on_panel_focus_entered():
-	$SelectSound.play()
+	%Player.grab_focus()
+	
+func panel_focused(index: int):
+	var player := %Player as StageSelectPanel
+	if not player: return
+	var portrait := player.portrait as AtlasTexture
+	if not portrait: return
+	portrait.region.position.x = (floor(portrait.atlas.get_width()) / 9) * index

@@ -44,7 +44,7 @@ shader = SubResource("5")
 shader_parameter/color = Color(0, 0, 0, 1)
 shader_parameter/smooth_mode = false
 shader_parameter/reverse = false
-shader_parameter/opacity = 1.0
+shader_parameter/opacity = 0.0
 shader_parameter/use_custom_texture = false
 
 [sub_resource type="Animation" id="2"]
