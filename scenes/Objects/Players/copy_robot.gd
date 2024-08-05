@@ -8,6 +8,8 @@ signal hit_ground()
 
 var fall_animator : int
 
+var flash_timer : int
+
 var is_sliding : bool
 var slide_stopped : bool
 
@@ -37,7 +39,9 @@ var weapon_palette = [
 	"res://sprites/Players/Copy Robot/Palettes/Mirror Buster.png",
 	"res://sprites/Players/Copy Robot/Palettes/Screw Crusher.png",
 	"res://sprites/Players/Copy Robot/Palettes/Ballade Cracker.png",
-	"res://sprites/Players/Copy Robot/Palettes/Sakugarne.png"
+	"res://sprites/Players/Copy Robot/Palettes/Sakugarne.png",
+	"res://sprites/Players/Copy Robot/Palettes/ChargeX1.png"
+	
 ]
 var charge_palette = [
 	"res://sprites/Players/Copy Robot/Palettes/None.png",
@@ -249,6 +253,13 @@ func _input(_event):
 		$AnimatedSprite2D.material.set_shader_parameter("palette",load(weapon_palette[current_weapon]))
 
 func _physics_process(delta):
+	if flash_timer == 1:
+		$AnimatedSprite2D.material.set_shader_parameter("palette",load(weapon_palette[17]))
+		flash_timer = 0
+	else:
+		$AnimatedSprite2D.material.set_shader_parameter("palette",load(weapon_palette[current_weapon]))
+		flash_timer = 1
+	
 	if teleporting == true:
 #		$MainHitbox.set_disabled(true)
 		if position.y == targetpos or position.y > targetpos:
@@ -264,7 +275,7 @@ func _physics_process(delta):
 		else:
 			position.y = position.y + 7
 			return
-
+			
 	if is_feet_on_ground() and is_sliding:
 		$MainHitbox.set_disabled(true)
 		$SlideHitbox.set_disabled(false)
