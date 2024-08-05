@@ -6,6 +6,7 @@ extends Node2D
 func _ready():
 	$Camera2D.position = $StartPosition.position
 	await Fade.fade_in().finished
+	$Music.play()
 	var player_scene : PackedScene = load(
 		GameState.characters[
 			GameState.character_selected
@@ -16,7 +17,7 @@ func _ready():
 	player.position.x = $StartPosition.position.x
 	player.targetpos = $StartPosition.position.y
 	await player.teleported
-	$Music.play()
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
