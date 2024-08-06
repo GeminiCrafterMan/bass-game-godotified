@@ -732,7 +732,7 @@ func weapon_buster():
 				projectile.velocity.x = 450
 			charge = 0
 			return
-		if charge >= 64: # da big boi
+		if charge >= 92: # da big boi
 			shot_type = 0
 			shoot_delay = 13
 			projectile = projectile_scenes[2].instantiate()
