@@ -2,18 +2,27 @@ extends CharacterBody2D
 
 class_name BassPlayer
 
+@onready var projectile
+
 signal jumped(is_ground_jump: bool)
 signal dashed(is_ground_dash: bool)
 signal hit_ground()
 
 var fall_animator : int
 
+var no_grounded_movement : bool
 var is_dashing : bool
 var dash_timer : int
 var blast_jumped : bool
 
 var current_weapon : int
 var old_weapon : int
+var shoot_delay = 0
+var shot_type = 0
+
+# Change the animation with keeping the frame index and progress.
+@onready var current_frame = $AnimatedSprite2D.get_frame()
+@onready var current_progress = $AnimatedSprite2D.get_frame_progress()
 
 var teleporting = true
 var targetpos : float
@@ -32,8 +41,35 @@ var weapon_palette: Array[Texture2D] = [
 	preload("res://sprites/Players/Bass/Palettes/Proto Buster.png"),
 	preload("res://sprites/Players/Bass/Palettes/Treble.png")
 ]
-
-
+var energy = [
+	0,	# Buster
+	28,	# Scorch Barrier
+	28,	# Freeze Frame
+	28,	# Poison Cloud
+	28,	# Fin Shredder
+	28,	# Origami Star
+	28,	# Wild Gale
+	28,	# Rolling Bomb
+	28,	# Boomerang Scythe
+	28,	# Proto Buster
+	28	# Treble Boost
+]
+var max_energy = [ # Energy use is always 1, *no matter what*. Increase energy and max_energy values to have larger shot counts.
+	0,	# Buster
+	28,	# Scorch Barrier
+	28,	# Freeze Frame
+	28,	# Poison Cloud
+	28,	# Fin Shredder
+	28,	# Origami Star
+	28,	# Wild Gale
+	28,	# Rolling Bomb
+	28,	# Boomerang Scythe
+	28,	# Proto Buster
+	28	# Treble Boost
+]
+var projectile_scenes = [
+	preload("res://scenes/Objects/Players/Weapons/Bass/buster.tscn")
+]
 
 # Set these to the name of your action (in the Input Map)
 ## Name of input action to climb up or generally press up.
@@ -48,6 +84,10 @@ var weapon_palette: Array[Texture2D] = [
 @export var input_jump : String = "jump"
 ## Name of input action to dash.
 @export var input_dash : String = "dash"
+## Name of input action to shoot.
+@export var input_shoot : String = "shoot"
+## Name of input action to fire the buster.
+@export var input_buster : String = "buster"
 ## Name of input actions to switch weapons.
 @export var input_switch_left : String = "switch_left"
 @export var input_switch_right : String = "switch_right"
@@ -131,7 +171,7 @@ var double_jump_velocity : float
 var release_gravity_multiplier : float
 
 
-var jumps_left : int
+var jumps_left = 0
 var holding_jump := false
 
 enum JumpType {NONE, GROUND, AIR}
@@ -171,15 +211,6 @@ func _ready():
 func _input(_event):
 	if teleporting == true:
 		return
-	if (is_dashing == false || is_feet_on_ground() == false || !(Input.is_action_pressed(input_dash))):
-		acc.x = 0
-		if Input.is_action_pressed(input_left):
-			$AnimatedSprite2D.flip_h = true
-			acc.x = -max_acceleration
-		
-		if Input.is_action_pressed(input_right):
-			$AnimatedSprite2D.flip_h = false
-			acc.x = max_acceleration
 	
 	if Input.is_action_just_pressed(input_jump):
 		holding_jump = true
@@ -289,26 +320,41 @@ func _physics_process(delta):
 			$AnimatedSprite2D.play("Idle")
 			teleporting = false
 			teleported.emit()
+			$Audio/StartSound.play()
 #			$MainHitbox.set_disabled(false)
 		else:
-			position.y = position.y + 7
+			position.y += 7
 			return
-
-	if is_feet_on_ground() and is_dashing and GameState.modules_enabled[3] == true:
-		$MainHitbox.set_disabled(true)
-		$MistDashHitbox.set_disabled(false)
-		if $CeilingCheck.is_colliding():
-			dash_timer = 10
 	else:
-		$MainHitbox.set_disabled(false)
-		$MistDashHitbox.set_disabled(true)
+		handle_weapons()
+		weapon_buster()
+	#	do_charge_palette()
+		
+		if (is_dashing == false || is_feet_on_ground() == false || !(Input.is_action_pressed(input_dash))):
+			acc.x = 0
+			if Input.is_action_pressed(input_left):
+				$AnimatedSprite2D.flip_h = true
+				acc.x = -max_acceleration
+				
+			if Input.is_action_pressed(input_right):
+				$AnimatedSprite2D.flip_h = false
+				acc.x = max_acceleration
+		if is_feet_on_ground() and no_grounded_movement == true:
+			acc.x = 0
+		
+		if is_feet_on_ground() and is_dashing and GameState.modules_enabled[3] == true:
+			$MainHitbox.set_disabled(true)
+			$MistDashHitbox.set_disabled(false)
+			if $CeilingCheck.is_colliding():
+				dash_timer = 10
+		else:
+			$MainHitbox.set_disabled(false)
+			$MistDashHitbox.set_disabled(true)
 
-	if is_coyote_timer_running() or current_jump_type == JumpType.NONE:
-		jumps_left = max_jump_amount
-	if is_feet_on_ground() and current_jump_type == JumpType.NONE:
-		start_coyote_timer()
-
-	if teleporting == false:
+		if is_coyote_timer_running() or current_jump_type == JumpType.NONE:
+			jumps_left = max_jump_amount
+		if is_feet_on_ground() and current_jump_type == JumpType.NONE:
+			start_coyote_timer()
 		# Check if we just hit the ground this frame
 		if not _was_on_ground and is_feet_on_ground():
 			current_jump_type = JumpType.NONE
@@ -327,7 +373,7 @@ func _physics_process(delta):
 		if blast_jumped == false && (GameState.modules_enabled[1] == true):
 			blastjump()
 	
-	if Input.is_action_pressed(input_dash):
+	if Input.is_action_pressed(input_dash) and no_grounded_movement == false:
 		if can_ground_jump():
 			if Input.is_action_just_pressed(input_dash):
 				dash()
@@ -455,7 +501,7 @@ func ground_jump():
 
 ## Perform a ground dash, or an air dash if... we ever add that?
 func dash():
-	if (is_dashing == false):
+	if is_dashing == false and is_feet_on_ground():
 		$Audio/DashSound.play()
 		is_dashing = true
 		ground_dash()
@@ -537,6 +583,8 @@ func calculate_speed(p_max_speed, p_friction):
 	return (p_max_speed / p_friction) - p_max_speed
 
 func animate():
+	current_frame = $AnimatedSprite2D.get_frame()
+	current_progress = $AnimatedSprite2D.get_frame_progress()
 	if (is_feet_on_ground() == true):
 		if (is_dashing):
 			if (GameState.modules_enabled[3] == true):
@@ -546,26 +594,132 @@ func animate():
 				$AnimatedSprite2D.play("Dash")
 				return
 		if (abs(velocity.x) == 0):
-			$AnimatedSprite2D.play("Idle")
+			if shoot_delay > 0:
+				match shot_type:
+					0:
+						if Input.is_action_pressed(input_up):
+							if Input.is_action_pressed(input_left) or Input.is_action_pressed(input_right):
+								$AnimatedSprite2D.play("Idle-Shoot Steady Diagonal")
+							else:
+								$AnimatedSprite2D.play("Idle-Shoot Steady Up")
+						elif Input.is_action_pressed(input_down):
+							$AnimatedSprite2D.play("Idle-Shoot Steady Down")
+						else:
+							$AnimatedSprite2D.play("Idle-Shoot Steady")
+					_:
+						$AnimatedSprite2D.play("Idle-Shoot")
+			else:
+				$AnimatedSprite2D.play("Idle")
 		else:
 			if (abs(velocity.x) > 50):
-				$AnimatedSprite2D.play("Walk")
+				if shoot_delay > 0:
+					match shot_type:
+						0:
+							if Input.is_action_pressed(input_up):
+								if Input.is_action_pressed(input_left) or Input.is_action_pressed(input_right):
+									$AnimatedSprite2D.play("Idle-Shoot Steady Diagonal")
+								else:
+									$AnimatedSprite2D.play("Idle-Shoot Steady Up")
+							elif Input.is_action_pressed(input_down):
+								$AnimatedSprite2D.play("Idle-Shoot Steady Down")
+							else:
+								$AnimatedSprite2D.play("Idle-Shoot Steady")
+						_:
+							$AnimatedSprite2D.play("Walk-Shoot")
+							$AnimatedSprite2D.set_frame_and_progress(current_frame, current_progress)
+				else:
+					$AnimatedSprite2D.play("Walk")
+					$AnimatedSprite2D.set_frame_and_progress(current_frame, current_progress)
 			else:
-				$AnimatedSprite2D.play("Step")
+				if shoot_delay > 0:
+					match shot_type:
+						0:
+							if Input.is_action_pressed(input_up):
+								if Input.is_action_pressed(input_left) or Input.is_action_pressed(input_right):
+									$AnimatedSprite2D.play("Idle-Shoot Steady Diagonal")
+								else:
+									$AnimatedSprite2D.play("Idle-Shoot Steady Up")
+							elif Input.is_action_pressed(input_down):
+								$AnimatedSprite2D.play("Idle-Shoot Steady Down")
+							else:
+								$AnimatedSprite2D.play("Idle-Shoot Steady")
+						_:
+							$AnimatedSprite2D.play("Idle-Shoot")
+				else:
+					if shoot_delay > 0:
+						match shot_type:
+							_:
+								$AnimatedSprite2D.play("Idle-Shoot")
+					else:
+						$AnimatedSprite2D.play("Step")
 	else:
-		if (velocity.y < 0):
-			$AnimatedSprite2D.play("Jump")
-			fall_animator = 0
-		if (velocity.y > 0):
-			fall_animator = fall_animator + 1
-			if  fall_animator < 4:
-				$AnimatedSprite2D.play("Jump Transition")
-			else:
-				$AnimatedSprite2D.play("Fall")
 
-# lol i plucked this from the example for .play(), this'll be useful for firing anims
-# Change the animation with keeping the frame index and progress.
-#var current_frame = $AnimatedSprite2D.get_frame()
-#var current_progress = $AnimatedSprite2D.get_frame_progress()
-#$AnimatedSprite2D.play("Walk-Shoot")
-#$AnimatedSprite2D.set_frame_and_progress(current_frame, current_progress)
+			if shoot_delay > 0:
+				match shot_type:
+					0:
+						if Input.is_action_pressed(input_up):
+							if Input.is_action_pressed(input_left) or Input.is_action_pressed(input_right):
+								$AnimatedSprite2D.play("Jump-Shoot Diagonal")
+							else:
+								$AnimatedSprite2D.play("Jump-Shoot Up")
+						elif Input.is_action_pressed(input_down):
+							$AnimatedSprite2D.play("Jump-Shoot Down")
+						else:
+							$AnimatedSprite2D.play("Jump-Shoot")
+					_:
+						$AnimatedSprite2D.play("Jump-Shoot")
+			else:
+				if (velocity.y < 0):
+					$AnimatedSprite2D.play("Jump")
+					fall_animator = 0
+				if (velocity.y > 0):
+					fall_animator = fall_animator + 1
+					if  fall_animator < 4:
+						$AnimatedSprite2D.play("Jump Transition")
+					else:
+						$AnimatedSprite2D.play("Fall")
+
+func handle_weapons():
+	match current_weapon:
+		_:
+			return
+
+func weapon_buster():
+	if shoot_delay > 0:
+		shoot_delay -= 1
+		no_grounded_movement = true
+	else:
+		no_grounded_movement = false
+	if (current_weapon == 0 and Input.is_action_pressed(input_shoot)) or Input.is_action_pressed(input_buster):
+		if shoot_delay < 7:
+			shot_type = 0
+			shoot_delay = 13
+			projectile = projectile_scenes[0].instantiate()
+			get_parent().add_child(projectile)
+			projectile.position.x = position.x
+			projectile.position.y = position.y
+			if $AnimatedSprite2D.flip_h:
+				projectile.scale.x = -1
+			# inputs
+			if Input.is_action_pressed(input_up):
+				if Input.is_action_pressed(input_left) or Input.is_action_pressed(input_right):
+					if $AnimatedSprite2D.flip_h:
+						projectile.velocity.x = -225
+					else:
+						projectile.velocity.x = 225
+					projectile.velocity.y = -225
+				else:
+					projectile.velocity.y = -450
+			elif Input.is_action_pressed(input_down):
+				if $AnimatedSprite2D.flip_h:
+					projectile.velocity.x = -225
+				else:
+					projectile.velocity.x = 225
+				projectile.velocity.y = 225
+			else:
+				if $AnimatedSprite2D.flip_h:
+					projectile.velocity.x = -450
+				else:
+					projectile.velocity.x = 450
+		is_dashing = false
+		return

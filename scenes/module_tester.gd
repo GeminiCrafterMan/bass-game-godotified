@@ -60,3 +60,11 @@ func _on_check_button_18_toggled(toggled_on):
 
 func _on_check_button_19_toggled(toggled_on):
 	GameState.weapons_unlocked[10] = toggled_on
+
+func _on_button_toggled(toggled_on):
+	if toggled_on == true:
+		$Modules.hide()
+		$Weapons.hide()
+	else:
+		$Modules.show()
+		$Weapons.show()

@@ -2,12 +2,15 @@ extends CharacterBody2D
 
 class_name CopyRobotPlayer
 
+@onready var projectile
+
 signal jumped(is_ground_jump: bool)
 signal dashed(is_ground_dash: bool)
 signal hit_ground()
 
 var fall_animator : int
 
+var charge : int
 var flash_timer : int
 
 var is_sliding : bool
@@ -16,39 +19,81 @@ var slide_stopped : bool
 var slide_timer : int
 
 var current_weapon : int
-#var old_weapon : int
+var old_weapon : int
+var shoot_delay = 0
+var shot_type = 0
+
+# Change the animation with keeping the frame index and progress.
+@onready var current_frame = $AnimatedSprite2D.get_frame()
+@onready var current_progress = $AnimatedSprite2D.get_frame_progress()
 
 var teleporting = true
 var targetpos : float
 signal teleported
 
-var weapon_palette = [
-	"res://sprites/Players/Copy Robot/Palettes/None.png",
-	"res://sprites/Players/Copy Robot/Palettes/Scorch Barrier.png",
-	"res://sprites/Players/Copy Robot/Palettes/Track 2.png",
-	"res://sprites/Players/Copy Robot/Palettes/Poison Cloud.png",
-	"res://sprites/Players/Copy Robot/Palettes/Fin Shredder.png",
-	"res://sprites/Players/Copy Robot/Palettes/Origami Star.png",
-	"res://sprites/Players/Copy Robot/Palettes/Wild Gale.png",
-	"res://sprites/Players/Copy Robot/Palettes/Rolling Bomb.png",
-	"res://sprites/Players/Copy Robot/Palettes/Boomerang Scythe.png",
-	"res://sprites/Players/Copy Robot/Palettes/None.png", # Proto Shield
-	"res://sprites/Players/Copy Robot/Palettes/None.png", # "Treble Boost" (skip it)
-	"res://sprites/Players/Copy Robot/Palettes/Carry.png",
-	"res://sprites/Players/Copy Robot/Palettes/Super Arrow.png",
-	"res://sprites/Players/Copy Robot/Palettes/Mirror Buster.png",
-	"res://sprites/Players/Copy Robot/Palettes/Screw Crusher.png",
-	"res://sprites/Players/Copy Robot/Palettes/Ballade Cracker.png",
-	"res://sprites/Players/Copy Robot/Palettes/Sakugarne.png",
-	"res://sprites/Players/Copy Robot/Palettes/ChargeX1.png"
-	
+var weapon_palette: Array[Texture2D] = [
+	preload("res://sprites/Players/Copy Robot/Palettes/None.png"),
+	preload("res://sprites/Players/Copy Robot/Palettes/Scorch Barrier.png"),
+	preload("res://sprites/Players/Copy Robot/Palettes/Track 2.png"),
+	preload("res://sprites/Players/Copy Robot/Palettes/Poison Cloud.png"),
+	preload("res://sprites/Players/Copy Robot/Palettes/Fin Shredder.png"),
+	preload("res://sprites/Players/Copy Robot/Palettes/Origami Star.png"),
+	preload("res://sprites/Players/Copy Robot/Palettes/Wild Gale.png"),
+	preload("res://sprites/Players/Copy Robot/Palettes/Rolling Bomb.png"),
+	preload("res://sprites/Players/Copy Robot/Palettes/Boomerang Scythe.png"),
+	preload("res://sprites/Players/Copy Robot/Palettes/None.png"), # Proto Shield
+	preload("res://sprites/Players/Copy Robot/Palettes/None.png"), # "Treble Boost" (skip it)
+	preload("res://sprites/Players/Copy Robot/Palettes/Carry.png"),
+	preload("res://sprites/Players/Copy Robot/Palettes/Super Arrow.png"),
+	preload("res://sprites/Players/Copy Robot/Palettes/Mirror Buster.png"),
+	preload("res://sprites/Players/Copy Robot/Palettes/Screw Crusher.png"),
+	preload("res://sprites/Players/Copy Robot/Palettes/Ballade Cracker.png"),
+	preload("res://sprites/Players/Copy Robot/Palettes/Sakugarne.png"),
+	preload("res://sprites/Players/Copy Robot/Palettes/ChargeX1.png"),
+	preload("res://sprites/Players/Copy Robot/Palettes/ChargeX2.png")
 ]
-var charge_palette = [
-	"res://sprites/Players/Copy Robot/Palettes/None.png",
-	"res://sprites/Players/Copy Robot/Palettes/Charge 1.png",
-	"res://sprites/Players/Copy Robot/Palettes/Charge 2.png",
-	"res://sprites/Players/Copy Robot/Palettes/Charge 3.png",
-	"res://sprites/Players/Copy Robot/Palettes/Charge Release.png"
+var energy = [
+	0,	# Buster
+	28,	# Scorch Barrier
+	28,	# Track 2
+	28,	# Poison Cloud
+	28,	# Fin Shredder
+	28,	# Origami Star
+	28,	# Wild Gale
+	28,	# Rolling Bomb
+	28,	# Boomerang Scythe
+	0,	# Proto Shield
+	0,	# "Treble Boost", which will be skipped
+	28,	# Carry
+	28,	# Super Arrow
+	28,	# Mirror Buster
+	28,	# Screw Crusher
+	28,	# Ballade Cracker
+	28	# Sakugarne
+]
+var max_energy = [ # Energy use is always 1, *no matter what*. Increase energy and max_energy values to have larger shot counts.
+	0,	# Buster
+	28,	# Scorch Barrier
+	28,	# Track 2
+	28,	# Poison Cloud
+	28,	# Fin Shredder
+	28,	# Origami Star
+	28,	# Wild Gale
+	28,	# Rolling Bomb
+	28,	# Boomerang Scythe
+	0,	# Proto Shield
+	0,	# "Treble Boost", which will be skipped
+	28,	# Carry
+	28,	# Super Arrow
+	28,	# Mirror Buster
+	28,	# Screw Crusher
+	28,	# Ballade Cracker
+	28	# Sakugarne
+]
+var projectile_scenes = [
+	preload("res://scenes/Objects/Players/Weapons/Copy Robot/buster_small.tscn"),
+	preload("res://scenes/Objects/Players/Weapons/Copy Robot/buster_medium.tscn"),
+	preload("res://scenes/Objects/Players/Weapons/Copy Robot/buster_large.tscn")
 ]
 
 # Set these to the name of your action (in the Input Map)
@@ -64,6 +109,10 @@ var charge_palette = [
 @export var input_jump : String = "jump"
 ## Name of input action to dash.
 @export var input_dash : String = "dash"
+## Name of input action to shoot.
+@export var input_shoot : String = "shoot"
+## Name of input action to fire the buster.
+@export var input_buster : String = "buster"
 ## Name of input actions to switch weapons.
 @export var input_switch_left : String = "switch_left"
 @export var input_switch_right : String = "switch_right"
@@ -147,7 +196,7 @@ var double_jump_velocity : float
 var release_gravity_multiplier : float
 
 
-var jumps_left : int
+var jumps_left = 0
 var holding_jump := false
 
 enum JumpType {NONE, GROUND, AIR}
@@ -194,72 +243,114 @@ func _input(_event):
 			start_jump_buffer_timer()
 			if (not can_hold_jump and can_ground_jump()) or can_double_jump():
 				jump()
-		
-	
-	if (is_sliding == false || is_feet_on_ground() == false):
-		acc.x = 0
-		if Input.is_action_pressed(input_left):
-			$AnimatedSprite2D.flip_h = true
-			acc.x = -max_acceleration
-		
-		if Input.is_action_pressed(input_right):
-			$AnimatedSprite2D.flip_h = false
-			acc.x = max_acceleration
-			
-	if (is_sliding == true):
-		if Input.is_action_pressed(input_left) && $AnimatedSprite2D.flip_h == false:
-			is_sliding = false
-			slide_timer = 0
-			$AnimatedSprite2D.flip_h = true
-			acc.x = -max_acceleration
-			
-		if Input.is_action_pressed(input_right) && $AnimatedSprite2D.flip_h == true:
-			is_sliding = false
-			slide_timer = 0
-			$AnimatedSprite2D.flip_h = false
-			acc.x = max_acceleration
 	
 	if Input.is_action_just_released(input_jump):
 		holding_jump = false
 	
 	if Input.is_action_just_pressed(input_switch_left):
-		if (current_weapon == 11):
-			current_weapon = 9
+		old_weapon = current_weapon
 		if (current_weapon == 0):
-			current_weapon = 16
+			current_weapon = 10
+			
 		else:
 			current_weapon = current_weapon - 1
-		$Audio/SwitchSound.play()
-		$AnimatedSprite2D.material.set_shader_parameter("palette",load(weapon_palette[current_weapon]))
+			
+			#make sure to clean this up later, I don't wanna -mengo
+		if (current_weapon == 16 && GameState.weapons_unlocked[16] == false):
+			current_weapon = current_weapon - 1
+		if (current_weapon == 15 && GameState.weapons_unlocked[15] == false):
+			current_weapon = current_weapon - 1
+		if (current_weapon == 14 && GameState.weapons_unlocked[14] == false):
+			current_weapon = current_weapon - 1
+		if (current_weapon == 13 && GameState.weapons_unlocked[13] == false):
+			current_weapon = current_weapon - 1
+		if (current_weapon == 12 && GameState.weapons_unlocked[12] == false):
+			current_weapon = current_weapon - 1
+		if (current_weapon == 11 && GameState.weapons_unlocked[11] == false):
+			current_weapon = current_weapon - 1
+		if (current_weapon == 9 && GameState.weapons_unlocked[9] == false):
+			current_weapon = current_weapon - 2
+		if (current_weapon == 8 && GameState.weapons_unlocked[8] == false):
+			current_weapon = current_weapon - 1
+		if (current_weapon == 7 && GameState.weapons_unlocked[7] == false):
+			current_weapon = current_weapon - 1
+		if (current_weapon == 6 && GameState.weapons_unlocked[6] == false):
+			current_weapon = current_weapon - 1
+		if (current_weapon == 5 && GameState.weapons_unlocked[5] == false):
+			current_weapon = current_weapon - 1
+		if (current_weapon == 4 && GameState.weapons_unlocked[4] == false):
+			current_weapon = current_weapon - 1
+		if (current_weapon == 3 && GameState.weapons_unlocked[3] == false):
+			current_weapon = current_weapon - 1
+		if (current_weapon == 2 && GameState.weapons_unlocked[2] == false):
+			current_weapon = current_weapon - 1
+		if (current_weapon == 1 && GameState.weapons_unlocked[1] == false):
+			current_weapon = current_weapon - 1
+			
+		if old_weapon != current_weapon:
+			$Audio/SwitchSound.play()
+		$AnimatedSprite2D.material.set_shader_parameter("palette", weapon_palette[current_weapon])
+	
+	
 	
 	if Input.is_action_just_pressed(input_switch_right):
-		if (current_weapon == 9):
-			current_weapon = 11
-		if (current_weapon == 16):
+		old_weapon = current_weapon
+		if (current_weapon == 10):
 			current_weapon = 0
+			
 		else:
 			current_weapon = current_weapon + 1
-		$Audio/SwitchSound.play()
-		$AnimatedSprite2D.material.set_shader_parameter("palette",load(weapon_palette[current_weapon]))
+			
+		#make sure to clean this up later, I don't wanna -mengo
+		if (current_weapon == 1 && GameState.weapons_unlocked[1] == false):
+			current_weapon = current_weapon + 1
+		if (current_weapon == 2 && GameState.weapons_unlocked[2] == false):
+			current_weapon = current_weapon + 1
+		if (current_weapon == 3 && GameState.weapons_unlocked[3] == false):
+			current_weapon = current_weapon + 1
+		if (current_weapon == 4 && GameState.weapons_unlocked[4] == false):
+			current_weapon = current_weapon + 1
+		if (current_weapon == 5 && GameState.weapons_unlocked[5] == false):
+			current_weapon = current_weapon + 1
+		if (current_weapon == 6 && GameState.weapons_unlocked[6] == false):
+			current_weapon = current_weapon + 1
+		if (current_weapon == 7 && GameState.weapons_unlocked[7] == false):
+			current_weapon = current_weapon + 1
+		if (current_weapon == 8 && GameState.weapons_unlocked[8] == false):
+			current_weapon = current_weapon + 1
+		if (current_weapon == 9 && GameState.weapons_unlocked[9] == false):
+			current_weapon = current_weapon + 2
+		if (current_weapon == 11 && GameState.weapons_unlocked[11] == false):
+			current_weapon = current_weapon + 1
+		if (current_weapon == 12 && GameState.weapons_unlocked[12] == false):
+			current_weapon = current_weapon + 1
+		if (current_weapon == 13 && GameState.weapons_unlocked[13] == false):
+			current_weapon = current_weapon + 1
+		if (current_weapon == 14 && GameState.weapons_unlocked[14] == false):
+			current_weapon = current_weapon + 1
+		if (current_weapon == 15 && GameState.weapons_unlocked[15] == false):
+			current_weapon = current_weapon + 1
+		if (current_weapon == 16 && GameState.weapons_unlocked[16] == false):
+			current_weapon = 0
+
+
+		if old_weapon != current_weapon:
+			$Audio/SwitchSound.play()
+		$AnimatedSprite2D.material.set_shader_parameter("palette", weapon_palette[current_weapon])
 
 	if  (Input.is_action_just_pressed(input_switch_left) && Input.is_action_pressed(input_switch_right)):
 		current_weapon = 0
-		$Audio/SwitchSound.play()
-		$AnimatedSprite2D.material.set_shader_parameter("palette",load(weapon_palette[current_weapon]))
+		if old_weapon != current_weapon:
+			$Audio/SwitchSound.play()
+		$AnimatedSprite2D.material.set_shader_parameter("palette", weapon_palette[current_weapon])
 	
 	if  (Input.is_action_pressed(input_switch_left) && Input.is_action_just_pressed(input_switch_right)):
 		current_weapon = 0
-		$Audio/SwitchSound.play()
-		$AnimatedSprite2D.material.set_shader_parameter("palette",load(weapon_palette[current_weapon]))
+		if old_weapon != current_weapon:
+			$Audio/SwitchSound.play()
+		$AnimatedSprite2D.material.set_shader_parameter("palette", weapon_palette[current_weapon])
 
 func _physics_process(delta):
-	if flash_timer == 1:
-		$AnimatedSprite2D.material.set_shader_parameter("palette",load(weapon_palette[17]))
-		flash_timer = 0
-	else:
-		$AnimatedSprite2D.material.set_shader_parameter("palette",load(weapon_palette[current_weapon]))
-		flash_timer = 1
-	
 	if teleporting == true:
 #		$MainHitbox.set_disabled(true)
 		if position.y == targetpos or position.y > targetpos:
@@ -271,26 +362,52 @@ func _physics_process(delta):
 			$AnimatedSprite2D.play("Idle")
 			teleporting = false
 			teleported.emit()
+			$Audio/StartSound.play()
 #			$MainHitbox.set_disabled(false)
 		else:
-			position.y = position.y + 7
+			position.y += 7
 			return
-			
-	if is_feet_on_ground() and is_sliding:
-		$MainHitbox.set_disabled(true)
-		$SlideHitbox.set_disabled(false)
-		if $CeilingCheck.is_colliding():
-			slide_timer = 10
 	else:
-		$MainHitbox.set_disabled(false)
-		$SlideHitbox.set_disabled(true)
+		if (is_sliding == false || is_feet_on_ground() == false):
+			acc.x = 0
+			if Input.is_action_pressed(input_left):
+				$AnimatedSprite2D.flip_h = true
+				acc.x = -max_acceleration
+			
+			if Input.is_action_pressed(input_right):
+				$AnimatedSprite2D.flip_h = false
+				acc.x = max_acceleration
+				
+		if (is_sliding == true):
+			if Input.is_action_pressed(input_left) && $AnimatedSprite2D.flip_h == false:
+				is_sliding = false
+				slide_timer = 0
+				$AnimatedSprite2D.flip_h = true
+				acc.x = -max_acceleration
+				
+			if Input.is_action_pressed(input_right) && $AnimatedSprite2D.flip_h == true:
+				is_sliding = false
+				slide_timer = 0
+				$AnimatedSprite2D.flip_h = false
+				acc.x = max_acceleration
 
-	if is_coyote_timer_running() or current_jump_type == JumpType.NONE:
-		jumps_left = max_jump_amount
-	if is_feet_on_ground() and current_jump_type == JumpType.NONE:
-		start_coyote_timer()
-	
-	if teleporting == false:
+		handle_weapons()
+		weapon_buster()
+		do_charge_palette()
+		
+		if is_feet_on_ground() and is_sliding:
+			$MainHitbox.set_disabled(true)
+			$SlideHitbox.set_disabled(false)
+			if $CeilingCheck.is_colliding():
+				slide_timer = 10
+		else:
+			$MainHitbox.set_disabled(false)
+			$SlideHitbox.set_disabled(true)
+
+		if is_coyote_timer_running() or current_jump_type == JumpType.NONE:
+			jumps_left = max_jump_amount
+		if is_feet_on_ground() and current_jump_type == JumpType.NONE:
+			start_coyote_timer()
 		# Check if we just hit the ground this frame
 		if not _was_on_ground and is_feet_on_ground():
 			current_jump_type = JumpType.NONE
@@ -305,6 +422,7 @@ func _physics_process(delta):
 			jump()
 
 	if Input.is_action_pressed(input_down) || is_sliding == true:
+		# check this later, might need a small rework
 		if can_ground_jump():
 			if Input.is_action_just_pressed(input_jump) && slide_stopped == false:
 				slide()
@@ -388,10 +506,11 @@ func is_feet_on_ground():
 
 ## Perform a ground jump, or a double jump if the character is in the air.
 func jump():
-	$Audio/JumpSound.play()
 	if can_double_jump():
+		$Audio/JumpSound.play()
 		double_jump()
-	else:
+	elif is_feet_on_ground():
+		$Audio/JumpSound.play()
 		ground_jump()
 
 ## Perform a double jump without checking if the player is able to.
@@ -498,33 +617,138 @@ func calculate_speed(p_max_speed, p_friction):
 	return (p_max_speed / p_friction) - p_max_speed
 
 func animate():
+	current_frame = $AnimatedSprite2D.get_frame()
+	current_progress = $AnimatedSprite2D.get_frame_progress()
 	if (is_feet_on_ground() == true):
 		if (is_sliding):
 			$AnimatedSprite2D.play("Slide")
 			return
 		if (abs(velocity.x) == 0):
-			$AnimatedSprite2D.play("Idle")
+			if shoot_delay == 0:
+				$AnimatedSprite2D.play("Idle")
+			else:
+				match shot_type:
+					_:
+						$AnimatedSprite2D.play("Idle-Shoot")
 			slide_stopped = false
 		else:
 			if (abs(velocity.x) > 50):
-				$AnimatedSprite2D.play("Walk")
+				if shoot_delay == 0:
+					$AnimatedSprite2D.play("Walk")
+					$AnimatedSprite2D.set_frame_and_progress(current_frame, current_progress)
+				else:
+					match shot_type:
+						_:
+							$AnimatedSprite2D.play("Walk-Shoot")
+							$AnimatedSprite2D.set_frame_and_progress(current_frame, current_progress)
 			else:
-				$AnimatedSprite2D.play("Step")
+				if shoot_delay == 0:
+					$AnimatedSprite2D.play("Step")
+				else:
+					match shot_type:
+						_:
+							$AnimatedSprite2D.play("Idle-Shoot")
 				slide_stopped = false
 	else:
-		if (velocity.y < 0):
-			$AnimatedSprite2D.play("Jump")
-			fall_animator = 0
-		if (velocity.y > 0):
-			fall_animator = fall_animator + 1
-			if  fall_animator < 4:
-				$AnimatedSprite2D.play("Jump Transition")
-			else:
-				$AnimatedSprite2D.play("Fall")
+		if shoot_delay == 0:
+			if (velocity.y < 0):
+				$AnimatedSprite2D.play("Jump")
+				fall_animator = 0
+			if (velocity.y > 0):
+				fall_animator = fall_animator + 1
+				if  fall_animator < 4:
+					$AnimatedSprite2D.play("Jump Transition")
+				else:
+					$AnimatedSprite2D.play("Fall")
+		else:
+			match shot_type:
+				_:
+					$AnimatedSprite2D.play("Jump-Shoot")
 
-# lol i plucked this from the example for .play(), this'll be useful for firing anims
-# Change the animation with keeping the frame index and progress.
-#var current_frame = $AnimatedSprite2D.get_frame()
-#var current_progress = $AnimatedSprite2D.get_frame_progress()
-#$AnimatedSprite2D.play("Walk-Shoot")
-#$AnimatedSprite2D.set_frame_and_progress(current_frame, current_progress)
+func do_charge_palette():
+	if charge == 0 or charge < 37: # no charge
+		$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[current_weapon])
+	elif charge >= 37 && charge < 65: # just started charging
+		if flash_timer == 2 || flash_timer == 3:
+			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[17])
+			flash_timer += 1
+		else:
+			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[current_weapon])
+			flash_timer += 1
+		if flash_timer == 3:
+			flash_timer = 0
+	elif charge >= 65 && charge < 92:
+		if flash_timer == 1:
+			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[17])
+			flash_timer = 0
+		else:
+			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[current_weapon])
+			flash_timer = 1
+	elif charge >= 92:
+		if flash_timer == 1:
+			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[18])
+			flash_timer = 0
+		else:
+			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[current_weapon])
+			flash_timer = 1
+
+func handle_weapons():
+	match current_weapon:
+		_:
+			return
+
+func weapon_buster():
+	if shoot_delay > 0:
+		shoot_delay -= 1
+	if (current_weapon == 0 and Input.is_action_just_pressed("shoot")) or Input.is_action_just_pressed("buster"):
+		shot_type = 0
+		shoot_delay = 13
+		projectile = projectile_scenes[0].instantiate()
+		get_parent().add_child(projectile)
+		projectile.position.x = position.x
+		projectile.position.y = position.y
+		if $AnimatedSprite2D.flip_h:
+			projectile.velocity.x = -350
+			projectile.scale.x = -1
+		else:
+			projectile.velocity.x = 350
+		charge = 0
+		return
+	if (current_weapon == 0 and Input.is_action_just_released("shoot")) or Input.is_action_just_released("buster"):
+		if charge < 32: # no charge
+			charge = 0
+			return
+		if charge >= 32 and charge < 64: # medium charge
+			shot_type = 0
+			shoot_delay = 13
+			projectile = projectile_scenes[1].instantiate()
+			get_parent().add_child(projectile)
+			projectile.position.x = position.x
+			projectile.position.y = position.y
+			if $AnimatedSprite2D.flip_h:
+				projectile.velocity.x = -450
+				projectile.scale.x = -1
+			else:
+				projectile.velocity.x = 450
+			charge = 0
+			return
+		if charge >= 64: # da big boi
+			shot_type = 0
+			shoot_delay = 13
+			projectile = projectile_scenes[2].instantiate()
+			get_parent().add_child(projectile)
+			projectile.position.x = position.x
+			projectile.position.y = position.y
+			if $AnimatedSprite2D.flip_h:
+				projectile.velocity.x = -450
+				projectile.scale.x = -1
+			else:
+				projectile.velocity.x = 450
+			charge = 0
+			return
+	if (current_weapon == 0 and Input.is_action_pressed("shoot")) or Input.is_action_pressed("buster"):
+		if charge < 100:
+			charge += 1
+	else:
+		charge = 0
+		return

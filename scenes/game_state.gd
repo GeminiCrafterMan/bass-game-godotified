@@ -16,8 +16,8 @@ var weapons_unlocked = [
 	false, # Shark
 	false, # Origami
 	false, # Gale
-	false, # ???
-	false, # ???
+	false, # Guerrilla
+	false, # Reaper
 	false, # Proto Buster
 	#Bass Only
 	false, # Treble Boost

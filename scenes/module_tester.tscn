@@ -192,6 +192,13 @@ layout_mode = 2
 focus_mode = 0
 icon = SubResource("AtlasTexture_bblnj")
 
+[node name="Button" type="Button" parent="."]
+offset_left = 344.0
+offset_right = 384.0
+offset_bottom = 24.0
+toggle_mode = true
+text = "hide"
+
 [connection signal="toggled" from="Modules/CheckButton1" to="." method="_on_check_button_1_toggled"]
 [connection signal="toggled" from="Modules/CheckButton2" to="." method="_on_check_button_2_toggled"]
 [connection signal="toggled" from="Modules/CheckButton3" to="." method="_on_check_button_3_toggled"]
@@ -211,3 +218,4 @@ icon = SubResource("AtlasTexture_bblnj")
 [connection signal="toggled" from="Weapons/CheckButton17" to="." method="_on_check_button_17_toggled"]
 [connection signal="toggled" from="Weapons/CheckButton18" to="." method="_on_check_button_18_toggled"]
 [connection signal="toggled" from="Weapons/CheckButton19" to="." method="_on_check_button_19_toggled"]
+[connection signal="toggled" from="Button" to="." method="_on_button_toggled"]
