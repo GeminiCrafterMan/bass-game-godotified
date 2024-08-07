@@ -5,7 +5,7 @@ func _ready():
 
 func _physics_process(delta):
 	if move_and_slide() == true:
-		$AnimatedSprite2D.play("hit")
+#		$AnimatedSprite2D.play("hit")
 		$HitSound.play()
 		velocity.x = 0
 		velocity.y = 0

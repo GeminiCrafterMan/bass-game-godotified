@@ -18,7 +18,10 @@ func _physics_process(delta):
 		
 		projectile.position.x = position.x
 		projectile.position.y = position.y
-		projectile.velocity.x = 240
+		if scale.x == -1:
+			projectile.velocity.x = -240
+		else:
+			projectile.velocity.x = 240
 		buster_timer = 0
 	return
 	

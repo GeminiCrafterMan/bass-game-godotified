@@ -1,22 +1,26 @@
-[gd_scene load_steps=8 format=3 uid="uid://fobsureb35ce"]
+[gd_scene load_steps=9 format=3 uid="uid://fobsureb35ce"]
 
 [ext_resource type="Script" path="res://scenes/Objects/Players/Weapons/Bass/track_2.gd" id="1_7d8uq"]
 [ext_resource type="Texture2D" uid="uid://buuhy1km8d0dc" path="res://sprites/Players/Bass/Weapons/ModVideo.png" id="2_tmdwp"]
 [ext_resource type="AudioStream" uid="uid://62xrmywm48ps" path="res://sounds/bustershot.wav" id="3_b7arp"]
 [ext_resource type="AudioStream" uid="uid://cs2dmn3ahpbea" path="res://sounds/pop.wav" id="4_vq1at"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_tqiyu"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_8qn52"]
 atlas = ExtResource("2_tmdwp")
 region = Rect2(0, 0, 31, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4xdny"]
+atlas = ExtResource("2_tmdwp")
+region = Rect2(31, 0, 31, 28)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_tmmfq"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_tqiyu")
+"texture": SubResource("AtlasTexture_8qn52")
 }, {
 "duration": 1.0,
-"texture": null
+"texture": SubResource("AtlasTexture_4xdny")
 }],
 "loop": true,
 "name": &"default",
@@ -32,9 +36,9 @@ collision_mask = 5
 script = ExtResource("1_7d8uq")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2(-1, 1)
 sprite_frames = SubResource("SpriteFrames_tmmfq")
 autoplay = "default"
+frame_progress = 0.55602
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(3.57628e-07, 0)
