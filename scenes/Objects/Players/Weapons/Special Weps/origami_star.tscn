@@ -1,0 +1,124 @@
+[gd_scene load_steps=18 format=3 uid="uid://cslm0ftaa7sc8"]
+
+[ext_resource type="Script" path="res://scenes/Objects/Players/Weapons/Special Weps/origami_star.gd" id="1_uyu0v"]
+[ext_resource type="Texture2D" uid="uid://vfjg4tsdswld" path="res://sprites/Players/Bass/Weapons/Origami.png" id="2_1oe04"]
+[ext_resource type="Texture2D" uid="uid://bg7pnblbiodul" path="res://sprites/Players/Copy Robot/Weapons/Origami.png" id="3_3ybtb"]
+[ext_resource type="Texture2D" uid="uid://b0wmbfr68jjcj" path="res://sprites/Players/Copy Robot/Weapons/BusterSmall.png" id="3_hq45s"]
+[ext_resource type="AudioStream" uid="uid://dcvhxvuushcu4" path="res://sounds/chargeshot.wav" id="4_qwdhh"]
+[ext_resource type="AudioStream" uid="uid://cs2dmn3ahpbea" path="res://sounds/pop.wav" id="5_mlgpt"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_12rih"]
+atlas = ExtResource("2_1oe04")
+region = Rect2(0, 0, 21, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3h1dm"]
+atlas = ExtResource("2_1oe04")
+region = Rect2(21, 0, 21, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a0o5s"]
+atlas = ExtResource("2_1oe04")
+region = Rect2(42, 0, 21, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vvekt"]
+atlas = ExtResource("3_3ybtb")
+region = Rect2(0, 0, 21, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rphay"]
+atlas = ExtResource("3_3ybtb")
+region = Rect2(21, 0, 21, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kxpi0"]
+atlas = ExtResource("3_3ybtb")
+region = Rect2(42, 0, 21, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e08mh"]
+atlas = ExtResource("3_hq45s")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fp8dl"]
+atlas = ExtResource("3_hq45s")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rhj74"]
+atlas = ExtResource("3_hq45s")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tmmfq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_12rih")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3h1dm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_12rih")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a0o5s")
+}],
+"loop": true,
+"name": &"Bass",
+"speed": 40.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vvekt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rphay")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vvekt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kxpi0")
+}],
+"loop": true,
+"name": &"Copy",
+"speed": 40.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e08mh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fp8dl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rhj74")
+}],
+"loop": false,
+"name": &"hit",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0fvlc"]
+
+[node name="OrigamiStar" type="CharacterBody2D"]
+collision_layer = 8
+collision_mask = 5
+script = ExtResource("1_uyu0v")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-0.25, 0)
+scale = Vector2(1.02381, 1)
+sprite_frames = SubResource("SpriteFrames_tmmfq")
+animation = &"Copy"
+autoplay = "Bass"
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(1.19209e-07, 4.17233e-07)
+scale = Vector2(0.8, 0.8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_0fvlc")
+
+[node name="SpawnSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_qwdhh")
+
+[node name="HitSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_mlgpt")
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

@@ -13,6 +13,7 @@ var fall_animator : int
 var charge : int
 var flash_timer : int
 
+var no_grounded_movement : bool
 var is_sliding : bool
 var slide_stopped : bool
 
@@ -94,6 +95,10 @@ var projectile_scenes = [
 	preload("res://scenes/Objects/Players/Weapons/Copy Robot/buster_small.tscn"),
 	preload("res://scenes/Objects/Players/Weapons/Copy Robot/buster_medium.tscn"),
 	preload("res://scenes/Objects/Players/Weapons/Copy Robot/buster_large.tscn")
+]
+
+var weapon_scenes = [
+	preload("res://scenes/Objects/Players/Weapons/Special Weps/origami_star.tscn")
 ]
 
 # Set these to the name of your action (in the Input Map)
@@ -377,7 +382,9 @@ func _physics_process(delta):
 			if Input.is_action_pressed(input_right):
 				$AnimatedSprite2D.flip_h = false
 				acc.x = max_acceleration
-				
+		if is_feet_on_ground() and no_grounded_movement == true:
+			acc.x = 0
+			
 		if (is_sliding == true):
 			if Input.is_action_pressed(input_left) && $AnimatedSprite2D.flip_h == false:
 				is_sliding = false
@@ -694,7 +701,8 @@ func do_charge_palette():
 
 func handle_weapons():
 	match current_weapon:
-		_:
+		5:
+			weapon_origami()
 			return
 
 func weapon_buster():
@@ -718,7 +726,7 @@ func weapon_buster():
 		if charge < 32: # no charge
 			charge = 0
 			return
-		if charge >= 32 and charge < 64: # medium charge
+		if charge >= 32 and charge < 92: # medium charge
 			shot_type = 0
 			shoot_delay = 13
 			projectile = projectile_scenes[1].instantiate()
@@ -749,6 +757,77 @@ func weapon_buster():
 	if (current_weapon == 0 and Input.is_action_pressed("shoot")) or Input.is_action_pressed("buster"):
 		if charge < 100:
 			charge += 1
+			if charge == 32:
+				$Audio/Charge1.play()
+			if charge == 99:
+				$Audio/Charge2.play()
+			
 	else:
 		charge = 0
 		return
+
+func weapon_origami():
+
+	no_grounded_movement = false
+	if (current_weapon == 5 and Input.is_action_just_pressed(input_shoot)):
+		
+			shot_type = 0
+			shoot_delay = 13
+			projectile = weapon_scenes[0].instantiate()
+			
+			#SHOOT FORWARD REGARDLESS
+			get_parent().add_child(projectile)
+			projectile.position.x = position.x
+			projectile.position.y = position.y
+			if !$AnimatedSprite2D.flip_h:
+				projectile.scale.x = -1
+			# inputs
+			if $AnimatedSprite2D.flip_h:
+					projectile.velocity.x = -240
+			else:
+					projectile.velocity.x = 240
+					
+			if !Input.is_action_pressed(input_down):
+				projectile = weapon_scenes[0].instantiate()
+				get_parent().add_child(projectile)
+				projectile.position.x = position.x
+				projectile.position.y = position.y
+				if !$AnimatedSprite2D.flip_h:
+					projectile.scale.x = -1
+				if $AnimatedSprite2D.flip_h:
+						projectile.velocity.x = -155
+				else:
+						projectile.velocity.x = 155
+				projectile.velocity.y = -155
+					
+			if !Input.is_action_pressed(input_up):
+				projectile = weapon_scenes[0].instantiate()
+				get_parent().add_child(projectile)
+				projectile.position.x = position.x
+				projectile.position.y = position.y
+				if !$AnimatedSprite2D.flip_h:
+					projectile.scale.x = -1
+				if $AnimatedSprite2D.flip_h:
+						projectile.velocity.x = -155
+				else:
+						projectile.velocity.x = 155
+				projectile.velocity.y = 155
+
+			if Input.is_action_pressed(input_up):
+				projectile = weapon_scenes[0].instantiate()
+				get_parent().add_child(projectile)
+				if !$AnimatedSprite2D.flip_h:
+					projectile.scale.x = -1
+				projectile.position.x = position.x
+				projectile.position.y = position.y
+				projectile.velocity.y = -240
+				
+			if Input.is_action_pressed(input_down):
+				projectile = weapon_scenes[0].instantiate()
+				get_parent().add_child(projectile)
+				if !$AnimatedSprite2D.flip_h:
+					projectile.scale.x = -1
+				projectile.position.x = position.x
+				projectile.position.y = position.y
+				projectile.velocity.y = 240
+			return

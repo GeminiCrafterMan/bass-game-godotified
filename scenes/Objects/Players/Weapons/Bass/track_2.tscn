@@ -1,0 +1,52 @@
+[gd_scene load_steps=8 format=3 uid="uid://fobsureb35ce"]
+
+[ext_resource type="Script" path="res://scenes/Objects/Players/Weapons/Bass/track_2.gd" id="1_7d8uq"]
+[ext_resource type="Texture2D" uid="uid://buuhy1km8d0dc" path="res://sprites/Players/Bass/Weapons/ModVideo.png" id="2_tmdwp"]
+[ext_resource type="AudioStream" uid="uid://62xrmywm48ps" path="res://sounds/bustershot.wav" id="3_b7arp"]
+[ext_resource type="AudioStream" uid="uid://cs2dmn3ahpbea" path="res://sounds/pop.wav" id="4_vq1at"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tqiyu"]
+atlas = ExtResource("2_tmdwp")
+region = Rect2(0, 0, 31, 28)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tmmfq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tqiyu")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": true,
+"name": &"default",
+"speed": 60.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bjbb8"]
+size = Vector2(8, 6)
+
+[node name="Buster" type="CharacterBody2D"]
+collision_layer = 8
+collision_mask = 5
+script = ExtResource("1_7d8uq")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(-1, 1)
+sprite_frames = SubResource("SpriteFrames_tmmfq")
+autoplay = "default"
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(3.57628e-07, 0)
+scale = Vector2(0.8, 0.8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_bjbb8")
+
+[node name="SpawnSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_b7arp")
+
+[node name="HitSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_vq1at")
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

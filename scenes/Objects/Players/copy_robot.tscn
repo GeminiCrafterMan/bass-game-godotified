@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://cnpcm2juvcutu"]
+[gd_scene load_steps=55 format=3 uid="uid://cnpcm2juvcutu"]
 
 [ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="1_hk0hv"]
 [ext_resource type="Script" path="res://scenes/Objects/Players/copy_robot.gd" id="2_we56i"]
@@ -9,6 +9,8 @@
 [ext_resource type="AudioStream" uid="uid://dr1p57c1kr6na" path="res://sounds/warp.wav" id="8_i1h0k"]
 [ext_resource type="AudioStream" uid="uid://ds4m68uui1avq" path="res://sounds/switch.wav" id="8_utf8u"]
 [ext_resource type="AudioStream" uid="uid://b5ogbbgcst441" path="res://sounds/start_copy.wav" id="9_xhkjd"]
+[ext_resource type="AudioStream" uid="uid://chia0oxnvce13" path="res://sounds/charge.wav" id="10_b2br8"]
+[ext_resource type="AudioStream" uid="uid://brqoxbrriuifw" path="res://sounds/charged.wav" id="11_55w7a"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qymoq"]
 shader = ExtResource("1_hk0hv")
@@ -445,6 +447,12 @@ bus = &"SFX"
 
 [node name="StartSound" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("9_xhkjd")
+
+[node name="Charge1" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("10_b2br8")
+
+[node name="Charge2" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("11_55w7a")
 
 [node name="CeilingCheck" type="RayCast2D" parent="."]
 position = Vector2(0, 12)

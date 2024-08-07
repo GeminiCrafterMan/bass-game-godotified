@@ -1,0 +1,68 @@
+[gd_scene load_steps=10 format=3 uid="uid://bp8o82k0cp4kg"]
+
+[ext_resource type="Script" path="res://scenes/Objects/Players/Weapons/Bass/blast_jump.gd" id="1_w2psd"]
+[ext_resource type="Texture2D" uid="uid://brbjrbjn1ma07" path="res://sprites/Players/Bass/Weapons/ModBlaze.png" id="2_b0gih"]
+[ext_resource type="AudioStream" uid="uid://cs2dmn3ahpbea" path="res://sounds/pop.wav" id="5_5yeab"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_flmlq"]
+atlas = ExtResource("2_b0gih")
+region = Rect2(0, 0, 32, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eq6u0"]
+atlas = ExtResource("2_b0gih")
+region = Rect2(0, 18, 32, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1dk1u"]
+atlas = ExtResource("2_b0gih")
+region = Rect2(0, 36, 32, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2cual"]
+atlas = ExtResource("2_b0gih")
+region = Rect2(0, 54, 32, 18)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tmmfq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_flmlq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eq6u0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1dk1u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2cual")
+}],
+"loop": false,
+"name": &"default",
+"speed": 13.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0fvlc"]
+size = Vector2(28, 9)
+
+[node name="BlastJump" type="CharacterBody2D"]
+collision_layer = 8
+collision_mask = 5
+script = ExtResource("1_w2psd")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_tmmfq")
+autoplay = "default"
+frame = 3
+frame_progress = 1.0
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(1.19209e-07, 4.17233e-07)
+scale = Vector2(0.8, 0.8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3.5)
+shape = SubResource("RectangleShape2D_0fvlc")
+
+[node name="HitSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_5yeab")
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

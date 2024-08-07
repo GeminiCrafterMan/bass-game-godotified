@@ -68,7 +68,13 @@ var max_energy = [ # Energy use is always 1, *no matter what*. Increase energy a
 	28	# Treble Boost
 ]
 var projectile_scenes = [
-	preload("res://scenes/Objects/Players/Weapons/Bass/buster.tscn")
+	preload("res://scenes/Objects/Players/Weapons/Bass/buster.tscn"),
+	preload("res://scenes/Objects/Players/Weapons/Bass/blast_jump.tscn"),
+	preload("res://scenes/Objects/Players/Weapons/Bass/track_2.tscn")
+]
+
+var weapon_scenes = [
+	preload("res://scenes/Objects/Players/Weapons/Special Weps/origami_star.tscn")
 ]
 
 # Set these to the name of your action (in the Input Map)
@@ -341,7 +347,7 @@ func _physics_process(delta):
 				acc.x = max_acceleration
 		if is_feet_on_ground() and no_grounded_movement == true:
 			acc.x = 0
-		
+			
 		if is_feet_on_ground() and is_dashing and GameState.modules_enabled[3] == true:
 			$MainHitbox.set_disabled(true)
 			$MistDashHitbox.set_disabled(false)
@@ -372,6 +378,10 @@ func _physics_process(delta):
 	if Input.is_action_pressed(input_up) && Input.is_action_just_pressed(input_jump):
 		if blast_jumped == false && (GameState.modules_enabled[1] == true):
 			blastjump()
+			
+	if Input.is_action_pressed(input_down) && Input.is_action_just_pressed(input_jump):
+		if  (GameState.modules_enabled[2] == true):
+			track2()
 	
 	if Input.is_action_pressed(input_dash) and no_grounded_movement == false:
 		if can_ground_jump():
@@ -474,7 +484,22 @@ func blastjump():
 	is_dashing = false
 	blast_jumped = true
 	dash_timer = 0
+	projectile = projectile_scenes[1].instantiate()
+	get_parent().add_child(projectile)
+	projectile.position.x = position.x
+	projectile.position.y = position.y
+	projectile.velocity.y = 280
 	
+func track2():
+	$Audio/BJumpSound.play()
+	current_jump_type = JumpType.GROUND
+	is_dashing = false
+	projectile = projectile_scenes[2].instantiate()
+	get_parent().add_child(projectile)
+	if $AnimatedSprite2D.flip_h:
+		projectile.scale.x = -1
+	projectile.position.x = position.x
+	projectile.position.y = position.y+2
 
 ## Perform a double jump without checking if the player is able to.
 func double_jump():
@@ -681,8 +706,9 @@ func animate():
 
 func handle_weapons():
 	match current_weapon:
-		_:
-			return
+		5:
+			weapon_origami()
+	return
 
 func weapon_buster():
 	if shoot_delay > 0:
@@ -723,3 +749,45 @@ func weapon_buster():
 					projectile.velocity.x = 450
 		is_dashing = false
 		return
+
+func weapon_origami():
+
+	no_grounded_movement = false
+	if (current_weapon == 5 and Input.is_action_just_pressed(input_shoot)):
+		
+			shot_type = 0
+			shoot_delay = 13
+			projectile = weapon_scenes[0].instantiate()
+			
+			get_parent().add_child(projectile)
+			projectile.position.x = position.x
+			projectile.position.y = position.y
+			if $AnimatedSprite2D.flip_h:
+				projectile.scale.x = -1
+			# inputs
+			if $AnimatedSprite2D.flip_h:
+					projectile.velocity.x = -350
+			else:
+					projectile.velocity.x = 350
+					
+			projectile = weapon_scenes[0].instantiate()
+			get_parent().add_child(projectile)
+			projectile.position.x = position.x
+			projectile.position.y = position.y
+			if $AnimatedSprite2D.flip_h:
+					projectile.velocity.x = -300
+			else:
+					projectile.velocity.x = 300
+			projectile.velocity.y = -155
+					
+			projectile = weapon_scenes[0].instantiate()
+			get_parent().add_child(projectile)
+			projectile.position.x = position.x
+			projectile.position.y = position.y
+			if $AnimatedSprite2D.flip_h:
+					projectile.velocity.x = -300
+			else:
+					projectile.velocity.x = 300
+			projectile.velocity.y = 155
+			is_dashing = false
+			return
