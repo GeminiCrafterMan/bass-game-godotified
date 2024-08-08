@@ -1,0 +1,55 @@
+[gd_scene load_steps=9 format=3 uid="uid://b0q5vgldijqir"]
+
+[ext_resource type="Script" path="res://scenes/Objects/Players/Weapons/Copy Robot/Carry.gd" id="1_ei83l"]
+[ext_resource type="Texture2D" uid="uid://cs6wjgteaqh2r" path="res://sprites/Players/Copy Robot/Weapons/Carry.png" id="2_uavq8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vdur6"]
+size = Vector2(20, 13)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k621p"]
+atlas = ExtResource("2_uavq8")
+region = Rect2(0, 0, 22, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cao57"]
+atlas = ExtResource("2_uavq8")
+region = Rect2(22, 0, 22, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pmc1r"]
+atlas = ExtResource("2_uavq8")
+region = Rect2(44, 0, 22, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hpxrr"]
+atlas = ExtResource("2_uavq8")
+region = Rect2(66, 0, 22, 14)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_edaxt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k621p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cao57")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pmc1r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hpxrr")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[node name="Carry" type="StaticBody2D"]
+script = ExtResource("1_ei83l")
+
+[node name="Shape" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_vdur6")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_edaxt")
+autoplay = "default"
+frame_progress = 0.830692

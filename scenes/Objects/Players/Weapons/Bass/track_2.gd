@@ -12,7 +12,7 @@ func _physics_process(delta):
 	buster_timer = buster_timer + 1
 	
 	
-	if buster_timer > 30:
+	if buster_timer > 20:
 		projectile = projectile_scenes[0].instantiate()
 		get_parent().add_child(projectile)
 		

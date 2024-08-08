@@ -94,7 +94,8 @@ var max_energy = [ # Energy use is always 1, *no matter what*. Increase energy a
 var projectile_scenes = [
 	preload("res://scenes/Objects/Players/Weapons/Copy Robot/buster_small.tscn"),
 	preload("res://scenes/Objects/Players/Weapons/Copy Robot/buster_medium.tscn"),
-	preload("res://scenes/Objects/Players/Weapons/Copy Robot/buster_large.tscn")
+	preload("res://scenes/Objects/Players/Weapons/Copy Robot/buster_large.tscn"),
+	preload("res://scenes/Objects/Players/Weapons/Copy Robot/carry.tscn")
 ]
 
 var weapon_scenes = [
@@ -126,6 +127,9 @@ const DEFAULT_MAX_JUMP_HEIGHT = 80
 const DEFAULT_MIN_JUMP_HEIGHT = 10
 const DEFAULT_DOUBLE_JUMP_HEIGHT = 100
 const DEFAULT_JUMP_DURATION = 0.4
+
+const ORIGAMI_SPEED = 350
+
 
 var _max_jump_height: float = DEFAULT_MAX_JUMP_HEIGHT
 ## The max jump height in pixels (holding jump).
@@ -255,7 +259,7 @@ func _input(_event):
 	if Input.is_action_just_pressed(input_switch_left):
 		old_weapon = current_weapon
 		if (current_weapon == 0):
-			current_weapon = 10
+			current_weapon = 16
 			
 		else:
 			current_weapon = current_weapon - 1
@@ -300,7 +304,7 @@ func _input(_event):
 	
 	if Input.is_action_just_pressed(input_switch_right):
 		old_weapon = current_weapon
-		if (current_weapon == 10):
+		if (current_weapon == 16):
 			current_weapon = 0
 			
 		else:
@@ -324,7 +328,7 @@ func _input(_event):
 		if (current_weapon == 8 && GameState.weapons_unlocked[8] == false):
 			current_weapon = current_weapon + 1
 		if (current_weapon == 9 && GameState.weapons_unlocked[9] == false):
-			current_weapon = current_weapon + 2
+			current_weapon = 11
 		if (current_weapon == 11 && GameState.weapons_unlocked[11] == false):
 			current_weapon = current_weapon + 1
 		if (current_weapon == 12 && GameState.weapons_unlocked[12] == false):
@@ -382,8 +386,7 @@ func _physics_process(delta):
 			if Input.is_action_pressed(input_right):
 				$AnimatedSprite2D.flip_h = false
 				acc.x = max_acceleration
-		if is_feet_on_ground() and no_grounded_movement == true:
-			acc.x = 0
+		
 			
 		if (is_sliding == true):
 			if Input.is_action_pressed(input_left) && $AnimatedSprite2D.flip_h == false:
@@ -422,6 +425,9 @@ func _physics_process(delta):
 				jump()
 			hit_ground.emit()
 			$Audio/LandSound.play()
+			
+	if is_feet_on_ground() and no_grounded_movement == true:
+			acc.x = 0
 
 	# Cannot do this in _input because it needs to be checked every frame
 	if Input.is_action_pressed(input_jump):
@@ -703,6 +709,8 @@ func handle_weapons():
 	match current_weapon:
 		5:
 			weapon_origami()
+		11:
+			weapon_carry()
 			return
 
 func weapon_buster():
@@ -775,19 +783,19 @@ func weapon_origami():
 			shoot_delay = 13
 			projectile = weapon_scenes[0].instantiate()
 			
-			#SHOOT FORWARD REGARDLESS
-			get_parent().add_child(projectile)
-			projectile.position.x = position.x
-			projectile.position.y = position.y
-			if !$AnimatedSprite2D.flip_h:
-				projectile.scale.x = -1
-			# inputs
-			if $AnimatedSprite2D.flip_h:
-					projectile.velocity.x = -240
-			else:
-					projectile.velocity.x = 240
-					
-			if !Input.is_action_pressed(input_down):
+			#SHOOT FORWARD 
+			if !Input.is_action_pressed(input_up) && !Input.is_action_pressed(input_down):
+				get_parent().add_child(projectile)
+				projectile.position.x = position.x
+				projectile.position.y = position.y
+				if !$AnimatedSprite2D.flip_h:
+					projectile.scale.x = -1
+				# inputs
+				if $AnimatedSprite2D.flip_h:
+						projectile.velocity.x = -ORIGAMI_SPEED
+				else:
+					projectile.velocity.x = ORIGAMI_SPEED
+						
 				projectile = weapon_scenes[0].instantiate()
 				get_parent().add_child(projectile)
 				projectile.position.x = position.x
@@ -795,12 +803,11 @@ func weapon_origami():
 				if !$AnimatedSprite2D.flip_h:
 					projectile.scale.x = -1
 				if $AnimatedSprite2D.flip_h:
-						projectile.velocity.x = -155
+						projectile.velocity.x = -ORIGAMI_SPEED * 0.775
 				else:
-						projectile.velocity.x = 155
-				projectile.velocity.y = -155
-					
-			if !Input.is_action_pressed(input_up):
+						projectile.velocity.x = ORIGAMI_SPEED * 0.775
+				projectile.velocity.y = -ORIGAMI_SPEED * 0.225
+						
 				projectile = weapon_scenes[0].instantiate()
 				get_parent().add_child(projectile)
 				projectile.position.x = position.x
@@ -808,26 +815,107 @@ func weapon_origami():
 				if !$AnimatedSprite2D.flip_h:
 					projectile.scale.x = -1
 				if $AnimatedSprite2D.flip_h:
-						projectile.velocity.x = -155
+						projectile.velocity.x = -ORIGAMI_SPEED * 0.775
 				else:
-						projectile.velocity.x = 155
-				projectile.velocity.y = 155
-
+						projectile.velocity.x = ORIGAMI_SPEED * 0.775
+				projectile.velocity.y =  ORIGAMI_SPEED * 0.225
+		
 			if Input.is_action_pressed(input_up):
 				projectile = weapon_scenes[0].instantiate()
 				get_parent().add_child(projectile)
-				if !$AnimatedSprite2D.flip_h:
-					projectile.scale.x = -1
 				projectile.position.x = position.x
 				projectile.position.y = position.y
-				projectile.velocity.y = -240
+				if !$AnimatedSprite2D.flip_h:
+					projectile.scale.x = -1
+				if $AnimatedSprite2D.flip_h:
+						projectile.velocity.x = -ORIGAMI_SPEED *  0.225
+				else:
+						projectile.velocity.x = ORIGAMI_SPEED * 0.225
+				projectile.velocity.y =  -ORIGAMI_SPEED * 0.775
+				
+				projectile = weapon_scenes[0].instantiate()
+				get_parent().add_child(projectile)
+				projectile.position.x = position.x
+				projectile.position.y = position.y
+				if !$AnimatedSprite2D.flip_h:
+					projectile.scale.x = -1
+				if $AnimatedSprite2D.flip_h:
+						projectile.velocity.x = -ORIGAMI_SPEED * 0.5
+				else:
+						projectile.velocity.x = ORIGAMI_SPEED * 0.5
+				projectile.velocity.y =  -ORIGAMI_SPEED * 0.5
+				
+				projectile = weapon_scenes[0].instantiate()
+				get_parent().add_child(projectile)
+				projectile.position.x = position.x
+				projectile.position.y = position.y
+				if !$AnimatedSprite2D.flip_h:
+					projectile.scale.x = -1
+				if $AnimatedSprite2D.flip_h:
+						projectile.velocity.x = -ORIGAMI_SPEED * 0.775
+				else:
+						projectile.velocity.x = ORIGAMI_SPEED * 0.775
+				projectile.velocity.y =  -ORIGAMI_SPEED * 0.225
+				
+				
+				
+				
+				
+				
 				
 			if Input.is_action_pressed(input_down):
 				projectile = weapon_scenes[0].instantiate()
 				get_parent().add_child(projectile)
-				if !$AnimatedSprite2D.flip_h:
-					projectile.scale.x = -1
 				projectile.position.x = position.x
 				projectile.position.y = position.y
-				projectile.velocity.y = 240
+				if !$AnimatedSprite2D.flip_h:
+					projectile.scale.x = -1
+				if $AnimatedSprite2D.flip_h:
+						projectile.velocity.x = -ORIGAMI_SPEED *  0.225
+				else:
+						projectile.velocity.x = ORIGAMI_SPEED * 0.225
+				projectile.velocity.y =  ORIGAMI_SPEED * 0.775
+				
+				projectile = weapon_scenes[0].instantiate()
+				get_parent().add_child(projectile)
+				projectile.position.x = position.x
+				projectile.position.y = position.y
+				if !$AnimatedSprite2D.flip_h:
+					projectile.scale.x = -1
+				if $AnimatedSprite2D.flip_h:
+						projectile.velocity.x = -ORIGAMI_SPEED * 0.5
+				else:
+						projectile.velocity.x = ORIGAMI_SPEED * 0.5
+				projectile.velocity.y =  ORIGAMI_SPEED * 0.5
+				
+				projectile = weapon_scenes[0].instantiate()
+				get_parent().add_child(projectile)
+				projectile.position.x = position.x
+				projectile.position.y = position.y
+				if !$AnimatedSprite2D.flip_h:
+					projectile.scale.x = -1
+				if $AnimatedSprite2D.flip_h:
+						projectile.velocity.x = -ORIGAMI_SPEED * 0.775
+				else:
+						projectile.velocity.x = ORIGAMI_SPEED * 0.775
+				projectile.velocity.y =  ORIGAMI_SPEED * 0.225
+			
 			return
+
+
+func weapon_carry():
+
+	no_grounded_movement = false
+	if (current_weapon == 11 and Input.is_action_just_pressed(input_shoot)):
+		
+			shot_type = 0
+			shoot_delay = 13
+			projectile = projectile_scenes[3].instantiate()
+			
+			#SHOOT FORWARD REGARDLESS
+			get_parent().add_child(projectile)
+			projectile.position.y = position.y
+			if $AnimatedSprite2D.flip_h:
+					projectile.position.x = position.x - 30
+			else:
+					projectile.position.x = position.x + 30
