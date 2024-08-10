@@ -95,9 +95,7 @@ var projectile_scenes = [
 	preload("res://scenes/Objects/Players/Weapons/Copy Robot/buster_small.tscn"),
 	preload("res://scenes/Objects/Players/Weapons/Copy Robot/buster_medium.tscn"),
 	preload("res://scenes/Objects/Players/Weapons/Copy Robot/buster_large.tscn"),
-	preload("res://scenes/Objects/Players/Weapons/Copy Robot/carry.tscn"),
-	preload("res://scenes/Objects/Players/Weapons/Copy Robot/ballade_cracker.tscn"),
-	preload("res://scenes/Objects/Players/Weapons/Copy Robot/screw_crusher.tscn")
+	preload("res://scenes/Objects/Players/Weapons/Copy Robot/carry.tscn")
 ]
 
 var weapon_scenes = [
@@ -131,7 +129,6 @@ const DEFAULT_DOUBLE_JUMP_HEIGHT = 100
 const DEFAULT_JUMP_DURATION = 0.4
 
 const ORIGAMI_SPEED = 350
-const CRACKER_SPEED = 450
 
 
 var _max_jump_height: float = DEFAULT_MAX_JUMP_HEIGHT
@@ -391,7 +388,6 @@ func _physics_process(delta):
 			if Input.is_action_pressed(input_right):
 				$AnimatedSprite2D.flip_h = false
 				acc.x = max_acceleration
-				
 		if is_feet_on_ground() and no_grounded_movement == true:
 			acc.x = 0
 			
@@ -407,8 +403,8 @@ func _physics_process(delta):
 				slide_timer = 0
 				$AnimatedSprite2D.flip_h = false
 				acc.x = max_acceleration
-
-		handle_weapons()
+		if (is_sliding == false):
+			handle_weapons()
 		weapon_buster()
 		do_charge_palette()
 		
@@ -432,9 +428,6 @@ func _physics_process(delta):
 				jump()
 			hit_ground.emit()
 			$Audio/LandSound.play()
-			
-	if is_feet_on_ground() and no_grounded_movement == true:
-			acc.x = 0
 
 	# Cannot do this in _input because it needs to be checked every frame
 	if Input.is_action_pressed(input_jump):
@@ -695,6 +688,10 @@ func animate():
 					$AnimatedSprite2D.play("Fall")
 		else:
 			match shot_type:
+				0:
+					$AnimatedSprite2D.play("Jump-Shoot")
+				2:
+					$AnimatedSprite2D.play("Jump-Throw")
 				_:
 					$AnimatedSprite2D.play("Jump-Shoot")
 
@@ -731,10 +728,6 @@ func handle_weapons():
 			weapon_origami()
 		11:
 			weapon_carry()
-		14:
-			weapon_punk()
-		15:
-			weapon_ballade()
 		_:
 			return
 
@@ -742,54 +735,55 @@ func weapon_buster():
 	if shoot_delay > 0:
 		if shot_type == 0:
 			shoot_delay -= 1
-		no_grounded_movement = false
-		
+			no_grounded_movement = false
 	if (current_weapon == 0 and Input.is_action_just_pressed("shoot")) or Input.is_action_just_pressed("buster"):
-		shot_type = 0
-		shoot_delay = 13
-		projectile = projectile_scenes[0].instantiate()
-		get_parent().add_child(projectile)
-		projectile.position.x = position.x
-		projectile.position.y = position.y
-		if $AnimatedSprite2D.flip_h:
-			projectile.velocity.x = -350
-			projectile.scale.x = -1
-		else:
-			projectile.velocity.x = 350
-		charge = 0
-		return
+		if is_sliding == false:
+			shot_type = 0
+			shoot_delay = 13
+			projectile = projectile_scenes[0].instantiate()
+			get_parent().add_child(projectile)
+			projectile.position.x = position.x
+			projectile.position.y = position.y
+			if $AnimatedSprite2D.flip_h:
+				projectile.velocity.x = -350
+				projectile.scale.x = -1
+			else:
+				projectile.velocity.x = 350
+			charge = 0
+			return
 	if (current_weapon == 0 and Input.is_action_just_released("shoot")) or Input.is_action_just_released("buster"):
-		if charge < 32: # no charge
-			charge = 0
-			return
-		if charge >= 32 and charge < 92: # medium charge
-			shot_type = 0
-			shoot_delay = 13
-			projectile = projectile_scenes[1].instantiate()
-			get_parent().add_child(projectile)
-			projectile.position.x = position.x
-			projectile.position.y = position.y
-			if $AnimatedSprite2D.flip_h:
-				projectile.velocity.x = -450
-				projectile.scale.x = -1
-			else:
-				projectile.velocity.x = 450
-			charge = 0
-			return
-		if charge >= 92: # da big boi
-			shot_type = 0
-			shoot_delay = 13
-			projectile = projectile_scenes[2].instantiate()
-			get_parent().add_child(projectile)
-			projectile.position.x = position.x
-			projectile.position.y = position.y
-			if $AnimatedSprite2D.flip_h:
-				projectile.velocity.x = -450
-				projectile.scale.x = -1
-			else:
-				projectile.velocity.x = 450
-			charge = 0
-			return
+		if is_sliding == false:
+			if charge < 32: # no charge
+				charge = 0
+				return
+			if charge >= 32 and charge < 92: # medium charge
+				shot_type = 0
+				shoot_delay = 13
+				projectile = projectile_scenes[1].instantiate()
+				get_parent().add_child(projectile)
+				projectile.position.x = position.x
+				projectile.position.y = position.y
+				if $AnimatedSprite2D.flip_h:
+					projectile.velocity.x = -450
+					projectile.scale.x = -1
+				else:
+					projectile.velocity.x = 450
+				charge = 0
+				return
+			if charge >= 92: # da big boi
+				shot_type = 0
+				shoot_delay = 13
+				projectile = projectile_scenes[2].instantiate()
+				get_parent().add_child(projectile)
+				projectile.position.x = position.x
+				projectile.position.y = position.y
+				if $AnimatedSprite2D.flip_h:
+					projectile.velocity.x = -450
+					projectile.scale.x = -1
+				else:
+					projectile.velocity.x = 450
+				charge = 0
+				return
 	if (current_weapon == 0 and Input.is_action_pressed("shoot")) or Input.is_action_pressed("buster"):
 		if charge < 100:
 			charge += 1
@@ -806,10 +800,9 @@ func weapon_origami():
 	if shoot_delay > 0:
 		if shot_type == 2:
 			shoot_delay -= 1
-		no_grounded_movement = true
+			no_grounded_movement = true
 	else:
 		no_grounded_movement = false
-		
 	if Input.is_action_just_pressed(input_shoot):
 		
 			shot_type = 2
@@ -890,12 +883,6 @@ func weapon_origami():
 						projectile.velocity.x = ORIGAMI_SPEED * 0.775
 				projectile.velocity.y =  -ORIGAMI_SPEED * 0.225
 				
-				
-				
-				
-				
-				
-				
 			if Input.is_action_pressed(input_down):
 				projectile = weapon_scenes[0].instantiate()
 				get_parent().add_child(projectile)
@@ -940,15 +927,15 @@ func weapon_carry():
 	if shoot_delay > 0:
 		if shot_type == 2:
 			shoot_delay -= 1
-		no_grounded_movement = true
+			no_grounded_movement = true
 	else:
 		no_grounded_movement = false
-		
 	if Input.is_action_just_pressed(input_shoot):
 			shot_type = 2
 			shoot_delay = 13
 			projectile = projectile_scenes[3].instantiate()
 			
+			#SHOOT FORWARD REGARDLESS
 			get_parent().add_child(projectile)
 			if is_feet_on_ground():	
 				projectile.position.y = position.y
@@ -957,80 +944,5 @@ func weapon_carry():
 				else:
 						projectile.position.x = position.x + 30
 			else:
-				projectile.position.y = position.y + 35
+				projectile.position.y = position.y + 24
 				projectile.position.x = position.x
-
-func weapon_punk():
-	if shoot_delay > 0:
-		if shot_type == 2:
-			shoot_delay -= 1
-		no_grounded_movement = true
-	else:
-		no_grounded_movement = false
-		
-	if Input.is_action_just_pressed(input_shoot):
-		
-			shot_type = 2
-			shoot_delay = 13
-			projectile = projectile_scenes[5].instantiate()
-			
-			if $AnimatedSprite2D.flip_h:
-					projectile.scale.x = -1
-				
-			get_parent().add_child(projectile)
-			projectile.position.x = position.x
-			projectile.position.y = position.y
-			
-			projectile.velocity.y = -450
-			
-			if $AnimatedSprite2D.flip_h:
-					projectile.velocity.x = -95
-			else:
-					projectile.velocity.x = 95
-			
-	return
-
-
-func weapon_ballade():
-	if shoot_delay > 0:
-		if shot_type == 2:
-			shoot_delay -= 1
-		no_grounded_movement = true
-	else:
-		no_grounded_movement = false
-		
-	if Input.is_action_just_pressed(input_shoot):
-		
-			shot_type = 2
-			shoot_delay = 13
-			projectile = projectile_scenes[4].instantiate()
-			
-			get_parent().add_child(projectile)
-			projectile.position.x = position.x
-			projectile.position.y = position.y
-			
-			projectile.velocity.y = 0
-			if $AnimatedSprite2D.flip_h:
-					projectile.velocity.x = -CRACKER_SPEED * 1
-			else:
-					projectile.velocity.x = CRACKER_SPEED * 1
-			
-			if(Input.is_action_pressed(input_up)):
-				projectile.velocity.y = -CRACKER_SPEED * 0.5
-				if $AnimatedSprite2D.flip_h:
-						projectile.velocity.x = -CRACKER_SPEED * 0.5
-				else:
-						projectile.velocity.x = CRACKER_SPEED * 0.5
-			
-			if(Input.is_action_pressed(input_up) && !Input.is_action_pressed(input_left) && !Input.is_action_pressed(input_right)):
-				projectile.velocity.y = -CRACKER_SPEED * 1
-				projectile.velocity.x = 0
-						
-			if(Input.is_action_pressed(input_down)):
-				projectile.velocity.y = CRACKER_SPEED * 0.5
-				if $AnimatedSprite2D.flip_h:
-					projectile.velocity.x = -CRACKER_SPEED * 0.5
-				else:
-					projectile.velocity.x = CRACKER_SPEED * 0.5
-				
-			return
