@@ -2,6 +2,8 @@ extends CharacterBody2D
 
 var projectile
 var buster_timer : int
+var timer : int
+var flash_timer : int
 
 var aim : int
 
@@ -27,6 +29,24 @@ func _ready():
 	$SpawnSound.play()
 
 func _process(delta):
+	timer = (timer + 1)
+	if timer > 850:
+		if $AnimatedSprite2D.animation != "explode":
+			flash_timer = (flash_timer + 1)
+			if flash_timer == 3:
+				$AnimatedSprite2D.hide()
+			if flash_timer == 6:
+				$AnimatedSprite2D.show()
+				flash_timer = 0
+		else:
+			$AnimatedSprite2D.show()
+	if timer > 900:
+		if $AnimatedSprite2D.animation != "explode":
+			$AnimatedSprite2D.show()
+			$AnimatedSprite2D.play("Explode")
+		await $AnimatedSprite2D.animation_finished
+		queue_free()
+	
 	buster_timer = buster_timer + 1
 	current_frame = $AnimatedSprite2D.get_frame()
 	current_progress = $AnimatedSprite2D.get_frame_progress()
@@ -63,7 +83,7 @@ func _process(delta):
 		
 
 
-	if buster_timer > 17:
+	if buster_timer > 10:
 		projectile = projectile_scenes[0].instantiate()
 		get_parent().add_child(projectile)
 		
@@ -72,28 +92,28 @@ func _process(delta):
 		
 		if aim == -1:
 			if scale.x == -1:
-				projectile.velocity.x = -120
+				projectile.velocity.x = -150
 			else:
-				projectile.velocity.x = 120
-			projectile.velocity.y = 120
+				projectile.velocity.x = 150
+			projectile.velocity.y = 150
 		
 		if aim == 0:
 			if scale.x == -1:
-				projectile.velocity.x = -240
+				projectile.velocity.x = -300
 			else:
-				projectile.velocity.x = 240
+				projectile.velocity.x = 300
 			projectile.velocity.y = 0
 		
 		if aim == 1:
 			if scale.x == -1:
-				projectile.velocity.x = -120
+				projectile.velocity.x = -150
 			else:
-				projectile.velocity.x = 120
-			projectile.velocity.y = -120
+				projectile.velocity.x = 150
+			projectile.velocity.y = -150
 		
 		if aim == 2:
 			projectile.velocity.x = 0
-			projectile.velocity.y = -240
+			projectile.velocity.y = -300
 		
 		buster_timer = 0
 	return

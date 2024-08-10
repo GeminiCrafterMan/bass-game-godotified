@@ -136,6 +136,18 @@ layout_mode = 2
 focus_mode = 0
 icon = SubResource("AtlasTexture_10ksf")
 
+[node name="CheckButton23" type="CheckButton" parent="Modules"]
+layout_mode = 2
+
+[node name="CheckButton24" type="CheckButton" parent="Modules"]
+layout_mode = 2
+
+[node name="CheckButton25" type="CheckButton" parent="Modules"]
+layout_mode = 2
+
+[node name="CheckButton26" type="CheckButton" parent="Modules"]
+layout_mode = 2
+
 [node name="Weapons" type="GridContainer" parent="."]
 offset_right = 60.0
 offset_bottom = 168.0
@@ -214,6 +226,10 @@ text = "hide"
 [connection signal="toggled" from="Modules/CheckButton7" to="." method="_on_check_button_7_toggled"]
 [connection signal="toggled" from="Modules/CheckButton8" to="." method="_on_check_button_8_toggled"]
 [connection signal="toggled" from="Modules/CheckButton9" to="." method="_on_check_button_9_toggled"]
+[connection signal="toggled" from="Modules/CheckButton23" to="." method="_on_check_button_23_toggled"]
+[connection signal="toggled" from="Modules/CheckButton24" to="." method="_on_check_button_24_toggled"]
+[connection signal="toggled" from="Modules/CheckButton25" to="." method="_on_check_button_25_toggled"]
+[connection signal="toggled" from="Modules/CheckButton26" to="." method="_on_check_button_26_toggled"]
 [connection signal="toggled" from="Weapons/CheckButton10" to="." method="_on_check_button_10_toggled"]
 [connection signal="toggled" from="Weapons/CheckButton11" to="." method="_on_check_button_11_toggled"]
 [connection signal="toggled" from="Weapons/CheckButton12" to="." method="_on_check_button_12_toggled"]
@@ -226,6 +242,6 @@ text = "hide"
 [connection signal="toggled" from="Weapons/CheckButton19" to="." method="_on_check_button_19_toggled"]
 [connection signal="toggled" from="Weapons/CheckButton20" to="." method="_on_check_button_20_toggled"]
 [connection signal="toggled" from="Weapons/CheckButton20" to="." method="_on_check_button_toggled"]
-[connection signal="toggled" from="Weapons/CheckButton21" to="." method="_on_check_button_21_toggled"]
 [connection signal="toggled" from="Weapons/CheckButton21" to="." method="_on_check_button_2_toggled"]
+[connection signal="toggled" from="Weapons/CheckButton21" to="." method="_on_check_button_21_toggled"]
 [connection signal="toggled" from="Button" to="." method="_on_button_toggled"]
