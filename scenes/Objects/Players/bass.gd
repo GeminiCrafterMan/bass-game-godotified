@@ -773,40 +773,41 @@ func weapon_origami():
 			no_grounded_movement = true
 	else:
 		no_grounded_movement = false
+
 	if Input.is_action_just_pressed(input_shoot):
-			shot_type = 2
-			shoot_delay = 13
-			projectile = weapon_scenes[0].instantiate()
-			
-			get_parent().add_child(projectile)
-			projectile.position.x = position.x
-			projectile.position.y = position.y
-			if $AnimatedSprite2D.flip_h:
-				projectile.scale.x = -1
-			# inputs
-			if $AnimatedSprite2D.flip_h:
-					projectile.velocity.x = -350
-			else:
-					projectile.velocity.x = 350
-					
-			projectile = weapon_scenes[0].instantiate()
-			get_parent().add_child(projectile)
-			projectile.position.x = position.x
-			projectile.position.y = position.y
-			if $AnimatedSprite2D.flip_h:
-					projectile.velocity.x = -300
-			else:
-					projectile.velocity.x = 300
-			projectile.velocity.y = -155
-					
-			projectile = weapon_scenes[0].instantiate()
-			get_parent().add_child(projectile)
-			projectile.position.x = position.x
-			projectile.position.y = position.y
-			if $AnimatedSprite2D.flip_h:
-					projectile.velocity.x = -300
-			else:
-					projectile.velocity.x = 300
-			projectile.velocity.y = 155
-			is_dashing = false
-			return
+		$AnimatedSprite2D.set_frame_and_progress(0, 0)
+		shot_type = 2
+		shoot_delay = 13
+		projectile = weapon_scenes[0].instantiate()
+		get_parent().add_child(projectile)
+		projectile.position.x = position.x
+		projectile.position.y = position.y
+		if $AnimatedSprite2D.flip_h:
+			projectile.scale.x = -1
+		# inputs
+		if $AnimatedSprite2D.flip_h:
+			projectile.velocity.x = -350
+		else:
+			projectile.velocity.x = 350
+				
+		projectile = weapon_scenes[0].instantiate()
+		get_parent().add_child(projectile)
+		projectile.position.x = position.x
+		projectile.position.y = position.y
+		if $AnimatedSprite2D.flip_h:
+				projectile.velocity.x = -300
+		else:
+				projectile.velocity.x = 300
+		projectile.velocity.y = -155
+				
+		projectile = weapon_scenes[0].instantiate()
+		get_parent().add_child(projectile)
+		projectile.position.x = position.x
+		projectile.position.y = position.y
+		if $AnimatedSprite2D.flip_h:
+			projectile.velocity.x = -300
+		else:
+			projectile.velocity.x = 300
+		projectile.velocity.y = 155
+		is_dashing = false
+		return
