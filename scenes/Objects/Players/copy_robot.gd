@@ -388,7 +388,8 @@ func _physics_process(delta):
 			if Input.is_action_pressed(input_right):
 				$AnimatedSprite2D.flip_h = false
 				acc.x = max_acceleration
-		
+		if is_feet_on_ground() and no_grounded_movement == true:
+			acc.x = 0
 			
 		if (is_sliding == true):
 			if Input.is_action_pressed(input_left) && $AnimatedSprite2D.flip_h == false:
@@ -402,8 +403,8 @@ func _physics_process(delta):
 				slide_timer = 0
 				$AnimatedSprite2D.flip_h = false
 				acc.x = max_acceleration
-
-		handle_weapons()
+		if (is_sliding == false):
+			handle_weapons()
 		weapon_buster()
 		do_charge_palette()
 		
@@ -427,9 +428,6 @@ func _physics_process(delta):
 				jump()
 			hit_ground.emit()
 			$Audio/LandSound.play()
-			
-	if is_feet_on_ground() and no_grounded_movement == true:
-			acc.x = 0
 
 	# Cannot do this in _input because it needs to be checked every frame
 	if Input.is_action_pressed(input_jump):
@@ -690,6 +688,10 @@ func animate():
 					$AnimatedSprite2D.play("Fall")
 		else:
 			match shot_type:
+				0:
+					$AnimatedSprite2D.play("Jump-Shoot")
+				2:
+					$AnimatedSprite2D.play("Jump-Throw")
 				_:
 					$AnimatedSprite2D.play("Jump-Shoot")
 
@@ -733,53 +735,55 @@ func weapon_buster():
 	if shoot_delay > 0:
 		if shot_type == 0:
 			shoot_delay -= 1
-		no_grounded_movement = false
+			no_grounded_movement = false
 	if (current_weapon == 0 and Input.is_action_just_pressed("shoot")) or Input.is_action_just_pressed("buster"):
-		shot_type = 0
-		shoot_delay = 13
-		projectile = projectile_scenes[0].instantiate()
-		get_parent().add_child(projectile)
-		projectile.position.x = position.x
-		projectile.position.y = position.y
-		if $AnimatedSprite2D.flip_h:
-			projectile.velocity.x = -350
-			projectile.scale.x = -1
-		else:
-			projectile.velocity.x = 350
-		charge = 0
-		return
+		if is_sliding == false:
+			shot_type = 0
+			shoot_delay = 13
+			projectile = projectile_scenes[0].instantiate()
+			get_parent().add_child(projectile)
+			projectile.position.x = position.x
+			projectile.position.y = position.y
+			if $AnimatedSprite2D.flip_h:
+				projectile.velocity.x = -350
+				projectile.scale.x = -1
+			else:
+				projectile.velocity.x = 350
+			charge = 0
+			return
 	if (current_weapon == 0 and Input.is_action_just_released("shoot")) or Input.is_action_just_released("buster"):
-		if charge < 32: # no charge
-			charge = 0
-			return
-		if charge >= 32 and charge < 92: # medium charge
-			shot_type = 0
-			shoot_delay = 13
-			projectile = projectile_scenes[1].instantiate()
-			get_parent().add_child(projectile)
-			projectile.position.x = position.x
-			projectile.position.y = position.y
-			if $AnimatedSprite2D.flip_h:
-				projectile.velocity.x = -450
-				projectile.scale.x = -1
-			else:
-				projectile.velocity.x = 450
-			charge = 0
-			return
-		if charge >= 92: # da big boi
-			shot_type = 0
-			shoot_delay = 13
-			projectile = projectile_scenes[2].instantiate()
-			get_parent().add_child(projectile)
-			projectile.position.x = position.x
-			projectile.position.y = position.y
-			if $AnimatedSprite2D.flip_h:
-				projectile.velocity.x = -450
-				projectile.scale.x = -1
-			else:
-				projectile.velocity.x = 450
-			charge = 0
-			return
+		if is_sliding == false:
+			if charge < 32: # no charge
+				charge = 0
+				return
+			if charge >= 32 and charge < 92: # medium charge
+				shot_type = 0
+				shoot_delay = 13
+				projectile = projectile_scenes[1].instantiate()
+				get_parent().add_child(projectile)
+				projectile.position.x = position.x
+				projectile.position.y = position.y
+				if $AnimatedSprite2D.flip_h:
+					projectile.velocity.x = -450
+					projectile.scale.x = -1
+				else:
+					projectile.velocity.x = 450
+				charge = 0
+				return
+			if charge >= 92: # da big boi
+				shot_type = 0
+				shoot_delay = 13
+				projectile = projectile_scenes[2].instantiate()
+				get_parent().add_child(projectile)
+				projectile.position.x = position.x
+				projectile.position.y = position.y
+				if $AnimatedSprite2D.flip_h:
+					projectile.velocity.x = -450
+					projectile.scale.x = -1
+				else:
+					projectile.velocity.x = 450
+				charge = 0
+				return
 	if (current_weapon == 0 and Input.is_action_pressed("shoot")) or Input.is_action_pressed("buster"):
 		if charge < 100:
 			charge += 1
@@ -878,12 +882,6 @@ func weapon_origami():
 				else:
 						projectile.velocity.x = ORIGAMI_SPEED * 0.775
 				projectile.velocity.y =  -ORIGAMI_SPEED * 0.225
-				
-				
-				
-				
-				
-				
 				
 			if Input.is_action_pressed(input_down):
 				projectile = weapon_scenes[0].instantiate()
