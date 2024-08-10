@@ -90,10 +90,8 @@ script = ExtResource("1_5wtve")
 position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_vdur6")
 one_way_collision = true
+one_way_collision_margin = 4.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_edaxt")
-animation = &"explode"
 autoplay = "default"
-frame = 4
-frame_progress = 1.0
