@@ -914,8 +914,12 @@ func weapon_carry():
 			
 			#SHOOT FORWARD REGARDLESS
 			get_parent().add_child(projectile)
-			projectile.position.y = position.y
-			if $AnimatedSprite2D.flip_h:
-					projectile.position.x = position.x - 30
+			if is_feet_on_ground():	
+				projectile.position.y = position.y
+				if $AnimatedSprite2D.flip_h:
+						projectile.position.x = position.x - 30
+				else:
+						projectile.position.x = position.x + 30
 			else:
-					projectile.position.x = position.x + 30
+				projectile.position.y = position.y + 24
+				projectile.position.x = position.x
