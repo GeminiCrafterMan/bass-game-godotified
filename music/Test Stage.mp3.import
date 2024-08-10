@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://djxcyatg2dd7s"
+path="res://.godot/imported/Test Stage.mp3-cd8f20fe554c686b7fd9f0b7ef6b4588.mp3str"
+
+[deps]
+
+source_file="res://music/Test Stage.mp3"
+dest_files=["res://.godot/imported/Test Stage.mp3-cd8f20fe554c686b7fd9f0b7ef6b4588.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

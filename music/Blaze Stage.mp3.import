@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://duondd8cgl7qr"
+path="res://.godot/imported/Blaze Stage.mp3-bd7f9627ebdf39e8e25377c3e6252a0d.mp3str"
+
+[deps]
+
+source_file="res://music/Blaze Stage.mp3"
+dest_files=["res://.godot/imported/Blaze Stage.mp3-bd7f9627ebdf39e8e25377c3e6252a0d.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

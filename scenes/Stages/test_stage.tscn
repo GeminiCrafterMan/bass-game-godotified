@@ -5,8 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://7vytwtvvonec" path="res://scenes/Objects/Enemies/jumbro.tscn" id="3_8qce2"]
 [ext_resource type="PackedScene" uid="uid://bpd4uso3ynaeo" path="res://scenes/Objects/Enemies/metall.tscn" id="5_pn607"]
 [ext_resource type="PackedScene" uid="uid://b0opfnom6gmbo" path="res://scenes/module_tester.tscn" id="6_l6yt6"]
-[ext_resource type="AudioStream" uid="uid://b7fkonx2kejlk" path="res://music/Test Stage.ogg" id="7_dncdk"]
 [ext_resource type="PackedScene" uid="uid://blmlnutul2hyu" path="res://scenes/Objects/Level Objs/YokuBlock.tscn" id="7_iycjf"]
+[ext_resource type="AudioStream" uid="uid://djxcyatg2dd7s" path="res://music/Test Stage.mp3" id="7_lu0fe"]
 [ext_resource type="PackedScene" uid="uid://dmulyeg8hg6yt" path="res://scenes/Objects/Enemies/sniper_joe.tscn" id="8_ffb0a"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1m0ln"]
@@ -209,7 +209,7 @@ color = Color(0.27, 0.1215, 0, 1)
 polygon = PackedVector2Array(0, 475, 204, 475, 335, 561, 587, 505, 785, 579, 1060, 504, 1287, 573, 1475, 493, 1707, 635, 1805, 512, 1920, 542, 1920, 928, 0, 928)
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("7_dncdk")
+stream = ExtResource("7_lu0fe")
 volume_db = -10.0
 bus = &"Music"
 
