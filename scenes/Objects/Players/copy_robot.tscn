@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://cnpcm2juvcutu"]
+[gd_scene load_steps=61 format=3 uid="uid://cnpcm2juvcutu"]
 
 [ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="1_hk0hv"]
 [ext_resource type="Script" path="res://scenes/Objects/Players/copy_robot.gd" id="2_we56i"]
@@ -56,6 +56,18 @@ region = Rect2(672, 0, 48, 48)
 atlas = ExtResource("4_oq3cr")
 region = Rect2(728, 0, 48, 48)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_3j7c8"]
+atlas = ExtResource("4_oq3cr")
+region = Rect2(2632, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y7c0k"]
+atlas = ExtResource("4_oq3cr")
+region = Rect2(2688, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x5rwj"]
+atlas = ExtResource("4_oq3cr")
+region = Rect2(2744, 0, 48, 48)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_mtdkh"]
 atlas = ExtResource("4_oq3cr")
 region = Rect2(2240, 0, 48, 48)
@@ -75,6 +87,18 @@ region = Rect2(2520, 0, 48, 48)
 [sub_resource type="AtlasTexture" id="AtlasTexture_wfs1q"]
 atlas = ExtResource("4_oq3cr")
 region = Rect2(2576, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oo7m2"]
+atlas = ExtResource("4_oq3cr")
+region = Rect2(2800, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_snxvb"]
+atlas = ExtResource("4_oq3cr")
+region = Rect2(2856, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o6n2a"]
+atlas = ExtResource("4_oq3cr")
+region = Rect2(2912, 0, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_v1ad5"]
 atlas = ExtResource("4_oq3cr")
@@ -261,6 +285,26 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_3j7c8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y7c0k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x5rwj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x5rwj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x5rwj")
+}],
+"loop": false,
+"name": &"Idle-Throw",
+"speed": 20.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_mtdkh")
 }, {
 "duration": 1.0,
@@ -288,6 +332,26 @@ animations = [{
 "loop": true,
 "name": &"Jump-Shoot",
 "speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oo7m2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_snxvb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o6n2a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o6n2a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o6n2a")
+}],
+"loop": false,
+"name": &"Jump-Throw",
+"speed": 20.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -410,8 +474,10 @@ script = ExtResource("2_we56i")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_7773x")
 sprite_frames = SubResource("SpriteFrames_kjdkg")
-animation = &"Jump-Shoot"
+animation = &"Idle-Throw"
 autoplay = "Teleport"
+frame = 4
+frame_progress = 1.0
 
 [node name="MainHitbox" type="CollisionShape2D" parent="."]
 position = Vector2(0, 3)

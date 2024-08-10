@@ -262,39 +262,40 @@ func _input(_event):
 			current_weapon = 16
 			
 		else:
-			current_weapon = current_weapon - 1
+			current_weapon -= 1
 			
 			#make sure to clean this up later, I don't wanna -mengo
+			# i tried to clean it up, but it ended up working even less... - gem
 		if (current_weapon == 16 && GameState.weapons_unlocked[16] == false):
-			current_weapon = current_weapon - 1
+			current_weapon -= 1
 		if (current_weapon == 15 && GameState.weapons_unlocked[15] == false):
-			current_weapon = current_weapon - 1
+			current_weapon -= 1
 		if (current_weapon == 14 && GameState.weapons_unlocked[14] == false):
-			current_weapon = current_weapon - 1
+			current_weapon -= 1
 		if (current_weapon == 13 && GameState.weapons_unlocked[13] == false):
-			current_weapon = current_weapon - 1
+			current_weapon -= 1
 		if (current_weapon == 12 && GameState.weapons_unlocked[12] == false):
-			current_weapon = current_weapon - 1
+			current_weapon -= 1
 		if (current_weapon == 11 && GameState.weapons_unlocked[11] == false):
-			current_weapon = current_weapon - 1
+			current_weapon = 9 # skip Treble Boost
 		if (current_weapon == 9 && GameState.weapons_unlocked[9] == false):
-			current_weapon = current_weapon - 2
+			current_weapon -= 1
 		if (current_weapon == 8 && GameState.weapons_unlocked[8] == false):
-			current_weapon = current_weapon - 1
+			current_weapon -= 1
 		if (current_weapon == 7 && GameState.weapons_unlocked[7] == false):
-			current_weapon = current_weapon - 1
+			current_weapon -= 1
 		if (current_weapon == 6 && GameState.weapons_unlocked[6] == false):
-			current_weapon = current_weapon - 1
+			current_weapon -= 1
 		if (current_weapon == 5 && GameState.weapons_unlocked[5] == false):
-			current_weapon = current_weapon - 1
+			current_weapon -= 1
 		if (current_weapon == 4 && GameState.weapons_unlocked[4] == false):
-			current_weapon = current_weapon - 1
+			current_weapon -= 1
 		if (current_weapon == 3 && GameState.weapons_unlocked[3] == false):
-			current_weapon = current_weapon - 1
+			current_weapon -= 1
 		if (current_weapon == 2 && GameState.weapons_unlocked[2] == false):
-			current_weapon = current_weapon - 1
+			current_weapon -= 1
 		if (current_weapon == 1 && GameState.weapons_unlocked[1] == false):
-			current_weapon = current_weapon - 1
+			current_weapon -= 1
 			
 		if old_weapon != current_weapon:
 			$Audio/SwitchSound.play()
@@ -308,37 +309,38 @@ func _input(_event):
 			current_weapon = 0
 			
 		else:
-			current_weapon = current_weapon + 1
+			current_weapon += 1
 			
 		#make sure to clean this up later, I don't wanna -mengo
+			# i tried to clean it up, but it ended up working even less... - gem
 		if (current_weapon == 1 && GameState.weapons_unlocked[1] == false):
-			current_weapon = current_weapon + 1
+			current_weapon += 1
 		if (current_weapon == 2 && GameState.weapons_unlocked[2] == false):
-			current_weapon = current_weapon + 1
+			current_weapon += 1
 		if (current_weapon == 3 && GameState.weapons_unlocked[3] == false):
-			current_weapon = current_weapon + 1
+			current_weapon += 1
 		if (current_weapon == 4 && GameState.weapons_unlocked[4] == false):
-			current_weapon = current_weapon + 1
+			current_weapon += 1
 		if (current_weapon == 5 && GameState.weapons_unlocked[5] == false):
-			current_weapon = current_weapon + 1
+			current_weapon += 1
 		if (current_weapon == 6 && GameState.weapons_unlocked[6] == false):
-			current_weapon = current_weapon + 1
+			current_weapon += 1
 		if (current_weapon == 7 && GameState.weapons_unlocked[7] == false):
-			current_weapon = current_weapon + 1
+			current_weapon += 1
 		if (current_weapon == 8 && GameState.weapons_unlocked[8] == false):
-			current_weapon = current_weapon + 1
+			current_weapon += 1
 		if (current_weapon == 9 && GameState.weapons_unlocked[9] == false):
-			current_weapon = 11
+			current_weapon = 11 # skip Treble Boost
 		if (current_weapon == 11 && GameState.weapons_unlocked[11] == false):
-			current_weapon = current_weapon + 1
+			current_weapon += 1
 		if (current_weapon == 12 && GameState.weapons_unlocked[12] == false):
-			current_weapon = current_weapon + 1
+			current_weapon += 1
 		if (current_weapon == 13 && GameState.weapons_unlocked[13] == false):
-			current_weapon = current_weapon + 1
+			current_weapon += 1
 		if (current_weapon == 14 && GameState.weapons_unlocked[14] == false):
-			current_weapon = current_weapon + 1
+			current_weapon += 1
 		if (current_weapon == 15 && GameState.weapons_unlocked[15] == false):
-			current_weapon = current_weapon + 1
+			current_weapon += 1
 		if (current_weapon == 16 && GameState.weapons_unlocked[16] == false):
 			current_weapon = 0
 
@@ -641,7 +643,11 @@ func animate():
 				$AnimatedSprite2D.play("Idle")
 			else:
 				match shot_type:
-					_:
+					0: # Normal
+						$AnimatedSprite2D.play("Idle-Shoot")
+					2: # Throw
+						$AnimatedSprite2D.play("Idle-Throw")
+					_: # Everything else
 						$AnimatedSprite2D.play("Idle-Shoot")
 			slide_stopped = false
 		else:
@@ -651,7 +657,12 @@ func animate():
 					$AnimatedSprite2D.set_frame_and_progress(current_frame, current_progress)
 				else:
 					match shot_type:
-						_:
+						0: # Normal
+							$AnimatedSprite2D.play("Walk-Shoot")
+							$AnimatedSprite2D.set_frame_and_progress(current_frame, current_progress)
+						2: # Throw
+							$AnimatedSprite2D.play("Idle-Throw")
+						_: # Everything else
 							$AnimatedSprite2D.play("Walk-Shoot")
 							$AnimatedSprite2D.set_frame_and_progress(current_frame, current_progress)
 			else:
@@ -659,6 +670,10 @@ func animate():
 					$AnimatedSprite2D.play("Step")
 				else:
 					match shot_type:
+						0:
+							$AnimatedSprite2D.play("Idle-Shoot")
+						2:
+							$AnimatedSprite2D.play("Idle-Throw")
 						_:
 							$AnimatedSprite2D.play("Idle-Shoot")
 				slide_stopped = false
@@ -711,11 +726,14 @@ func handle_weapons():
 			weapon_origami()
 		11:
 			weapon_carry()
+		_:
 			return
 
 func weapon_buster():
 	if shoot_delay > 0:
-		shoot_delay -= 1
+		if shot_type == 0:
+			shoot_delay -= 1
+		no_grounded_movement = false
 	if (current_weapon == 0 and Input.is_action_just_pressed("shoot")) or Input.is_action_just_pressed("buster"):
 		shot_type = 0
 		shoot_delay = 13
@@ -775,11 +793,15 @@ func weapon_buster():
 		return
 
 func weapon_origami():
-
-	no_grounded_movement = false
-	if (current_weapon == 5 and Input.is_action_just_pressed(input_shoot)):
+	if shoot_delay > 0:
+		if shot_type == 2:
+			shoot_delay -= 1
+			no_grounded_movement = true
+	else:
+		no_grounded_movement = false
+	if Input.is_action_just_pressed(input_shoot):
 		
-			shot_type = 0
+			shot_type = 2
 			shoot_delay = 13
 			projectile = weapon_scenes[0].instantiate()
 			
@@ -904,11 +926,14 @@ func weapon_origami():
 
 
 func weapon_carry():
-
-	no_grounded_movement = false
-	if (current_weapon == 11 and Input.is_action_just_pressed(input_shoot)):
-		
-			shot_type = 0
+	if shoot_delay > 0:
+		if shot_type == 2:
+			shoot_delay -= 1
+			no_grounded_movement = true
+	else:
+		no_grounded_movement = false
+	if Input.is_action_just_pressed(input_shoot):
+			shot_type = 2
 			shoot_delay = 13
 			projectile = projectile_scenes[3].instantiate()
 			

@@ -237,29 +237,30 @@ func _input(_event):
 			current_weapon = 10
 			
 		else:
-			current_weapon = current_weapon - 1
+			current_weapon -= 1
 			
 			#make sure to clean this up later, I don't wanna -mengo
+			# i tried to clean it up, but it ended up working even less... - gem
 		if (current_weapon == 10 && GameState.weapons_unlocked[10] == false):
-			current_weapon = current_weapon - 1
+			current_weapon -= 1
 		if (current_weapon == 9 && GameState.weapons_unlocked[9] == false):
-			current_weapon = current_weapon - 1
+			current_weapon -= 1
 		if (current_weapon == 8 && GameState.weapons_unlocked[8] == false):
-			current_weapon = current_weapon - 1
+			current_weapon -= 1
 		if (current_weapon == 7 && GameState.weapons_unlocked[7] == false):
-			current_weapon = current_weapon - 1
+			current_weapon -= 1
 		if (current_weapon == 6 && GameState.weapons_unlocked[6] == false):
-			current_weapon = current_weapon - 1
+			current_weapon -= 1
 		if (current_weapon == 5 && GameState.weapons_unlocked[5] == false):
-			current_weapon = current_weapon - 1
+			current_weapon -= 1
 		if (current_weapon == 4 && GameState.weapons_unlocked[4] == false):
-			current_weapon = current_weapon - 1
+			current_weapon -= 1
 		if (current_weapon == 3 && GameState.weapons_unlocked[3] == false):
-			current_weapon = current_weapon - 1
+			current_weapon -= 1
 		if (current_weapon == 2 && GameState.weapons_unlocked[2] == false):
-			current_weapon = current_weapon - 1
+			current_weapon -= 1
 		if (current_weapon == 1 && GameState.weapons_unlocked[1] == false):
-			current_weapon = current_weapon - 1
+			current_weapon -= 1
 			
 		if old_weapon != current_weapon:
 			$Audio/SwitchSound.play()
@@ -273,27 +274,28 @@ func _input(_event):
 			current_weapon = 0
 			
 		else:
-			current_weapon = current_weapon + 1
+			current_weapon += 1
 			
 		#make sure to clean this up later, I don't wanna -mengo
+			# i tried to clean it up, but it ended up working even less... - gem
 		if (current_weapon == 1 && GameState.weapons_unlocked[1] == false):
-			current_weapon = current_weapon + 1
+			current_weapon += 1
 		if (current_weapon == 2 && GameState.weapons_unlocked[2] == false):
-			current_weapon = current_weapon + 1
+			current_weapon += 1
 		if (current_weapon == 3 && GameState.weapons_unlocked[3] == false):
-			current_weapon = current_weapon + 1
+			current_weapon += 1
 		if (current_weapon == 4 && GameState.weapons_unlocked[4] == false):
-			current_weapon = current_weapon + 1
+			current_weapon += 1
 		if (current_weapon == 5 && GameState.weapons_unlocked[5] == false):
-			current_weapon = current_weapon + 1
+			current_weapon += 1
 		if (current_weapon == 6 && GameState.weapons_unlocked[6] == false):
-			current_weapon = current_weapon + 1
+			current_weapon += 1
 		if (current_weapon == 7 && GameState.weapons_unlocked[7] == false):
-			current_weapon = current_weapon + 1
+			current_weapon += 1
 		if (current_weapon == 8 && GameState.weapons_unlocked[8] == false):
-			current_weapon = current_weapon + 1
+			current_weapon += 1
 		if (current_weapon == 9 && GameState.weapons_unlocked[9] == false):
-			current_weapon = current_weapon + 1
+			current_weapon += 1
 		if (current_weapon == 10 && GameState.weapons_unlocked[10] == false):
 			current_weapon = 0
 
@@ -338,6 +340,7 @@ func _physics_process(delta):
 		
 		if (is_dashing == false || is_feet_on_ground() == false || !(Input.is_action_pressed(input_dash))):
 			acc.x = 0
+			# G: do something about dash jumping later
 			if Input.is_action_pressed(input_left):
 				$AnimatedSprite2D.flip_h = true
 				acc.x = -max_acceleration
@@ -375,7 +378,7 @@ func _physics_process(delta):
 		if can_ground_jump() and can_hold_jump and velocity.y<2:
 			jump()
 	
-	if Input.is_action_pressed(input_up) && Input.is_action_just_pressed(input_jump):
+	if Input.is_action_pressed(input_up) && Input.is_action_just_pressed(input_jump) and not is_feet_on_ground(): # no blast jumping on the ground, so you don't waste it
 		if blast_jumped == false && (GameState.modules_enabled[1] == true):
 			blastjump()
 			
@@ -621,7 +624,7 @@ func animate():
 		if (abs(velocity.x) == 0):
 			if shoot_delay > 0:
 				match shot_type:
-					0:
+					0: # Bass Buster
 						if Input.is_action_pressed(input_up):
 							if Input.is_action_pressed(input_left) or Input.is_action_pressed(input_right):
 								$AnimatedSprite2D.play("Idle-Shoot Steady Diagonal")
@@ -631,7 +634,11 @@ func animate():
 							$AnimatedSprite2D.play("Idle-Shoot Steady Down")
 						else:
 							$AnimatedSprite2D.play("Idle-Shoot Steady")
-					_:
+					1: # Normal
+						$AnimatedSprite2D.play("Idle-Shoot")
+					2: # Throw
+						$AnimatedSprite2D.play("Idle-Throw")
+					_: # Everything else
 						$AnimatedSprite2D.play("Idle-Shoot")
 			else:
 				$AnimatedSprite2D.play("Idle")
@@ -639,7 +646,7 @@ func animate():
 			if (abs(velocity.x) > 50):
 				if shoot_delay > 0:
 					match shot_type:
-						0:
+						0: # Bass Buster
 							if Input.is_action_pressed(input_up):
 								if Input.is_action_pressed(input_left) or Input.is_action_pressed(input_right):
 									$AnimatedSprite2D.play("Idle-Shoot Steady Diagonal")
@@ -649,7 +656,12 @@ func animate():
 								$AnimatedSprite2D.play("Idle-Shoot Steady Down")
 							else:
 								$AnimatedSprite2D.play("Idle-Shoot Steady")
-						_:
+						1: # Normal
+							$AnimatedSprite2D.play("Walk-Shoot")
+							$AnimatedSprite2D.set_frame_and_progress(current_frame, current_progress)
+						2: # Throw
+							$AnimatedSprite2D.play("Idle-Throw")
+						_: # Everything else
 							$AnimatedSprite2D.play("Walk-Shoot")
 							$AnimatedSprite2D.set_frame_and_progress(current_frame, current_progress)
 				else:
@@ -658,7 +670,7 @@ func animate():
 			else:
 				if shoot_delay > 0:
 					match shot_type:
-						0:
+						0: # Bass Buster
 							if Input.is_action_pressed(input_up):
 								if Input.is_action_pressed(input_left) or Input.is_action_pressed(input_right):
 									$AnimatedSprite2D.play("Idle-Shoot Steady Diagonal")
@@ -668,20 +680,19 @@ func animate():
 								$AnimatedSprite2D.play("Idle-Shoot Steady Down")
 							else:
 								$AnimatedSprite2D.play("Idle-Shoot Steady")
-						_:
+						1: # Normal
+							$AnimatedSprite2D.play("Idle-Shoot")
+						2: # Throw
+							$AnimatedSprite2D.play("Idle-Throw")
+						_: # Everything else
 							$AnimatedSprite2D.play("Idle-Shoot")
 				else:
-					if shoot_delay > 0:
-						match shot_type:
-							_:
-								$AnimatedSprite2D.play("Idle-Shoot")
-					else:
-						$AnimatedSprite2D.play("Step")
+					$AnimatedSprite2D.play("Step")
 	else:
 
 			if shoot_delay > 0:
 				match shot_type:
-					0:
+					0: # Bass Buster
 						if Input.is_action_pressed(input_up):
 							if Input.is_action_pressed(input_left) or Input.is_action_pressed(input_right):
 								$AnimatedSprite2D.play("Jump-Shoot Diagonal")
@@ -691,7 +702,11 @@ func animate():
 							$AnimatedSprite2D.play("Jump-Shoot Down")
 						else:
 							$AnimatedSprite2D.play("Jump-Shoot")
-					_:
+					1: # Normal
+						$AnimatedSprite2D.play("Jump-Shoot")
+					2: # Throw
+						$AnimatedSprite2D.play("Jump-Throw")
+					_: # Everything else
 						$AnimatedSprite2D.play("Jump-Shoot")
 			else:
 				if (velocity.y < 0):
@@ -712,8 +727,9 @@ func handle_weapons():
 
 func weapon_buster():
 	if shoot_delay > 0:
-		shoot_delay -= 1
-		no_grounded_movement = true
+		if shot_type == 0:
+			shoot_delay -= 1
+			no_grounded_movement = true
 	else:
 		no_grounded_movement = false
 	if (current_weapon == 0 and Input.is_action_pressed(input_shoot)) or Input.is_action_pressed(input_buster):
@@ -751,11 +767,14 @@ func weapon_buster():
 		return
 
 func weapon_origami():
-
-	no_grounded_movement = false
-	if (current_weapon == 5 and Input.is_action_just_pressed(input_shoot)):
-		
-			shot_type = 0
+	if shoot_delay > 0:
+		if shot_type == 2:
+			shoot_delay -= 1
+			no_grounded_movement = true
+	else:
+		no_grounded_movement = false
+	if Input.is_action_just_pressed(input_shoot):
+			shot_type = 2
 			shoot_delay = 13
 			projectile = weapon_scenes[0].instantiate()
 			
