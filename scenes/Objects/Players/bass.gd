@@ -912,7 +912,7 @@ func do_charge_palette():
 			flash_timer = 1
 	elif charge >= 92:
 		if flash_timer == 1:
-			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[10])
+			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[12])
 			flash_timer = 0
 		else:
 			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[11])
