@@ -19,6 +19,8 @@ var current_weapon : int
 var old_weapon : int
 var shoot_delay = 0
 var shot_type = 0
+var charge : int
+var flash_timer : int
 
 # Change the animation with keeping the frame index and progress.
 @onready var current_frame = $AnimatedSprite2D.get_frame()
@@ -39,7 +41,9 @@ var weapon_palette: Array[Texture2D] = [
 	preload("res://sprites/Players/Bass/Palettes/Rolling Bomb.png"),
 	preload("res://sprites/Players/Bass/Palettes/Boomerang Scythe.png"),
 	preload("res://sprites/Players/Bass/Palettes/Proto Buster.png"),
-	preload("res://sprites/Players/Bass/Palettes/Treble.png")
+	preload("res://sprites/Players/Bass/Palettes/Treble.png"),
+	preload("res://sprites/Players/Bass/Palettes/Proto Charge 1.png"),
+	preload("res://sprites/Players/Bass/Palettes/Proto Charge 2.png")
 ]
 var energy = [
 	0,	# Buster
@@ -70,7 +74,10 @@ var max_energy = [ # Energy use is always 1, *no matter what*. Increase energy a
 var projectile_scenes = [
 	preload("res://scenes/Objects/Players/Weapons/Bass/buster.tscn"),
 	preload("res://scenes/Objects/Players/Weapons/Bass/blast_jump.tscn"),
-	preload("res://scenes/Objects/Players/Weapons/Bass/track_2.tscn")
+	preload("res://scenes/Objects/Players/Weapons/Bass/track_2.tscn"),
+	preload("res://scenes/Objects/Players/Weapons/Copy Robot/buster_small.tscn"),
+	preload("res://scenes/Objects/Players/Weapons/Bass/protoshot1.tscn"),
+	preload("res://scenes/Objects/Players/Weapons/Bass/protoshot2.tscn")
 ]
 
 var weapon_scenes = [
@@ -723,6 +730,8 @@ func handle_weapons():
 	match current_weapon:
 		5:
 			weapon_origami()
+		9:
+			weapon_proto()
 	return
 
 func weapon_buster():
@@ -811,3 +820,100 @@ func weapon_origami():
 		projectile.velocity.y = 155
 		is_dashing = false
 		return
+		
+func weapon_proto():
+	if shoot_delay > 0:
+		if shot_type == 0:
+			shoot_delay -= 1
+			no_grounded_movement = false
+	if (current_weapon == 9 and Input.is_action_just_pressed("shoot")):
+		if is_dashing == false:
+			shot_type = 0
+			shoot_delay = 13
+			projectile = projectile_scenes[3].instantiate()
+			get_parent().add_child(projectile)
+			projectile.position.x = position.x
+			projectile.position.y = position.y
+			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[current_weapon])
+			if $AnimatedSprite2D.flip_h:
+				projectile.velocity.x = -350
+				projectile.scale.x = -1
+			else:
+				projectile.velocity.x = 350
+			charge = 0
+			return
+	if (current_weapon == 9 and Input.is_action_just_released("shoot")):
+		if is_dashing == false:
+			if charge < 32: # no charge
+				charge = 0
+				return
+			if charge >= 32 and charge < 92: # medium charge
+				shot_type = 0
+				shoot_delay = 13
+				projectile = projectile_scenes[4].instantiate()
+				get_parent().add_child(projectile)
+				projectile.position.x = position.x
+				projectile.position.y = position.y
+				$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[current_weapon])
+				if $AnimatedSprite2D.flip_h:
+					projectile.velocity.x = -450
+					projectile.scale.x = -1
+				else:
+					projectile.velocity.x = 450
+				charge = 0
+				return
+			if charge >= 92: # da big boi
+				shot_type = 0
+				shoot_delay = 13
+				projectile = projectile_scenes[5].instantiate()
+				get_parent().add_child(projectile)
+				projectile.position.x = position.x
+				projectile.position.y = position.y
+				$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[current_weapon])
+				if $AnimatedSprite2D.flip_h:
+					projectile.velocity.x = -450
+					projectile.scale.x = -1
+				else:
+					projectile.velocity.x = 450
+				charge = 0
+				return
+	if (current_weapon == 9 and Input.is_action_pressed("shoot")):
+		if charge < 100:
+			charge += 1
+			do_charge_palette()
+			if charge == 32:
+				$Audio/Charge1.play()
+			if charge == 99:
+				$Audio/Charge2.play()
+			
+	else:
+		charge = 0
+		return
+
+
+func do_charge_palette():
+	if charge == 0 or charge < 37: # no charge
+		$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[current_weapon])
+	elif charge >= 37 && charge < 65: # just started charging
+		if flash_timer == 2 || flash_timer == 3:
+			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[11])
+			flash_timer += 1
+		else:
+			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[current_weapon])
+			flash_timer += 1
+		if flash_timer == 3:
+			flash_timer = 0
+	elif charge >= 65 && charge < 92:
+		if flash_timer == 1:
+			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[11])
+			flash_timer = 0
+		else:
+			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[current_weapon])
+			flash_timer = 1
+	elif charge >= 92:
+		if flash_timer == 1:
+			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[10])
+			flash_timer = 0
+		else:
+			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[11])
+			flash_timer = 1

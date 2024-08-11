@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://kfk1dq7hqeyc"]
+[gd_scene load_steps=63 format=3 uid="uid://kfk1dq7hqeyc"]
 
 [ext_resource type="Texture2D" uid="uid://b56gnn6pfhbv4" path="res://sprites/Players/Bass/spritesheet.png" id="1_ci3qt"]
 [ext_resource type="Script" path="res://scenes/Objects/Players/bass.gd" id="1_lug7r"]
@@ -10,6 +10,8 @@
 [ext_resource type="AudioStream" uid="uid://bgfwytu8kifqv" path="res://sounds/blastjump.wav" id="8_xq33u"]
 [ext_resource type="AudioStream" uid="uid://pk86bd6damih" path="res://sounds/start_bass.wav" id="9_e7if1"]
 [ext_resource type="AudioStream" uid="uid://dr1p57c1kr6na" path="res://sounds/warp.wav" id="10_kmnn1"]
+[ext_resource type="AudioStream" uid="uid://chia0oxnvce13" path="res://sounds/charge.wav" id="11_gdffj"]
+[ext_resource type="AudioStream" uid="uid://brqoxbrriuifw" path="res://sounds/charged.wav" id="12_om6tc"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qymoq"]
 shader = ExtResource("2_m015p")
@@ -519,6 +521,12 @@ bus = &"SFX"
 [node name="WarpInSound" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("10_kmnn1")
 bus = &"SFX"
+
+[node name="Charge1" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("11_gdffj")
+
+[node name="Charge2" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("12_om6tc")
 
 [node name="CeilingCheck" type="RayCast2D" parent="."]
 position = Vector2(0, 12)
