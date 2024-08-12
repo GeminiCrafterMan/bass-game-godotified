@@ -1,6 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://bpd4uso3ynaeo"]
+[gd_scene load_steps=12 format=3 uid="uid://bpd4uso3ynaeo"]
 
 [ext_resource type="Texture2D" uid="uid://cp7ew5kapy7xr" path="res://sprites/Enemies/Metall.png" id="1_6rq1x"]
+[ext_resource type="Script" path="res://scenes/Objects/Enemies/enemy_template.gd" id="1_yk5q0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_v1y3w"]
 atlas = ExtResource("1_6rq1x")
@@ -87,6 +88,7 @@ size = Vector2(18, 10)
 [node name="Metall" type="CharacterBody2D"]
 collision_layer = 4
 collision_mask = 3
+script = ExtResource("1_yk5q0")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -2)
@@ -94,11 +96,24 @@ sprite_frames = SubResource("SpriteFrames_62nvj")
 animation = &"Closed"
 autoplay = "Closed"
 
-[node name="OpenHitbox" type="CollisionShape2D" parent="."]
+[node name="hitable" type="Area2D" parent="."]
+
+[node name="OpenHitbox" type="CollisionShape2D" parent="hitable"]
 visible = false
 position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_wp5vq")
 
-[node name="ClosedHitbox" type="CollisionShape2D" parent="."]
+[node name="ClosedHitbox" type="CollisionShape2D" parent="hitable"]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_btiql")
+
+[node name="hurt" type="Area2D" parent="."]
+
+[node name="OpenHitbox" type="CollisionShape2D" parent="hurt"]
+visible = false
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_wp5vq")
+
+[node name="ClosedHitbox" type="CollisionShape2D" parent="hurt"]
 position = Vector2(0, 3)
 shape = SubResource("RectangleShape2D_btiql")

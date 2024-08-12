@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+const W_Type = 8	# This is Origami Star.
+
 func _ready():
 	$SpawnSound.play()
 	if GameState.character_selected == 0:

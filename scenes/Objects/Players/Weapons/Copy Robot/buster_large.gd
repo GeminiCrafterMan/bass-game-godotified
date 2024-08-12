@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+const W_Type = 3	# This is Copy Robot's large charge shot.
+
 func _ready():
 	$SpawnSound.play()
 

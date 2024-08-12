@@ -67,7 +67,7 @@ Allows you to freely move around in the water by jumping in the "air" underwater
 --== ORIGAMI MAN ==--
 
 (Weapon) Origami Star
-Sort of like Shadow Blade, but omnidirectional and you can pause it to multihit by holding B.
+Triple-shot projectile that Copy Robot can aim.
 
 (Module) Paper Cut
 Dashing melee attack. Cancels out Mist Dash.

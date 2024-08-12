@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+const W_Type = 15	# This is Screw Crusher.
+
 func _ready():
 	$SpawnSound.play()
 		
