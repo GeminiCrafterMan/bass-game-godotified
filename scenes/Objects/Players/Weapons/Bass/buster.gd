@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+const W_Type = 0	# This is Bass's buster shot.
+
 func _ready():
 	$SpawnSound.play()
 

@@ -1,5 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://dmulyeg8hg6yt"]
+[gd_scene load_steps=12 format=3 uid="uid://dmulyeg8hg6yt"]
 
+[ext_resource type="Script" path="res://scenes/Objects/Enemies/enemy_template.gd" id="1_tohgq"]
 [ext_resource type="Texture2D" uid="uid://daefccg61j7bv" path="res://sprites/Enemies/Sniper Joe.png" id="1_vqtgt"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0ncy6"]
@@ -61,6 +62,7 @@ size = Vector2(27, 27)
 [node name="Sniper Joe" type="CharacterBody2D"]
 collision_layer = 4
 collision_mask = 3
+script = ExtResource("1_tohgq")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -3)

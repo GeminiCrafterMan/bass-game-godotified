@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+const W_Type = 12	# This is Bass's medium Proto Buster shot.
+
 func _ready():
 	$SpawnSound.play()
 

@@ -1,7 +1,6 @@
 extends CharacterBody2D
 
-func _ready():
-	pass
+const W_Type = 19	# This is Houshou-geki's blast jump wave.
 
 func _physics_process(delta):
 	if move_and_slide() == true:

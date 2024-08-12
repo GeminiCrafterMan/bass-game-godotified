@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+const W_Type = 1	# This is Copy Robot's basic buster shot.
+
 func _ready():
 	$SpawnSound.play()
 

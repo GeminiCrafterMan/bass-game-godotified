@@ -21,6 +21,9 @@ var shoot_delay = 0
 var shot_type = 0
 var charge : int
 var flash_timer : int
+var current_hp = 28
+var DmgQueue = 0
+var invin_frms = 0
 
 # Change the animation with keeping the frame index and progress.
 @onready var current_frame = $AnimatedSprite2D.get_frame()
@@ -578,21 +581,16 @@ func apply_gravity_multipliers_to(gravity) -> float:
 		if not holding_jump: 
 			if not current_jump_type == JumpType.AIR: # Always jump to max height when we are using a double jump
 				gravity *= release_gravity_multiplier # multiply the gravity so we have a lower jump
-	
-	
 	return gravity
-
 
 ## Calculates the desired gravity from jump height and jump duration.  [br]
 ## Formula is from [url=https://www.youtube.com/watch?v=hG9SzQxaCm8]this video[/url] 
 func calculate_gravity(p_max_jump_height, p_jump_duration):
 	return (2 * p_max_jump_height) / pow(p_jump_duration, 2)
 
-
 ## Calculates the desired jump velocity from jump height and jump duration.
 func calculate_jump_velocity(p_max_jump_height, p_jump_duration):
 	return (2 * p_max_jump_height) / (p_jump_duration)
-
 
 ## Calculates jump velocity from jump height and gravity.  [br]
 ## Formula from 
@@ -600,19 +598,16 @@ func calculate_jump_velocity(p_max_jump_height, p_jump_duration):
 func calculate_jump_velocity2(p_max_jump_height, p_gravity):
 	return sqrt(abs(2 * p_gravity * p_max_jump_height)) * sign(p_max_jump_height)
 
-
 ## Calculates the gravity when the key is released based off the minimum jump height and jump velocity.  [br]
 ## Formula is from [url]https://sciencing.com/acceleration-velocity-distance-7779124.html[/url]
 func calculate_release_gravity_multiplier(p_jump_velocity, p_min_jump_height, p_gravity):
 	var release_gravity = pow(p_jump_velocity, 2) / (2 * p_min_jump_height)
 	return release_gravity / p_gravity
 
-
 ## Returns a value for friction that will hit the max speed after 90% of time_to_max seconds.  [br]
 ## Formula from [url]https://www.reddit.com/r/gamedev/comments/bdbery/comment/ekxw9g4/?utm_source=share&utm_medium=web2x&context=3[/url]
 func calculate_friction(time_to_max):
 	return 1 - (2.30259 / time_to_max)
-
 
 ## Formula from [url]https://www.reddit.com/r/gamedev/comments/bdbery/comment/ekxw9g4/?utm_source=share&utm_medium=web2x&context=3[/url]
 func calculate_speed(p_max_speed, p_friction):
@@ -858,12 +853,12 @@ func weapon_origami():
 		
 func weapon_proto():
 	if shoot_delay > 0:
-		if shot_type == 0:
+		if shot_type == 1:
 			shoot_delay -= 1
 			no_grounded_movement = false
 	if (current_weapon == 9 and Input.is_action_just_pressed("shoot")):
 		if is_dashing == false:
-			shot_type = 0
+			shot_type = 1
 			shoot_delay = 13
 			projectile = projectile_scenes[3].instantiate()
 			get_parent().add_child(projectile)
@@ -883,7 +878,7 @@ func weapon_proto():
 				charge = 0
 				return
 			if charge >= 32 and charge < 92: # medium charge
-				shot_type = 0
+				shot_type = 1
 				shoot_delay = 13
 				projectile = projectile_scenes[4].instantiate()
 				get_parent().add_child(projectile)
@@ -898,7 +893,7 @@ func weapon_proto():
 				charge = 0
 				return
 			if charge >= 92: # da big boi
-				shot_type = 0
+				shot_type = 1
 				shoot_delay = 13
 				projectile = projectile_scenes[5].instantiate()
 				get_parent().add_child(projectile)
@@ -952,3 +947,20 @@ func do_charge_palette():
 		else:
 			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[11])
 			flash_timer = 1
+
+func _DamageAndInvincible():
+	if invin_frms > 0:
+		invin_frms -= 1
+		if invin_frms % 2 == 0:
+			visible = false
+		else:
+			visible = true
+	else:
+		visible = true
+	if DmgQueue > 0:
+		if invin_frms > 0:
+			DmgQueue = 0
+		else:
+			current_hp -= DmgQueue
+			DmgQueue = 0
+			$Audio/owchj.play()

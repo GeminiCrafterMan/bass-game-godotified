@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+const W_Type = 16	# This is Ballade Cracker.
+
 func _ready():
 	$SpawnSound.play()
 		

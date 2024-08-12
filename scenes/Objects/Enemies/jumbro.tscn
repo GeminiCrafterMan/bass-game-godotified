@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://7vytwtvvonec"]
+[gd_scene load_steps=10 format=3 uid="uid://7vytwtvvonec"]
 
 [ext_resource type="Texture2D" uid="uid://5m5m4sib6hsc" path="res://sprites/Enemies/Jumbro.png" id="1_hw46l"]
+[ext_resource type="Script" path="res://scenes/Objects/Enemies/jumbro.gd" id="1_w5820"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2eeja"]
 atlas = ExtResource("1_hw46l")
@@ -65,12 +66,13 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_wp5vq"]
-size = Vector2(32, 41)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vk8e7"]
+size = Vector2(31, 41)
 
 [node name="Jumbro" type="CharacterBody2D"]
 collision_layer = 4
 collision_mask = 3
+script = ExtResource("1_w5820")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0.5, 0)
@@ -78,6 +80,27 @@ sprite_frames = SubResource("SpriteFrames_62nvj")
 animation = &"Idle"
 autoplay = "Idle"
 
-[node name="MainHitbox" type="CollisionShape2D" parent="."]
-position = Vector2(0, 3.5)
-shape = SubResource("RectangleShape2D_wp5vq")
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 4)
+shape = SubResource("RectangleShape2D_vk8e7")
+debug_color = Color(0, 1, 0.0705882, 0.419608)
+
+[node name="hitable" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 8
+
+[node name="MainHitbox" type="CollisionShape2D" parent="hitable"]
+position = Vector2(0.5, 4)
+shape = SubResource("RectangleShape2D_vk8e7")
+
+[node name="hurt" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="MainHitbox" type="CollisionShape2D" parent="hurt"]
+position = Vector2(0.5, 4)
+shape = SubResource("RectangleShape2D_vk8e7")
+debug_color = Color(1, 0.00392157, 0.0705882, 0.419608)
+
+[connection signal="body_entered" from="hitable" to="." method="_on_hitable_body_entered"]
+[connection signal="body_entered" from="hurt" to="." method="_on_hurt_body_entered"]

@@ -67,14 +67,14 @@ Allows you to freely move around in the water by jumping in the "air" underwater
 --== ORIGAMI MAN ==--
 
 (Weapon) Origami Star
-Sort of like Shadow Blade, but omnidirectional and you can pause it to multihit by holding B.
+Triple-shot projectile that Copy Robot can aim.
 
 (Module) Paper Cut
 Dashing melee attack. Cancels out Mist Dash.
 
 --== GALE WOMAN ==--
 
-(Weapon) ???
+(Weapon) Gale Force(?)
 Screen nuke, a la Power Gear Tundra Storm.
 
 (Module) ???
@@ -82,16 +82,16 @@ Screen nuke, a la Power Gear Tundra Storm.
 
 --== GUERRILLA MAN ==--
 
-(Weapon) ???
-???
+(Weapon) Rolling Bomb(?)
+Bomb that rolls along the ground, like Search Snake or Plug Ball.
 
 (Module) ???
 ???
 
 --== REAPER MAN ==--
 
-(Weapon) ???
-???
+(Weapon) Boomerang Scythe
+Scythe that bounces around and eventually tries to come back to you.
 
 (Module) ???
 ???
