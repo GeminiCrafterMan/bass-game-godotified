@@ -109,7 +109,7 @@ var weapon_scenes = [
 @export var input_switch_left : String = "switch_left"
 @export var input_switch_right : String = "switch_right"
 
-const DEFAULT_MAX_JUMP_HEIGHT = 80
+const DEFAULT_MAX_JUMP_HEIGHT = 64
 const DEFAULT_MIN_JUMP_HEIGHT = 10
 const DEFAULT_DOUBLE_JUMP_HEIGHT = 100
 const DEFAULT_JUMP_DURATION = 0.4
