@@ -98,11 +98,14 @@ var projectile_scenes = [
 	preload("res://scenes/Objects/Players/Weapons/Copy Robot/buster_large.tscn"),
 	preload("res://scenes/Objects/Players/Weapons/Copy Robot/carry.tscn"),
 	preload("res://scenes/Objects/Players/Weapons/Copy Robot/ballade_cracker.tscn"),
-	preload("res://scenes/Objects/Players/Weapons/Copy Robot/screw_crusher.tscn")
+	preload("res://scenes/Objects/Players/Weapons/Copy Robot/screw_crusher.tscn"),
+	preload("res://scenes/Objects/Players/Weapons/Copy Robot/arrow.tscn")
+	
 ]
 
 var weapon_scenes = [
-	preload("res://scenes/Objects/Players/Weapons/Special Weps/origami_star.tscn")
+	preload("res://scenes/Objects/Players/Weapons/Special Weps/origami_star.tscn"),
+	preload("res://scenes/Objects/Players/Weapons/Special Weps/poison_cloud.tscn")
 ]
 
 # Set these to the name of your action (in the Input Map)
@@ -727,10 +730,14 @@ func do_charge_palette():
 
 func handle_weapons():
 	match current_weapon:
+		3:
+			weapon_smog()
 		5:
 			weapon_origami()
 		11:
 			weapon_carry()
+		12:
+			weapon_arrow()
 		14:
 			weapon_punk()
 		15:
@@ -801,6 +808,37 @@ func weapon_buster():
 			
 	else:
 		charge = 0
+		return
+
+func weapon_smog():
+	if shoot_delay > 0:
+		if shot_type == 1:
+			shoot_delay -= 1
+			no_grounded_movement = true
+	else:
+		no_grounded_movement = false
+
+	if Input.is_action_just_pressed(input_shoot):
+		$AnimatedSprite2D.set_frame_and_progress(0, 0)
+		shot_type = 1
+		shoot_delay = 13
+		projectile = weapon_scenes[1].instantiate()
+		get_parent().add_child(projectile)
+		if $AnimatedSprite2D.flip_h:
+			projectile.position.x = position.x - 14
+		else:
+			projectile.position.x = position.x + 14
+		
+		projectile.position.y = position.y + 4
+		if $AnimatedSprite2D.flip_h:
+			projectile.velocity.x = -200
+		else:
+			projectile.velocity.x = 200
+		if $AnimatedSprite2D.flip_h:
+			projectile.scale.x = -1
+		# inputs
+		
+		is_sliding = false
 		return
 
 func weapon_origami():
@@ -953,6 +991,31 @@ func weapon_carry():
 		else:
 			projectile.position.y = position.y + 24
 			projectile.position.x = position.x
+
+func weapon_arrow():
+	if shoot_delay > 0:
+		if shot_type == 1:
+			shoot_delay -= 1
+			no_grounded_movement = false
+	else:
+		no_grounded_movement = false
+	if Input.is_action_just_pressed(input_shoot):
+		$AnimatedSprite2D.set_frame_and_progress(0, 0)
+		shot_type = 1
+		shoot_delay = 13
+		projectile = projectile_scenes[6].instantiate()
+		
+		#SHOOT FORWARD REGARDLESS
+		get_parent().add_child(projectile)
+		projectile.position.y = position.y
+		if $AnimatedSprite2D.flip_h:
+			velocity.x = -1
+			projectile.position.x = position.x - 27
+		else:
+			velocity.y = -1
+			projectile.scale.x = -1
+			projectile.position.x = position.x + 27
+
 
 func weapon_punk():
 	if shoot_delay > 0:

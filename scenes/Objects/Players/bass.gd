@@ -81,7 +81,8 @@ var projectile_scenes = [
 ]
 
 var weapon_scenes = [
-	preload("res://scenes/Objects/Players/Weapons/Special Weps/origami_star.tscn")
+	preload("res://scenes/Objects/Players/Weapons/Special Weps/origami_star.tscn"),
+	preload("res://scenes/Objects/Players/Weapons/Special Weps/poison_cloud.tscn")
 ]
 
 # Set these to the name of your action (in the Input Map)
@@ -728,6 +729,8 @@ func animate():
 
 func handle_weapons():
 	match current_weapon:
+		3:
+			weapon_smog()
 		5:
 			weapon_origami()
 		9:
@@ -772,6 +775,37 @@ func weapon_buster():
 					projectile.velocity.x = -450
 				else:
 					projectile.velocity.x = 450
+		is_dashing = false
+		return
+		
+func weapon_smog():
+	if shoot_delay > 0:
+		if shot_type == 1:
+			shoot_delay -= 1
+			no_grounded_movement = true
+	else:
+		no_grounded_movement = false
+
+	if Input.is_action_just_pressed(input_shoot):
+		$AnimatedSprite2D.set_frame_and_progress(0, 0)
+		shot_type = 1
+		shoot_delay = 13
+		projectile = weapon_scenes[1].instantiate()
+		get_parent().add_child(projectile)
+		if $AnimatedSprite2D.flip_h:
+			projectile.position.x = position.x - 14
+		else:
+			projectile.position.x = position.x + 14
+		
+		projectile.position.y = position.y + 4
+		if $AnimatedSprite2D.flip_h:
+			projectile.velocity.x = -200
+		else:
+			projectile.velocity.x = 200
+		if $AnimatedSprite2D.flip_h:
+			projectile.scale.x = -1
+		# inputs
+		
 		is_dashing = false
 		return
 
@@ -820,6 +854,7 @@ func weapon_origami():
 		projectile.velocity.y = 155
 		is_dashing = false
 		return
+		
 		
 func weapon_proto():
 	if shoot_delay > 0:
