@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://u6gxe1pwy4p6"]
+[gd_scene load_steps=24 format=3 uid="uid://u6gxe1pwy4p6"]
 
 [ext_resource type="Script" path="res://scenes/Objects/Players/Weapons/Special Weps/poison_cloud.gd" id="1_s1qp0"]
 [ext_resource type="Texture2D" uid="uid://4smrue2q4mp" path="res://sprites/Players/Bass/Weapons/Smog.png" id="2_5e7y0"]
@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://b0wmbfr68jjcj" path="res://sprites/Players/Copy Robot/Weapons/BusterSmall.png" id="4_c01uk"]
 [ext_resource type="AudioStream" uid="uid://dcvhxvuushcu4" path="res://sounds/chargeshot.wav" id="5_443cy"]
 [ext_resource type="AudioStream" uid="uid://cs2dmn3ahpbea" path="res://sounds/pop.wav" id="6_pvoxp"]
-[ext_resource type="AudioStream" uid="uid://mfk4w30lewvq" path="res://sounds/tink.wav" id="7_cubti"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jha4n"]
 atlas = ExtResource("2_5e7y0")
@@ -153,7 +152,7 @@ script = ExtResource("1_s1qp0")
 position = Vector2(-0.178566, 0)
 scale = Vector2(1.01948, 1)
 sprite_frames = SubResource("SpriteFrames_tmmfq")
-animation = &"Bass"
+animation = &"Copy2"
 autoplay = "Bass"
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
@@ -168,8 +167,5 @@ stream = ExtResource("5_443cy")
 
 [node name="HitSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_pvoxp")
-
-[node name="ReflectSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("7_cubti")
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

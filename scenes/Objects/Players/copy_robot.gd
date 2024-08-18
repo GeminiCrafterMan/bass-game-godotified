@@ -3,6 +3,10 @@ extends CharacterBody2D
 class_name CopyRobotPlayer
 
 @onready var projectile
+@onready var shield
+@onready var shield2
+@onready var shield3
+@onready var shield4
 
 signal jumped(is_ground_jump: bool)
 signal dashed(is_ground_dash: bool)
@@ -108,7 +112,8 @@ var projectile_scenes = [
 
 var weapon_scenes = [
 	preload("res://scenes/Objects/Players/Weapons/Special Weps/origami_star.tscn"),
-	preload("res://scenes/Objects/Players/Weapons/Special Weps/poison_cloud.tscn")
+	preload("res://scenes/Objects/Players/Weapons/Special Weps/poison_cloud.tscn"),
+	preload("res://scenes/Objects/Players/Weapons/Special Weps/scorch_barrier.tscn")
 ]
 
 # Set these to the name of your action (in the Input Map)
@@ -416,6 +421,38 @@ func _physics_process(delta):
 			handle_weapons()
 		weapon_buster()
 		do_charge_palette()
+		
+		if shield != null:
+			if $AnimatedSprite2D.flip_h == true:
+				shield.baseposx = position.x - 3
+			else:
+				shield.baseposx = position.x + 3
+			
+			shield.baseposy = position.y+4
+			
+		if shield2 != null:
+			if $AnimatedSprite2D.flip_h == true:
+				shield2.baseposx = position.x - 3
+			else:
+				shield2.baseposx = position.x + 3
+			
+			shield2.baseposy = position.y+4
+			
+		if shield3 != null:
+			if $AnimatedSprite2D.flip_h == true:
+				shield3.baseposx = position.x - 3
+			else:
+				shield3.baseposx = position.x + 3
+			
+			shield3.baseposy = position.y+4
+			
+		if shield4 != null:
+			if $AnimatedSprite2D.flip_h == true:
+				shield4.baseposx = position.x - 3
+			else:
+				shield4.baseposx = position.x + 3
+			
+			shield4.baseposy = position.y+4
 		
 		if is_feet_on_ground() and is_sliding:
 			$MainHitbox.set_disabled(true)
@@ -725,6 +762,8 @@ func do_charge_palette():
 
 func handle_weapons():
 	match current_weapon:
+		1:
+			weapon_blaze()
 		3:
 			weapon_smog()
 		5:
@@ -804,6 +843,61 @@ func weapon_buster():
 	else:
 		charge = 0
 		return
+
+func weapon_blaze():
+	if shoot_delay > 0:
+		if shot_type == 2:
+			shoot_delay -= 1
+			no_grounded_movement = true
+	else:
+		no_grounded_movement = false
+
+	if Input.is_action_just_pressed(input_shoot):
+		$AnimatedSprite2D.set_frame_and_progress(0, 0)
+		
+		var space : int = 17
+		if shield == null && shield2 == null && shield3 == null && shield4 == null:
+			shot_type = 2
+			shoot_delay = 13
+			shield = weapon_scenes[2].instantiate()
+			get_parent().add_child(shield)
+			shield.theta = 0*space
+			
+			shield2 = weapon_scenes[2].instantiate()
+			get_parent().add_child(shield2)
+			shield2.theta = 1*space
+			
+			shield3 = weapon_scenes[2].instantiate()
+			get_parent().add_child(shield3)
+			shield3.theta = 2*space
+			
+			shield4 = weapon_scenes[2].instantiate()
+			get_parent().add_child(shield4)
+			shield4.theta = 3*space
+		else:
+			shot_type = 2
+			shoot_delay = 13
+			if shield != null:
+				shield.fired = true
+				if $AnimatedSprite2D.flip_h == true:
+					shield.left = true
+			if shield2 != null:
+				shield2.fired = true
+				if $AnimatedSprite2D.flip_h == true:
+					shield2.left = true
+			if shield3 != null:
+				shield3.fired = true
+				if $AnimatedSprite2D.flip_h == true:
+					shield3.left = true
+			if shield4 != null:
+				shield4.fired = true
+				if $AnimatedSprite2D.flip_h == true:
+					shield4.left = true
+				
+			shield = null
+			shield2 = null
+			shield3 = null
+			shield4 = null
 
 func weapon_smog():
 	if shoot_delay > 0:
