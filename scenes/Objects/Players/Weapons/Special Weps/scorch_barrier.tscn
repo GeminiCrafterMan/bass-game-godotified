@@ -1,7 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://biy1mk3b78gh"]
+[gd_scene load_steps=14 format=3 uid="uid://biy1mk3b78gh"]
 
+[ext_resource type="Script" path="res://scenes/Objects/Players/Weapons/Special Weps/scorch_barrier.gd" id="1_emmpe"]
 [ext_resource type="Texture2D" uid="uid://cie5vcuenl5b6" path="res://sprites/Players/Bass/Weapons/Blaze.png" id="2_hbrij"]
-[ext_resource type="Texture2D" uid="uid://b3tdngoiitsne" path="res://sprites/Players/Copy Robot/Weapons/OrigamiNew.png" id="3_7tmyq"]
+[ext_resource type="Texture2D" uid="uid://dt7wlywsvetdu" path="res://sprites/Players/Copy Robot/Weapons/Blaze.png" id="3_7ld0g"]
 [ext_resource type="Texture2D" uid="uid://b0wmbfr68jjcj" path="res://sprites/Players/Copy Robot/Weapons/BusterSmall.png" id="4_ke4xy"]
 [ext_resource type="AudioStream" uid="uid://dcvhxvuushcu4" path="res://sounds/chargeshot.wav" id="5_l2puw"]
 [ext_resource type="AudioStream" uid="uid://cs2dmn3ahpbea" path="res://sounds/pop.wav" id="6_wmt8g"]
@@ -10,17 +11,9 @@
 atlas = ExtResource("2_hbrij")
 region = Rect2(0, 0, 20, 20)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ydymq"]
-atlas = ExtResource("3_7tmyq")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0w4nt"]
-atlas = ExtResource("3_7tmyq")
-region = Rect2(16, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_nm3yv"]
-atlas = ExtResource("3_7tmyq")
-region = Rect2(32, 0, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_ddpy4"]
+atlas = ExtResource("3_7ld0g")
+region = Rect2(0, 0, 24, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e08mh"]
 atlas = ExtResource("4_ke4xy")
@@ -46,16 +39,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ydymq")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0w4nt")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ydymq")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_nm3yv")
+"texture": SubResource("AtlasTexture_ddpy4")
 }],
 "loop": true,
 "name": &"Copy",
@@ -82,17 +66,18 @@ size = Vector2(14, 14)
 [node name="ScorchBarrier" type="CharacterBody2D"]
 collision_layer = 8
 collision_mask = 4
+script = ExtResource("1_emmpe")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-0.25, 0)
 scale = Vector2(1.02381, 1)
 sprite_frames = SubResource("SpriteFrames_tmmfq")
-animation = &"Bass"
+animation = &"Copy"
 autoplay = "Bass"
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-position = Vector2(1, 0)
-scale = Vector2(1.35, 1.35)
+position = Vector2(1.26362e-05, 0.499992)
+scale = Vector2(19.3, 18.15)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_0fvlc")
