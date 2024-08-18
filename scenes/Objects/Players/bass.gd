@@ -85,7 +85,8 @@ var projectile_scenes = [
 
 var weapon_scenes = [
 	preload("res://scenes/Objects/Players/Weapons/Special Weps/origami_star.tscn"),
-	preload("res://scenes/Objects/Players/Weapons/Special Weps/poison_cloud.tscn")
+	preload("res://scenes/Objects/Players/Weapons/Special Weps/poison_cloud.tscn"),
+	preload("res://scenes/Objects/Players/Weapons/Special Weps/scorch_barrier.tscn")
 ]
 
 # Set these to the name of your action (in the Input Map)
@@ -500,6 +501,7 @@ func blastjump():
 	dash_timer = 0
 	projectile = projectile_scenes[1].instantiate()
 	get_parent().add_child(projectile)
+	projectile.owner = self
 	projectile.position.x = position.x
 	projectile.position.y = position.y
 	projectile.velocity.y = 280
@@ -724,6 +726,8 @@ func animate():
 
 func handle_weapons():
 	match current_weapon:
+		1:
+			weapon_blaze()
 		3:
 			weapon_smog()
 		5:
@@ -772,6 +776,25 @@ func weapon_buster():
 					projectile.velocity.x = 450
 		is_dashing = false
 		return
+		
+func weapon_blaze():
+	if shoot_delay > 0:
+		if shot_type == 2:
+			shoot_delay -= 1
+			no_grounded_movement = true
+	else:
+		no_grounded_movement = false
+
+	if Input.is_action_just_pressed(input_shoot):
+		$AnimatedSprite2D.set_frame_and_progress(0, 0)
+		shot_type = 2
+		shoot_delay = 13
+		projectile = weapon_scenes[2].instantiate()
+		get_parent().add_child(projectile)
+		projectile.position.x = position.x
+		projectile.position.y = position.y
+		projectile.set_owner(self)
+		
 		
 func weapon_smog():
 	if shoot_delay > 0:

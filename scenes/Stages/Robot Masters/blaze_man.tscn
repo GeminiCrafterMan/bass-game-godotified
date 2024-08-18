@@ -26,7 +26,9 @@ layer_0/tile_data = PackedInt32Array(-3145728, 131072, 1, -3080192, 131072, 3, -
 
 [node name="Camera2D" type="Camera2D" parent="."]
 limit_left = 0
+limit_top = -816
 limit_bottom = 240
+editor_draw_limits = true
 
 [node name="Module Tester" parent="Camera2D" instance=ExtResource("3_4vx6o")]
 
