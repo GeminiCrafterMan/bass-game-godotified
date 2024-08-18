@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://bp8o82k0cp4kg"]
+[gd_scene load_steps=11 format=3 uid="uid://bp8o82k0cp4kg"]
 
 [ext_resource type="Script" path="res://scenes/Objects/Players/Weapons/Bass/blast_jump.gd" id="1_w2psd"]
 [ext_resource type="Texture2D" uid="uid://brbjrbjn1ma07" path="res://sprites/Players/Bass/Weapons/ModBlaze.png" id="2_b0gih"]
+[ext_resource type="AudioStream" uid="uid://mfk4w30lewvq" path="res://sounds/tink.wav" id="4_arvjp"]
 [ext_resource type="AudioStream" uid="uid://cs2dmn3ahpbea" path="res://sounds/pop.wav" id="5_5yeab"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_flmlq"]
@@ -45,7 +46,6 @@ size = Vector2(28, 9)
 
 [node name="BlastJump" type="CharacterBody2D"]
 collision_layer = 8
-collision_mask = 5
 script = ExtResource("1_w2psd")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -64,5 +64,8 @@ shape = SubResource("RectangleShape2D_0fvlc")
 
 [node name="HitSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_5yeab")
+
+[node name="ReflectSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_arvjp")
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

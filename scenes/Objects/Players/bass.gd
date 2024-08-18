@@ -791,10 +791,10 @@ func weapon_blaze():
 		shoot_delay = 13
 		projectile = weapon_scenes[2].instantiate()
 		get_parent().add_child(projectile)
-		projectile.position.x = position.x
-		projectile.position.y = position.y
-		projectile.set_owner(self)
-		
+		# the rest of this is handled in the projectile's _ready() function, but i'll leave it here until the projectile is made
+		#projectile.position.x = position.x
+		#projectile.position.y = position.y
+		#projectile.set_owner(self)
 		
 func weapon_smog():
 	if shoot_delay > 0:

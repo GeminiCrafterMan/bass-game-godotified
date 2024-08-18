@@ -1,6 +1,6 @@
 extends Enemy_Template
 
-class_name Jumbro
+class_name Sniper_Joe
 
 func _ready():
 	# So, Godot is weird. We have to define our vars *here*.
@@ -53,3 +53,6 @@ func _on_hitable_body_entered(weapon): # needs to be redefined because damage va
 
 func _on_hurt_body_entered(body):
 	body.DmgQueue = Atk_Dmg
+
+func _on_reflect_body_entered(weapon):
+	weapon.reflect()

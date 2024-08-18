@@ -1,10 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://d3rkbjrn2bgl7"]
+[gd_scene load_steps=16 format=3 uid="uid://d3rkbjrn2bgl7"]
 
 [ext_resource type="Texture2D" uid="uid://c8sv8718ps0on" path="res://sprites/Players/Copy Robot/Weapons/BusterLarge.png" id="1_7bo6j"]
 [ext_resource type="Script" path="res://scenes/Objects/Players/Weapons/Copy Robot/buster_large.gd" id="1_nh5ni"]
 [ext_resource type="Texture2D" uid="uid://b0wmbfr68jjcj" path="res://sprites/Players/Copy Robot/Weapons/BusterSmall.png" id="2_bf1pf"]
 [ext_resource type="AudioStream" uid="uid://hpniuwujnaff" path="res://sounds/chargeshot_full.wav" id="4_ev0xy"]
 [ext_resource type="AudioStream" uid="uid://cs2dmn3ahpbea" path="res://sounds/pop.wav" id="5_gqv0c"]
+[ext_resource type="AudioStream" uid="uid://mfk4w30lewvq" path="res://sounds/tink.wav" id="6_7bgpv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ko0nf"]
 atlas = ExtResource("1_7bo6j")
@@ -73,7 +74,7 @@ size = Vector2(18, 18.3333)
 
 [node name="BusterLarge" type="CharacterBody2D"]
 collision_layer = 8
-collision_mask = 4
+collision_mask = 0
 script = ExtResource("1_nh5ni")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -94,5 +95,8 @@ stream = ExtResource("4_ev0xy")
 
 [node name="HitSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_gqv0c")
+
+[node name="ReflectSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_7bgpv")
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

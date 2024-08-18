@@ -1,17 +1,28 @@
 extends CharacterBody2D
 
-const W_Type = 19	# This is Houshou-geki's blast jump wave.
+const W_Type = 20	# This is Houshou-geki's blast jump wave.
 
 func _physics_process(delta):
 	if move_and_slide() == true:
-#		$AnimatedSprite2D.play("hit")
-		$HitSound.play()
-		velocity.x = 0
-		velocity.y = 0
-		$CollisionShape2D.set_disabled(true)
-		await $AnimatedSprite2D.animation_finished
-		queue_free()
+		destroy()
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	queue_free()
 
+func destroy():
+	$CollisionShape2D.set_deferred("disabled", true)
+	$HitSound.play()
+	velocity.x = 0
+	velocity.y = 0
+#	$AnimatedSprite2D.play("hit")
+	await $AnimatedSprite2D.animation_finished
+	queue_free()
+
+func reflect():
+	$CollisionShape2D.set_deferred("disabled", true)
+	$ReflectSound.play()
+	velocity.x = 0
+	velocity.y = 0
+#	$AnimatedSprite2D.play("hit")
+	await $AnimatedSprite2D.animation_finished
+	queue_free()

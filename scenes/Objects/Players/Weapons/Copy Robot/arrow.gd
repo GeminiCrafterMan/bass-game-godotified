@@ -1,11 +1,15 @@
 
 extends CharacterBody2D
 
+const W_Type = 14	# This is Copy Robot's Super Arrow.
+
 var timer : int
 var flashtimer : int
 
+func _ready():
+	$SpawnSound.play()
+
 func _process (delta):
-	
 	if move_and_slide() == true && $AnimatedSprite2D.animation == "move":
 		$AnimatedSprite2D.play("stick")
 		timer = 0
@@ -15,7 +19,7 @@ func _process (delta):
 	if $AnimatedSprite2D.animation != "stick":
 		if timer == 100:
 			$AnimatedSprite2D.animation = "move"
-			if velocity.x < 0:
+			if velocity.x < 0:	# find a way to fix this for shooting left?
 				velocity.x = -50
 			else:
 				velocity.x = 50
@@ -37,3 +41,17 @@ func _process (delta):
 		$Shape.disabled = true
 		await $AnimatedSprite2D.animation_finished
 		queue_free()
+
+func destroy():
+	$CollisionShape2D.set_deferred("disabled", true)
+	$HitSound.play()
+	velocity.x = 0
+	velocity.y = 0
+	$AnimatedSprite2D.play("hit")
+	await $AnimatedSprite2D.animation_finished
+	queue_free()
+
+func reflect():
+	$ReflectSound.play()
+	velocity.x = -velocity.x
+	velocity.y = -velocity.y

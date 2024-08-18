@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 class_name Enemy_Template
 
-const Dmg_Vals = [
+var Dmg_Vals = [
 	1,	# Bass Buster
 	1,	# Copy Buster
 	2,	# Copy Buster, medium shot
@@ -17,6 +17,7 @@ const Dmg_Vals = [
 	0,	# Boomerang Scythe
 	2,	# Proto Buster medium shot
 	4,	# Proto Buster charged shot
+	0,	# Super Arrow
 	0,	# Mirror Buster
 	0,	# Screw Crusher
 	0,	# Ballade Cracker
@@ -28,7 +29,7 @@ const Dmg_Vals = [
 ]
 var Atk_Dmg = 4
 var Cur_Inv = 0
-const Max_HP = 3
+var Max_HP = 3
 var Cur_HP = 3
 
 func _process(delta):
@@ -46,7 +47,8 @@ func _process(delta):
 func _on_hitable_body_entered(weapon):
 	if Cur_Inv == 0:
 		Cur_HP -= Dmg_Vals[weapon.W_Type]
-		Cur_Inv = 30
+		Cur_Inv = 2
+	weapon.destroy()
 
 func _on_hurt_body_entered(body):
 	body.DmgQueue = Atk_Dmg
