@@ -1,0 +1,147 @@
+[gd_scene load_steps=20 format=3 uid="uid://bgpq81upok6bf"]
+
+[ext_resource type="Script" path="res://scenes/Objects/Players/Weapons/Special Weps/poison_cloud.gd" id="1_r4bjf"]
+[ext_resource type="Texture2D" uid="uid://4smrue2q4mp" path="res://sprites/Players/Bass/Weapons/Smog.png" id="2_atyik"]
+[ext_resource type="Texture2D" uid="uid://cfjiewmjdgl3b" path="res://sprites/Players/Copy Robot/Weapons/Smog.png" id="3_jb3m5"]
+[ext_resource type="Texture2D" uid="uid://b0wmbfr68jjcj" path="res://sprites/Players/Copy Robot/Weapons/BusterSmall.png" id="4_wdxd3"]
+[ext_resource type="AudioStream" uid="uid://dcvhxvuushcu4" path="res://sounds/chargeshot.wav" id="5_2rlv5"]
+[ext_resource type="AudioStream" uid="uid://cs2dmn3ahpbea" path="res://sounds/pop.wav" id="6_ynx38"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jha4n"]
+atlas = ExtResource("2_atyik")
+region = Rect2(0, 60, 33, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_moodv"]
+atlas = ExtResource("2_atyik")
+region = Rect2(33, 60, 33, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3a8cx"]
+atlas = ExtResource("2_atyik")
+region = Rect2(33, 30, 33, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tm1bs"]
+atlas = ExtResource("2_atyik")
+region = Rect2(0, 30, 33, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e08mh"]
+atlas = ExtResource("4_wdxd3")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fp8dl"]
+atlas = ExtResource("4_wdxd3")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rhj74"]
+atlas = ExtResource("4_wdxd3")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wair4"]
+atlas = ExtResource("3_jb3m5")
+region = Rect2(0, 60, 33, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_orcab"]
+atlas = ExtResource("3_jb3m5")
+region = Rect2(33, 60, 33, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dmv4o"]
+atlas = ExtResource("3_jb3m5")
+region = Rect2(33, 30, 33, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mr620"]
+atlas = ExtResource("3_jb3m5")
+region = Rect2(0, 30, 33, 30)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tmmfq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jha4n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_moodv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3a8cx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tm1bs")
+}],
+"loop": false,
+"name": &"Bass",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e08mh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fp8dl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rhj74")
+}],
+"loop": false,
+"name": &"Bass-hit",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wair4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_orcab")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dmv4o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mr620")
+}],
+"loop": false,
+"name": &"Copy",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e08mh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fp8dl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rhj74")
+}],
+"loop": false,
+"name": &"Copy-hit",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0fvlc"]
+size = Vector2(32, 30)
+
+[node name="Poisoncloud" type="CharacterBody2D"]
+collision_layer = 8
+collision_mask = 5
+script = ExtResource("1_r4bjf")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-0.178566, 0)
+scale = Vector2(1.01948, 1)
+sprite_frames = SubResource("SpriteFrames_tmmfq")
+animation = &"Copy-hit"
+autoplay = "Bass"
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-1.19209e-06, 1.43051e-06)
+scale = Vector2(2, 1.7)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_0fvlc")
+
+[node name="SpawnSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_2rlv5")
+
+[node name="HitSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_ynx38")
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

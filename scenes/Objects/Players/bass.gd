@@ -92,7 +92,8 @@ var projectile_scenes = [
 var weapon_scenes = [
 	preload("res://scenes/Objects/Players/Weapons/Special Weps/origami_star.tscn"),
 	preload("res://scenes/Objects/Players/Weapons/Special Weps/poison_cloud.tscn"),
-	preload("res://scenes/Objects/Players/Weapons/Special Weps/scorch_barrier.tscn")
+	preload("res://scenes/Objects/Players/Weapons/Special Weps/scorch_barrier.tscn"),
+	preload("res://scenes/Objects/Players/Weapons/Special Weps/fin_shredder.tscn")
 ]
 
 # Set these to the name of your action (in the Input Map)
@@ -681,6 +682,10 @@ func animate():
 						$AnimatedSprite2D.play("Idle-Shoot")
 					2: # Throw
 						$AnimatedSprite2D.play("Idle-Throw")
+					3: # Shield
+						$AnimatedSprite2D.play("Idle-Shield")
+					4: # Reppuken
+						$AnimatedSprite2D.play("Reppuken")
 					_: # Everything else
 						$AnimatedSprite2D.play("Idle-Shoot")
 			else:
@@ -704,6 +709,10 @@ func animate():
 							$AnimatedSprite2D.set_frame_and_progress(current_frame, current_progress)
 						2: # Throw
 							$AnimatedSprite2D.play("Idle-Throw")
+						3: # Shield
+							$AnimatedSprite2D.play("Idle-Shield")
+						4: # Reppuken
+							$AnimatedSprite2D.play("Reppuken")
 						_: # Everything else
 							$AnimatedSprite2D.play("Walk-Shoot")
 							$AnimatedSprite2D.set_frame_and_progress(current_frame, current_progress)
@@ -727,6 +736,10 @@ func animate():
 							$AnimatedSprite2D.play("Idle-Shoot")
 						2: # Throw
 							$AnimatedSprite2D.play("Idle-Throw")
+						3: # Shield
+							$AnimatedSprite2D.play("Idle-Shield")
+						4: # Reppuken
+							$AnimatedSprite2D.play("Reppuken")
 						_: # Everything else
 							$AnimatedSprite2D.play("Idle-Shoot")
 				else:
@@ -749,6 +762,10 @@ func animate():
 						$AnimatedSprite2D.play("Jump-Shoot")
 					2: # Throw
 						$AnimatedSprite2D.play("Jump-Throw")
+					3: # Shield
+						$AnimatedSprite2D.play("Jump-Shield")
+					4: # Reppuken
+						$AnimatedSprite2D.play("Jump-Throw")
 					_: # Everything else
 						$AnimatedSprite2D.play("Jump-Shoot")
 			else:
@@ -768,6 +785,8 @@ func handle_weapons():
 			weapon_blaze()
 		3:
 			weapon_smog()
+		4:
+			weapon_shark()
 		5:
 			weapon_origami()
 		9:
@@ -817,7 +836,7 @@ func weapon_buster():
 		
 func weapon_blaze():
 	if shoot_delay > 0:
-		if shot_type == 2:
+		if shot_type == 2 or shot_type == 3:
 			shoot_delay -= 1
 			no_grounded_movement = true
 	else:
@@ -828,8 +847,8 @@ func weapon_blaze():
 		
 		var space : int = 17
 		if shield == null && shield2 == null && shield3 == null && shield4 == null:
-			shot_type = 2
-			shoot_delay = 13
+			shot_type = 3
+			shoot_delay = 26
 			shield = weapon_scenes[2].instantiate()
 			get_parent().add_child(shield)
 			shield.theta = 0*space
@@ -947,7 +966,37 @@ func weapon_origami():
 		projectile.velocity.y = 155
 		is_dashing = false
 		return
+
+func weapon_shark():
+	if shoot_delay > 0:
+		if shot_type == 4:
+			shoot_delay -= 1
+			no_grounded_movement = true
+	else:
+		no_grounded_movement = false
+
+	if Input.is_action_just_pressed(input_shoot) and is_feet_on_ground():
+		$AnimatedSprite2D.set_frame_and_progress(0, 0)
+		shot_type = 4
+		shoot_delay = 26
+		projectile = weapon_scenes[3].instantiate()
+		get_parent().add_child(projectile)
+		if $AnimatedSprite2D.flip_h:
+			projectile.position.x = position.x - 14
+		else:
+			projectile.position.x = position.x + 14
 		
+		projectile.position.y = position.y + 4
+		if $AnimatedSprite2D.flip_h:
+			projectile.velocity.x = -200
+		else:
+			projectile.velocity.x = 200
+		if $AnimatedSprite2D.flip_h:
+			projectile.scale.x = -1
+		# inputs
+		
+		is_dashing = false
+		return
 		
 func weapon_proto():
 	if shoot_delay > 0:

@@ -683,6 +683,10 @@ func animate():
 						$AnimatedSprite2D.play("Idle-Shoot")
 					2: # Throw
 						$AnimatedSprite2D.play("Idle-Throw")
+					3: # Shield
+						$AnimatedSprite2D.play("Idle-Shield")
+					4: # Double Reppuken
+						$AnimatedSprite2D.play("Double Reppuken")
 					_: # Everything else
 						$AnimatedSprite2D.play("Idle-Shoot")
 			slide_stopped = false
@@ -698,6 +702,10 @@ func animate():
 							$AnimatedSprite2D.set_frame_and_progress(current_frame, current_progress)
 						2: # Throw
 							$AnimatedSprite2D.play("Idle-Throw")
+						3: # Shield
+							$AnimatedSprite2D.play("Idle-Shield")
+						4: # Double Reppuken
+							$AnimatedSprite2D.play("Double Reppuken")
 						_: # Everything else
 							$AnimatedSprite2D.play("Walk-Shoot")
 							$AnimatedSprite2D.set_frame_and_progress(current_frame, current_progress)
@@ -706,11 +714,15 @@ func animate():
 					$AnimatedSprite2D.play("Step")
 				else:
 					match shot_type:
-						0:
+						0: # Normal
 							$AnimatedSprite2D.play("Idle-Shoot")
-						2:
+						2: # Throw
 							$AnimatedSprite2D.play("Idle-Throw")
-						_:
+						3: # Shield
+							$AnimatedSprite2D.play("Idle-Shield")
+						4: # Double Reppuken
+							$AnimatedSprite2D.play("Double Reppuken")
+						_: # Everything else
 							$AnimatedSprite2D.play("Idle-Shoot")
 				slide_stopped = false
 	else:
@@ -726,11 +738,15 @@ func animate():
 					$AnimatedSprite2D.play("Fall")
 		else:
 			match shot_type:
-				0:
+				0: # Normal
 					$AnimatedSprite2D.play("Jump-Shoot")
-				2:
+				2: # Throw
 					$AnimatedSprite2D.play("Jump-Throw")
-				_:
+				3: # Shield
+					$AnimatedSprite2D.play("Jump-Shield")
+				4: # Double Reppuken
+					$AnimatedSprite2D.play("Jump-Throw")
+				_: # Everything else
 					$AnimatedSprite2D.play("Jump-Shoot")
 
 func do_charge_palette():
@@ -846,7 +862,7 @@ func weapon_buster():
 
 func weapon_blaze():
 	if shoot_delay > 0:
-		if shot_type == 2:
+		if shot_type == 2 or shot_type == 3:
 			shoot_delay -= 1
 			no_grounded_movement = true
 	else:
@@ -857,8 +873,8 @@ func weapon_blaze():
 		
 		var space : int = 17
 		if shield == null && shield2 == null && shield3 == null && shield4 == null:
-			shot_type = 2
-			shoot_delay = 13
+			shot_type = 3
+			shoot_delay = 26
 			shield = weapon_scenes[2].instantiate()
 			get_parent().add_child(shield)
 			shield.theta = 0*space

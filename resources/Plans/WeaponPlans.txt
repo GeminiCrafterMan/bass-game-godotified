@@ -74,7 +74,7 @@ Dashing melee attack. Cancels out Mist Dash.
 
 --== GALE WOMAN ==--
 
-(Weapon) Gale Force(?)
+(Weapon) Wild Gale
 Screen nuke, a la Power Gear Tundra Storm.
 
 (Module) ???
