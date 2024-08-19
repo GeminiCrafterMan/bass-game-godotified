@@ -42,7 +42,10 @@ func _physics_process(delta):
 	else:
 		$CollisionShape2D.set_deferred("disabled", false)
 	
-	theta = theta + 3
+	if theta < 68:
+		theta = theta + 3
+	else:
+		theta = 0
 	
 	if fired == true && GameState.character_selected == 0:
 		if left == false:
