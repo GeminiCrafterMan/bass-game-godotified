@@ -1,0 +1,67 @@
+[gd_scene load_steps=11 format=3 uid="uid://bn7bvwlp1xblh"]
+
+[ext_resource type="Texture2D" uid="uid://cie5vcuenl5b6" path="res://sprites/Players/Bass/Weapons/Blaze.png" id="2_8d1ex"]
+[ext_resource type="Texture2D" uid="uid://dt7wlywsvetdu" path="res://sprites/Players/Copy Robot/Weapons/Blaze.png" id="3_5bu8p"]
+[ext_resource type="Script" path="res://scenes/Objects/Players/Weapons/Special Weps/scorch_barrier_trail.gd" id="4_pj1uc"]
+[ext_resource type="Texture2D" uid="uid://b0wmbfr68jjcj" path="res://sprites/Players/Copy Robot/Weapons/BusterSmall.png" id="4_w3fob"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mkmf4"]
+atlas = ExtResource("2_8d1ex")
+region = Rect2(40, 0, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r2vqm"]
+atlas = ExtResource("3_5bu8p")
+region = Rect2(48, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e08mh"]
+atlas = ExtResource("4_w3fob")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fp8dl"]
+atlas = ExtResource("4_w3fob")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rhj74"]
+atlas = ExtResource("4_w3fob")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_uth8i"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mkmf4")
+}],
+"loop": true,
+"name": &"Bass",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r2vqm")
+}],
+"loop": true,
+"name": &"Copy",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e08mh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fp8dl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rhj74")
+}],
+"loop": false,
+"name": &"hit",
+"speed": 10.0
+}]
+
+[node name="ScorchBarrierTrail2" type="AnimatedSprite2D"]
+position = Vector2(-0.25, 0)
+scale = Vector2(1.02381, 1)
+sprite_frames = SubResource("SpriteFrames_uth8i")
+animation = &"Bass"
+autoplay = "Bass"
+script = ExtResource("4_pj1uc")

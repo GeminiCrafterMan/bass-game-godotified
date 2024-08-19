@@ -1,6 +1,13 @@
 extends CharacterBody2D
 
+const trailscn1 = preload("res://scenes/Objects/Players/Weapons/Special Weps/scorch_barrier_trail_1.tscn")
+const trailscn2 = preload("res://scenes/Objects/Players/Weapons/Special Weps/scorch_barrier_trail_2.tscn")
+
+var child1
+var child2
+
 const W_Type = 4	# This is Scorch Barrier!!!
+const FOLLOW_SPEED = 4.0 # follow speed
 var player
 @onready var parent = get_parent().get_parent()
 
@@ -26,13 +33,21 @@ func _ready():
 	baseposx = position.x
 	baseposy = position.y
 	theta = rotation
+	child1 = trailscn1.instantiate()
+	get_parent().add_child(child1)
+	child1.position = position
+	child2 = trailscn2.instantiate()
+	get_parent().add_child(child2)
+	child2.position = child1.position
 	
 	if GameState.character_selected == 0:
-		$AnimatedSprite2D.play("Bass")
+		$MainSprite.play("Bass")
 	else:
-		$AnimatedSprite2D.play("Copy")
+		$MainSprite.play("Copy")
 		
 func _physics_process(delta):
+	child1.position = child1.position.lerp(position, delta * FOLLOW_SPEED)
+	child2.position = child2.position.lerp(child1.position, delta * FOLLOW_SPEED)
 	
 	if invul > 0:
 		invul = invul - 1
@@ -81,6 +96,8 @@ func _physics_process(delta):
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	if fired == true:
+		child1.queue_free()
+		child2.queue_free()
 		queue_free()
 
 func destroy():
@@ -96,8 +113,10 @@ func destroy():
 			$CollisionShape2D.set_deferred("disabled", true)
 			velocity.x = 0
 			velocity.y = 0
-			$AnimatedSprite2D.play("hit")
-			await $AnimatedSprite2D.animation_finished
+			child1.queue_free()
+			child2.queue_free()
+			$MainSprite.play("hit")
+			await $MainSprite.animation_finished
 			queue_free()
 
 func reflect():

@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3 uid="uid://ci7n06prxygqd"]
+
+[ext_resource type="Texture2D" uid="uid://cie5vcuenl5b6" path="res://sprites/Players/Bass/Weapons/Blaze.png" id="2_fv7ln"]
+[ext_resource type="Texture2D" uid="uid://dt7wlywsvetdu" path="res://sprites/Players/Copy Robot/Weapons/Blaze.png" id="3_ffqc2"]
+[ext_resource type="Script" path="res://scenes/Objects/Players/Weapons/Special Weps/scorch_barrier_trail.gd" id="4_c8q6k"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kx4vh"]
+atlas = ExtResource("2_fv7ln")
+region = Rect2(20, 0, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kgibi"]
+atlas = ExtResource("3_ffqc2")
+region = Rect2(24, 0, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nlvml"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kx4vh")
+}],
+"loop": true,
+"name": &"Bass",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kgibi")
+}],
+"loop": true,
+"name": &"Copy",
+"speed": 30.0
+}]
+
+[node name="ScorchBarrierTrail1" type="AnimatedSprite2D"]
+position = Vector2(-0.25, 0)
+scale = Vector2(1.02381, 1)
+sprite_frames = SubResource("SpriteFrames_nlvml")
+animation = &"Bass"
+autoplay = "Bass"
+script = ExtResource("4_c8q6k")
