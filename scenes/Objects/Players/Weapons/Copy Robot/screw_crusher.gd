@@ -26,4 +26,4 @@ func destroy():
 func reflect():
 	$ReflectSound.play()
 	velocity.x = -velocity.x
-	velocity.y = -velocity.y
+	velocity.y = -50

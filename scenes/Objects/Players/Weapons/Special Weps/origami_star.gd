@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 const W_Type = 8	# This is Origami Star.
+var broken
 
 func _ready():
 	$SpawnSound.play()
@@ -10,6 +11,9 @@ func _ready():
 		$AnimatedSprite2D.play("Copy")
 		
 func _physics_process(delta):
+	if broken == true:
+		$AnimatedSprite2D.set_frame_and_progress(0, 0)
+		velocity.y = velocity.y + 12
 	if move_and_slide() == true:
 		destroy()
 
@@ -26,6 +30,13 @@ func destroy():
 	queue_free()
 
 func reflect():
+	$CollisionShape2D.set_deferred("disabled", true)
 	$ReflectSound.play()
-	velocity.x = -velocity.x
-	velocity.y = -velocity.y
+	$AnimatedSprite2D.set_frame_and_progress(0, 0)
+	if velocity.x < 0:
+		velocity.x = 20
+	if velocity.x > 0:
+		velocity.x = -20
+	velocity.y = -90
+	broken = true
+	

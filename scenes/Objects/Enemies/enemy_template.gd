@@ -10,20 +10,20 @@ var Dmg_Vals = [
 		2,	# Scorch Barrier
 		0,	# Freeze Frame (if it does damage like Time Stopper on Quick Man)
 		0,	# Poison Cloud
-		0,	# Fin Shredder
-		1,	# Origami Star
+		6,	# Fin Shredder
+		2,	# Origami Star
 		0,	# Wild Gale
 		0,	# Rolling Bomb(?)
 		0,	# Boomerang Scythe
 		2,	# Proto Buster medium shot
 		4,	# Proto Buster charged shot
-		5,	# Super Arrow
+		4,	# Super Arrow
 		0,	# Mirror Buster
 		2,	# Screw Crusher
 		4,	# Ballade Cracker
 		0,	# Sakugarne (Physical hit)
 		0,	# Sakugarne (Rock)
-		0,	# Houshou-geki blast jump
+		3,	# Houshou-geki blast jump
 		0,	# Paper Cut slice
 		0	# Whatever's next...
 ]
@@ -33,7 +33,7 @@ var Max_HP = 3
 var Cur_HP = 3
 
 func _process(delta):
-	if Cur_HP < 0:
+	if Cur_HP <= 0:
 		queue_free()
 	if Cur_Inv > 0:
 		Cur_Inv -= 1

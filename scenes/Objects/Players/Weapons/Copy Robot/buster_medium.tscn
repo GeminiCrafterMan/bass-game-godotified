@@ -60,7 +60,6 @@ size = Vector2(16, 16)
 
 [node name="BusterMedium" type="CharacterBody2D"]
 collision_layer = 8
-collision_mask = 0
 script = ExtResource("1_8dcat")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

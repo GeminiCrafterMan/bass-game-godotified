@@ -867,6 +867,7 @@ func weapon_blaze():
 		else:
 			shot_type = 2
 			shoot_delay = 13
+			$Audio/BJumpSound.play()
 			if shield != null:
 				shield.fired = true
 				if $AnimatedSprite2D.flip_h == true:

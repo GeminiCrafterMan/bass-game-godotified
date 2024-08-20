@@ -74,7 +74,6 @@ size = Vector2(18, 18.3333)
 
 [node name="BusterLarge" type="CharacterBody2D"]
 collision_layer = 8
-collision_mask = 0
 script = ExtResource("1_nh5ni")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
