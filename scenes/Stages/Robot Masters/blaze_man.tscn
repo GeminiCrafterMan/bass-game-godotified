@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=4 uid="uid://c1ixcvieoro3x"]
+[gd_scene load_steps=9 format=4 uid="uid://c1ixcvieoro3x"]
 
 [ext_resource type="Script" path="res://scenes/Stages/Stage.gd" id="1_eg6rr"]
 [ext_resource type="TileSet" uid="uid://clttejdjtwxdo" path="res://tilesets/blaze.tres" id="2_88tt2"]
 [ext_resource type="AudioStream" uid="uid://duondd8cgl7qr" path="res://music/Blaze Stage.mp3" id="4_bkhak"]
 [ext_resource type="PackedScene" uid="uid://bdurhvklic0ac" path="res://scenes/HUD.tscn" id="5_3ms7c"]
+[ext_resource type="PackedScene" uid="uid://ba1usu2a5isjc" path="res://scenes/Objects/Level Objs/BreakableBlock.tscn" id="5_6g85i"]
 [ext_resource type="PackedScene" uid="uid://dmulyeg8hg6yt" path="res://scenes/Objects/Enemies/sniper_joe.tscn" id="5_vsgpg"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_rsu2g"]
@@ -68,5 +69,55 @@ position = Vector2(944, -696)
 
 [node name="Sniper Joe3" parent="Level Objects/Enemies" instance=ExtResource("5_vsgpg")]
 position = Vector2(1388, -760)
+
+[node name="Breakable Blocks" type="Node2D" parent="Level Objects"]
+
+[node name="BreakableBlock" parent="Level Objects/Breakable Blocks" instance=ExtResource("5_6g85i")]
+position = Vector2(512, -672)
+style = 1
+
+[node name="BreakableBlock2" parent="Level Objects/Breakable Blocks" instance=ExtResource("5_6g85i")]
+position = Vector2(512, -656)
+style = 1
+
+[node name="BreakableBlock3" parent="Level Objects/Breakable Blocks" instance=ExtResource("5_6g85i")]
+position = Vector2(512, -640)
+style = 1
+
+[node name="BreakableBlock4" parent="Level Objects/Breakable Blocks" instance=ExtResource("5_6g85i")]
+position = Vector2(528, -672)
+style = 1
+
+[node name="BreakableBlock5" parent="Level Objects/Breakable Blocks" instance=ExtResource("5_6g85i")]
+position = Vector2(528, -656)
+style = 1
+
+[node name="BreakableBlock6" parent="Level Objects/Breakable Blocks" instance=ExtResource("5_6g85i")]
+position = Vector2(528, -640)
+style = 1
+
+[node name="BreakableBlock7" parent="Level Objects/Breakable Blocks" instance=ExtResource("5_6g85i")]
+position = Vector2(1424, -752)
+style = 1
+
+[node name="BreakableBlock8" parent="Level Objects/Breakable Blocks" instance=ExtResource("5_6g85i")]
+position = Vector2(1440, -752)
+style = 1
+
+[node name="BreakableBlock9" parent="Level Objects/Breakable Blocks" instance=ExtResource("5_6g85i")]
+position = Vector2(1456, -752)
+style = 1
+
+[node name="BreakableBlock10" parent="Level Objects/Breakable Blocks" instance=ExtResource("5_6g85i")]
+position = Vector2(1424, -736)
+style = 1
+
+[node name="BreakableBlock11" parent="Level Objects/Breakable Blocks" instance=ExtResource("5_6g85i")]
+position = Vector2(1440, -736)
+style = 1
+
+[node name="BreakableBlock12" parent="Level Objects/Breakable Blocks" instance=ExtResource("5_6g85i")]
+position = Vector2(1456, -736)
+style = 1
 
 [node name="HUD" parent="." instance=ExtResource("5_3ms7c")]

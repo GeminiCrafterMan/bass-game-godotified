@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://by07rq184shwd"]
+[gd_scene load_steps=15 format=4 uid="uid://by07rq184shwd"]
 
 [ext_resource type="Script" path="res://scenes/Stages/Stage.gd" id="1_ac8st"]
 [ext_resource type="Texture2D" uid="uid://63kwqi5jdugg" path="res://sprites/Tilesets/Test.png" id="2_n2bxu"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://blmlnutul2hyu" path="res://scenes/Objects/Level Objs/YokuBlock.tscn" id="7_iycjf"]
 [ext_resource type="AudioStream" uid="uid://djxcyatg2dd7s" path="res://music/Test Stage.mp3" id="7_lu0fe"]
 [ext_resource type="PackedScene" uid="uid://dmulyeg8hg6yt" path="res://scenes/Objects/Enemies/sniper_joe.tscn" id="8_ffb0a"]
+[ext_resource type="PackedScene" uid="uid://ba1usu2a5isjc" path="res://scenes/Objects/Level Objs/BreakableBlock.tscn" id="8_ugwe1"]
 [ext_resource type="PackedScene" uid="uid://bdurhvklic0ac" path="res://scenes/HUD.tscn" id="8_v2unc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1m0ln"]
@@ -208,5 +209,31 @@ position = Vector2(679, 168)
 
 [node name="Sniper Joe" parent="Level Objects/Enemies" instance=ExtResource("8_ffb0a")]
 position = Vector2(904, 280)
+
+[node name="Breakable Blocks" type="Node2D" parent="Level Objects"]
+
+[node name="BreakableBlock" parent="Level Objects/Breakable Blocks" instance=ExtResource("8_ugwe1")]
+position = Vector2(304, 304)
+
+[node name="BreakableBlock2" parent="Level Objects/Breakable Blocks" instance=ExtResource("8_ugwe1")]
+position = Vector2(320, 304)
+
+[node name="BreakableBlock3" parent="Level Objects/Breakable Blocks" instance=ExtResource("8_ugwe1")]
+position = Vector2(304, 288)
+
+[node name="BreakableBlock4" parent="Level Objects/Breakable Blocks" instance=ExtResource("8_ugwe1")]
+position = Vector2(320, 288)
+
+[node name="BreakableBlock5" parent="Level Objects/Breakable Blocks" instance=ExtResource("8_ugwe1")]
+position = Vector2(304, 272)
+
+[node name="BreakableBlock6" parent="Level Objects/Breakable Blocks" instance=ExtResource("8_ugwe1")]
+position = Vector2(320, 272)
+
+[node name="BreakableBlock7" parent="Level Objects/Breakable Blocks" instance=ExtResource("8_ugwe1")]
+position = Vector2(304, 256)
+
+[node name="BreakableBlock8" parent="Level Objects/Breakable Blocks" instance=ExtResource("8_ugwe1")]
+position = Vector2(320, 256)
 
 [node name="HUD" parent="." instance=ExtResource("8_v2unc")]

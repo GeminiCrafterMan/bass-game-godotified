@@ -3,5 +3,6 @@
 [ext_resource type="PackedScene" uid="uid://b0opfnom6gmbo" path="res://scenes/module_tester.tscn" id="1_kxric"]
 
 [node name="HUD" type="CanvasLayer"]
+layer = 2
 
 [node name="Module Tester" parent="." instance=ExtResource("1_kxric")]

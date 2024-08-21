@@ -601,6 +601,7 @@ size = Vector2(16, 14)
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 material = SubResource("ShaderMaterial_qymoq")
 collision_layer = 2
+collision_mask = 17
 floor_constant_speed = true
 script = ExtResource("1_lug7r")
 
