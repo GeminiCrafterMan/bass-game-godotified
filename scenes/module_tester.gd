@@ -1,8 +1,8 @@
-extends CanvasLayer
+extends Node2D
 
 func _process(delta: float) -> void:
 	transform = get_parent().transform
-	offset -= Vector2(384/2, 216/2) 
+#	offset -= Vector2(384/2, 216/2) 
 
 func _on_check_button_1_toggled(toggled_on):
 	GameState.modules_enabled[1] = toggled_on
@@ -69,28 +69,20 @@ func _on_button_toggled(toggled_on):
 		$Modules.show()
 		$Weapons.show()
 
-
 func _on_check_button_20_toggled(toggled_on):
 	GameState.weapons_unlocked[11] = toggled_on
 	
 func _on_check_button_21_toggled(toggled_on):
 	GameState.weapons_unlocked[12] = toggled_on
 
-
-
-
-
 func _on_check_button_23_toggled(toggled_on):
 	GameState.weapons_unlocked[13] = toggled_on
-
 
 func _on_check_button_24_toggled(toggled_on):
 	GameState.weapons_unlocked[14] = toggled_on
 
-
 func _on_check_button_25_toggled(toggled_on):
 	GameState.weapons_unlocked[15] = toggled_on
-
 
 func _on_check_button_26_toggled(toggled_on):
 	GameState.weapons_unlocked[16] = toggled_on

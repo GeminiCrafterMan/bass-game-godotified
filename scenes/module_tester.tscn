@@ -80,8 +80,7 @@ region = Rect2(144, 0, 16, 16)
 atlas = ExtResource("3_t6oby")
 region = Rect2(160, 0, 16, 16)
 
-[node name="Module Tester" type="CanvasLayer"]
-follow_viewport_enabled = true
+[node name="Module Tester" type="Node2D"]
 script = ExtResource("1_8wlr0")
 
 [node name="Modules" type="GridContainer" parent="."]
@@ -241,7 +240,6 @@ text = "hide"
 [connection signal="toggled" from="Weapons/CheckButton18" to="." method="_on_check_button_18_toggled"]
 [connection signal="toggled" from="Weapons/CheckButton19" to="." method="_on_check_button_19_toggled"]
 [connection signal="toggled" from="Weapons/CheckButton20" to="." method="_on_check_button_20_toggled"]
-[connection signal="toggled" from="Weapons/CheckButton20" to="." method="_on_check_button_toggled"]
 [connection signal="toggled" from="Weapons/CheckButton21" to="." method="_on_check_button_2_toggled"]
 [connection signal="toggled" from="Weapons/CheckButton21" to="." method="_on_check_button_21_toggled"]
 [connection signal="toggled" from="Button" to="." method="_on_button_toggled"]

@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bdurhvklic0ac"]
+
+[ext_resource type="PackedScene" uid="uid://b0opfnom6gmbo" path="res://scenes/module_tester.tscn" id="1_kxric"]
+
+[node name="HUD" type="CanvasLayer"]
+
+[node name="Module Tester" parent="." instance=ExtResource("1_kxric")]
