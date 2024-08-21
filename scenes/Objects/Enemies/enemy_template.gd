@@ -3,28 +3,28 @@ extends CharacterBody2D
 class_name Enemy_Template
 
 var Dmg_Vals = [
-	1,	# Bass Buster
-		1,	# Copy Buster
-		2,	# Copy Buster, medium shot
-		4,	# Copy Buster, charge shot
-		2,	# Scorch Barrier
-		0,	# Freeze Frame (if it does damage like Time Stopper on Quick Man)
-		0,	# Poison Cloud
-		6,	# Fin Shredder
-		2,	# Origami Star
-		0,	# Wild Gale
-		0,	# Rolling Bomb(?)
-		0,	# Boomerang Scythe
-		2,	# Proto Buster medium shot
-		4,	# Proto Buster charged shot
-		4,	# Super Arrow
-		0,	# Mirror Buster
-		2,	# Screw Crusher
-		4,	# Ballade Cracker
-		0,	# Sakugarne (Physical hit)
-		0,	# Sakugarne (Rock)
-		3,	# Houshou-geki blast jump
-		0,	# Paper Cut slice
+		1,	#0  Bass Buster 
+		1,	#1  Copy Buster
+		2,	#2  Copy Buster, medium shot
+		4,	#3  Copy Buster, charge shot
+		2,	#4  Scorch Barrier
+		0,	#5  Freeze Frame (if it does damage like Time Stopper on Quick Man)
+		1,	#6  Poison Cloud
+		4,	#7  Fin Shredder
+		2,	#8  Origami Star
+		10,	#9  Wild Gale
+		2,	#10 Rolling Bomb(?)
+		3,	#11 Boomerang Scythe
+		2,	#12 Proto Buster medium shot
+		4,	#13 Proto Buster charged shot
+		4,	#14 Super Arrow
+		1,	#15 Mirror Buster
+		2,	#16 Screw Crusher
+		4,	#17 Ballade Cracker
+		4,	#18 Sakugarne (Physical hit)
+		1,	#19 Sakugarne (Rock)
+		3,	#20 Houshou-geki blast jump
+		4,	#21 Paper Cut slice
 		0	# Whatever's next...
 ]
 var Atk_Dmg = 4

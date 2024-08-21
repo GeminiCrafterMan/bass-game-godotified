@@ -3,13 +3,12 @@ extends Enemy_Template
 class_name Sniper_Joe
 
 func _ready():
-
 	Atk_Dmg = 2
 	Max_HP = 10
 	Cur_HP = 10
 
 func _process(delta):
-	if Cur_HP == 0:
+	if Cur_HP <= 0:
 		queue_free()
 	if Cur_Inv > 0:
 		Cur_Inv -= 1

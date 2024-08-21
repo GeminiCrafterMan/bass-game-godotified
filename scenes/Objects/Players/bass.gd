@@ -93,7 +93,8 @@ var weapon_scenes = [
 	preload("res://scenes/Objects/Players/Weapons/Special Weps/origami_star.tscn"),
 	preload("res://scenes/Objects/Players/Weapons/Special Weps/poison_cloud.tscn"),
 	preload("res://scenes/Objects/Players/Weapons/Special Weps/scorch_barrier.tscn"),
-	preload("res://scenes/Objects/Players/Weapons/Special Weps/fin_shredder.tscn")
+	preload("res://scenes/Objects/Players/Weapons/Special Weps/fin_shredder.tscn"),
+	preload("res://scenes/Objects/Players/Weapons/Special Weps/wild_gale.tscn")
 ]
 
 # Set these to the name of your action (in the Input Map)
@@ -789,6 +790,8 @@ func handle_weapons():
 			weapon_shark()
 		5:
 			weapon_origami()
+		6:
+			weapon_gale()
 		9:
 			weapon_proto()
 	return
@@ -922,6 +925,37 @@ func weapon_smog():
 		is_dashing = false
 		return
 
+func weapon_shark():
+	if shoot_delay > 0:
+		if shot_type == 4:
+			shoot_delay -= 1
+			no_grounded_movement = true
+	else:
+		no_grounded_movement = false
+
+	if Input.is_action_just_pressed(input_shoot) and is_feet_on_ground():
+		$AnimatedSprite2D.set_frame_and_progress(0, 0)
+		shot_type = 4
+		shoot_delay = 26
+		projectile = weapon_scenes[3].instantiate()
+		get_parent().add_child(projectile)
+		if $AnimatedSprite2D.flip_h:
+			projectile.position.x = position.x - 14
+		else:
+			projectile.position.x = position.x + 14
+		
+		projectile.position.y = position.y + 4
+		if $AnimatedSprite2D.flip_h:
+			projectile.velocity.x = -200
+		else:
+			projectile.velocity.x = 200
+		if $AnimatedSprite2D.flip_h:
+			projectile.scale.x = -1
+		# inputs
+		
+		is_dashing = false
+		return
+		
 func weapon_origami():
 	if shoot_delay > 0:
 		if shot_type == 2:
@@ -968,36 +1002,30 @@ func weapon_origami():
 		is_dashing = false
 		return
 
-func weapon_shark():
+		
+func weapon_gale():
 	if shoot_delay > 0:
-		if shot_type == 4:
+		if shoot_delay > 15:
+			velocity.x = 0
+			velocity.y = -1
+		
+		if shot_type == 2 or shot_type == 3:
 			shoot_delay -= 1
 			no_grounded_movement = true
 	else:
 		no_grounded_movement = false
 
-	if Input.is_action_just_pressed(input_shoot) and is_feet_on_ground():
+	if Input.is_action_just_pressed(input_shoot):
 		$AnimatedSprite2D.set_frame_and_progress(0, 0)
-		shot_type = 4
+		
+		
+		
+		shot_type = 3
 		shoot_delay = 26
-		projectile = weapon_scenes[3].instantiate()
+		projectile = weapon_scenes[4].instantiate()
 		get_parent().add_child(projectile)
-		if $AnimatedSprite2D.flip_h:
-			projectile.position.x = position.x - 14
-		else:
-			projectile.position.x = position.x + 14
-		
-		projectile.position.y = position.y + 4
-		if $AnimatedSprite2D.flip_h:
-			projectile.velocity.x = -200
-		else:
-			projectile.velocity.x = 200
-		if $AnimatedSprite2D.flip_h:
-			projectile.scale.x = -1
-		# inputs
-		
-		is_dashing = false
-		return
+		projectile.position.x = position.x
+		projectile.position.y = position.y
 		
 func weapon_proto():
 	if shoot_delay > 0:

@@ -17,6 +17,7 @@ func destroy():
 	velocity.x = 0
 	velocity.y = 0
 	$CollisionShape2D.set_deferred("disabled", true)
+	#$Blast.set_deferred("disabled", false)
 	$AnimatedSprite2D.play("hit")
 	await $AnimatedSprite2D.animation_finished
 	queue_free()

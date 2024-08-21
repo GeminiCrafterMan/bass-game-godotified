@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://ct7rciidstb04"]
+[gd_scene load_steps=23 format=3 uid="uid://ct7rciidstb04"]
 
 [ext_resource type="Script" path="res://scenes/Objects/Players/Weapons/Copy Robot/ballade_cracker.gd" id="1_srl0e"]
 [ext_resource type="Texture2D" uid="uid://o8qgh1r06aj5" path="res://sprites/Players/Copy Robot/Weapons/Cracker.png" id="3_3toys"]
@@ -114,6 +114,9 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0fvlc"]
 size = Vector2(14, 14)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qa05p"]
+size = Vector2(42.5, 41)
+
 [node name="BalladeCracker" type="CharacterBody2D"]
 collision_layer = 8
 script = ExtResource("1_srl0e")
@@ -142,5 +145,9 @@ stream = ExtResource("5_20dw4")
 
 [node name="ReflectSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_ihs6t")
+
+[node name="Blast" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_qa05p")
+disabled = true
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

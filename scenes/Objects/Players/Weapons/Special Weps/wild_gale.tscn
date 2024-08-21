@@ -1,0 +1,129 @@
+[gd_scene load_steps=19 format=3 uid="uid://cje40e48p05ju"]
+
+[ext_resource type="Script" path="res://scenes/Objects/Players/Weapons/Special Weps/wild_gale.gd" id="1_5w3q0"]
+[ext_resource type="Texture2D" uid="uid://c7eekfmkq8ast" path="res://sprites/Players/Bass/Weapons/OrigamiNew.png" id="2_g8tq4"]
+[ext_resource type="Texture2D" uid="uid://b3tdngoiitsne" path="res://sprites/Players/Copy Robot/Weapons/OrigamiNew.png" id="3_ho6j2"]
+[ext_resource type="Texture2D" uid="uid://b0wmbfr68jjcj" path="res://sprites/Players/Copy Robot/Weapons/BusterSmall.png" id="4_721sq"]
+[ext_resource type="AudioStream" uid="uid://dcvhxvuushcu4" path="res://sounds/chargeshot.wav" id="5_4w222"]
+[ext_resource type="AudioStream" uid="uid://cs2dmn3ahpbea" path="res://sounds/pop.wav" id="6_syrm0"]
+[ext_resource type="AudioStream" uid="uid://mfk4w30lewvq" path="res://sounds/tink.wav" id="7_6a1ix"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4pk5p"]
+atlas = ExtResource("2_g8tq4")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mgn6g"]
+atlas = ExtResource("2_g8tq4")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fbp86"]
+atlas = ExtResource("2_g8tq4")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0w4nt"]
+atlas = ExtResource("3_ho6j2")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ydymq"]
+atlas = ExtResource("3_ho6j2")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nm3yv"]
+atlas = ExtResource("3_ho6j2")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e08mh"]
+atlas = ExtResource("4_721sq")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fp8dl"]
+atlas = ExtResource("4_721sq")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rhj74"]
+atlas = ExtResource("4_721sq")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tmmfq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4pk5p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mgn6g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fbp86")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mgn6g")
+}],
+"loop": true,
+"name": &"Bass",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0w4nt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ydymq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nm3yv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ydymq")
+}],
+"loop": true,
+"name": &"Copy",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e08mh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fp8dl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rhj74")
+}],
+"loop": false,
+"name": &"hit",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0fvlc"]
+size = Vector2(397, 225)
+
+[node name="Wild Gale" type="CharacterBody2D"]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_5w3q0")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-0.25, 0)
+scale = Vector2(1.02381, 1)
+sprite_frames = SubResource("SpriteFrames_tmmfq")
+animation = &"Bass"
+autoplay = "Bass"
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(1.19209e-07, 4.17233e-07)
+scale = Vector2(0.8, 0.8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_0fvlc")
+
+[node name="SpawnSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_4w222")
+
+[node name="HitSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_syrm0")
+
+[node name="ReflectSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_6a1ix")
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
