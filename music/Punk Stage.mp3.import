@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://doqx1myqj5gjm"
+path="res://.godot/imported/Punk Stage.mp3-78fef267f9db5eaf1cae15569b7f59b5.mp3str"
+
+[deps]
+
+source_file="res://music/Punk Stage.mp3"
+dest_files=["res://.godot/imported/Punk Stage.mp3-78fef267f9db5eaf1cae15569b7f59b5.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

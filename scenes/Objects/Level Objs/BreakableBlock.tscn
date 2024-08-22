@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://ba1usu2a5isjc"]
 
-[ext_resource type="Script" path="res://scenes/Objects/Level Objs/breakable_block.gd" id="1_qx6ad"]
+[ext_resource type="Script" path="res://scenes/Objects/Level Objs/BreakableBlock.gd" id="1_qx6ad"]
 [ext_resource type="Texture2D" uid="uid://qmvendq018cq" path="res://sprites/Objects/Breakables/Test.png" id="2_kephd"]
 [ext_resource type="Texture2D" uid="uid://dsd6tnm8cvo7f" path="res://sprites/Objects/Breakables/Blaze.png" id="3_jtltb"]
 [ext_resource type="Texture2D" uid="uid://dgiwcwe0dt077" path="res://sprites/explosion.png" id="4_putgt"]
@@ -144,7 +144,7 @@ position = Vector2(8, 8)
 sprite_frames = SubResource("SpriteFrames_o6h4x")
 animation = &"Test"
 autoplay = "Test"
-frame_progress = 0.354248
+frame_progress = 0.613812
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 visible = false
