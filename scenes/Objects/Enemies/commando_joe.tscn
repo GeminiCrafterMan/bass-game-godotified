@@ -1,0 +1,176 @@
+[gd_scene load_steps=19 format=3 uid="uid://b8vqvqer5c6o3"]
+
+[ext_resource type="Texture2D" uid="uid://dj6gd8ibp7013" path="res://sprites/Enemies/Chaingun Joe.png" id="1_aooud"]
+[ext_resource type="Script" path="res://scenes/Objects/Enemies/commando_joe.gd" id="1_dn881"]
+[ext_resource type="AudioStream" uid="uid://62xrmywm48ps" path="res://sounds/bustershot.wav" id="3_vk6v2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q62rr"]
+atlas = ExtResource("1_aooud")
+region = Rect2(160, 0, 40, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sfmt0"]
+atlas = ExtResource("1_aooud")
+region = Rect2(80, 0, 40, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d5qpb"]
+atlas = ExtResource("1_aooud")
+region = Rect2(120, 0, 40, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4oam8"]
+atlas = ExtResource("1_aooud")
+region = Rect2(0, 0, 40, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sc2m4"]
+atlas = ExtResource("1_aooud")
+region = Rect2(200, 0, 40, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pr6ij"]
+atlas = ExtResource("1_aooud")
+region = Rect2(240, 0, 40, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wycpv"]
+atlas = ExtResource("1_aooud")
+region = Rect2(240, 0, 40, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jf2iy"]
+atlas = ExtResource("1_aooud")
+region = Rect2(200, 0, 40, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ud5i"]
+atlas = ExtResource("1_aooud")
+region = Rect2(40, 0, 40, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lhorw"]
+atlas = ExtResource("1_aooud")
+region = Rect2(80, 0, 40, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5anxy"]
+atlas = ExtResource("1_aooud")
+region = Rect2(80, 0, 40, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tk3ar"]
+atlas = ExtResource("1_aooud")
+region = Rect2(40, 0, 40, 38)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_62nvj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q62rr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sfmt0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d5qpb")
+}],
+"loop": false,
+"name": &"Attack",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4oam8")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sc2m4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pr6ij")
+}],
+"loop": false,
+"name": &"Jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wycpv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jf2iy")
+}],
+"loop": true,
+"name": &"Land",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ud5i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lhorw")
+}],
+"loop": false,
+"name": &"SwitchAtk",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5anxy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tk3ar")
+}],
+"loop": false,
+"name": &"SwitchDef",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_btiql"]
+size = Vector2(13, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wp5vq"]
+size = Vector2(21, 27)
+
+[node name="Commando Joe" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_dn881")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(2, -4)
+sprite_frames = SubResource("SpriteFrames_62nvj")
+animation = &"Attack"
+autoplay = "Idle"
+
+[node name="reflect" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 8
+
+[node name="ShieldHitbox" type="CollisionShape2D" parent="reflect"]
+position = Vector2(-6.5, -5)
+shape = SubResource("RectangleShape2D_btiql")
+
+[node name="hitable" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 8
+
+[node name="MainHitbox" type="CollisionShape2D" parent="hitable"]
+position = Vector2(6.5, -5.5)
+shape = SubResource("RectangleShape2D_wp5vq")
+
+[node name="hurt" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="MainHitbox" type="CollisionShape2D" parent="hurt"]
+position = Vector2(6.5, -5.5)
+shape = SubResource("RectangleShape2D_wp5vq")
+debug_color = Color(1, 0.00392157, 0.0705882, 0.419608)
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2(6.5, -5.5)
+shape = SubResource("RectangleShape2D_wp5vq")
+debug_color = Color(0, 1, 0.0705882, 0.419608)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_vk6v2")
+
+[connection signal="body_entered" from="reflect" to="." method="_on_reflect_body_entered"]
+[connection signal="body_entered" from="hitable" to="." method="_on_hitable_body_entered"]
+[connection signal="body_entered" from="hurt" to="." method="_on_hurt_body_entered"]

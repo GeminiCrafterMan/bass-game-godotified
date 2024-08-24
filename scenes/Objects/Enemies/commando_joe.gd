@@ -1,14 +1,14 @@
 extends Enemy_Template
 
-class_name Sniper_Joe
+class_name Commando_Joe
 @onready var projectile
 var timer : int
 var attacks : int
 
 func _ready():
 	Atk_Dmg = 2
-	Max_HP = 8
-	Cur_HP = 8
+	Max_HP = 12
+	Cur_HP = 12
 	timer = 200
 
 func _process(delta):
@@ -39,7 +39,7 @@ func _process(delta):
 	if timer < 0 && $AnimatedSprite2D.animation == "SwitchAtk":	
 		$AnimatedSprite2D.play("Attack")
 		$AnimatedSprite2D.set_frame_and_progress(1, 1)
-		attacks = 3
+		attacks = 8
 		
 	if timer < 0 && $AnimatedSprite2D.animation == "Attack" &&  attacks == 0:
 		$AnimatedSprite2D.play("SwitchDef")
@@ -56,9 +56,9 @@ func _process(delta):
 		projectile.position.y = position.y - 6
 		projectile.velocity.x = -250
 		attacks = attacks - 1
-		timer = 15
+		timer = 24
 		if attacks > 0:
-			timer = 25
+			timer = 4
 		
 	
 		

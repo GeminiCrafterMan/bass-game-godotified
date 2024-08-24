@@ -1,9 +1,8 @@
-[gd_scene load_steps=9 format=4 uid="uid://c5fh5rdc2hqve"]
+[gd_scene load_steps=8 format=4 uid="uid://c5fh5rdc2hqve"]
 
 [ext_resource type="Script" path="res://scenes/Stages/Stage.gd" id="1_r6k7g"]
 [ext_resource type="Texture2D" uid="uid://63kwqi5jdugg" path="res://sprites/Tilesets/Test.png" id="2_om2pp"]
-[ext_resource type="PackedScene" uid="uid://bdurhvklic0ac" path="res://scenes/HUD.tscn" id="4_dh05x"]
-[ext_resource type="PackedScene" uid="uid://blmlnutul2hyu" path="res://scenes/Objects/Level Objs/YokuBlock.tscn" id="4_nsaw6"]
+[ext_resource type="PackedScene" path="res://scenes/HUD.tscn" id="4_dh05x"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dlclr"]
 resource_name = "Test"
@@ -112,105 +111,6 @@ volume_db = -10.0
 bus = &"Music"
 
 [node name="Level Objects" type="Node2D" parent="."]
-
-[node name="Yoku Blocks" type="Node2D" parent="Level Objects"]
-
-[node name="YokuBlock" parent="Level Objects/Yoku Blocks" instance=ExtResource("4_nsaw6")]
-position = Vector2(384, 96)
-
-[node name="YokuBlock2" parent="Level Objects/Yoku Blocks" instance=ExtResource("4_nsaw6")]
-position = Vector2(368, 96)
-
-[node name="YokuBlock3" parent="Level Objects/Yoku Blocks" instance=ExtResource("4_nsaw6")]
-position = Vector2(400, 96)
-interval = 1
-
-[node name="YokuBlock4" parent="Level Objects/Yoku Blocks" instance=ExtResource("4_nsaw6")]
-position = Vector2(416, 96)
-interval = 1
-
-[node name="YokuBlock5" parent="Level Objects/Yoku Blocks" instance=ExtResource("4_nsaw6")]
-position = Vector2(432, 96)
-interval = 2
-
-[node name="YokuBlock6" parent="Level Objects/Yoku Blocks" instance=ExtResource("4_nsaw6")]
-position = Vector2(448, 96)
-interval = 2
-
-[node name="YokuBlock7" parent="Level Objects/Yoku Blocks" instance=ExtResource("4_nsaw6")]
-position = Vector2(464, 96)
-interval = 3
-
-[node name="YokuBlock8" parent="Level Objects/Yoku Blocks" instance=ExtResource("4_nsaw6")]
-position = Vector2(480, 96)
-interval = 3
-
-[node name="YokuBlock9" parent="Level Objects/Yoku Blocks" instance=ExtResource("4_nsaw6")]
-position = Vector2(544, 64)
-
-[node name="YokuBlock10" parent="Level Objects/Yoku Blocks" instance=ExtResource("4_nsaw6")]
-position = Vector2(560, 64)
-
-[node name="YokuBlock11" parent="Level Objects/Yoku Blocks" instance=ExtResource("4_nsaw6")]
-position = Vector2(608, 80)
-interval = 1
-
-[node name="YokuBlock12" parent="Level Objects/Yoku Blocks" instance=ExtResource("4_nsaw6")]
-position = Vector2(624, 80)
-interval = 1
-
-[node name="YokuBlock13" parent="Level Objects/Yoku Blocks" instance=ExtResource("4_nsaw6")]
-position = Vector2(688, 80)
-interval = 2
-
-[node name="YokuBlock14" parent="Level Objects/Yoku Blocks" instance=ExtResource("4_nsaw6")]
-position = Vector2(704, 80)
-interval = 2
-
-[node name="YokuBlock15" parent="Level Objects/Yoku Blocks" instance=ExtResource("4_nsaw6")]
-position = Vector2(720, 80)
-interval = 2
-
-[node name="YokuBlock16" parent="Level Objects/Yoku Blocks" instance=ExtResource("4_nsaw6")]
-position = Vector2(688, 32)
-interval = 3
-
-[node name="YokuBlock17" parent="Level Objects/Yoku Blocks" instance=ExtResource("4_nsaw6")]
-position = Vector2(704, 32)
-interval = 3
-
-[node name="YokuBlock18" parent="Level Objects/Yoku Blocks" instance=ExtResource("4_nsaw6")]
-position = Vector2(720, 32)
-interval = 3
-
-[node name="YokuBlock19" parent="Level Objects/Yoku Blocks" instance=ExtResource("4_nsaw6")]
-position = Vector2(688, -16)
-
-[node name="YokuBlock20" parent="Level Objects/Yoku Blocks" instance=ExtResource("4_nsaw6")]
-position = Vector2(720, -16)
-
-[node name="YokuBlock21" parent="Level Objects/Yoku Blocks" instance=ExtResource("4_nsaw6")]
-position = Vector2(704, -16)
-
-[node name="YokuBlock22" parent="Level Objects/Yoku Blocks" instance=ExtResource("4_nsaw6")]
-position = Vector2(672, -48)
-interval = 1
-
-[node name="YokuBlock23" parent="Level Objects/Yoku Blocks" instance=ExtResource("4_nsaw6")]
-position = Vector2(592, -48)
-interval = 2
-
-[node name="YokuBlock24" parent="Level Objects/Yoku Blocks" instance=ExtResource("4_nsaw6")]
-position = Vector2(576, -48)
-interval = 2
-
-[node name="YokuBlock25" parent="Level Objects/Yoku Blocks" instance=ExtResource("4_nsaw6")]
-position = Vector2(560, -48)
-interval = 2
-
-[node name="YokuBlock26" parent="Level Objects/Yoku Blocks" instance=ExtResource("4_nsaw6")]
-position = Vector2(544, -48)
-interval = 2
 
 [node name="Enemies" type="Node2D" parent="Level Objects"]
 

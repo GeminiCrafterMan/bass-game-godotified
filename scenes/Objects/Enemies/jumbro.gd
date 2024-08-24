@@ -1,6 +1,7 @@
 extends Enemy_Template
 
 class_name Jumbro
+@onready var projectile
 
 func _ready():
 	Atk_Dmg = 8
@@ -9,6 +10,10 @@ func _ready():
 
 func _process(delta):
 	if Cur_HP <= 0:
+		projectile = preload("res://scenes/Objects/explosion_1.tscn").instantiate()
+		get_parent().add_child(projectile)
+		projectile.position.x = position.x
+		projectile.position.y = position.y
 		queue_free()
 	if Cur_Inv > 0:
 		Cur_Inv -= 1
