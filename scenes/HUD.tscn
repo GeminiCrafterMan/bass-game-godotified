@@ -1,8 +1,27 @@
-[gd_scene load_steps=2 format=3 uid="uid://bdurhvklic0ac"]
+[gd_scene load_steps=5 format=3 uid="uid://bdurhvklic0ac"]
 
 [ext_resource type="PackedScene" uid="uid://b0opfnom6gmbo" path="res://scenes/module_tester.tscn" id="1_kxric"]
+[ext_resource type="Theme" uid="uid://c1bun7kn776g1" path="res://themes/ui_theme.tres" id="2_15wwj"]
+[ext_resource type="Script" path="res://scenes/hud-life_counter.gd" id="2_iey88"]
+[ext_resource type="Texture2D" uid="uid://blgb1vsp248uk" path="res://sprites/HUD/Life Icons.png" id="3_xdn0h"]
 
 [node name="HUD" type="CanvasLayer"]
 layer = 2
 
 [node name="Module Tester" parent="." instance=ExtResource("1_kxric")]
+
+[node name="Life Counter" type="Node" parent="."]
+script = ExtResource("2_iey88")
+
+[node name="Text" type="RichTextLabel" parent="Life Counter"]
+offset_left = 24.0
+offset_top = 200.0
+offset_right = 48.0
+offset_bottom = 208.0
+theme = ExtResource("2_15wwj")
+text = "x00"
+
+[node name="Sprite2D" type="Sprite2D" parent="Life Counter"]
+position = Vector2(12, 200)
+texture = ExtResource("3_xdn0h")
+hframes = 2

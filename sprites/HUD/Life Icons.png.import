@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dmx5omulw4vdj"
-path="res://.godot/imported/Bass Life Icon.png-67a227e57d717fa4f6b98cf76cfb0754.ctex"
+uid="uid://blgb1vsp248uk"
+path="res://.godot/imported/Life Icons.png-70cfe81e25b9aee48cab3f2b204278c7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/HUD/Bass Life Icon.png"
-dest_files=["res://.godot/imported/Bass Life Icon.png-67a227e57d717fa4f6b98cf76cfb0754.ctex"]
+source_file="res://sprites/HUD/Life Icons.png"
+dest_files=["res://.godot/imported/Life Icons.png-70cfe81e25b9aee48cab3f2b204278c7.ctex"]
 
 [params]
 

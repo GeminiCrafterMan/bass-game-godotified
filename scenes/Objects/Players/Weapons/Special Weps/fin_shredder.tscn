@@ -1,6 +1,6 @@
 [gd_scene load_steps=20 format=3 uid="uid://bgpq81upok6bf"]
 
-[ext_resource type="Script" path="res://scenes/Objects/Players/Weapons/Special Weps/poison_cloud.gd" id="1_r4bjf"]
+[ext_resource type="Script" path="res://scenes/Objects/Players/Weapons/Special Weps/fin_shredder.gd" id="1_nr124"]
 [ext_resource type="Texture2D" uid="uid://4smrue2q4mp" path="res://sprites/Players/Bass/Weapons/Smog.png" id="2_atyik"]
 [ext_resource type="Texture2D" uid="uid://cfjiewmjdgl3b" path="res://sprites/Players/Copy Robot/Weapons/Smog.png" id="3_jb3m5"]
 [ext_resource type="Texture2D" uid="uid://b0wmbfr68jjcj" path="res://sprites/Players/Copy Robot/Weapons/BusterSmall.png" id="4_wdxd3"]
@@ -119,10 +119,10 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0fvlc"]
 size = Vector2(32, 30)
 
-[node name="Poisoncloud" type="CharacterBody2D"]
+[node name="Fin Shredder" type="CharacterBody2D"]
 collision_layer = 8
 collision_mask = 5
-script = ExtResource("1_r4bjf")
+script = ExtResource("1_nr124")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-0.178566, 0)

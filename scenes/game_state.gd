@@ -6,6 +6,8 @@ const characters = [
 ]
 var character_selected : int
 
+var player_lives : int = 3
+
 var weapons_unlocked = [
 	#Buster, under no circumstances should this be disabled
 	true, # Buster

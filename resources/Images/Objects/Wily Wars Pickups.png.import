@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://pmc02227dd6v"
-path="res://.godot/imported/Wily Wars Pickups.png-5fb1dfb451bd91eb61b8dda6a22d85cc.ctex"
+path="res://.godot/imported/Wily Wars Pickups.png-6255f4e777f2d0c33863a17ed80b0f85.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/Images/Objects/Pickups/Wily Wars Pickups.png"
-dest_files=["res://.godot/imported/Wily Wars Pickups.png-5fb1dfb451bd91eb61b8dda6a22d85cc.ctex"]
+source_file="res://resources/Images/Objects/Wily Wars Pickups.png"
+dest_files=["res://.godot/imported/Wily Wars Pickups.png-6255f4e777f2d0c33863a17ed80b0f85.ctex"]
 
 [params]
 

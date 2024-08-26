@@ -168,7 +168,7 @@ position = Vector2(6.5, -5.5)
 shape = SubResource("RectangleShape2D_wp5vq")
 debug_color = Color(0, 1, 0.0705882, 0.419608)
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_vk6v2")
 
 [connection signal="body_entered" from="reflect" to="." method="_on_reflect_body_entered"]

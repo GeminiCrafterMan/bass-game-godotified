@@ -152,7 +152,7 @@ script = ExtResource("1_s1qp0")
 position = Vector2(-0.178566, 0)
 scale = Vector2(1.01948, 1)
 sprite_frames = SubResource("SpriteFrames_tmmfq")
-animation = &"Copy2"
+animation = &"Bass2"
 autoplay = "Bass"
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
