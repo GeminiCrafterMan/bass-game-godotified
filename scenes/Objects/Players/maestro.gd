@@ -53,6 +53,7 @@ func _physics_process(delta: float) -> void:
 	while numberOfTimesToRunStates > 0:
 		#STATES YOU WANT ANY ANIMATION TO BE CANCELLED WITH LIKE JUMPING AND SHOOTING GO HERE
 		#ALWAYS MAKE SURE TELEPORT IS IN THE BLACKLIST SO YOU CANT CANCEL IT
+		#other than this, mostly stick to swapping states from inside other states, these are just global cancels
 		if (currentState != STATES.NONE) and (currentState != STATES.TELEPORT):
 			#check for jump
 			if ((Input.is_action_just_pressed("jump") and is_on_floor() and !isFirstFrameOfState)):
