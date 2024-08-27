@@ -42,7 +42,7 @@ text = "x00"
 material = SubResource("ShaderMaterial_fqfbl")
 position = Vector2(12, 200)
 texture = ExtResource("3_xdn0h")
-hframes = 2
+hframes = 3
 
 [node name="Boss Bar" type="Sprite2D" parent="."]
 visible = false
