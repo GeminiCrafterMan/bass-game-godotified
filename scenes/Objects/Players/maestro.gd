@@ -27,7 +27,7 @@ const JUMP_VELOCITY = -400.0
 
 func _ready():
 	#start the teleport animation
-	state_timer.start(1)
+	state_timer.start(0.5)
 	currentState = STATES.TELEPORT
 	sprite.play("Teleport In")
 
@@ -65,11 +65,12 @@ func _physics_process(delta: float) -> void:
 				
 		match currentState:
 			STATES.TELEPORT:
-				global_position.x = lerpf(global_position.x, targetpos.x, delta*10)
-				global_position.y = lerpf(global_position.y, targetpos.y, delta*10)
+				global_position.x = targetpos.x
+				global_position.y = lerpf(global_position.y, targetpos.y, delta * 10)
+				print(global_position.y)
 				
 				#exit teleport
-				if state_timer.is_stopped():
+				if roundi(global_position.y) == roundi(targetpos.y):
 					swapState = STATES.IDLE
 					teleported.emit()
 			
