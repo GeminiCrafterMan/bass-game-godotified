@@ -14,3 +14,7 @@ sprite_frames = SubResource("SpriteFrames_f3vwn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_n5t8u")
+
+[node name="StateTimer" type="Timer" parent="."]
+one_shot = true
+autostart = true
