@@ -67,7 +67,6 @@ func _physics_process(delta: float) -> void:
 			STATES.TELEPORT:
 				global_position.x = targetpos.x
 				global_position.y = lerpf(global_position.y, targetpos.y, delta * 10)
-				print(global_position.y)
 				
 				#exit teleport
 				if roundi(global_position.y) == roundi(targetpos.y):
@@ -153,7 +152,7 @@ func _physics_process(delta: float) -> void:
 		
 		#this will boot back into loop if state has changed
 		#the reason we do this is so when you do inputs there isnt even a 
-		#single frame on input lag, it just immedatley changes state
+		#single frame on input lag, it just immedatley changes state within the current cycle
 		#-lynn
 		if swapState != STATES.NONE:
 			currentState = swapState
