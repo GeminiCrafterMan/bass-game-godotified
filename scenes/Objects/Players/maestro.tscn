@@ -1,16 +1,112 @@
-[gd_scene load_steps=4 format=3 uid="uid://bksinirshmwgf"]
+[gd_scene load_steps=12 format=3 uid="uid://bksinirshmwgf"]
 
 [ext_resource type="Script" path="res://scenes/Objects/Players/maestro.gd" id="1_ct76e"]
+[ext_resource type="Texture2D" uid="uid://mwhiy56ie3ef" path="res://sprites/Players/Maestro (base)/spritesheet.png" id="2_ae8gn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hsony"]
+atlas = ExtResource("2_ae8gn")
+region = Rect2(300, 12, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r7318"]
+atlas = ExtResource("2_ae8gn")
+region = Rect2(3, 12, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l8y2a"]
+atlas = ExtResource("2_ae8gn")
+region = Rect2(52, 12, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4jw8u"]
+atlas = ExtResource("2_ae8gn")
+region = Rect2(102, 12, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ht1xm"]
+atlas = ExtResource("2_ae8gn")
+region = Rect2(152, 12, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sq5sj"]
+atlas = ExtResource("2_ae8gn")
+region = Rect2(201, 12, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mhnas"]
+atlas = ExtResource("2_ae8gn")
+region = Rect2(250, 12, 48, 48)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_f3vwn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hsony")
+}],
+"loop": true,
+"name": &"Fall",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 16.0,
+"texture": SubResource("AtlasTexture_r7318")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_l8y2a")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hsony")
+}],
+"loop": true,
+"name": &"Jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hsony")
+}],
+"loop": true,
+"name": &"Jump Transition",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4jw8u")
+}],
+"loop": false,
+"name": &"Step",
+"speed": 9.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ht1xm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sq5sj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mhnas")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sq5sj")
+}],
+"loop": true,
+"name": &"Walk",
+"speed": 8.57
+}]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_n5t8u"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5u3na"]
+size = Vector2(14, 26)
 
 [node name="Maestro" type="CharacterBody2D"]
 script = ExtResource("1_ct76e")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -1)
+scale = Vector2(-1, 1)
 sprite_frames = SubResource("SpriteFrames_f3vwn")
+animation = &"Idle"
+autoplay = "Idle"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_n5t8u")
+[node name="MainHitbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_5u3na")
