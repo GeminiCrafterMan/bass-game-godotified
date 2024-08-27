@@ -136,13 +136,14 @@ animations = [{
 size = Vector2(14, 26)
 
 [node name="Maestro" type="CharacterBody2D"]
+floor_snap_length = 10.0
 script = ExtResource("1_ct76e")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -1)
 scale = Vector2(-1, 1)
 sprite_frames = SubResource("SpriteFrames_f3vwn")
-animation = &"Idle"
+animation = &"Jump Transition"
 autoplay = "Teleport"
 
 [node name="MainHitbox" type="CollisionShape2D" parent="."]

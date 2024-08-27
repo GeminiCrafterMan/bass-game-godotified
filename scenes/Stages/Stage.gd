@@ -15,7 +15,7 @@ func _ready():
 	player = player_scene.instantiate()
 	add_child(player)
 	player.position.x = $StartPosition.position.x
-	player.targetpos = $StartPosition.position.y
+	player.targetpos.y = $StartPosition.position.y
 	await player.teleported
 	
 
@@ -25,7 +25,7 @@ func _process(_delta):
 	
 func process_camera():
 	if (player): # Null check!
-		if (player.teleporting == false):
+		if (player.currentState != player.STATES.TELEPORT):
 			$Camera2D.position = player.position
 		else:
 			$Camera2D.position = $StartPosition.position
