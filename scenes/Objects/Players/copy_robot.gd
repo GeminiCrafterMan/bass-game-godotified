@@ -465,8 +465,8 @@ func _physics_process(delta):
 		if is_feet_on_ground() and is_sliding:
 			$MainHitbox.set_disabled(true)
 			$SlideHitbox.set_disabled(false)
-			if $CeilingCheck.is_colliding():
-				slide_timer = 18
+			if $CeilingCheck.is_colliding() && slide_timer > 22:
+				slide_timer = 22
 		else:
 			$MainHitbox.set_disabled(false)
 			$SlideHitbox.set_disabled(true)
@@ -624,7 +624,7 @@ func ground_slide():
 		acc.x = -max_acceleration*2
 
 func check_slide():
-	if slide_timer > 20:
+	if slide_timer > 24:
 		is_sliding = false
 		slide_timer = 0
 		slide_stopped = true
