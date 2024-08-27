@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 class_name CopyRobotPlayer
 
+@onready var FX
 @onready var projectile
 @onready var shield
 @onready var shield2
@@ -407,16 +408,23 @@ func _physics_process(delta):
 			
 		if (is_sliding == true):
 			if Input.is_action_pressed(input_left) && $AnimatedSprite2D.flip_h == false:
-				is_sliding = false
-				slide_timer = 0
+				if $CeilingCheck.is_colliding() == false:
+					is_sliding = false
+					slide_timer = 0
+					acc.x = -max_acceleration
+				else:
+					acc.x = -max_acceleration*2
 				$AnimatedSprite2D.flip_h = true
-				acc.x = -max_acceleration
+				
 				
 			if Input.is_action_pressed(input_right) && $AnimatedSprite2D.flip_h == true:
-				is_sliding = false
-				slide_timer = 0
+				if $CeilingCheck.is_colliding() == false:
+					is_sliding = false
+					slide_timer = 0
+					acc.x = max_acceleration
+				else:
+					acc.x = max_acceleration*2
 				$AnimatedSprite2D.flip_h = false
-				acc.x = max_acceleration
 		if (is_sliding == false):
 			handle_weapons()
 		weapon_buster()
@@ -458,7 +466,7 @@ func _physics_process(delta):
 			$MainHitbox.set_disabled(true)
 			$SlideHitbox.set_disabled(false)
 			if $CeilingCheck.is_colliding():
-				slide_timer = 10
+				slide_timer = 18
 		else:
 			$MainHitbox.set_disabled(false)
 			$SlideHitbox.set_disabled(true)
@@ -566,10 +574,8 @@ func is_feet_on_ground():
 ## Perform a ground jump, or a double jump if the character is in the air.
 func jump():
 	if can_double_jump():
-		$Audio/JumpSound.play()
 		double_jump()
 	elif is_feet_on_ground():
-		$Audio/JumpSound.play()
 		ground_jump()
 
 ## Perform a double jump without checking if the player is able to.
@@ -587,17 +593,27 @@ func double_jump():
 
 ## Perform a ground jump without checking if the player is able to.
 func ground_jump():
-	velocity.y = -jump_velocity
-	current_jump_type = JumpType.GROUND
-	jumps_left -= 1
-	coyote_timer.stop()
-	jumped.emit(true)
+	if $CeilingCheck.is_colliding() == false or is_sliding == false:
+		velocity.y = -jump_velocity
+		current_jump_type = JumpType.GROUND
+		jumps_left -= 1
+		coyote_timer.stop()
+		$Audio/JumpSound.play()
+		jumped.emit(true)
 
 ## Perform a ground dash, or an air dash if... we ever add that?
 func slide():
 	if (is_sliding == false):
 		$Audio/SlideSound.play()
 		is_sliding = true
+		FX = preload("res://scenes/Objects/Players/dashtrail.tscn").instantiate()
+		get_parent().add_child(FX)
+		if $AnimatedSprite2D.flip_h:
+			FX.scale.x = -1
+			FX.position.x = position.x + 15
+		else:
+			FX.position.x = position.x - 15
+		FX.position.y = position.y+8
 		ground_slide()
 
 ## Perform a ground dash without checking if the player is able to.
@@ -608,7 +624,7 @@ func ground_slide():
 		acc.x = -max_acceleration*2
 
 func check_slide():
-	if slide_timer > 25:
+	if slide_timer > 20:
 		is_sliding = false
 		slide_timer = 0
 		slide_stopped = true
@@ -692,6 +708,7 @@ func animate():
 			slide_stopped = false
 		else:
 			if (abs(velocity.x) > 50):
+				slide_stopped = false
 				if shoot_delay == 0:
 					$AnimatedSprite2D.play("Walk")
 					$AnimatedSprite2D.set_frame_and_progress(current_frame, current_progress)

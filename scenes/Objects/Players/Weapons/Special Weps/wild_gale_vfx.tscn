@@ -1,0 +1,62 @@
+[gd_scene load_steps=10 format=3 uid="uid://cd6ylcbm7jxj3"]
+
+[ext_resource type="Texture2D" uid="uid://di6go1ggwvl7q" path="res://sprites/Players/Bass/Weapons/Gale.png" id="1_lyf43"]
+[ext_resource type="Texture2D" uid="uid://dt7wlywsvetdu" path="res://sprites/Players/Copy Robot/Weapons/Blaze.png" id="2_fyvni"]
+[ext_resource type="Script" path="res://scenes/Objects/Players/Weapons/Special Weps/wild_gale_vfx.gd" id="3_asvg1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hbrbx"]
+atlas = ExtResource("1_lyf43")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tv8bo"]
+atlas = ExtResource("1_lyf43")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cxbwp"]
+atlas = ExtResource("1_lyf43")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kgibi"]
+atlas = ExtResource("2_fyvni")
+region = Rect2(24, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3lsbn"]
+atlas = ExtResource("2_fyvni")
+region = Rect2(48, 0, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nlvml"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hbrbx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tv8bo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cxbwp")
+}],
+"loop": true,
+"name": &"Bass",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kgibi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3lsbn")
+}],
+"loop": false,
+"name": &"Copy",
+"speed": 30.0
+}]
+
+[node name="wildgaleFX" type="AnimatedSprite2D"]
+position = Vector2(-0.25, 0)
+scale = Vector2(1.02381, 1)
+sprite_frames = SubResource("SpriteFrames_nlvml")
+animation = &"Bass"
+autoplay = "Bass"
+frame_progress = 0.3
+script = ExtResource("3_asvg1")

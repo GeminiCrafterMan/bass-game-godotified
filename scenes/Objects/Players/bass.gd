@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 class_name BassPlayer
 
+@onready var FX
 @onready var projectile
 @onready var shield
 @onready var shield2
@@ -584,6 +585,14 @@ func ground_jump():
 func dash():
 	if is_dashing == false and is_feet_on_ground():
 		$Audio/DashSound.play()
+		FX = preload("res://scenes/Objects/Players/dashtrail.tscn").instantiate()
+		get_parent().add_child(FX)
+		if $AnimatedSprite2D.flip_h:
+			FX.scale.x = -1
+			FX.position.x = position.x + 15
+		else:
+			FX.position.x = position.x - 15
+		FX.position.y = position.y+8
 		is_dashing = true
 		ground_dash()
 
@@ -1026,6 +1035,11 @@ func weapon_gale():
 		get_parent().add_child(projectile)
 		projectile.position.x = position.x
 		projectile.position.y = position.y
+		
+		if $AnimatedSprite2D.flip_h:
+			projectile.direction = 1
+		else:
+			projectile.direction = 0
 		
 func weapon_proto():
 	if shoot_delay > 0:

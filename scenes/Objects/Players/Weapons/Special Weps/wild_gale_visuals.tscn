@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bue6uk01xqxfa"]
+[gd_scene load_steps=15 format=3 uid="uid://c22u5slgddh8h"]
 
 [ext_resource type="Script" path="res://scenes/Objects/Players/Weapons/Special Weps/wild_gale_visuals.gd" id="1_epy8d"]
 [ext_resource type="Texture2D" uid="uid://c7eekfmkq8ast" path="res://sprites/Players/Bass/Weapons/OrigamiNew.png" id="2_w1vhe"]

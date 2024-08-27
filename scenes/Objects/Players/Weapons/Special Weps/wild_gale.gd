@@ -3,9 +3,11 @@ extends CharacterBody2D
 const W_Type = 9	# This is Wild Gale.
 var wait : int
 @onready var visuals
+var direction : int
 
 func _ready():
 	visuals = preload("res://scenes/Objects/Players/Weapons/Special Weps/wild_gale_visuals.tscn").instantiate()
+	visuals.direction = direction
 	get_parent().add_child(visuals)
 	$SpawnSound.play()
 		
