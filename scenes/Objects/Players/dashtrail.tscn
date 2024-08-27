@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b6b42ayb1hccv"]
+[gd_scene load_steps=12 format=3 uid="uid://baxcw6x5prpdq"]
 
 [ext_resource type="Texture2D" uid="uid://ck4ah8n6qbedv" path="res://sprites/Players/Bass/dashsmoke.png" id="1_bahme"]
 [ext_resource type="Texture2D" uid="uid://dt7wlywsvetdu" path="res://sprites/Players/Copy Robot/Weapons/Blaze.png" id="2_dmp1m"]
@@ -72,6 +72,4 @@ scale = Vector2(1.02381, 1)
 sprite_frames = SubResource("SpriteFrames_nlvml")
 animation = &"Bass"
 autoplay = "Bass"
-frame = 4
-frame_progress = 1.0
 script = ExtResource("3_itf8l")

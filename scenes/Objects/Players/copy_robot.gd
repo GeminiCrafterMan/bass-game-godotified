@@ -24,11 +24,8 @@ var slide_stopped : bool
 
 var slide_timer : int
 
-var current_weapon : int
-var old_weapon : int
 var shoot_delay = 0
 var shot_type = 0
-var current_hp = 28
 var DmgQueue = 0
 var invin_frms = 0
 
@@ -60,44 +57,6 @@ var weapon_palette: Array[Texture2D] = [
 	preload("res://sprites/Players/Copy Robot/Palettes/Sakugarne.png"),
 	preload("res://sprites/Players/Copy Robot/Palettes/ChargeX1.png"),
 	preload("res://sprites/Players/Copy Robot/Palettes/ChargeX2.png")
-]
-var energy = [
-	0,	# Buster
-	28,	# Scorch Barrier
-	28,	# Track 2
-	28,	# Poison Cloud
-	28,	# Fin Shredder
-	28,	# Origami Star
-	28,	# Wild Gale
-	28,	# Rolling Bomb
-	28,	# Boomerang Scythe
-	0,	# Proto Shield
-	0,	# "Treble Boost", which will be skipped
-	28,	# Carry
-	28,	# Super Arrow
-	28,	# Mirror Buster
-	28,	# Screw Crusher
-	28,	# Ballade Cracker
-	28	# Sakugarne
-]
-var max_energy = [ # Energy use is always 1, *no matter what*. Increase energy and max_energy values to have larger shot counts.
-	0,	# Buster
-	28,	# Scorch Barrier
-	28,	# Track 2
-	28,	# Poison Cloud
-	28,	# Fin Shredder
-	28,	# Origami Star
-	28,	# Wild Gale
-	28,	# Rolling Bomb
-	28,	# Boomerang Scythe
-	0,	# Proto Shield
-	0,	# "Treble Boost", which will be skipped
-	28,	# Carry
-	28,	# Super Arrow
-	28,	# Mirror Buster
-	28,	# Screw Crusher
-	28,	# Ballade Cracker
-	28	# Sakugarne
 ]
 
 var projectile_scenes = [
@@ -245,9 +204,12 @@ func _init():
 	double_jump_velocity = calculate_jump_velocity2(double_jump_height, default_gravity)
 	release_gravity_multiplier = calculate_release_gravity_multiplier(
 			jump_velocity, min_jump_height, default_gravity)
+	GameState.max_weapon_energy[9] = 0 # Proto Shield
+	GameState.max_weapon_energy[10] = 0 # "Treble Boost"
 
 
 func _ready():
+	GameState.player = self.get_path()
 	if is_coyote_time_enabled:
 		add_child(coyote_timer)
 		coyote_timer.wait_time = coyote_time
@@ -272,109 +234,109 @@ func _input(_event):
 		holding_jump = false
 	
 	if Input.is_action_just_pressed(input_switch_left):
-		old_weapon = current_weapon
-		if (current_weapon == 0):
-			current_weapon = 16
+		GameState.old_weapon = GameState.current_weapon
+		if (GameState.current_weapon == 0):
+			GameState.current_weapon = 16
 			
 		else:
-			current_weapon -= 1
+			GameState.current_weapon -= 1
 			
 			#make sure to clean this up later, I don't wanna -mengo
 			# i tried to clean it up, but it ended up working even less... - gem
-		if (current_weapon == 16 && GameState.weapons_unlocked[16] == false):
-			current_weapon -= 1
-		if (current_weapon == 15 && GameState.weapons_unlocked[15] == false):
-			current_weapon -= 1
-		if (current_weapon == 14 && GameState.weapons_unlocked[14] == false):
-			current_weapon -= 1
-		if (current_weapon == 13 && GameState.weapons_unlocked[13] == false):
-			current_weapon -= 1
-		if (current_weapon == 12 && GameState.weapons_unlocked[12] == false):
-			current_weapon -= 1
-		if (current_weapon == 11 && GameState.weapons_unlocked[11] == false):
-			current_weapon = 9 # skip Treble Boost
-		if (current_weapon == 9 && GameState.weapons_unlocked[9] == false):
-			current_weapon -= 1
-		if (current_weapon == 8 && GameState.weapons_unlocked[8] == false):
-			current_weapon -= 1
-		if (current_weapon == 7 && GameState.weapons_unlocked[7] == false):
-			current_weapon -= 1
-		if (current_weapon == 6 && GameState.weapons_unlocked[6] == false):
-			current_weapon -= 1
-		if (current_weapon == 5 && GameState.weapons_unlocked[5] == false):
-			current_weapon -= 1
-		if (current_weapon == 4 && GameState.weapons_unlocked[4] == false):
-			current_weapon -= 1
-		if (current_weapon == 3 && GameState.weapons_unlocked[3] == false):
-			current_weapon -= 1
-		if (current_weapon == 2 && GameState.weapons_unlocked[2] == false):
-			current_weapon -= 1
-		if (current_weapon == 1 && GameState.weapons_unlocked[1] == false):
-			current_weapon -= 1
+		if (GameState.current_weapon == 16 && GameState.weapons_unlocked[16] == false):
+			GameState.current_weapon -= 1
+		if (GameState.current_weapon == 15 && GameState.weapons_unlocked[15] == false):
+			GameState.current_weapon -= 1
+		if (GameState.current_weapon == 14 && GameState.weapons_unlocked[14] == false):
+			GameState.current_weapon -= 1
+		if (GameState.current_weapon == 13 && GameState.weapons_unlocked[13] == false):
+			GameState.current_weapon -= 1
+		if (GameState.current_weapon == 12 && GameState.weapons_unlocked[12] == false):
+			GameState.current_weapon -= 1
+		if (GameState.current_weapon == 11 && GameState.weapons_unlocked[11] == false):
+			GameState.current_weapon = 9 # skip Treble Boost
+		if (GameState.current_weapon == 9 && GameState.weapons_unlocked[9] == false):
+			GameState.current_weapon -= 1
+		if (GameState.current_weapon == 8 && GameState.weapons_unlocked[8] == false):
+			GameState.current_weapon -= 1
+		if (GameState.current_weapon == 7 && GameState.weapons_unlocked[7] == false):
+			GameState.current_weapon -= 1
+		if (GameState.current_weapon == 6 && GameState.weapons_unlocked[6] == false):
+			GameState.current_weapon -= 1
+		if (GameState.current_weapon == 5 && GameState.weapons_unlocked[5] == false):
+			GameState.current_weapon -= 1
+		if (GameState.current_weapon == 4 && GameState.weapons_unlocked[4] == false):
+			GameState.current_weapon -= 1
+		if (GameState.current_weapon == 3 && GameState.weapons_unlocked[3] == false):
+			GameState.current_weapon -= 1
+		if (GameState.current_weapon == 2 && GameState.weapons_unlocked[2] == false):
+			GameState.current_weapon -= 1
+		if (GameState.current_weapon == 1 && GameState.weapons_unlocked[1] == false):
+			GameState.current_weapon -= 1
 			
-		if old_weapon != current_weapon:
+		if GameState.old_weapon != GameState.current_weapon:
 			$Audio/SwitchSound.play()
-		$AnimatedSprite2D.material.set_shader_parameter("palette", weapon_palette[current_weapon])
+		$AnimatedSprite2D.material.set_shader_parameter("palette", weapon_palette[GameState.current_weapon])
 	
 	
 	
 	if Input.is_action_just_pressed(input_switch_right):
-		old_weapon = current_weapon
-		if (current_weapon == 16):
-			current_weapon = 0
+		GameState.old_weapon = GameState.current_weapon
+		if (GameState.current_weapon == 16):
+			GameState.current_weapon = 0
 			
 		else:
-			current_weapon += 1
+			GameState.current_weapon += 1
 			
 		#make sure to clean this up later, I don't wanna -mengo
 			# i tried to clean it up, but it ended up working even less... - gem
-		if (current_weapon == 1 && GameState.weapons_unlocked[1] == false):
-			current_weapon += 1
-		if (current_weapon == 2 && GameState.weapons_unlocked[2] == false):
-			current_weapon += 1
-		if (current_weapon == 3 && GameState.weapons_unlocked[3] == false):
-			current_weapon += 1
-		if (current_weapon == 4 && GameState.weapons_unlocked[4] == false):
-			current_weapon += 1
-		if (current_weapon == 5 && GameState.weapons_unlocked[5] == false):
-			current_weapon += 1
-		if (current_weapon == 6 && GameState.weapons_unlocked[6] == false):
-			current_weapon += 1
-		if (current_weapon == 7 && GameState.weapons_unlocked[7] == false):
-			current_weapon += 1
-		if (current_weapon == 8 && GameState.weapons_unlocked[8] == false):
-			current_weapon += 1
-		if (current_weapon == 9 && GameState.weapons_unlocked[9] == false):
-			current_weapon = 11 # skip Treble Boost
-		if (current_weapon == 11 && GameState.weapons_unlocked[11] == false):
-			current_weapon += 1
-		if (current_weapon == 12 && GameState.weapons_unlocked[12] == false):
-			current_weapon += 1
-		if (current_weapon == 13 && GameState.weapons_unlocked[13] == false):
-			current_weapon += 1
-		if (current_weapon == 14 && GameState.weapons_unlocked[14] == false):
-			current_weapon += 1
-		if (current_weapon == 15 && GameState.weapons_unlocked[15] == false):
-			current_weapon += 1
-		if (current_weapon == 16 && GameState.weapons_unlocked[16] == false):
-			current_weapon = 0
+		if (GameState.current_weapon == 1 && GameState.weapons_unlocked[1] == false):
+			GameState.current_weapon += 1
+		if (GameState.current_weapon == 2 && GameState.weapons_unlocked[2] == false):
+			GameState.current_weapon += 1
+		if (GameState.current_weapon == 3 && GameState.weapons_unlocked[3] == false):
+			GameState.current_weapon += 1
+		if (GameState.current_weapon == 4 && GameState.weapons_unlocked[4] == false):
+			GameState.current_weapon += 1
+		if (GameState.current_weapon == 5 && GameState.weapons_unlocked[5] == false):
+			GameState.current_weapon += 1
+		if (GameState.current_weapon == 6 && GameState.weapons_unlocked[6] == false):
+			GameState.current_weapon += 1
+		if (GameState.current_weapon == 7 && GameState.weapons_unlocked[7] == false):
+			GameState.current_weapon += 1
+		if (GameState.current_weapon == 8 && GameState.weapons_unlocked[8] == false):
+			GameState.current_weapon += 1
+		if (GameState.current_weapon == 9 && GameState.weapons_unlocked[9] == false):
+			GameState.current_weapon = 11 # skip Treble Boost
+		if (GameState.current_weapon == 11 && GameState.weapons_unlocked[11] == false):
+			GameState.current_weapon += 1
+		if (GameState.current_weapon == 12 && GameState.weapons_unlocked[12] == false):
+			GameState.current_weapon += 1
+		if (GameState.current_weapon == 13 && GameState.weapons_unlocked[13] == false):
+			GameState.current_weapon += 1
+		if (GameState.current_weapon == 14 && GameState.weapons_unlocked[14] == false):
+			GameState.current_weapon += 1
+		if (GameState.current_weapon == 15 && GameState.weapons_unlocked[15] == false):
+			GameState.current_weapon += 1
+		if (GameState.current_weapon == 16 && GameState.weapons_unlocked[16] == false):
+			GameState.current_weapon = 0
 
 
-		if old_weapon != current_weapon:
+		if GameState.old_weapon != GameState.current_weapon:
 			$Audio/SwitchSound.play()
-		$AnimatedSprite2D.material.set_shader_parameter("palette", weapon_palette[current_weapon])
+		$AnimatedSprite2D.material.set_shader_parameter("palette", weapon_palette[GameState.current_weapon])
 
 	if  (Input.is_action_just_pressed(input_switch_left) && Input.is_action_pressed(input_switch_right)):
-		current_weapon = 0
-		if old_weapon != current_weapon:
+		GameState.current_weapon = 0
+		if GameState.old_weapon != GameState.current_weapon:
 			$Audio/SwitchSound.play()
-		$AnimatedSprite2D.material.set_shader_parameter("palette", weapon_palette[current_weapon])
+		$AnimatedSprite2D.material.set_shader_parameter("palette", weapon_palette[GameState.current_weapon])
 	
 	if  (Input.is_action_pressed(input_switch_left) && Input.is_action_just_pressed(input_switch_right)):
-		current_weapon = 0
-		if old_weapon != current_weapon:
+		GameState.current_weapon = 0
+		if GameState.old_weapon != GameState.current_weapon:
 			$Audio/SwitchSound.play()
-		$AnimatedSprite2D.material.set_shader_parameter("palette", weapon_palette[current_weapon])
+		$AnimatedSprite2D.material.set_shader_parameter("palette", weapon_palette[GameState.current_weapon])
 
 func _physics_process(delta):
 	if teleporting == true:
@@ -768,13 +730,13 @@ func animate():
 
 func do_charge_palette():
 	if charge == 0 or charge < 37: # no charge
-		$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[current_weapon])
+		$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[GameState.current_weapon])
 	elif charge >= 37 && charge < 65: # just started charging
 		if flash_timer == 2 || flash_timer == 3:
 			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[17])
 			flash_timer += 1
 		else:
-			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[current_weapon])
+			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[GameState.current_weapon])
 			flash_timer += 1
 		if flash_timer == 3:
 			flash_timer = 0
@@ -783,18 +745,18 @@ func do_charge_palette():
 			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[17])
 			flash_timer = 0
 		else:
-			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[current_weapon])
+			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[GameState.current_weapon])
 			flash_timer = 1
 	elif charge >= 92:
 		if flash_timer == 1:
 			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[18])
 			flash_timer = 0
 		else:
-			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[current_weapon])
+			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[GameState.current_weapon])
 			flash_timer = 1
 
 func handle_weapons():
-	match current_weapon:
+	match GameState.current_weapon:
 		1:
 			weapon_blaze()
 		3:
@@ -817,7 +779,7 @@ func weapon_buster():
 		if shot_type == 0:
 			shoot_delay -= 1
 			no_grounded_movement = false
-	if (current_weapon == 0 and Input.is_action_just_pressed("shoot")) or Input.is_action_just_pressed("buster"):
+	if (GameState.current_weapon == 0 and Input.is_action_just_pressed("shoot")) or Input.is_action_just_pressed("buster"):
 		if is_sliding == false:
 			shot_type = 0
 			shoot_delay = 13
@@ -832,7 +794,7 @@ func weapon_buster():
 				projectile.velocity.x = 350
 			charge = 0
 			return
-	if (current_weapon == 0 and Input.is_action_just_released("shoot")) or Input.is_action_just_released("buster"):
+	if (GameState.current_weapon == 0 and Input.is_action_just_released("shoot")) or Input.is_action_just_released("buster"):
 		if is_sliding == false:
 			if charge < 32: # no charge
 				charge = 0
@@ -865,7 +827,7 @@ func weapon_buster():
 					projectile.velocity.x = 450
 				charge = 0
 				return
-	if (current_weapon == 0 and Input.is_action_pressed("shoot")) or Input.is_action_pressed("buster"):
+	if (GameState.current_weapon == 0 and Input.is_action_pressed("shoot")) or Input.is_action_pressed("buster"):
 		if charge < 100:
 			charge += 1
 			if charge == 32:
@@ -1226,6 +1188,6 @@ func _DamageAndInvincible():
 		if invin_frms > 0:
 			DmgQueue = 0
 		else:
-			current_hp -= DmgQueue
+			GameState.current_hp -= DmgQueue
 			DmgQueue = 0
 			$Audio/owchj.play()

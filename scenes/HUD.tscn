@@ -1,14 +1,31 @@
-[gd_scene load_steps=5 format=3 uid="uid://bdurhvklic0ac"]
+[gd_scene load_steps=12 format=3 uid="uid://bdurhvklic0ac"]
 
 [ext_resource type="PackedScene" uid="uid://b0opfnom6gmbo" path="res://scenes/module_tester.tscn" id="1_kxric"]
 [ext_resource type="Theme" uid="uid://c1bun7kn776g1" path="res://themes/ui_theme.tres" id="2_15wwj"]
 [ext_resource type="Script" path="res://scenes/hud-life_counter.gd" id="2_iey88"]
 [ext_resource type="Texture2D" uid="uid://blgb1vsp248uk" path="res://sprites/HUD/Life Icons.png" id="3_xdn0h"]
+[ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="4_7y70l"]
+[ext_resource type="Texture2D" uid="uid://cw3nxdi21ktpt" path="res://sprites/HUD/Bass Weapon Bar.png" id="5_1d45g"]
+[ext_resource type="Texture2D" uid="uid://datbp7dqyeio" path="res://sprites/Players/Bass/Palettes/None.png" id="5_nk4r6"]
+[ext_resource type="Script" path="res://scenes/hud-bars.gd" id="6_83krn"]
+[ext_resource type="Texture2D" uid="uid://dj8dbh1vderdl" path="res://sprites/HUD/Health Bar.png" id="6_dn5r5"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fqfbl"]
+shader = ExtResource("4_7y70l")
+shader_parameter/skip_first_row = true
+shader_parameter/use_palette_alpha = false
+shader_parameter/fps = 6.0
+shader_parameter/palette = ExtResource("5_nk4r6")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o6d4v"]
+shader = ExtResource("4_7y70l")
+shader_parameter/skip_first_row = true
+shader_parameter/use_palette_alpha = false
+shader_parameter/fps = 6.0
+shader_parameter/palette = ExtResource("5_nk4r6")
 
 [node name="HUD" type="CanvasLayer"]
 layer = 2
-
-[node name="Module Tester" parent="." instance=ExtResource("1_kxric")]
 
 [node name="Life Counter" type="Node" parent="."]
 script = ExtResource("2_iey88")
@@ -22,6 +39,32 @@ theme = ExtResource("2_15wwj")
 text = "x00"
 
 [node name="Sprite2D" type="Sprite2D" parent="Life Counter"]
+material = SubResource("ShaderMaterial_fqfbl")
 position = Vector2(12, 200)
 texture = ExtResource("3_xdn0h")
 hframes = 2
+
+[node name="Boss Bar" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(36, 40)
+texture = ExtResource("6_dn5r5")
+hframes = 57
+frame = 25
+
+[node name="Bars" type="Node" parent="."]
+script = ExtResource("6_83krn")
+
+[node name="HealthBar" type="Sprite2D" parent="Bars"]
+position = Vector2(20, 40)
+texture = ExtResource("6_dn5r5")
+hframes = 57
+frame = 25
+
+[node name="WeaponBar" type="Sprite2D" parent="Bars"]
+material = SubResource("ShaderMaterial_o6d4v")
+position = Vector2(12, 40)
+texture = ExtResource("5_1d45g")
+hframes = 29
+frame = 12
+
+[node name="Module Tester" parent="." instance=ExtResource("1_kxric")]

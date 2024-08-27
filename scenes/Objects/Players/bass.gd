@@ -22,13 +22,10 @@ var is_dashing : bool
 var dash_timer : int
 var blast_jumped : bool
 
-var current_weapon : int
-var old_weapon : int
 var shoot_delay = 0
 var shot_type = 0
 var charge : int
 var flash_timer : int
-var current_hp = 28
 var DmgQueue = 0
 var invin_frms = 0
 
@@ -55,32 +52,7 @@ var weapon_palette: Array[Texture2D] = [
 	preload("res://sprites/Players/Bass/Palettes/Proto Charge 1.png"),
 	preload("res://sprites/Players/Bass/Palettes/Proto Charge 2.png")
 ]
-var energy = [
-	0,	# Buster
-	28,	# Scorch Barrier
-	28,	# Freeze Frame
-	28,	# Poison Cloud
-	28,	# Fin Shredder
-	28,	# Origami Star
-	28,	# Wild Gale
-	28,	# Rolling Bomb
-	28,	# Boomerang Scythe
-	28,	# Proto Buster
-	28	# Treble Boost
-]
-var max_energy = [ # Energy use is always 1, *no matter what*. Increase energy and max_energy values to have larger shot counts.
-	0,	# Buster
-	28,	# Scorch Barrier
-	28,	# Freeze Frame
-	28,	# Poison Cloud
-	28,	# Fin Shredder
-	28,	# Origami Star
-	28,	# Wild Gale
-	28,	# Rolling Bomb
-	28,	# Boomerang Scythe
-	28,	# Proto Buster
-	28	# Treble Boost
-]
+
 var projectile_scenes = [
 	preload("res://scenes/Objects/Players/Weapons/Bass/buster.tscn"),
 	preload("res://scenes/Objects/Players/Weapons/Bass/blast_jump.tscn"),
@@ -225,6 +197,7 @@ func _init():
 			jump_velocity, min_jump_height, default_gravity)
 
 func _ready():
+	GameState.player = self.get_path()
 	if is_coyote_time_enabled:
 		add_child(coyote_timer)
 		coyote_timer.wait_time = coyote_time
@@ -250,92 +223,92 @@ func _input(_event):
 	
 	
 	
-	#if (GameState.weapons_unlocked[current_weapon] == false):
+	#if (GameState.weapons_unlocked[GameState.current_weapon] == false):
 	
 	if Input.is_action_just_pressed(input_switch_left):
-		old_weapon = current_weapon
-		if (current_weapon == 0):
-			current_weapon = 10
+		GameState.old_weapon = GameState.current_weapon
+		if (GameState.current_weapon == 0):
+			GameState.current_weapon = 10
 			
 		else:
-			current_weapon -= 1
+			GameState.current_weapon -= 1
 			
 			#make sure to clean this up later, I don't wanna -mengo
 			# i tried to clean it up, but it ended up working even less... - gem
-		if (current_weapon == 10 && GameState.weapons_unlocked[10] == false):
-			current_weapon -= 1
-		if (current_weapon == 9 && GameState.weapons_unlocked[9] == false):
-			current_weapon -= 1
-		if (current_weapon == 8 && GameState.weapons_unlocked[8] == false):
-			current_weapon -= 1
-		if (current_weapon == 7 && GameState.weapons_unlocked[7] == false):
-			current_weapon -= 1
-		if (current_weapon == 6 && GameState.weapons_unlocked[6] == false):
-			current_weapon -= 1
-		if (current_weapon == 5 && GameState.weapons_unlocked[5] == false):
-			current_weapon -= 1
-		if (current_weapon == 4 && GameState.weapons_unlocked[4] == false):
-			current_weapon -= 1
-		if (current_weapon == 3 && GameState.weapons_unlocked[3] == false):
-			current_weapon -= 1
-		if (current_weapon == 2 && GameState.weapons_unlocked[2] == false):
-			current_weapon -= 1
-		if (current_weapon == 1 && GameState.weapons_unlocked[1] == false):
-			current_weapon -= 1
+		if (GameState.current_weapon == 10 && GameState.weapons_unlocked[10] == false):
+			GameState.current_weapon -= 1
+		if (GameState.current_weapon == 9 && GameState.weapons_unlocked[9] == false):
+			GameState.current_weapon -= 1
+		if (GameState.current_weapon == 8 && GameState.weapons_unlocked[8] == false):
+			GameState.current_weapon -= 1
+		if (GameState.current_weapon == 7 && GameState.weapons_unlocked[7] == false):
+			GameState.current_weapon -= 1
+		if (GameState.current_weapon == 6 && GameState.weapons_unlocked[6] == false):
+			GameState.current_weapon -= 1
+		if (GameState.current_weapon == 5 && GameState.weapons_unlocked[5] == false):
+			GameState.current_weapon -= 1
+		if (GameState.current_weapon == 4 && GameState.weapons_unlocked[4] == false):
+			GameState.current_weapon -= 1
+		if (GameState.current_weapon == 3 && GameState.weapons_unlocked[3] == false):
+			GameState.current_weapon -= 1
+		if (GameState.current_weapon == 2 && GameState.weapons_unlocked[2] == false):
+			GameState.current_weapon -= 1
+		if (GameState.current_weapon == 1 && GameState.weapons_unlocked[1] == false):
+			GameState.current_weapon -= 1
 			
-		if old_weapon != current_weapon:
+		if GameState.old_weapon != GameState.current_weapon:
 			$Audio/SwitchSound.play()
-		$AnimatedSprite2D.material.set_shader_parameter("palette", weapon_palette[current_weapon])
+		$AnimatedSprite2D.material.set_shader_parameter("palette", weapon_palette[GameState.current_weapon])
 	
 	
 	
 	if Input.is_action_just_pressed(input_switch_right):
-		old_weapon = current_weapon
-		if (current_weapon == 10):
-			current_weapon = 0
+		GameState.old_weapon = GameState.current_weapon
+		if (GameState.current_weapon == 10):
+			GameState.current_weapon = 0
 			
 		else:
-			current_weapon += 1
+			GameState.current_weapon += 1
 			
 		#make sure to clean this up later, I don't wanna -mengo
 			# i tried to clean it up, but it ended up working even less... - gem
-		if (current_weapon == 1 && GameState.weapons_unlocked[1] == false):
-			current_weapon += 1
-		if (current_weapon == 2 && GameState.weapons_unlocked[2] == false):
-			current_weapon += 1
-		if (current_weapon == 3 && GameState.weapons_unlocked[3] == false):
-			current_weapon += 1
-		if (current_weapon == 4 && GameState.weapons_unlocked[4] == false):
-			current_weapon += 1
-		if (current_weapon == 5 && GameState.weapons_unlocked[5] == false):
-			current_weapon += 1
-		if (current_weapon == 6 && GameState.weapons_unlocked[6] == false):
-			current_weapon += 1
-		if (current_weapon == 7 && GameState.weapons_unlocked[7] == false):
-			current_weapon += 1
-		if (current_weapon == 8 && GameState.weapons_unlocked[8] == false):
-			current_weapon += 1
-		if (current_weapon == 9 && GameState.weapons_unlocked[9] == false):
-			current_weapon += 1
-		if (current_weapon == 10 && GameState.weapons_unlocked[10] == false):
-			current_weapon = 0
+		if (GameState.current_weapon == 1 && GameState.weapons_unlocked[1] == false):
+			GameState.current_weapon += 1
+		if (GameState.current_weapon == 2 && GameState.weapons_unlocked[2] == false):
+			GameState.current_weapon += 1
+		if (GameState.current_weapon == 3 && GameState.weapons_unlocked[3] == false):
+			GameState.current_weapon += 1
+		if (GameState.current_weapon == 4 && GameState.weapons_unlocked[4] == false):
+			GameState.current_weapon += 1
+		if (GameState.current_weapon == 5 && GameState.weapons_unlocked[5] == false):
+			GameState.current_weapon += 1
+		if (GameState.current_weapon == 6 && GameState.weapons_unlocked[6] == false):
+			GameState.current_weapon += 1
+		if (GameState.current_weapon == 7 && GameState.weapons_unlocked[7] == false):
+			GameState.current_weapon += 1
+		if (GameState.current_weapon == 8 && GameState.weapons_unlocked[8] == false):
+			GameState.current_weapon += 1
+		if (GameState.current_weapon == 9 && GameState.weapons_unlocked[9] == false):
+			GameState.current_weapon += 1
+		if (GameState.current_weapon == 10 && GameState.weapons_unlocked[10] == false):
+			GameState.current_weapon = 0
 
 
-		if old_weapon != current_weapon:
+		if GameState.old_weapon != GameState.current_weapon:
 			$Audio/SwitchSound.play()
-		$AnimatedSprite2D.material.set_shader_parameter("palette", weapon_palette[current_weapon])
+		$AnimatedSprite2D.material.set_shader_parameter("palette", weapon_palette[GameState.current_weapon])
 
 	if  (Input.is_action_just_pressed(input_switch_left) && Input.is_action_pressed(input_switch_right)):
-		current_weapon = 0
-		if old_weapon != current_weapon:
+		GameState.current_weapon = 0
+		if GameState.old_weapon != GameState.current_weapon:
 			$Audio/SwitchSound.play()
-		$AnimatedSprite2D.material.set_shader_parameter("palette", weapon_palette[current_weapon])
+		$AnimatedSprite2D.material.set_shader_parameter("palette", weapon_palette[GameState.current_weapon])
 	
 	if  (Input.is_action_pressed(input_switch_left) && Input.is_action_just_pressed(input_switch_right)):
-		current_weapon = 0
-		if old_weapon != current_weapon:
+		GameState.current_weapon = 0
+		if GameState.old_weapon != GameState.current_weapon:
 			$Audio/SwitchSound.play()
-		$AnimatedSprite2D.material.set_shader_parameter("palette", weapon_palette[current_weapon])
+		$AnimatedSprite2D.material.set_shader_parameter("palette", weapon_palette[GameState.current_weapon])
 
 func _physics_process(delta):
 	if teleporting == true:
@@ -790,7 +763,7 @@ func animate():
 						$AnimatedSprite2D.play("Fall")
 
 func handle_weapons():
-	match current_weapon:
+	match GameState.current_weapon:
 		1:
 			weapon_blaze()
 		3:
@@ -812,7 +785,7 @@ func weapon_buster():
 			no_grounded_movement = true
 	else:
 		no_grounded_movement = false
-	if (current_weapon == 0 and Input.is_action_pressed(input_shoot)) or Input.is_action_pressed(input_buster):
+	if (GameState.current_weapon == 0 and Input.is_action_pressed(input_shoot)) or Input.is_action_pressed(input_buster):
 		if shoot_delay < 7:
 			shot_type = 0
 			shoot_delay = 13
@@ -1046,7 +1019,7 @@ func weapon_proto():
 		if shot_type == 1:
 			shoot_delay -= 1
 			no_grounded_movement = false
-	if (current_weapon == 9 and Input.is_action_just_pressed("shoot")):
+	if (GameState.current_weapon == 9 and Input.is_action_just_pressed("shoot")):
 		if is_dashing == false:
 			shot_type = 1
 			shoot_delay = 13
@@ -1054,7 +1027,7 @@ func weapon_proto():
 			get_parent().add_child(projectile)
 			projectile.position.x = position.x
 			projectile.position.y = position.y
-			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[current_weapon])
+			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[GameState.current_weapon])
 			if $AnimatedSprite2D.flip_h:
 				projectile.velocity.x = -350
 				projectile.scale.x = -1
@@ -1062,7 +1035,7 @@ func weapon_proto():
 				projectile.velocity.x = 350
 			charge = 0
 			return
-	if (current_weapon == 9 and Input.is_action_just_released("shoot")):
+	if (GameState.current_weapon == 9 and Input.is_action_just_released("shoot")):
 		if is_dashing == false:
 			if charge < 32: # no charge
 				charge = 0
@@ -1074,7 +1047,7 @@ func weapon_proto():
 				get_parent().add_child(projectile)
 				projectile.position.x = position.x
 				projectile.position.y = position.y
-				$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[current_weapon])
+				$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[GameState.current_weapon])
 				if $AnimatedSprite2D.flip_h:
 					projectile.velocity.x = -450
 					projectile.scale.x = -1
@@ -1089,7 +1062,7 @@ func weapon_proto():
 				get_parent().add_child(projectile)
 				projectile.position.x = position.x
 				projectile.position.y = position.y
-				$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[current_weapon])
+				$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[GameState.current_weapon])
 				if $AnimatedSprite2D.flip_h:
 					projectile.velocity.x = -450
 					projectile.scale.x = -1
@@ -1097,7 +1070,7 @@ func weapon_proto():
 					projectile.velocity.x = 450
 				charge = 0
 				return
-	if (current_weapon == 9 and Input.is_action_pressed("shoot")):
+	if (GameState.current_weapon == 9 and Input.is_action_pressed("shoot")):
 		if charge < 100:
 			charge += 1
 			do_charge_palette()
@@ -1113,13 +1086,13 @@ func weapon_proto():
 
 func do_charge_palette():
 	if charge == 0 or charge < 37: # no charge
-		$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[current_weapon])
+		$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[GameState.current_weapon])
 	elif charge >= 37 && charge < 65: # just started charging
 		if flash_timer == 2 || flash_timer == 3:
 			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[11])
 			flash_timer += 1
 		else:
-			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[current_weapon])
+			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[GameState.current_weapon])
 			flash_timer += 1
 		if flash_timer == 3:
 			flash_timer = 0
@@ -1128,7 +1101,7 @@ func do_charge_palette():
 			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[11])
 			flash_timer = 0
 		else:
-			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[current_weapon])
+			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[GameState.current_weapon])
 			flash_timer = 1
 	elif charge >= 92:
 		if flash_timer == 1:
@@ -1151,6 +1124,6 @@ func _DamageAndInvincible():
 		if invin_frms > 0:
 			DmgQueue = 0
 		else:
-			current_hp -= DmgQueue
+			GameState.current_hp -= DmgQueue
 			DmgQueue = 0
 			$Audio/owchj.play()

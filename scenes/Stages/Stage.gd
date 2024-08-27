@@ -1,7 +1,7 @@
 class_name Stage
 extends Node2D
 
-@onready var player
+@onready var player # kind of the same thing as GameState.player, but not really? This one's used to *instantiate* the player.
 
 func _ready():
 	$Camera2D.position = $StartPosition.position
