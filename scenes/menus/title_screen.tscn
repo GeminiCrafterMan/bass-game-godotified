@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://b2qdyqi73m1nh"]
+[gd_scene load_steps=12 format=3 uid="uid://b2qdyqi73m1nh"]
 
 [ext_resource type="Script" path="res://scenes/menus/title_screen.gd" id="1_8u8ci"]
 [ext_resource type="Texture2D" uid="uid://cp7vlmsri2q2s" path="res://resources/Images/Menus/Rabbid4240 - Logo.png" id="1_urgqw"]
@@ -11,13 +11,17 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l4n2s"]
 bg_color = Color(0, 0, 0, 0)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_a52vu"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_hflye"]
 atlas = ExtResource("6_rvesi")
 region = Rect2(0, 0, 24, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_t7tyd"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_a52vu"]
 atlas = ExtResource("6_rvesi")
 region = Rect2(24, 0, 24, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t7tyd"]
+atlas = ExtResource("6_rvesi")
+region = Rect2(48, 0, 24, 16)
 
 [node name="TitleScreen" type="CanvasLayer"]
 script = ExtResource("1_8u8ci")
@@ -63,11 +67,13 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_styles/panel = SubResource("StyleBoxFlat_l4n2s")
 allow_search = false
 auto_height = true
-item_count = 2
-item_0/text = "BASS"
-item_0/icon = SubResource("AtlasTexture_a52vu")
-item_1/text = "COPY ROBOT"
-item_1/icon = SubResource("AtlasTexture_t7tyd")
+item_count = 3
+item_0/text = "MAESTRO"
+item_0/icon = SubResource("AtlasTexture_hflye")
+item_1/text = "BASS"
+item_1/icon = SubResource("AtlasTexture_a52vu")
+item_2/text = "COPY ROBOT"
+item_2/icon = SubResource("AtlasTexture_t7tyd")
 
 [node name="StartButton" type="Button" parent="CenterContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2

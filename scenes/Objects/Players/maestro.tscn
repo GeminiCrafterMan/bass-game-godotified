@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://bksinirshmwgf"]
+
+[ext_resource type="Script" path="res://scenes/Objects/Players/maestro.gd" id="1_ct76e"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_f3vwn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n5t8u"]
+
+[node name="Maestro" type="CharacterBody2D"]
+script = ExtResource("1_ct76e")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_f3vwn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_n5t8u")

@@ -1,6 +1,7 @@
 extends Node
 
 const characters = [
+	"res://scenes/Objects/Players/maestro.tscn",
 	"res://scenes/Objects/Players/bass.tscn",
 	"res://scenes/Objects/Players/copy_robot.tscn"
 ]
