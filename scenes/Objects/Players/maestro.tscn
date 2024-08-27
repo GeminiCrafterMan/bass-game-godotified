@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bksinirshmwgf"]
+[gd_scene load_steps=16 format=3 uid="uid://bksinirshmwgf"]
 
 [ext_resource type="Script" path="res://scenes/Objects/Players/maestro.gd" id="1_ct76e"]
 [ext_resource type="Texture2D" uid="uid://mwhiy56ie3ef" path="res://sprites/Players/Maestro (base)/spritesheet.png" id="2_ae8gn"]
@@ -18,6 +18,22 @@ region = Rect2(52, 12, 48, 48)
 [sub_resource type="AtlasTexture" id="AtlasTexture_4jw8u"]
 atlas = ExtResource("2_ae8gn")
 region = Rect2(102, 12, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xy46v"]
+atlas = ExtResource("2_ae8gn")
+region = Rect2(3, 882, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_isgwm"]
+atlas = ExtResource("2_ae8gn")
+region = Rect2(52, 882, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x3qsf"]
+atlas = ExtResource("2_ae8gn")
+region = Rect2(101, 882, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v5t34"]
+atlas = ExtResource("2_ae8gn")
+region = Rect2(150, 882, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ht1xm"]
 atlas = ExtResource("2_ae8gn")
@@ -78,6 +94,28 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_xy46v")
+}],
+"loop": true,
+"name": &"Teleport",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_isgwm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x3qsf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v5t34")
+}],
+"loop": false,
+"name": &"Teleport In",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_ht1xm")
 }, {
 "duration": 1.0,
@@ -104,9 +142,13 @@ script = ExtResource("1_ct76e")
 position = Vector2(0, -1)
 scale = Vector2(-1, 1)
 sprite_frames = SubResource("SpriteFrames_f3vwn")
-animation = &"Idle"
-autoplay = "Idle"
+animation = &"Teleport"
+autoplay = "Teleport"
 
 [node name="MainHitbox" type="CollisionShape2D" parent="."]
 position = Vector2(0, 3)
 shape = SubResource("RectangleShape2D_5u3na")
+
+[node name="StateTimer" type="Timer" parent="."]
+one_shot = true
+autostart = true
