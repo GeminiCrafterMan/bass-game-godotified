@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 #enums
-enum STATES {NONE, IDLE, STEP, WALK, JUMP, SHOOT}
+enum STATES {NONE, TELEPORT, IDLE, STEP, WALK, JUMP, SHOOT}
 
 #state related
 var currentState = STATES.IDLE
