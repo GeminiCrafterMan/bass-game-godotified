@@ -85,7 +85,7 @@ func _physics_process(delta: float) -> void:
 					sprite.play("Idle")
 				
 				#movement of this state
-				velocity.x = lerpf(velocity.x, 0, delta * 15)
+				velocity.x = lerpf(velocity.x, 0, delta * 20)
 				
 				#if inputted, then change state
 				if sign(direction.x) != 0:
@@ -138,6 +138,7 @@ func _physics_process(delta: float) -> void:
 					if sprite.animation != "Jump":
 						sprite.stop()
 						sprite.play("Jump")
+						$Audio/JumpSound.play()
 				else:
 					if sprite.animation != "Jump Transition":
 						sprite.stop()
@@ -152,6 +153,7 @@ func _physics_process(delta: float) -> void:
 					velocity.x = lerpf(velocity.x, 0, delta * 15)
 				
 				if is_on_floor() and !isFirstFrameOfState:
+					$Audio/LandSound.play() #G: ends up playing when you jump, too...?
 					swapState = STATES.IDLE
 			STATES.SHOOT:
 				pass

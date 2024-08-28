@@ -174,7 +174,7 @@ script = ExtResource("1_ct76e")
 position = Vector2(0, -1)
 scale = Vector2(-1, 1)
 sprite_frames = SubResource("SpriteFrames_f3vwn")
-animation = &"Teleport In"
+animation = &"Idle"
 autoplay = "Teleport"
 
 [node name="MainHitbox" type="CollisionShape2D" parent="."]

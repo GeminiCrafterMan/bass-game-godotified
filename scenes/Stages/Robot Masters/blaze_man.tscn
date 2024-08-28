@@ -28,7 +28,7 @@ tile_set = ExtResource("2_88tt2")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 limit_left = 0
-limit_top = 0
+limit_top = 32
 limit_bottom = 240
 editor_draw_limits = true
 
