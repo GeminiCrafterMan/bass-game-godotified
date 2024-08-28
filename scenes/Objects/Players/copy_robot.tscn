@@ -590,7 +590,7 @@ script = ExtResource("2_we56i")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_7773x")
 sprite_frames = SubResource("SpriteFrames_kjdkg")
-animation = &"Jump-Shield"
+animation = &"Slide"
 autoplay = "Teleport"
 
 [node name="MainHitbox" type="CollisionShape2D" parent="."]
