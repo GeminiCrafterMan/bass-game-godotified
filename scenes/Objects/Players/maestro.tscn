@@ -211,7 +211,7 @@ size = Vector2(16, 14)
 material = SubResource("ShaderMaterial_u81pt")
 collision_layer = 2
 collision_mask = 17
-floor_snap_length = 10.0
+floor_snap_length = 5.0
 script = ExtResource("1_ct76e")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

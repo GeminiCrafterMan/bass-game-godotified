@@ -24,6 +24,8 @@ const JUMP_VELOCITY = -400.0
 @onready var state_timer = $StateTimer
 @onready var sprite = $AnimatedSprite2D
 
+#other vars
+var DmgQueue : int # make the game not crash when you touch an enemy
 
 func _ready():
 	#start the teleport animation
