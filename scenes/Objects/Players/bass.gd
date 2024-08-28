@@ -227,33 +227,33 @@ func _input(_event):
 	
 	if Input.is_action_just_pressed(input_switch_left):
 		GameState.old_weapon = GameState.current_weapon
-		if (GameState.current_weapon == 0):
-			GameState.current_weapon = 10
+		if (GameState.current_weapon == GameState.WEAPONS.BUSTER):
+			GameState.current_weapon = GameState.WEAPONS.TREBLE
 			
 		else:
 			GameState.current_weapon -= 1
 			
 			#make sure to clean this up later, I don't wanna -mengo
 			# i tried to clean it up, but it ended up working even less... - gem
-		if (GameState.current_weapon == 10 && GameState.weapons_unlocked[10] == false):
+		if (GameState.current_weapon == GameState.WEAPONS.TREBLE && GameState.weapons_unlocked[GameState.WEAPONS.TREBLE] == false):
 			GameState.current_weapon -= 1
-		if (GameState.current_weapon == 9 && GameState.weapons_unlocked[9] == false):
+		if (GameState.current_weapon == GameState.WEAPONS.PROTO && GameState.weapons_unlocked[GameState.WEAPONS.PROTO] == false):
 			GameState.current_weapon -= 1
-		if (GameState.current_weapon == 8 && GameState.weapons_unlocked[8] == false):
+		if (GameState.current_weapon == GameState.WEAPONS.REAPER && GameState.weapons_unlocked[GameState.WEAPONS.REAPER] == false):
 			GameState.current_weapon -= 1
-		if (GameState.current_weapon == 7 && GameState.weapons_unlocked[7] == false):
+		if (GameState.current_weapon == GameState.WEAPONS.GUERRILLA && GameState.weapons_unlocked[GameState.WEAPONS.GUERRILLA] == false):
 			GameState.current_weapon -= 1
-		if (GameState.current_weapon == 6 && GameState.weapons_unlocked[6] == false):
+		if (GameState.current_weapon == GameState.WEAPONS.GALE && GameState.weapons_unlocked[GameState.WEAPONS.GALE] == false):
 			GameState.current_weapon -= 1
-		if (GameState.current_weapon == 5 && GameState.weapons_unlocked[5] == false):
+		if (GameState.current_weapon == GameState.WEAPONS.ORIGAMI && GameState.weapons_unlocked[GameState.WEAPONS.ORIGAMI] == false):
 			GameState.current_weapon -= 1
-		if (GameState.current_weapon == 4 && GameState.weapons_unlocked[4] == false):
+		if (GameState.current_weapon == GameState.WEAPONS.SHARK && GameState.weapons_unlocked[GameState.WEAPONS.SHARK] == false):
 			GameState.current_weapon -= 1
-		if (GameState.current_weapon == 3 && GameState.weapons_unlocked[3] == false):
+		if (GameState.current_weapon == GameState.WEAPONS.SMOG && GameState.weapons_unlocked[GameState.WEAPONS.SMOG] == false):
 			GameState.current_weapon -= 1
-		if (GameState.current_weapon == 2 && GameState.weapons_unlocked[2] == false):
+		if (GameState.current_weapon == GameState.WEAPONS.VIDEO && GameState.weapons_unlocked[GameState.WEAPONS.VIDEO] == false):
 			GameState.current_weapon -= 1
-		if (GameState.current_weapon == 1 && GameState.weapons_unlocked[1] == false):
+		if (GameState.current_weapon == GameState.WEAPONS.BLAZE && GameState.weapons_unlocked[GameState.WEAPONS.BLAZE] == false):
 			GameState.current_weapon -= 1
 			
 		if GameState.old_weapon != GameState.current_weapon:
@@ -264,34 +264,34 @@ func _input(_event):
 	
 	if Input.is_action_just_pressed(input_switch_right):
 		GameState.old_weapon = GameState.current_weapon
-		if (GameState.current_weapon == 10):
-			GameState.current_weapon = 0
+		if (GameState.current_weapon == GameState.WEAPONS.TREBLE):
+			GameState.current_weapon = GameState.WEAPONS.BUSTER
 			
 		else:
 			GameState.current_weapon += 1
 			
 		#make sure to clean this up later, I don't wanna -mengo
 			# i tried to clean it up, but it ended up working even less... - gem
-		if (GameState.current_weapon == 1 && GameState.weapons_unlocked[1] == false):
+		if (GameState.current_weapon == GameState.WEAPONS.BLAZE && GameState.weapons_unlocked[GameState.WEAPONS.BLAZE] == false):
 			GameState.current_weapon += 1
-		if (GameState.current_weapon == 2 && GameState.weapons_unlocked[2] == false):
+		if (GameState.current_weapon == GameState.WEAPONS.VIDEO && GameState.weapons_unlocked[GameState.WEAPONS.VIDEO] == false):
 			GameState.current_weapon += 1
-		if (GameState.current_weapon == 3 && GameState.weapons_unlocked[3] == false):
+		if (GameState.current_weapon == GameState.WEAPONS.SMOG && GameState.weapons_unlocked[GameState.WEAPONS.SMOG] == false):
 			GameState.current_weapon += 1
-		if (GameState.current_weapon == 4 && GameState.weapons_unlocked[4] == false):
+		if (GameState.current_weapon == GameState.WEAPONS.SHARK && GameState.weapons_unlocked[GameState.WEAPONS.SHARK] == false):
 			GameState.current_weapon += 1
-		if (GameState.current_weapon == 5 && GameState.weapons_unlocked[5] == false):
+		if (GameState.current_weapon == GameState.WEAPONS.ORIGAMI && GameState.weapons_unlocked[GameState.WEAPONS.ORIGAMI] == false):
 			GameState.current_weapon += 1
-		if (GameState.current_weapon == 6 && GameState.weapons_unlocked[6] == false):
+		if (GameState.current_weapon == GameState.WEAPONS.GALE && GameState.weapons_unlocked[GameState.WEAPONS.GALE] == false):
 			GameState.current_weapon += 1
-		if (GameState.current_weapon == 7 && GameState.weapons_unlocked[7] == false):
+		if (GameState.current_weapon == GameState.WEAPONS.GUERRILLA && GameState.weapons_unlocked[GameState.WEAPONS.GUERRILLA] == false):
 			GameState.current_weapon += 1
-		if (GameState.current_weapon == 8 && GameState.weapons_unlocked[8] == false):
+		if (GameState.current_weapon == GameState.WEAPONS.REAPER && GameState.weapons_unlocked[GameState.WEAPONS.REAPER] == false):
 			GameState.current_weapon += 1
-		if (GameState.current_weapon == 9 && GameState.weapons_unlocked[9] == false):
+		if (GameState.current_weapon == GameState.WEAPONS.PROTO && GameState.weapons_unlocked[GameState.WEAPONS.PROTO] == false):
 			GameState.current_weapon += 1
-		if (GameState.current_weapon == 10 && GameState.weapons_unlocked[10] == false):
-			GameState.current_weapon = 0
+		if (GameState.current_weapon == GameState.WEAPONS.TREBLE && GameState.weapons_unlocked[GameState.WEAPONS.TREBLE] == false):
+			GameState.current_weapon = GameState.WEAPONS.BUSTER
 
 
 		if GameState.old_weapon != GameState.current_weapon:
@@ -299,19 +299,20 @@ func _input(_event):
 		$AnimatedSprite2D.material.set_shader_parameter("palette", weapon_palette[GameState.current_weapon])
 
 	if  (Input.is_action_just_pressed(input_switch_left) && Input.is_action_pressed(input_switch_right)):
-		GameState.current_weapon = 0
+		GameState.current_weapon = GameState.WEAPONS.BUSTER
 		if GameState.old_weapon != GameState.current_weapon:
 			$Audio/SwitchSound.play()
 		$AnimatedSprite2D.material.set_shader_parameter("palette", weapon_palette[GameState.current_weapon])
 	
 	if  (Input.is_action_pressed(input_switch_left) && Input.is_action_just_pressed(input_switch_right)):
-		GameState.current_weapon = 0
+		GameState.current_weapon = GameState.WEAPONS.BUSTER
 		if GameState.old_weapon != GameState.current_weapon:
 			$Audio/SwitchSound.play()
 		$AnimatedSprite2D.material.set_shader_parameter("palette", weapon_palette[GameState.current_weapon])
 
 func _physics_process(delta):
 	if teleporting == true:
+		
 #		$MainHitbox.set_disabled(true)
 		if position.y == targetpos or position.y > targetpos:
 			position.y = targetpos
@@ -764,17 +765,17 @@ func animate():
 
 func handle_weapons():
 	match GameState.current_weapon:
-		1:
+		GameState.WEAPONS.BLAZE:
 			weapon_blaze()
-		3:
+		GameState.WEAPONS.SMOG:
 			weapon_smog()
-		4:
+		GameState.WEAPONS.SHARK:
 			weapon_shark()
-		5:
+		GameState.WEAPONS.ORIGAMI:
 			weapon_origami()
-		6:
+		GameState.WEAPONS.GALE:
 			weapon_gale()
-		9:
+		GameState.WEAPONS.PROTO:
 			weapon_proto()
 	return
 
@@ -785,7 +786,7 @@ func weapon_buster():
 			no_grounded_movement = true
 	else:
 		no_grounded_movement = false
-	if (GameState.current_weapon == 0 and Input.is_action_pressed(input_shoot)) or Input.is_action_pressed(input_buster):
+	if (GameState.current_weapon == GameState.WEAPONS.BUSTER and Input.is_action_pressed(input_shoot)) or Input.is_action_pressed(input_buster):
 		if shoot_delay < 7:
 			shot_type = 0
 			shoot_delay = 13
@@ -1019,7 +1020,7 @@ func weapon_proto():
 		if shot_type == 1:
 			shoot_delay -= 1
 			no_grounded_movement = false
-	if (GameState.current_weapon == 9 and Input.is_action_just_pressed("shoot")):
+	if (GameState.current_weapon == GameState.WEAPONS.PROTO and Input.is_action_just_pressed("shoot")):
 		if is_dashing == false:
 			shot_type = 1
 			shoot_delay = 13
@@ -1035,7 +1036,7 @@ func weapon_proto():
 				projectile.velocity.x = 350
 			charge = 0
 			return
-	if (GameState.current_weapon == 9 and Input.is_action_just_released("shoot")):
+	if (GameState.current_weapon == GameState.WEAPONS.PROTO and Input.is_action_just_released("shoot")):
 		if is_dashing == false:
 			if charge < 32: # no charge
 				charge = 0
@@ -1070,7 +1071,7 @@ func weapon_proto():
 					projectile.velocity.x = 450
 				charge = 0
 				return
-	if (GameState.current_weapon == 9 and Input.is_action_pressed("shoot")):
+	if (GameState.current_weapon == GameState.WEAPONS.PROTO and Input.is_action_pressed("shoot")):
 		if charge < 100:
 			charge += 1
 			do_charge_palette()

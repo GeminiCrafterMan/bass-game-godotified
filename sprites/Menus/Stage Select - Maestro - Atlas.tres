@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://cxho5mw0s2aia"]
+
+[ext_resource type="Texture2D" uid="uid://uu7cqxlil0dc" path="res://sprites/Menus/Stage Select - Maestro.png" id="1_qejb3"]
+
+[resource]
+atlas = ExtResource("1_qejb3")
+region = Rect2(128, 0, 32, 32)

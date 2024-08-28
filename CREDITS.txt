@@ -1,0 +1,34 @@
+# General credits
+CAPCOM:
+- Mega Man / Rockman (series)
+- Mega Man: The Wily Wars / Rockman Mega World
+- Mega Man 7 / Rockman 7: Shukumei no Taiketsu! (Showdown of Destiny!)
+- Mega Man 8 / Rockman 8: Metal Heroes
+- Mega Man 10 / Rockman 10: Uchū kara no Kyōi!! (Threat From Outer Space!!)
+- Mega Man: Dr. Wily's Revenge / Rockman World
+- Mega Man II, III, IV / Rockman World 2, 3, 4
+
+Gemini0:
+- Co-leader, programming, sprites, planning
+Mengo:
+- Co-leader, programming, sprites, planning
+Poly:
+- Programming, cleanup
+LynnV:
+- Programming, much-needed assistance with programming and understanding Godot
+Machi/Marblecheese:
+- Enemy and player damage code
+
+Raendom/RandomName:
+- Godot help, the push to move to Godot from the Genesis/Mega Drive
+
+Tera/O'Ter:
+- Feedback, testing, Robot Master concepts
+KCEXE:
+- Feedback, testing, sound design
+jrm10071322:
+- Feedback, testing
+
+# Resources used
+hansungkee, WarnerBuilders64, mike1967-now, Red Flash, Yiey20, Team MM8BDM: // I have no idea who made Maestro's original sprites.
+- Maestro sprites

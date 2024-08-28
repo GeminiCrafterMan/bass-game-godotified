@@ -11,13 +11,13 @@ var currentState = STATES.TELEPORT
 var swapState = STATES.NONE
 var numberOfTimesToRunStates = 0
 var isFirstFrameOfState = false
-var targetpos = Vector2.ZERO
+var targetpos : float
 
 #input related
 var direction = Vector2.ZERO
 
 #consts
-const SPEED = 150.0
+const SPEED = 125.0
 const JUMP_VELOCITY = -400.0
 
 #refrences
@@ -29,7 +29,7 @@ func _ready():
 	#start the teleport animation
 	state_timer.start(0.5)
 	currentState = STATES.TELEPORT
-	sprite.play("Teleport In")
+	sprite.play("Teleport")
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -66,13 +66,17 @@ func _physics_process(delta: float) -> void:
 				
 		match currentState:
 			STATES.TELEPORT:
-				global_position.x = targetpos.x
-				global_position.y = lerpf(global_position.y, targetpos.y, delta * 10)
+#				global_position.x = targetpos.x
+				global_position.y = lerpf(global_position.y, targetpos, delta * 10)
 				
 				#exit teleport
-				if roundi(global_position.y) == roundi(targetpos.y):
-					swapState = STATES.IDLE
-					teleported.emit()
+				if roundi(global_position.y) == roundi(targetpos):
+					if not sprite.animation == "Teleport In":
+						sprite.play("Teleport In")
+						$Audio/WarpInSound.play()
+						await sprite.animation_finished
+						swapState = STATES.IDLE
+						teleported.emit()
 			
 			STATES.IDLE:
 				#play animation
@@ -138,6 +142,8 @@ func _physics_process(delta: float) -> void:
 					if sprite.animation != "Jump Transition":
 						sprite.stop()
 						sprite.play("Jump Transition")
+						await sprite.animation_finished
+						sprite.play("Fall")
 				#behavior of state
 				if direction.x:
 					velocity.x = direction.x * SPEED

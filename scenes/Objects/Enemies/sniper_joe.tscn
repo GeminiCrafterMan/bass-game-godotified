@@ -128,7 +128,7 @@ script = ExtResource("1_ds0gt")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -3)
 sprite_frames = SubResource("SpriteFrames_62nvj")
-animation = &"Land"
+animation = &"Idle"
 autoplay = "Idle"
 
 [node name="reflect" type="Area2D" parent="."]

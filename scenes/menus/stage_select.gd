@@ -1,6 +1,7 @@
 class_name StageSelect extends CanvasLayer
 
 const _playerPortraits: Array[AtlasTexture] = [
+	preload("res://sprites/Menus/Stage Select - Maestro - Atlas.tres"),
 	preload("res://sprites/Menus/Stage Select - Bass - Atlas.tres"),
 	preload("res://sprites/Menus/Stage Select - Copy Robot - Atlas.tres")
 ]

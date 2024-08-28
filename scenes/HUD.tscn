@@ -68,3 +68,4 @@ hframes = 29
 frame = 12
 
 [node name="Module Tester" parent="." instance=ExtResource("1_kxric")]
+visible = false

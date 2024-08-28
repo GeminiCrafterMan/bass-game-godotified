@@ -15,7 +15,7 @@ func _ready():
 	player = player_scene.instantiate()
 	add_child(player)
 	player.position.x = $StartPosition.position.x
-	player.targetpos.y = $StartPosition.position.y
+	player.targetpos = $StartPosition.position.y
 	await player.teleported
 	
 
