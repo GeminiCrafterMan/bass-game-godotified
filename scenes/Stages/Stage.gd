@@ -4,6 +4,7 @@ extends Node2D
 @onready var player # kind of the same thing as GameState.player, but not really? This one's used to *instantiate* the player.
 
 func _ready():
+	$StartPosition/Sprite2D.queue_free()	# just delete the sprite2d instead of making it invisible. why have it stick around?
 	$Camera2D.position = $StartPosition.position
 	await Fade.fade_in().finished
 	$Music.play()

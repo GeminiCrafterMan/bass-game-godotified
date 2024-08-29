@@ -41,6 +41,10 @@ window/stretch/scale_mode="integer"
 movie_writer/movie_file="C:/Users/Poly/Documents/bass-game-godotified/lol.avi"
 movie_writer/disable_vsync=true
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/scene_palette/plugin.cfg")
+
 [gui]
 
 theme/custom="res://themes/ui_theme.tres"
@@ -129,4 +133,6 @@ buster={
 
 textures/canvas_textures/default_texture_filter=0
 textures/vram_compression/import_etc2_astc=true
-environment/defaults/default_clear_color=Color(0.141176, 0.286275, 0.427451, 1)
+environment/defaults/default_clear_color=Color(0.133333, 0.266667, 0.933333, 1)
+2d/snap/snap_2d_transforms_to_pixel=true
+environment/snap/snap_2d_transforms_to_pixel=true

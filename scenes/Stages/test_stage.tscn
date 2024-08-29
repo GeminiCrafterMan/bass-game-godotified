@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=4 uid="uid://by07rq184shwd"]
+[gd_scene load_steps=16 format=4 uid="uid://by07rq184shwd"]
 
 [ext_resource type="Script" path="res://scenes/Stages/Stage.gd" id="1_ac8st"]
 [ext_resource type="Texture2D" uid="uid://63kwqi5jdugg" path="res://sprites/Tilesets/Test.png" id="2_n2bxu"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dmulyeg8hg6yt" path="res://scenes/Objects/Enemies/sniper_joe.tscn" id="8_ffb0a"]
 [ext_resource type="PackedScene" uid="uid://ba1usu2a5isjc" path="res://scenes/Objects/Level Objs/BreakableBlock.tscn" id="8_ugwe1"]
 [ext_resource type="PackedScene" uid="uid://bdurhvklic0ac" path="res://scenes/HUD.tscn" id="8_v2unc"]
+[ext_resource type="PackedScene" uid="uid://bingbkdyjdsbs" path="res://scenes/Objects/Players/start_position.tscn" id="10_4y8fd"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1m0ln"]
 texture = ExtResource("2_n2bxu")
@@ -84,9 +85,6 @@ script = ExtResource("1_ac8st")
 limit_left = 0
 limit_right = 1920
 limit_bottom = 928
-
-[node name="StartPosition" type="Marker2D" parent="."]
-position = Vector2(64, 368)
 
 [node name="Foreground" type="TileMapLayer" parent="."]
 texture_filter = 1
@@ -237,3 +235,6 @@ position = Vector2(304, 256)
 position = Vector2(320, 256)
 
 [node name="HUD" parent="." instance=ExtResource("8_v2unc")]
+
+[node name="StartPosition" parent="." instance=ExtResource("10_4y8fd")]
+position = Vector2(64, 368)

@@ -135,7 +135,7 @@ script = ExtResource("1_dn881")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(2, -4)
 sprite_frames = SubResource("SpriteFrames_62nvj")
-animation = &"Attack"
+animation = &"Idle"
 autoplay = "Idle"
 
 [node name="reflect" type="Area2D" parent="."]
@@ -151,10 +151,11 @@ collision_layer = 4
 collision_mask = 8
 
 [node name="MainHitbox" type="CollisionShape2D" parent="hitable"]
-position = Vector2(6.5, -5.5)
+position = Vector2(7, -5)
 shape = SubResource("RectangleShape2D_wp5vq")
 
 [node name="hurt" type="Area2D" parent="."]
+visible = false
 collision_layer = 4
 collision_mask = 2
 
@@ -164,12 +165,17 @@ shape = SubResource("RectangleShape2D_wp5vq")
 debug_color = Color(1, 0.00392157, 0.0705882, 0.419608)
 
 [node name="Collision" type="CollisionShape2D" parent="."]
-position = Vector2(6.5, -5.5)
+visible = false
+position = Vector2(7, -5)
 shape = SubResource("RectangleShape2D_wp5vq")
 debug_color = Color(0, 1, 0.0705882, 0.419608)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_vk6v2")
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+position = Vector2(2, -5)
+scale = Vector2(1.7, 1.5)
 
 [connection signal="body_entered" from="reflect" to="." method="_on_reflect_body_entered"]
 [connection signal="body_entered" from="hitable" to="." method="_on_hitable_body_entered"]

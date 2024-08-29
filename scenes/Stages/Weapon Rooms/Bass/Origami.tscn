@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=4 uid="uid://vb0ilxq7h8e2"]
+[gd_scene load_steps=8 format=4 uid="uid://vb0ilxq7h8e2"]
 
 [ext_resource type="Script" path="res://scenes/Stages/Stage.gd" id="1_h672w"]
 [ext_resource type="Texture2D" uid="uid://63kwqi5jdugg" path="res://sprites/Tilesets/Test.png" id="2_wawci"]
 [ext_resource type="PackedScene" uid="uid://bdurhvklic0ac" path="res://scenes/HUD.tscn" id="4_4rn3d"]
 [ext_resource type="AudioStream" uid="uid://6eg00db4lry5" path="res://music/Guerrilla Stage.mp3" id="4_wk71m"]
+[ext_resource type="PackedScene" uid="uid://bingbkdyjdsbs" path="res://scenes/Objects/Players/start_position.tscn" id="5_jthsc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dlclr"]
 resource_name = "Test"
@@ -90,13 +91,11 @@ stream = ExtResource("4_wk71m")
 volume_db = -10.0
 bus = &"Music"
 
-[node name="StartPosition" type="Marker2D" parent="."]
-position = Vector2(201, -225)
-
 [node name="Level Objects" type="Node2D" parent="."]
-
-[node name="Yoku Blocks" type="Node2D" parent="Level Objects"]
 
 [node name="Enemies" type="Node2D" parent="Level Objects"]
 
 [node name="HUD" parent="." instance=ExtResource("4_4rn3d")]
+
+[node name="StartPosition" parent="." instance=ExtResource("5_jthsc")]
+position = Vector2(200, -208)

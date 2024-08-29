@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=4 uid="uid://c1ixcvieoro3x"]
+[gd_scene load_steps=10 format=4 uid="uid://c1ixcvieoro3x"]
 
 [ext_resource type="Script" path="res://scenes/Stages/Stage.gd" id="1_eg6rr"]
 [ext_resource type="TileSet" uid="uid://clttejdjtwxdo" path="res://tilesets/blaze.tres" id="2_88tt2"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bdurhvklic0ac" path="res://scenes/HUD.tscn" id="5_3ms7c"]
 [ext_resource type="PackedScene" uid="uid://ba1usu2a5isjc" path="res://scenes/Objects/Level Objs/BreakableBlock.tscn" id="5_6g85i"]
 [ext_resource type="PackedScene" uid="uid://dmulyeg8hg6yt" path="res://scenes/Objects/Enemies/sniper_joe.tscn" id="5_vsgpg"]
+[ext_resource type="PackedScene" uid="uid://bingbkdyjdsbs" path="res://scenes/Objects/Players/start_position.tscn" id="7_kik4n"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_rsu2g"]
 normal = Vector2(1, 0)
@@ -15,9 +16,6 @@ distance = -218.41
 
 [node name="Blaze Man" type="Node2D"]
 script = ExtResource("1_eg6rr")
-
-[node name="StartPosition" type="Marker2D" parent="."]
-position = Vector2(64, 80)
 
 [node name="Layer0" type="TileMapLayer" parent="."]
 texture_filter = 1
@@ -125,3 +123,6 @@ position = Vector2(1456, -736)
 style = 1
 
 [node name="HUD" parent="." instance=ExtResource("5_3ms7c")]
+
+[node name="StartPosition" parent="." instance=ExtResource("7_kik4n")]
+position = Vector2(64, 80)

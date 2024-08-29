@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=4 uid="uid://dko1ldfifobnn"]
+[gd_scene load_steps=9 format=4 uid="uid://dko1ldfifobnn"]
 
 [ext_resource type="Script" path="res://scenes/Stages/Stage.gd" id="1_vyele"]
 [ext_resource type="Texture2D" uid="uid://63kwqi5jdugg" path="res://sprites/Tilesets/Test.png" id="2_sc36t"]
 [ext_resource type="AudioStream" uid="uid://6eg00db4lry5" path="res://music/Guerrilla Stage.mp3" id="4_6r0jx"]
-[ext_resource type="PackedScene" path="res://scenes/HUD.tscn" id="4_q2xlv"]
+[ext_resource type="PackedScene" uid="uid://bdurhvklic0ac" path="res://scenes/HUD.tscn" id="4_q2xlv"]
 [ext_resource type="PackedScene" uid="uid://b8vqvqer5c6o3" path="res://scenes/Objects/Enemies/commando_joe.tscn" id="5_vldis"]
+[ext_resource type="PackedScene" uid="uid://bingbkdyjdsbs" path="res://scenes/Objects/Players/start_position.tscn" id="6_211mx"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dlclr"]
 resource_name = "Test"
@@ -95,9 +96,6 @@ polygon = PackedVector2Array(0, 240, 2304, 240, 2304, 248, 0, 248)
 position = Vector2(2304, 480)
 polygon = PackedVector2Array(0, 240, 2816, 240, 2816, 248, 0, 248)
 
-[node name="StartPosition" type="Marker2D" parent="."]
-position = Vector2(128, 112)
-
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_6r0jx")
 bus = &"Music"
@@ -109,7 +107,10 @@ parameters/looping = true
 
 [node name="Enemies" type="Node2D" parent="Level Objects"]
 
+[node name="Commando Joe" parent="Level Objects/Enemies" instance=ExtResource("5_vldis")]
+position = Vector2(525, 72)
+
 [node name="HUD" parent="." instance=ExtResource("4_q2xlv")]
 
-[node name="Commando Joe" parent="." instance=ExtResource("5_vldis")]
-position = Vector2(525, 72)
+[node name="StartPosition" parent="." instance=ExtResource("6_211mx")]
+position = Vector2(128, 112)

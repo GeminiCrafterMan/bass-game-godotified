@@ -26,5 +26,7 @@ collision_mask = 2
 shape = SubResource("RectangleShape2D_bn7vn")
 debug_color = Color(1, 0.00392157, 0.0705882, 0.419608)
 
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+
 [connection signal="body_entered" from="hitable" to="." method="_on_hitable_body_entered"]
 [connection signal="body_entered" from="hurt" to="." method="_on_hurt_body_entered"]

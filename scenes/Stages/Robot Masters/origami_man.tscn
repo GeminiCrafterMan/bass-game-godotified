@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=4 uid="uid://ido5yfmbgfpr"]
+[gd_scene load_steps=6 format=4 uid="uid://ido5yfmbgfpr"]
 
 [ext_resource type="Script" path="res://scenes/Stages/Stage.gd" id="1_ars04"]
 [ext_resource type="TileSet" uid="uid://bglohi0dt4uvq" path="res://tilesets/test_stage.tres" id="3_5wrhc"]
 [ext_resource type="AudioStream" uid="uid://cdbs7vh1x6kx" path="res://music/Origami Stage.mp3" id="4_othwr"]
 [ext_resource type="PackedScene" uid="uid://bdurhvklic0ac" path="res://scenes/HUD.tscn" id="4_pno30"]
+[ext_resource type="PackedScene" uid="uid://bingbkdyjdsbs" path="res://scenes/Objects/Players/start_position.tscn" id="5_kjluu"]
 
 [node name="Origami Man" type="Node2D"]
 script = ExtResource("1_ars04")
@@ -28,9 +29,6 @@ polygon = PackedVector2Array(0, 240, 2304, 240, 2304, 248, 0, 248)
 position = Vector2(2304, 480)
 polygon = PackedVector2Array(0, 240, 2816, 240, 2816, 248, 0, 248)
 
-[node name="StartPosition" type="Marker2D" parent="."]
-position = Vector2(128, 112)
-
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_othwr")
 volume_db = -10.0
@@ -43,3 +41,6 @@ bus = &"Music"
 [node name="Enemies" type="Node2D" parent="Level Objects"]
 
 [node name="HUD" parent="." instance=ExtResource("4_pno30")]
+
+[node name="StartPosition" parent="." instance=ExtResource("5_kjluu")]
+position = Vector2(128, 144)

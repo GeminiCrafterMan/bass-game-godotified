@@ -1,7 +1,6 @@
-[gd_scene load_steps=12 format=3 uid="uid://baxcw6x5prpdq"]
+[gd_scene load_steps=9 format=3 uid="uid://baxcw6x5prpdq"]
 
 [ext_resource type="Texture2D" uid="uid://ck4ah8n6qbedv" path="res://sprites/Players/Bass/dashsmoke.png" id="1_bahme"]
-[ext_resource type="Texture2D" uid="uid://dt7wlywsvetdu" path="res://sprites/Players/Copy Robot/Weapons/Blaze.png" id="2_dmp1m"]
 [ext_resource type="Script" path="res://scenes/Objects/Players/dashtrail.gd" id="3_itf8l"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_eqckk"]
@@ -24,14 +23,6 @@ region = Rect2(78, 0, 26, 16)
 atlas = ExtResource("1_bahme")
 region = Rect2(104, 0, 26, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_kgibi"]
-atlas = ExtResource("2_dmp1m")
-region = Rect2(24, 0, 24, 24)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_3lsbn"]
-atlas = ExtResource("2_dmp1m")
-region = Rect2(48, 0, 24, 24)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_nlvml"]
 animations = [{
 "frames": [{
@@ -51,25 +42,13 @@ animations = [{
 "texture": SubResource("AtlasTexture_tp42s")
 }],
 "loop": false,
-"name": &"Bass",
+"name": &"default",
 "speed": 15.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_kgibi")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_3lsbn")
-}],
-"loop": false,
-"name": &"Copy",
-"speed": 30.0
 }]
 
 [node name="dashtrail" type="AnimatedSprite2D"]
 position = Vector2(-0.25, 0)
 scale = Vector2(1.02381, 1)
 sprite_frames = SubResource("SpriteFrames_nlvml")
-animation = &"Bass"
-autoplay = "Bass"
+autoplay = "default"
 script = ExtResource("3_itf8l")

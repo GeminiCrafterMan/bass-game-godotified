@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=4 uid="uid://cjnw7w724yfff"]
+[gd_scene load_steps=6 format=4 uid="uid://cjnw7w724yfff"]
 
 [ext_resource type="Script" path="res://scenes/Stages/Stage.gd" id="1_jhd4h"]
 [ext_resource type="TileSet" uid="uid://cdpb0nep4t1x8" path="res://tilesets/gale.tres" id="2_d6oeb"]
 [ext_resource type="AudioStream" uid="uid://cvc3u3vsgfwx3" path="res://music/Gale Stage.mp3" id="4_f0hss"]
 [ext_resource type="PackedScene" uid="uid://bdurhvklic0ac" path="res://scenes/HUD.tscn" id="4_jtqvj"]
+[ext_resource type="PackedScene" uid="uid://bingbkdyjdsbs" path="res://scenes/Objects/Players/start_position.tscn" id="5_6e181"]
 
 [node name="Gale Woman" type="Node2D"]
 script = ExtResource("1_jhd4h")
@@ -28,9 +29,6 @@ polygon = PackedVector2Array(0, 240, 2304, 240, 2304, 248, 0, 248)
 position = Vector2(2304, 480)
 polygon = PackedVector2Array(0, 240, 2816, 240, 2816, 248, 0, 248)
 
-[node name="StartPosition" type="Marker2D" parent="."]
-position = Vector2(65, 186)
-
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_f0hss")
 volume_db = -10.0
@@ -43,3 +41,6 @@ bus = &"Music"
 [node name="Enemies" type="Node2D" parent="Level Objects"]
 
 [node name="HUD" parent="." instance=ExtResource("4_jtqvj")]
+
+[node name="StartPosition" parent="." instance=ExtResource("5_6e181")]
+position = Vector2(64, 176)

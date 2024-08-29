@@ -108,6 +108,7 @@ position = Vector2(0, 3)
 shape = SubResource("RectangleShape2D_btiql")
 
 [node name="hurt" type="Area2D" parent="."]
+visible = false
 
 [node name="OpenHitbox" type="CollisionShape2D" parent="hurt"]
 visible = false

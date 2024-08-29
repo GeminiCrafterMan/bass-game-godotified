@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=4 uid="uid://c75rkf0piqm15"]
+[gd_scene load_steps=8 format=4 uid="uid://c75rkf0piqm15"]
 
 [ext_resource type="Script" path="res://scenes/Stages/Stage.gd" id="1_n84sh"]
 [ext_resource type="Texture2D" uid="uid://63kwqi5jdugg" path="res://sprites/Tilesets/Test.png" id="2_6ufnn"]
 [ext_resource type="AudioStream" uid="uid://dosaova1esyap" path="res://music/Reaper Stage.mp3" id="4_5rcvl"]
 [ext_resource type="PackedScene" uid="uid://bdurhvklic0ac" path="res://scenes/HUD.tscn" id="4_vj3is"]
+[ext_resource type="PackedScene" uid="uid://bingbkdyjdsbs" path="res://scenes/Objects/Players/start_position.tscn" id="5_amnbw"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dlclr"]
 resource_name = "Test"
@@ -94,9 +95,6 @@ polygon = PackedVector2Array(0, 240, 2304, 240, 2304, 248, 0, 248)
 position = Vector2(2304, 480)
 polygon = PackedVector2Array(0, 240, 2816, 240, 2816, 248, 0, 248)
 
-[node name="StartPosition" type="Marker2D" parent="."]
-position = Vector2(128, 112)
-
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_5rcvl")
 volume_db = -10.0
@@ -109,3 +107,6 @@ bus = &"Music"
 [node name="Enemies" type="Node2D" parent="Level Objects"]
 
 [node name="HUD" parent="." instance=ExtResource("4_vj3is")]
+
+[node name="StartPosition" parent="." instance=ExtResource("5_amnbw")]
+position = Vector2(128, 112)
