@@ -62,9 +62,9 @@ func _physics_process(delta: float) -> void:
 		if (currentState != STATES.NONE) and (currentState != STATES.TELEPORT):
 			#check for jump
 			if ((Input.is_action_just_pressed("jump") and is_on_floor() and !isFirstFrameOfState)):
-					swapState = STATES.JUMP
+				swapState = STATES.JUMP
 			#set player to jumping state if not on ground
-			if !is_on_floor() and currentState != STATES.JUMP:
+			if !is_on_floor() and currentState != STATES.JUMP and currentState != STATES.IDLE:
 				#we set current state here or else it will acivate first frame which will make the character jump
 				currentState = STATES.JUMP
 				isFirstFrameOfState = false
@@ -130,7 +130,6 @@ func _physics_process(delta: float) -> void:
 				#setup needed on first frame of new state
 				if isFirstFrameOfState:
 					velocity.y = JUMP_VELOCITY
-					isFirstFrameOfState = false
 				#set animation based on falling for rising
 				if velocity.y < 0:
 					if sprite.animation != "Jump":
