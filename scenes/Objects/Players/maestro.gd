@@ -41,6 +41,9 @@ func _physics_process(delta: float) -> void:
 		
 	#INPUTS -lynn
 	var direction := Input.get_vector("move_left", "move_right", "move_down", "move_up")
+	#this cancels out any floats in the inputs and 
+	#makes inputs to be purely digital (-1,0,1) rather than analouge
+	direction = Vector2(sign(direction.x), sign(direction.y))
 	
 	#STATES -lynn
 	#always changed states by setting SWAPSTATE almost never set the current_state
@@ -88,43 +91,36 @@ func _physics_process(delta: float) -> void:
 				
 				#movement of this state
 				velocity.x = lerpf(velocity.x, 0, delta * 20)
+				#remove any micro-sliding
+				if abs(velocity.x) < 1:
+					velocity.x = 0
 				
 				#if inputted, then change state
 				if sign(direction.x) != 0:
-					swapState = STATES.STEP
-					#back to full speed from a jump (when landing from jump first frame is set to true)
-					if isFirstFrameOfState:
-						swapState = STATES.WALK
-			#im considering getting rid of this state and just merging its functionality into the walk state
-			#for simplicity sake, but for now Ill leave it
-			#-lynn
-			STATES.STEP:
-				#setup needed on first frame of new state
-				if isFirstFrameOfState:
-					state_timer.start(0.1)
-					sprite.stop()
-					sprite.play("Step")
-					
-				if direction.x:
-					velocity.x = (SPEED * direction.x) / 2
-					sprite.scale.x = sign(-direction.x)
-				
-				#exit state 1 of 2 ways
-				#because walking
-				if state_timer.is_stopped() and direction.x:
 					swapState = STATES.WALK
-				#because let go of d-pad
-				if sign(direction.x) == 0:
-					swapState = STATES.IDLE
-			
 			STATES.WALK:
-				if sprite.animation != "Walk":
+				#there is no step state anymore, the walk just kinda winds-up now
+				#the code to do this is silly but not dirty :3 -lynn
+				if isFirstFrameOfState:
+					sprite.stop()
+					#decide wether to have a step or merely kick into the full walk
+					if abs(velocity.x) == 0:
+						sprite.play("Step")
+						state_timer.start(0.1)
+					else:
+						sprite.play("Walk")
+						state_timer.stop()
+				if sprite.animation != "Walk" and state_timer.is_stopped():
 					sprite.stop()
 					sprite.play("Walk")
 				#behavior of state
 				if direction.x:
-					velocity.x = direction.x * SPEED
-					sprite.scale.x = sign(-direction.x)
+					if sprite.animation == "Walk":
+						velocity.x = direction.x * SPEED
+						sprite.scale.x = sign(-direction.x)
+					else:
+						velocity.x = (direction.x * SPEED) / 2
+						sprite.scale.x = sign(-direction.x)
 				
 				#exit state if not d-pad
 				if direction.x == 0:
