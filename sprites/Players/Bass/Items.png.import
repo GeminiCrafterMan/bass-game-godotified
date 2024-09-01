@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d15hcblk2ia40"
-path="res://.godot/imported/arrow-side.png-185c3df7ddcc19c4d0a04506730ba56b.ctex"
+uid="uid://dlv0klar5bcjn"
+path="res://.godot/imported/Items.png-e468129f5529c309754b912008b2dcb0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/scene_palette/icons/arrow-side.png"
-dest_files=["res://.godot/imported/arrow-side.png-185c3df7ddcc19c4d0a04506730ba56b.ctex"]
+source_file="res://sprites/Players/Bass/Items.png"
+dest_files=["res://.godot/imported/Items.png-e468129f5529c309754b912008b2dcb0.ctex"]
 
 [params]
 
