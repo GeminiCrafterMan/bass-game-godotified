@@ -136,11 +136,15 @@ func _physics_process(delta: float) -> void:
 						sprite.stop()
 						sprite.play("Jump")
 						$Audio/JumpSound.play()
+						
 				else:
-					if sprite.animation != "Jump Transition":
+					if sprite.animation != "Jump Transition" and sprite.animation != "Fall":
 						sprite.stop()
 						sprite.play("Jump Transition")
-						await sprite.animation_finished
+						state_timer.start(0.1)
+						#await sprite.animation_finished <- no using awaits or any kind of wait function in player scripts, causes wierd arcane issues -lynn
+					if sprite.animation != "Fall" and state_timer.is_stopped():
+						sprite.stop()
 						sprite.play("Fall")
 				#behavior of state
 				if direction.x:
