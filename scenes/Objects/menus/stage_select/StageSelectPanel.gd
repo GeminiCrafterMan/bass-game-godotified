@@ -66,8 +66,10 @@ func _process(delta):
 
 func _gui_input(event):
 	if (event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed) or (event is InputEvent and event.is_action_pressed("ui_accept")):
-		await Fade.fade_out().finished
-		Loading.load_scene(scene.resource_path, true)
+		get_tree().change_scene_to_file(scene.resource_path)
+		#die -lynn
+		#await Fade.fade_out().finished
+		#Loading.load_scene(scene.resource_path, true)
 	
 func _notification(what):
 	match what:

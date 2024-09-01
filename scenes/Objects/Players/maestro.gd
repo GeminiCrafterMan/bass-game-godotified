@@ -161,10 +161,12 @@ func _physics_process(delta: float) -> void:
 		#single frame on input lag, it just immedatley changes state within the current cycle
 		#-lynn
 		if swapState != STATES.NONE:
+			print("changed state to: " + str(swapState))
 			currentState = swapState
 			swapState = STATES.NONE
 			isFirstFrameOfState = true
 			numberOfTimesToRunStates += 1
+			
 		numberOfTimesToRunStates -= 1
 
 	move_and_slide()
