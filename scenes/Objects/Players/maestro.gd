@@ -4,7 +4,15 @@ extends CharacterBody2D
 signal teleported
 
 #enums
-enum STATES {NONE, TELEPORT, IDLE, STEP, WALK, JUMP, SHOOT}
+enum STATES {
+	NONE, 
+	TELEPORT, 
+	IDLE, 
+	STEP, 
+	WALK, 
+	JUMP, 
+	SHOOT
+	}
 
 #state related
 var currentState = STATES.TELEPORT
@@ -114,7 +122,14 @@ func _physics_process(delta: float) -> void:
 						sprite.play("Step")
 						state_timer.start(0.1)
 					else:
-						sprite.play("Walk")
+						if sprite.animation != "Walk":
+							var progress = sprite.get_frame_progress()
+							var frame = sprite.get_frame()
+							sprite.play("Walk")
+							sprite.set_frame_and_progress(frame, progress)
+						else:
+							sprite.stop()
+							sprite.play("Walk")
 						state_timer.stop()
 				if sprite.animation != "Walk" and state_timer.is_stopped():
 					sprite.stop()
@@ -158,15 +173,7 @@ func _physics_process(delta: float) -> void:
 						sprite.play("Fall")
 				#behavior of state
 				#movement in state
-				if direction.x:
-					#shmoovve
-					velocity.x = direction.x * SPEED
-					sprite.scale.x = sign(-direction.x)
-				else:
-					#come to stop
-					velocity.x = lerpf(velocity.x, 0, delta * 15)
-					if abs(velocity.x) < 1:
-						velocity.x = 0
+				default_movement(direction, delta)
 				
 				if is_on_floor() and !isFirstFrameOfState:
 					$Audio/LandSound.play() #G: ends up playing when you jump, too...?
@@ -191,8 +198,15 @@ func _physics_process(delta: float) -> void:
 							sprite.play("Idle-Shoot")
 					else:
 						if sprite.animation != "Walk-Shoot":
-							sprite.stop()
-							sprite.play("Walk-Shoot")
+							#line up with the walk anim cirreclty
+							if sprite.animation == "Walk":
+								var progress = sprite.get_frame_progress()
+								var frame = sprite.get_frame()
+								sprite.play("Walk-Shoot")
+								sprite.set_frame_and_progress(frame, progress)
+							else:
+								sprite.stop()
+								sprite.play("Walk-Shoot")
 				else:
 					if sprite.animation != "Jump-Shoot":
 						sprite.stop()
@@ -201,15 +215,7 @@ func _physics_process(delta: float) -> void:
 				#que system but thats dumb and a bit unessecary, we are basically faking functionality the 3d anim node system already has lol"
 				#-lynn
 				#movement in state
-				if direction.x:
-					#shmoovve
-					velocity.x = direction.x * SPEED
-					sprite.scale.x = sign(-direction.x)
-				else:
-					#come to stop
-					velocity.x = lerpf(velocity.x, 0, delta * 15)
-					if abs(velocity.x) < 1:
-						velocity.x = 0
+				default_movement(direction, delta)
 				
 				#exit shoot animation
 				if state_timer.is_stopped():
@@ -229,3 +235,16 @@ func _physics_process(delta: float) -> void:
 			
 		numberOfTimesToRunStates -= 1
 	move_and_slide()
+
+
+func default_movement(direction, delta):
+	#movement in state
+	if direction.x:
+		#shmoovve
+		velocity.x = direction.x * SPEED
+		sprite.scale.x = sign(-direction.x)
+	else:
+		#come to stop
+		velocity.x = lerpf(velocity.x, 0, delta * 15)
+		if abs(velocity.x) < 1:
+			velocity.x = 0

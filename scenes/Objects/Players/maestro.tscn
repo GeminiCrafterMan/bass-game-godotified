@@ -271,7 +271,7 @@ script = ExtResource("1_ct76e")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(-1, 1)
 sprite_frames = SubResource("SpriteFrames_f3vwn")
-animation = &"Jump Transition"
+animation = &"Fall"
 autoplay = "Teleport"
 
 [node name="MainHitbox" type="CollisionShape2D" parent="."]
