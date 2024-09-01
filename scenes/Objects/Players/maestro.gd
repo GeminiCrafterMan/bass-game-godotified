@@ -10,6 +10,7 @@ enum STATES {
 	IDLE, 
 	STEP, 
 	WALK, 
+	SLIDE,
 	JUMP, 
 	SHOOT
 	}
@@ -20,12 +21,12 @@ var swapState = STATES.NONE
 var numberOfTimesToRunStates = 0
 var isFirstFrameOfState = false
 var targetpos : float
-
+var currentSpeed = 0
 #input related
 var direction = Vector2.ZERO
 
 #consts
-const SPEED = 125.0
+const MAXSPEED = 125.0
 const JUMP_VELOCITY = -400.0
 
 #refrences
@@ -104,49 +105,37 @@ func _physics_process(delta: float) -> void:
 					sprite.play("Idle")
 				
 				#movement of this state
-				velocity.x = lerpf(velocity.x, 0, delta * 20)
-				#remove any micro-sliding
-				if abs(velocity.x) < 1:
-					velocity.x = 0
-				
+				default_movement(direction, delta)
 				#if inputted, then change state
 				if sign(direction.x) != 0:
 					swapState = STATES.WALK
 			STATES.WALK:
 				#there is no step state anymore, the walk just kinda winds-up now
 				#the code to do this is silly but not dirty :3 -lynn
-				if isFirstFrameOfState:
-					sprite.stop()
-					#decide wether to have a step or merely kick into the full walk
-					if abs(velocity.x) == 0:
+				if currentSpeed == MAXSPEED:
+					if sprite.animation != "Walk":
+						var progress = sprite.get_frame_progress()
+						var frame = sprite.get_frame()
+						sprite.play("Walk")
+						sprite.set_frame_and_progress(frame, progress)
+				else:
+					if sprite.animation != "Step":
+						sprite.stop()
 						sprite.play("Step")
-						state_timer.start(0.1)
-					else:
-						if sprite.animation != "Walk":
-							var progress = sprite.get_frame_progress()
-							var frame = sprite.get_frame()
-							sprite.play("Walk")
-							sprite.set_frame_and_progress(frame, progress)
-						else:
-							sprite.stop()
-							sprite.play("Walk")
-						state_timer.stop()
-				if sprite.animation != "Walk" and state_timer.is_stopped():
-					sprite.stop()
-					sprite.play("Walk")
 				#behavior of state
-				if direction.x:
-					if sprite.animation == "Walk":
-						velocity.x = direction.x * SPEED
-						sprite.scale.x = sign(-direction.x)
-					else:
-						velocity.x = (direction.x * SPEED) / 2
-						sprite.scale.x = sign(-direction.x)
+				default_movement(direction, delta)
+					#if sprite.animation == "Walk":
+						#velocity.x = direction.x * MAXSPEED
+						#sprite.scale.x = sign(-direction.x)
+					#else:
+						#velocity.x = (direction.x * MAXSPEED) / 2
+						#sprite.scale.x = sign(-direction.x)
 				
 				#exit state if not d-pad
 				if direction.x == 0:
 					swapState = STATES.IDLE
-			
+			STATES.SLIDE:
+				pass
 			STATES.JUMP:
 				#setup needed on first frame of new state
 				if isFirstFrameOfState:
@@ -192,7 +181,7 @@ func _physics_process(delta: float) -> void:
 					if sprite.animation == "Jump-Shoot":
 						$Audio/JumpSound.play()
 					#check if moving or not
-					if  abs(velocity.x) < SPEED:
+					if  abs(velocity.x) < MAXSPEED:
 						if sprite.animation != "Idle-Shoot":
 							sprite.stop()
 							sprite.play("Idle-Shoot")
@@ -240,11 +229,19 @@ func _physics_process(delta: float) -> void:
 func default_movement(direction, delta):
 	#movement in state
 	if direction.x:
+		#make it so you dont step when turning around
+		if (sprite.scale.x != sign(-direction.x)) and currentSpeed != 0:
+			currentSpeed = MAXSPEED
+		currentSpeed = lerpf(currentSpeed, MAXSPEED, delta * 20)
+		#no crazy floats because lerp
+		if abs(currentSpeed) > MAXSPEED - (MAXSPEED / 100):
+			currentSpeed = MAXSPEED
 		#shmoovve
-		velocity.x = direction.x * SPEED
 		sprite.scale.x = sign(-direction.x)
 	else:
 		#come to stop
-		velocity.x = lerpf(velocity.x, 0, delta * 15)
-		if abs(velocity.x) < 1:
-			velocity.x = 0
+		currentSpeed = lerpf(currentSpeed, 0, delta * 17)
+		#no crazy floats because lerp
+		if abs(currentSpeed) < (MAXSPEED / 100):
+			currentSpeed = 0
+	velocity.x = -sprite.scale.x * currentSpeed
