@@ -18,6 +18,30 @@ var current_weapon : int
 var old_weapon : int
 var current_hp = 28
 var max_hp = 28 # upgradeable
+
+var PROGRESSDICT = {
+	"NumberOfScrews" : 0,
+	"NumberOfLives": 0,
+	"BlazeDead": false,
+	"VideoDead": false,
+	"OrigamiDead": false,
+	"GaleDead": false,
+	"GuerillaDead": false,
+	"ReaperDead": false,
+	"SharkDead": false,
+	"SmogDead": false,
+	"EnkerDead": false,
+	"PunkDead": false,
+	"BalladeDead": false,
+	"QuintDead": false,
+	"TrebleDead": false,
+	"ProtoManDead": false,
+	"HaveProtoKey1": false,
+	"HaveProtoKey2": false,
+	"HaveProtoKey3": false,
+	"HaveProtoKey4": false
+}
+
 var weapon_energy = [
 	0,	# Buster
 	28,	# Scorch Barrier
