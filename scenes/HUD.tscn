@@ -1,5 +1,6 @@
-[gd_scene load_steps=12 format=3 uid="uid://bdurhvklic0ac"]
+[gd_scene load_steps=13 format=3 uid="uid://bdurhvklic0ac"]
 
+[ext_resource type="Texture2D" uid="uid://ujpqodlh3ibf" path="res://scenes/x1.png" id="1_0t6p1"]
 [ext_resource type="PackedScene" uid="uid://b0opfnom6gmbo" path="res://scenes/module_tester.tscn" id="1_kxric"]
 [ext_resource type="Theme" uid="uid://c1bun7kn776g1" path="res://themes/ui_theme.tres" id="2_15wwj"]
 [ext_resource type="Script" path="res://scenes/hud-life_counter.gd" id="2_iey88"]
@@ -27,6 +28,11 @@ shader_parameter/palette = ExtResource("5_nk4r6")
 [node name="HUD" type="CanvasLayer"]
 layer = 2
 
+[node name="X1" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(128, 112)
+texture = ExtResource("1_0t6p1")
+
 [node name="Life Counter" type="Node" parent="."]
 script = ExtResource("2_iey88")
 
@@ -44,28 +50,28 @@ position = Vector2(12, 200)
 texture = ExtResource("3_xdn0h")
 hframes = 3
 
-[node name="Boss Bar" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(36, 40)
-texture = ExtResource("6_dn5r5")
-hframes = 57
-frame = 25
-
 [node name="Bars" type="Node" parent="."]
 script = ExtResource("6_83krn")
 
-[node name="HealthBar" type="Sprite2D" parent="Bars"]
-position = Vector2(20, 40)
+[node name="Boss Bar" type="Sprite2D" parent="Bars"]
+visible = false
+position = Vector2(36, 64)
 texture = ExtResource("6_dn5r5")
 hframes = 57
-frame = 25
+frame = 28
+
+[node name="HealthBar" type="Sprite2D" parent="Bars"]
+position = Vector2(20, 64)
+texture = ExtResource("6_dn5r5")
+hframes = 57
+frame = 28
 
 [node name="WeaponBar" type="Sprite2D" parent="Bars"]
 material = SubResource("ShaderMaterial_o6d4v")
-position = Vector2(12, 40)
+position = Vector2(12, 64)
 texture = ExtResource("5_1d45g")
 hframes = 29
-frame = 12
+frame = 28
 
 [node name="Module Tester" parent="." instance=ExtResource("1_kxric")]
 visible = false
