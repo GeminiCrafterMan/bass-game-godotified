@@ -53,6 +53,9 @@ func _physics_process(delta: float) -> void:
 	#3rd the ways in which the state is exited, either through timers or input
 	#sometimes you need to put the exit above the firstFrame of the state
 	#depending what it does but dont worry abotu that for now
+	#EXTRA NOTE using a check for what the current animation is before setting a new one is a good
+	#way to tell what animation you are coming from and can add special code for when doing so
+	#good example is in the jump state I check if you are coming in from the shoot state and set the anim accordingly
 	numberOfTimesToRunStates = 1
 	isFirstFrameOfState = false
 	while numberOfTimesToRunStates > 0:
@@ -60,13 +63,16 @@ func _physics_process(delta: float) -> void:
 		#ALWAYS MAKE SURE TELEPORT IS IN THE BLACKLIST SO YOU CANT CANCEL IT
 		#other than this, mostly stick to swapping states from inside other states, these are just global cancels
 		if (currentState != STATES.NONE) and (currentState != STATES.TELEPORT):
+			if Input.is_action_just_pressed("shoot"):
+				swapState = STATES.SHOOT
 			#check for jump
 			if ((Input.is_action_just_pressed("jump") and is_on_floor() and !isFirstFrameOfState)):
 				swapState = STATES.JUMP
 			#set player to jumping state if not on ground
-			if !is_on_floor() and currentState != STATES.JUMP and currentState != STATES.IDLE:
+			if !is_on_floor() and currentState != STATES.JUMP and currentState != STATES.SHOOT:
 				#we set current state here or else it will acivate first frame which will make the character jump
 				currentState = STATES.JUMP
+				swapState = STATES.NONE
 				isFirstFrameOfState = false
 				
 		match currentState:
@@ -130,6 +136,10 @@ func _physics_process(delta: float) -> void:
 				#setup needed on first frame of new state
 				if isFirstFrameOfState:
 					velocity.y = JUMP_VELOCITY
+				#if coming in from the shoot animation, set immediatley to falling animation
+				if sprite.animation == "Jump-Shoot":
+					sprite.stop()
+					sprite.play("Fall")
 				#set animation based on falling for rising
 				if velocity.y < 0:
 					if sprite.animation != "Jump":
@@ -147,17 +157,63 @@ func _physics_process(delta: float) -> void:
 						sprite.stop()
 						sprite.play("Fall")
 				#behavior of state
+				#movement in state
 				if direction.x:
+					#shmoovve
 					velocity.x = direction.x * SPEED
 					sprite.scale.x = sign(-direction.x)
 				else:
+					#come to stop
 					velocity.x = lerpf(velocity.x, 0, delta * 15)
+					if abs(velocity.x) < 1:
+						velocity.x = 0
 				
 				if is_on_floor() and !isFirstFrameOfState:
 					$Audio/LandSound.play() #G: ends up playing when you jump, too...?
 					swapState = STATES.IDLE
 			STATES.SHOOT:
-				pass
+				#start animation
+				if isFirstFrameOfState:
+					state_timer.start(0.5)
+					isFirstFrameOfState = false
+					swapState = STATES.NONE
+					#HEY GEMINI put the code for spawning shoots here
+				#handle animations
+				#make sure is on floor
+				if is_on_floor():
+					#play sound when landing
+					if sprite.animation == "Jump-Shoot":
+						$Audio/JumpSound.play()
+					#check if moving or not
+					if  abs(velocity.x) < SPEED:
+						if sprite.animation != "Idle-Shoot":
+							sprite.stop()
+							sprite.play("Idle-Shoot")
+					else:
+						if sprite.animation != "Walk-Shoot":
+							sprite.stop()
+							sprite.play("Walk-Shoot")
+				else:
+					if sprite.animation != "Jump-Shoot":
+						sprite.stop()
+						sprite.play("Jump-Shoot")
+				#NOTE "this != anim then set anim thing is kinda ugly but it works fine unless we wanna add a fancy anim
+				#que system but thats dumb and a bit unessecary, we are basically faking functionality the 3d anim node system already has lol"
+				#-lynn
+				#movement in state
+				if direction.x:
+					#shmoovve
+					velocity.x = direction.x * SPEED
+					sprite.scale.x = sign(-direction.x)
+				else:
+					#come to stop
+					velocity.x = lerpf(velocity.x, 0, delta * 15)
+					if abs(velocity.x) < 1:
+						velocity.x = 0
+				
+				#exit shoot animation
+				if state_timer.is_stopped():
+					swapState = STATES.IDLE
 	
 		
 		#this will boot back into loop if state has changed
@@ -172,5 +228,4 @@ func _physics_process(delta: float) -> void:
 			numberOfTimesToRunStates += 1
 			
 		numberOfTimesToRunStates -= 1
-
 	move_and_slide()
