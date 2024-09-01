@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://bksinirshmwgf"]
+[gd_scene load_steps=38 format=3 uid="uid://bksinirshmwgf"]
 
 [ext_resource type="Script" path="res://scenes/Objects/Players/maestro.gd" id="1_ct76e"]
 [ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="1_lnglj"]
@@ -29,6 +29,10 @@ region = Rect2(3, 12, 48, 48)
 atlas = ExtResource("2_ae8gn")
 region = Rect2(52, 12, 48, 48)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_10nr3"]
+atlas = ExtResource("2_ae8gn")
+region = Rect2(3, 70, 48, 48)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_hsony"]
 atlas = ExtResource("2_ae8gn")
 region = Rect2(300, 12, 48, 48)
@@ -36,6 +40,10 @@ region = Rect2(300, 12, 48, 48)
 [sub_resource type="AtlasTexture" id="AtlasTexture_mmfui"]
 atlas = ExtResource("2_ae8gn")
 region = Rect2(349, 12, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ps7nr"]
+atlas = ExtResource("2_ae8gn")
+region = Rect2(201, 70, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bl0lq"]
 atlas = ExtResource("2_ae8gn")
@@ -93,6 +101,18 @@ region = Rect2(201, 12, 48, 48)
 atlas = ExtResource("2_ae8gn")
 region = Rect2(250, 12, 48, 48)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_dqfot"]
+atlas = ExtResource("2_ae8gn")
+region = Rect2(53, 70, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_npksg"]
+atlas = ExtResource("2_ae8gn")
+region = Rect2(102, 70, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_00kfw"]
+atlas = ExtResource("2_ae8gn")
+region = Rect2(151, 70, 48, 48)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_f3vwn"]
 animations = [{
 "frames": [{
@@ -116,6 +136,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_10nr3")
+}],
+"loop": true,
+"name": &"Idle-Shoot",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_hsony")
 }],
 "loop": true,
@@ -128,6 +156,14 @@ animations = [{
 }],
 "loop": true,
 "name": &"Jump Transition",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ps7nr")
+}],
+"loop": true,
+"name": &"Jump-Shoot",
 "speed": 5.0
 }, {
 "frames": [{
@@ -199,6 +235,23 @@ animations = [{
 "loop": true,
 "name": &"Walk",
 "speed": 8.57
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dqfot")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_npksg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_00kfw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_npksg")
+}],
+"loop": true,
+"name": &"Walk-Shoot",
+"speed": 8.57
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5u3na"]
@@ -218,7 +271,7 @@ script = ExtResource("1_ct76e")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(-1, 1)
 sprite_frames = SubResource("SpriteFrames_f3vwn")
-animation = &"Step"
+animation = &"Jump Transition"
 autoplay = "Teleport"
 
 [node name="MainHitbox" type="CollisionShape2D" parent="."]
