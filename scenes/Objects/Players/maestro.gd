@@ -26,15 +26,24 @@ var currentSpeed = 0
 var direction = Vector2.ZERO
 
 #consts
-const MAXSPEED = 125.0
-const JUMP_VELOCITY = -400.0
+const MAXSPEED = 100.0
+const RUNSPEED = 70.0
+const JUMP_VELOCITY = -225.0
+const PEAK_VELOCITY = -100.0
+const STOP_VELOCITY = -80.0
+const JUMP_HEIGHT = 13
+const FAST_FALL = 400.0
 
 #refrences
 @onready var state_timer = $StateTimer
 @onready var sprite = $AnimatedSprite2D
+@onready var FX
 
 #other vars
 var DmgQueue : int # make the game not crash when you touch an enemy
+var JumpHeight : int #How long you're holding the jump button to go higher
+var StepTime : int
+var SlideTimer : int
 
 func _ready():
 	#start the teleport animation
@@ -46,6 +55,14 @@ func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
+	
+	if velocity.y > FAST_FALL:
+		velocity.y = FAST_FALL
+		
+	if currentState != STATES.SLIDE:
+		SlideTimer = 0
+		$MainHitbox.set_disabled(false)
+		$SlideHitbox.set_disabled(true)
 		
 		
 	#INPUTS -lynn
@@ -72,11 +89,13 @@ func _physics_process(delta: float) -> void:
 		#ALWAYS MAKE SURE TELEPORT IS IN THE BLACKLIST SO YOU CANT CANCEL IT
 		#other than this, mostly stick to swapping states from inside other states, these are just global cancels
 		if (currentState != STATES.NONE) and (currentState != STATES.TELEPORT):
-			if Input.is_action_just_pressed("shoot"):
+			if Input.is_action_just_pressed("shoot") && currentState != STATES.SLIDE:
 				swapState = STATES.SHOOT
 			#check for jump
 			if ((Input.is_action_just_pressed("jump") and is_on_floor() and !isFirstFrameOfState)):
-				swapState = STATES.JUMP
+				if ($CeilingCheck.is_colliding() == false or currentState != STATES.SLIDE):
+					swapState = STATES.JUMP
+					StepTime = 7
 			#set player to jumping state if not on ground
 			if !is_on_floor() and currentState != STATES.JUMP and currentState != STATES.SHOOT:
 				#we set current state here or else it will acivate first frame which will make the character jump
@@ -100,9 +119,19 @@ func _physics_process(delta: float) -> void:
 			
 			STATES.IDLE:
 				#play animation
-				if sprite.animation != "Idle":
-					sprite.stop()
-					sprite.play("Idle")
+				if StepTime > 0:
+					StepTime -= 1
+					if sprite.animation != "Step":
+						sprite.stop()
+						sprite.play("Step")
+				
+				else:
+					if sprite.animation != "Idle":
+						sprite.stop()
+						sprite.play("Idle")
+						
+				if Input.is_action_pressed("move_down") && Input.is_action_just_pressed("jump"):
+					swapState = STATES.SLIDE
 				
 				#movement of this state
 				default_movement(direction, delta)
@@ -112,7 +141,10 @@ func _physics_process(delta: float) -> void:
 			STATES.WALK:
 				#there is no step state anymore, the walk just kinda winds-up now
 				#the code to do this is silly but not dirty :3 -lynn
-				if currentSpeed == MAXSPEED:
+				if Input.is_action_pressed("move_down") && Input.is_action_just_pressed("jump"):
+					swapState = STATES.SLIDE
+				
+				if StepTime > 6:
 					if sprite.animation != "Walk":
 						var progress = sprite.get_frame_progress()
 						var frame = sprite.get_frame()
@@ -124,18 +156,57 @@ func _physics_process(delta: float) -> void:
 						sprite.play("Step")
 				#behavior of state
 				default_movement(direction, delta)
-					#if sprite.animation == "Walk":
-						#velocity.x = direction.x * MAXSPEED
-						#sprite.scale.x = sign(-direction.x)
-					#else:
-						#velocity.x = (direction.x * MAXSPEED) / 2
-						#sprite.scale.x = sign(-direction.x)
 				
 				#exit state if not d-pad
 				if direction.x == 0:
-					swapState = STATES.IDLE
+					if StepTime > 0:
+						StepTime -= 1
+						if sprite.animation != "Step":
+							sprite.stop()
+							sprite.play("step")
+		
+						swapState = STATES.IDLE
 			STATES.SLIDE:
-				pass
+				if isFirstFrameOfState:
+					$Audio/SlideSound.play()
+					if sprite.animation != "Slide":
+							sprite.stop()
+							sprite.play("Slide")
+					#Changes Collision
+					$MainHitbox.set_disabled(true)
+					$SlideHitbox.set_disabled(false)
+					
+					#Spawns Smoke
+					FX = preload("res://scenes/Objects/Players/dashtrail.tscn").instantiate()
+					get_parent().add_child(FX)
+					if sprite.scale.x == 1:
+						FX.scale.x = -1
+						FX.position.x = position.x + 15
+					else:
+						FX.position.x = position.x - 15
+					FX.position.y = position.y+8
+					
+				if SlideTimer > 24:
+					
+					if $CeilingCheck.is_colliding() == false:
+						#Changes to normal state.Rest is handled normally
+						swapState = STATES.IDLE
+				else:
+					SlideTimer += 1
+					
+				velocity.x = -sprite.scale.x * 200
+				
+				if $CeilingCheck.is_colliding() == false:
+					if isFirstFrameOfState == false:
+						if (direction.x == -1 && sprite.scale.x == -1 or direction.x == 1 && sprite.scale.x == 1):
+							swapState = STATES.WALK
+					
+				
+				if $CeilingCheck.is_colliding() == true:
+					if direction.x:
+						sprite.scale.x = sign(-direction.x)
+					
+				
 			STATES.JUMP:
 				#setup needed on first frame of new state
 				if isFirstFrameOfState:
@@ -146,6 +217,21 @@ func _physics_process(delta: float) -> void:
 					sprite.play("Fall")
 				#set animation based on falling for rising
 				if velocity.y < 0:
+					
+					if (JumpHeight < JUMP_HEIGHT && Input.is_action_pressed("jump")):
+						velocity.y = JUMP_VELOCITY
+						JumpHeight += 1
+						
+					if (JumpHeight == JUMP_HEIGHT):
+						JumpHeight = 80
+						velocity.y = PEAK_VELOCITY
+						
+					if (Input.is_action_just_released("jump")):
+						JumpHeight = 80
+						velocity.y = STOP_VELOCITY
+						
+						
+					
 					if sprite.animation != "Jump":
 						sprite.stop()
 						sprite.play("Jump")
@@ -153,6 +239,7 @@ func _physics_process(delta: float) -> void:
 						
 				else:
 					if sprite.animation != "Jump Transition" and sprite.animation != "Fall":
+						JumpHeight = 0
 						sprite.stop()
 						sprite.play("Jump Transition")
 						state_timer.start(0.1)
@@ -200,6 +287,20 @@ func _physics_process(delta: float) -> void:
 					if sprite.animation != "Jump-Shoot":
 						sprite.stop()
 						sprite.play("Jump-Shoot")
+						
+					if velocity.y < 0:
+						if (JumpHeight < JUMP_HEIGHT && Input.is_action_pressed("jump")):
+							velocity.y = JUMP_VELOCITY
+							JumpHeight += 1
+						
+						if (JumpHeight == JUMP_HEIGHT):
+							JumpHeight = 80
+							velocity.y = PEAK_VELOCITY
+						
+						if (Input.is_action_just_released("jump")):
+							JumpHeight = 80
+							velocity.y = STOP_VELOCITY
+					
 				#NOTE "this != anim then set anim thing is kinda ugly but it works fine unless we wanna add a fancy anim
 				#que system but thats dumb and a bit unessecary, we are basically faking functionality the 3d anim node system already has lol"
 				#-lynn
@@ -229,19 +330,30 @@ func _physics_process(delta: float) -> void:
 func default_movement(direction, delta):
 	#movement in state
 	if direction.x:
-		#make it so you dont step when turning around
-		if (sprite.scale.x != sign(-direction.x)) and currentSpeed != 0:
-			currentSpeed = MAXSPEED
-		currentSpeed = lerpf(currentSpeed, MAXSPEED, delta * 20)
-		#no crazy floats because lerp
-		if abs(currentSpeed) > MAXSPEED - (MAXSPEED / 100):
-			currentSpeed = MAXSPEED
-		#shmoovve
+		
 		sprite.scale.x = sign(-direction.x)
+		
+		if StepTime < 6:
+			if StepTime < 1:
+				position.x = position.x + direction.x
+			StepTime += 1
+		
+		else:
+			StepTime = 7
+			if (sprite.scale.x != sign(-direction.x)) and currentSpeed != 0:
+				currentSpeed = MAXSPEED
+			currentSpeed = lerpf(currentSpeed, MAXSPEED, delta * 20)
+			#no crazy floats because lerp
+			if abs(currentSpeed) > MAXSPEED - (MAXSPEED / 100):
+				currentSpeed = MAXSPEED
+			#shmoovve
+			
 	else:
-		#come to stop
-		currentSpeed = lerpf(currentSpeed, 0, delta * 17)
+		#come to stop (Megaman Should only do this on ice)
+		#currentSpeed = lerpf(currentSpeed, 0, delta * 25)
 		#no crazy floats because lerp
-		if abs(currentSpeed) < (MAXSPEED / 100):
-			currentSpeed = 0
+			
+		currentSpeed = 0
+		
+		
 	velocity.x = -sprite.scale.x * currentSpeed
