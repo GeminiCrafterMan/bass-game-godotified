@@ -45,6 +45,7 @@ var JumpHeight : int #How long you're holding the jump button to go higher
 var StepTime : int #How long you're stepping
 var SlideTimer : int
 var PainTimer : int
+var InvincFrames : int
 
 func _ready():
 	#start the teleport animation
@@ -56,11 +57,12 @@ func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
-		
-	if (Input.is_action_just_pressed("test_hurt")):
-				if ($CeilingCheck.is_colliding() == false or currentState != STATES.SLIDE):
-					swapState = STATES.HURT
-					PainTimer = 35
+
+	if GameState.current_hp <= 0:
+		GameState.current_hp = 28 # Add death function later!
+
+	if ($CeilingCheck.is_colliding() == false or currentState != STATES.SLIDE):
+		_DamageAndInvincible()
 	
 	if velocity.y > FAST_FALL:
 		velocity.y = FAST_FALL
@@ -168,7 +170,7 @@ func _physics_process(delta: float) -> void:
 						StepTime -= 1
 						if sprite.animation != "Step":
 							sprite.stop()
-							sprite.play("step")
+							sprite.play("Step")
 		
 						swapState = STATES.IDLE
 			STATES.SLIDE:
@@ -324,3 +326,24 @@ func default_movement(direction, delta):
 		
 		
 	velocity.x = -sprite.scale.x * currentSpeed
+
+func _DamageAndInvincible():
+	if InvincFrames > 0:
+		InvincFrames -= 1
+		if InvincFrames % 2 == 0:
+			visible = false
+		else:
+			visible = true
+	else:
+		visible = true
+	if DmgQueue > 0:
+		if InvincFrames > 0:
+			DmgQueue = 0
+		else:
+			if GameState.current_hp - DmgQueue > 0:
+				GameState.current_hp -= DmgQueue
+			else:
+				GameState.current_hp = 0
+			DmgQueue = 0
+			swapState = STATES.HURT
+			PainTimer = 35
