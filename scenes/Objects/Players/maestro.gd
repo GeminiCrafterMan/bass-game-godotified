@@ -12,7 +12,7 @@ enum STATES {
 	WALK, 
 	SLIDE,
 	JUMP, 
-	SHOOT
+	HURT
 	}
 
 #state related
@@ -42,8 +42,9 @@ const FAST_FALL = 400.0
 #other vars
 var DmgQueue : int # make the game not crash when you touch an enemy
 var JumpHeight : int #How long you're holding the jump button to go higher
-var StepTime : int
+var StepTime : int #How long you're stepping
 var SlideTimer : int
+var PainTimer : int
 
 func _ready():
 	#start the teleport animation
@@ -55,6 +56,11 @@ func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
+		
+	if (Input.is_action_just_pressed("test_hurt")):
+				if ($CeilingCheck.is_colliding() == false or currentState != STATES.SLIDE):
+					swapState = STATES.HURT
+					PainTimer = 35
 	
 	if velocity.y > FAST_FALL:
 		velocity.y = FAST_FALL
@@ -89,15 +95,14 @@ func _physics_process(delta: float) -> void:
 		#ALWAYS MAKE SURE TELEPORT IS IN THE BLACKLIST SO YOU CANT CANCEL IT
 		#other than this, mostly stick to swapping states from inside other states, these are just global cancels
 		if (currentState != STATES.NONE) and (currentState != STATES.TELEPORT):
-			if Input.is_action_just_pressed("shoot") && currentState != STATES.SLIDE:
-				swapState = STATES.SHOOT
+			
 			#check for jump
-			if ((Input.is_action_just_pressed("jump") and is_on_floor() and !isFirstFrameOfState)):
+			if ((Input.is_action_just_pressed("jump") and is_on_floor() and !isFirstFrameOfState) and currentState != STATES.HURT):
 				if ($CeilingCheck.is_colliding() == false or currentState != STATES.SLIDE):
 					swapState = STATES.JUMP
 					StepTime = 7
 			#set player to jumping state if not on ground
-			if !is_on_floor() and currentState != STATES.JUMP and currentState != STATES.SHOOT:
+			if !is_on_floor() and currentState != STATES.JUMP and currentState != STATES.HURT:
 				#we set current state here or else it will acivate first frame which will make the character jump
 				currentState = STATES.JUMP
 				swapState = STATES.NONE
@@ -254,63 +259,25 @@ func _physics_process(delta: float) -> void:
 				if is_on_floor() and !isFirstFrameOfState:
 					$Audio/LandSound.play() #G: ends up playing when you jump, too...?
 					swapState = STATES.IDLE
-			STATES.SHOOT:
-				#start animation
-				if isFirstFrameOfState:
-					state_timer.start(0.5)
-					isFirstFrameOfState = false
-					swapState = STATES.NONE
-					#HEY GEMINI put the code for spawning shoots here
-				#handle animations
-				#make sure is on floor
-				if is_on_floor():
-					#play sound when landing
-					if sprite.animation == "Jump-Shoot":
-						$Audio/JumpSound.play()
-					#check if moving or not
-					if  abs(velocity.x) < MAXSPEED:
-						if sprite.animation != "Idle-Shoot":
-							sprite.stop()
-							sprite.play("Idle-Shoot")
-					else:
-						if sprite.animation != "Walk-Shoot":
-							#line up with the walk anim cirreclty
-							if sprite.animation == "Walk":
-								var progress = sprite.get_frame_progress()
-								var frame = sprite.get_frame()
-								sprite.play("Walk-Shoot")
-								sprite.set_frame_and_progress(frame, progress)
-							else:
-								sprite.stop()
-								sprite.play("Walk-Shoot")
-				else:
-					if sprite.animation != "Jump-Shoot":
-						sprite.stop()
-						sprite.play("Jump-Shoot")
-						
-					if velocity.y < 0:
-						if (JumpHeight < JUMP_HEIGHT && Input.is_action_pressed("jump")):
-							velocity.y = JUMP_VELOCITY
-							JumpHeight += 1
-						
-						if (JumpHeight == JUMP_HEIGHT):
-							JumpHeight = 80
-							velocity.y = PEAK_VELOCITY
-						
-						if (Input.is_action_just_released("jump")):
-							JumpHeight = 80
-							velocity.y = STOP_VELOCITY
-					
-				#NOTE "this != anim then set anim thing is kinda ugly but it works fine unless we wanna add a fancy anim
-				#que system but thats dumb and a bit unessecary, we are basically faking functionality the 3d anim node system already has lol"
-				#-lynn
-				#movement in state
-				default_movement(direction, delta)
 				
-				#exit shoot animation
-				if state_timer.is_stopped():
+			STATES.HURT:
+				if isFirstFrameOfState:
+					$Audio/HurtSound.play()
+					if sprite.animation != "Hurt":
+							sprite.stop()
+							sprite.play("Hurt")
+				if PainTimer == 0:
 					swapState = STATES.IDLE
-	
+				else:
+					PainTimer -= 1
+					velocity.x = sprite.scale.x * 20
+					
+				if isFirstFrameOfState == true:
+					if is_on_floor():
+						velocity.y = -70
+					else:
+						velocity.y = -90
+					
 		
 		#this will boot back into loop if state has changed
 		#the reason we do this is so when you do inputs there isnt even a 

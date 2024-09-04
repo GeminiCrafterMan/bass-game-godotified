@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://bksinirshmwgf"]
+[gd_scene load_steps=40 format=3 uid="uid://bksinirshmwgf"]
 
 [ext_resource type="Script" path="res://scenes/Objects/Players/maestro.gd" id="1_ct76e"]
 [ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="1_lnglj"]
@@ -9,6 +9,7 @@
 [ext_resource type="AudioStream" uid="uid://ds4m68uui1avq" path="res://sounds/switch.wav" id="6_e47ri"]
 [ext_resource type="AudioStream" uid="uid://h87d8b65n30n" path="res://sounds/slide.wav" id="7_iqfqy"]
 [ext_resource type="AudioStream" uid="uid://dr1p57c1kr6na" path="res://sounds/warp.wav" id="9_ht7sb"]
+[ext_resource type="AudioStream" uid="uid://cojuek45oo3hj" path="res://sounds/playerhurt.wav" id="10_gpg6f"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_u81pt"]
 shader = ExtResource("1_lnglj")
@@ -20,6 +21,10 @@ shader_parameter/palette = ExtResource("2_6qlls")
 [sub_resource type="AtlasTexture" id="AtlasTexture_cp00o"]
 atlas = ExtResource("2_ae8gn")
 region = Rect2(398, 12, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pefhx"]
+atlas = ExtResource("2_ae8gn")
+region = Rect2(842, 12, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_r7318"]
 atlas = ExtResource("2_ae8gn")
@@ -121,6 +126,14 @@ animations = [{
 }],
 "loop": true,
 "name": &"Fall",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pefhx")
+}],
+"loop": true,
+"name": &"Hurt",
 "speed": 5.0
 }, {
 "frames": [{
@@ -271,8 +284,9 @@ script = ExtResource("1_ct76e")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(-1, 1)
 sprite_frames = SubResource("SpriteFrames_f3vwn")
-animation = &"Slide"
+animation = &"Hurt"
 autoplay = "Teleport"
+frame_progress = 0.683766
 
 [node name="MainHitbox" type="CollisionShape2D" parent="."]
 position = Vector2(0, 3)
@@ -308,6 +322,9 @@ bus = &"SFX"
 [node name="WarpInSound" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("9_ht7sb")
 bus = &"SFX"
+
+[node name="HurtSound" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("10_gpg6f")
 
 [node name="CeilingCheck" type="RayCast2D" parent="."]
 position = Vector2(0, 12)
