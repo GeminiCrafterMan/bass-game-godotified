@@ -34,10 +34,21 @@ const STOP_VELOCITY = -80.0
 const JUMP_HEIGHT = 13
 const FAST_FALL = 400.0
 
+#Wepon consts
+const ORIGAMI_SPEED = 350
+const CRACKER_SPEED = 450
+
 #refrences
 @onready var state_timer = $StateTimer
 @onready var sprite = $AnimatedSprite2D
 @onready var FX
+@onready var projectile
+@onready var shield
+@onready var shield2
+@onready var shield3
+@onready var shield4
+
+
 
 #other vars
 var DmgQueue : int # make the game not crash when you touch an enemy
@@ -46,6 +57,52 @@ var StepTime : int #How long you're stepping
 var SlideTimer : int
 var PainTimer : int
 var InvincFrames : int
+var Charge : int
+var Flash_Timer : int
+var no_grounded_movement : bool
+
+#Attack vars
+var shoot_delay = 0
+var shot_type = 0
+
+var weapon_palette: Array[Texture2D] = [
+	preload("res://sprites/Players/Maestro (base)/Palettes/None.png"),
+	preload("res://sprites/Players/Maestro (base)/Palettes/Scorch Barrier.png"),
+	preload("res://sprites/Players/Maestro (base)/Palettes/Track 2.png"),
+	preload("res://sprites/Players/Maestro (base)/Palettes/Poison Cloud.png"),
+	preload("res://sprites/Players/Maestro (base)/Palettes/Fin Shredder.png"),
+	preload("res://sprites/Players/Maestro (base)/Palettes/Origami Star.png"),
+	preload("res://sprites/Players/Maestro (base)/Palettes/Wild Gale.png"),
+	preload("res://sprites/Players/Maestro (base)/Palettes/Rolling Bomb.png"),
+	preload("res://sprites/Players/Maestro (base)/Palettes/Boomerang Scythe.png"),
+	preload("res://sprites/Players/Maestro (base)/Palettes/None.png"), # Proto Shield
+	preload("res://sprites/Players/Maestro (base)/Palettes/Treble.png"), # "Treble Boost" (skip it)
+	preload("res://sprites/Players/Maestro (base)/Palettes/Carry.png"),
+	preload("res://sprites/Players/Maestro (base)/Palettes/Super Arrow.png"),
+	preload("res://sprites/Players/Maestro (base)/Palettes/Mirror Buster.png"),
+	preload("res://sprites/Players/Maestro (base)/Palettes/Screw Crusher.png"),
+	preload("res://sprites/Players/Maestro (base)/Palettes/Ballade Cracker.png"),
+	preload("res://sprites/Players/Maestro (base)/Palettes/Sakugarne.png"),
+	preload("res://sprites/Players/Maestro (base)/Palettes/ChargeX1.png"),
+	preload("res://sprites/Players/Maestro (base)/Palettes/ChargeX2.png")
+]
+
+var projectile_scenes = [
+	preload("res://scenes/Objects/Players/Weapons/Copy Robot/buster_small.tscn"),
+	preload("res://scenes/Objects/Players/Weapons/Copy Robot/buster_medium.tscn"),
+	preload("res://scenes/Objects/Players/Weapons/Copy Robot/buster_large.tscn"),
+	preload("res://scenes/Objects/Players/Weapons/Copy Robot/carry.tscn"),
+	preload("res://scenes/Objects/Players/Weapons/Copy Robot/ballade_cracker.tscn"),
+	preload("res://scenes/Objects/Players/Weapons/Copy Robot/screw_crusher.tscn"),
+	preload("res://scenes/Objects/Players/Weapons/Copy Robot/arrow.tscn")
+	
+]
+
+var weapon_scenes = [
+	preload("res://scenes/Objects/Players/Weapons/Special Weps/origami_star.tscn"),
+	preload("res://scenes/Objects/Players/Weapons/Special Weps/poison_cloud.tscn"),
+	preload("res://scenes/Objects/Players/Weapons/Special Weps/scorch_barrier.tscn")
+]
 
 func _ready():
 	#start the teleport animation
@@ -60,7 +117,71 @@ func _physics_process(delta: float) -> void:
 
 	if GameState.current_hp <= 0:
 		GameState.current_hp = 28 # Add death function later!
+	
+	if shield != null:
+		shield.baseposx = position.x - sprite.scale.x * 1
+		shield.baseposy = position.y+4
+		
+	if shield2 != null:
+		shield2.baseposx = position.x - sprite.scale.x * 1
+		shield2.baseposy = position.y+4
+		
+	if shield3 != null:
+		shield3.baseposx = position.x - sprite.scale.x * 1
+		shield3.baseposy = position.y+4
+		
+	if shield4 != null:
+		shield4.baseposx = position.x - sprite.scale.x * 1
+		shield4.baseposy = position.y+4
+	
+	weapon_buster()
+	do_charge_palette()
+	
+	if currentState != STATES.TELEPORT:
+		if currentState != STATES.SLIDE && currentState != STATES.HURT:
+			handle_weapons()
+		
+		if Input.is_action_just_pressed("switch_right"):
+			GameState.old_weapon = GameState.current_weapon
+			
+			if (GameState.current_weapon == 16):
+				GameState.current_weapon = 0
+			else:
+				GameState.current_weapon += 1
+			
+				if (GameState.current_weapon != 0):
+					while (GameState.weapons_unlocked[GameState.current_weapon] == false):
+						if (GameState.current_weapon == 16 && GameState.weapons_unlocked[16] == false):
+							GameState.current_weapon = 0
+						else:
+							GameState.current_weapon += 1
+					
+						
+		if Input.is_action_just_pressed("switch_left"):
+			GameState.old_weapon = GameState.current_weapon
+				
+			if (GameState.current_weapon == 0):
+				GameState.current_weapon = 16
+			else:
+				GameState.current_weapon -= 1
+			
+			while (GameState.weapons_unlocked[GameState.current_weapon] == false):
+				GameState.current_weapon -= 1
+						
+		
+	if GameState.old_weapon != GameState.current_weapon:
+		$Audio/SwitchSound.play()
+		GameState.old_weapon = GameState.current_weapon
+		$AnimatedSprite2D.material.set_shader_parameter("palette", weapon_palette[GameState.current_weapon])
 
+	if  (Input.is_action_just_pressed("switch_left") && Input.is_action_pressed("switch_right")) or (Input.is_action_pressed("switch_left") && Input.is_action_just_pressed("switch_right")):
+		GameState.current_weapon = 0
+		if GameState.old_weapon != GameState.current_weapon:
+			$Audio/SwitchSound.play()
+		$AnimatedSprite2D.material.set_shader_parameter("palette", weapon_palette[GameState.current_weapon])
+		
+	
+	
 	if ($CeilingCheck.is_colliding() == false or currentState != STATES.SLIDE):
 		_DamageAndInvincible()
 	
@@ -102,10 +223,13 @@ func _physics_process(delta: float) -> void:
 			if ((Input.is_action_just_pressed("jump") and is_on_floor() and !isFirstFrameOfState) and currentState != STATES.HURT):
 				if ($CeilingCheck.is_colliding() == false or currentState != STATES.SLIDE):
 					swapState = STATES.JUMP
-					StepTime = 7
+					StepTime = 0
+					JumpHeight = 0
+					
 			#set player to jumping state if not on ground
 			if !is_on_floor() and currentState != STATES.JUMP and currentState != STATES.HURT:
 				#we set current state here or else it will acivate first frame which will make the character jump
+				StepTime = 0
 				currentState = STATES.JUMP
 				swapState = STATES.NONE
 				isFirstFrameOfState = false
@@ -126,16 +250,35 @@ func _physics_process(delta: float) -> void:
 			
 			STATES.IDLE:
 				#play animation
-				if StepTime > 0:
-					StepTime -= 1
-					if sprite.animation != "Step":
-						sprite.stop()
-						sprite.play("Step")
+				if shoot_delay == 0:
+					if StepTime > 0:
+						StepTime -= 1
+						if sprite.animation != "Step":
+							sprite.stop()
+							sprite.play("Step")
 				
+					else:
+						if sprite.animation != "Idle":
+							sprite.stop()
+							sprite.play("Idle")
+	
 				else:
-					if sprite.animation != "Idle":
-						sprite.stop()
-						sprite.play("Idle")
+					match shot_type:
+						0: # Normal
+							$AnimatedSprite2D.play("Idle-Shoot")
+						1: # StopShoot
+							$AnimatedSprite2D.play("Idle-Shoot")
+						2: # Throw
+							$AnimatedSprite2D.play("Throw")
+						3: # Shield
+							$AnimatedSprite2D.play("Cast")
+						4: # Double Reppuken
+							$AnimatedSprite2D.play("FinShredder")
+						_: # Everything else
+							$AnimatedSprite2D.play("Idle-Shoot")
+						
+						
+						
 						
 				if Input.is_action_pressed("move_down") && Input.is_action_just_pressed("jump"):
 					swapState = STATES.SLIDE
@@ -151,16 +294,32 @@ func _physics_process(delta: float) -> void:
 				if Input.is_action_pressed("move_down") && Input.is_action_just_pressed("jump"):
 					swapState = STATES.SLIDE
 				
-				if StepTime > 6:
-					if sprite.animation != "Walk":
-						var progress = sprite.get_frame_progress()
-						var frame = sprite.get_frame()
-						sprite.play("Walk")
-						sprite.set_frame_and_progress(frame, progress)
+				var progress = sprite.get_frame_progress()
+				var frame = sprite.get_frame()
+					
+				if shoot_delay > 0:
+					match shot_type:
+						0: # Normal
+							$AnimatedSprite2D.play("Walk-Shoot")
+						1: # Stop
+							$AnimatedSprite2D.play("Idle-Shoot")
+						2: # Throw
+							$AnimatedSprite2D.play("Throw")
+						3: # Shield
+							$AnimatedSprite2D.play("Cast")
+						4: # Shredder
+							$AnimatedSprite2D.play("FinShredder")		
+						_: # Everything else
+							$AnimatedSprite2D.play("Walk-Shoot")
 				else:
-					if sprite.animation != "Step":
-						sprite.stop()
-						sprite.play("Step")
+					if StepTime > 6:
+						sprite.play("Walk")
+						
+						sprite.set_frame_and_progress(frame, progress)
+					else:
+						if sprite.animation != "Step":
+							sprite.stop()
+							sprite.play("Step")
 				#behavior of state
 				default_movement(direction, delta)
 				
@@ -239,23 +398,37 @@ func _physics_process(delta: float) -> void:
 						
 						
 					
-					if sprite.animation != "Jump":
-						sprite.stop()
-						sprite.play("Jump")
+					if isFirstFrameOfState:
+						if shoot_delay == 0:
+							sprite.stop()
+							sprite.play("Jump")
 						$Audio/JumpSound.play()
-						
+					
 				else:
-					if sprite.animation != "Jump Transition" and sprite.animation != "Fall":
-						JumpHeight = 0
-						sprite.stop()
-						sprite.play("Jump Transition")
-						state_timer.start(0.1)
-						#await sprite.animation_finished <- no using awaits or any kind of wait function in player scripts, causes wierd arcane issues -lynn
-					if sprite.animation != "Fall" and state_timer.is_stopped():
-						sprite.stop()
-						sprite.play("Fall")
-				#behavior of state
-				#movement in state
+					if shoot_delay == 0:
+						if StepTime < 7:
+							StepTime += 1
+							sprite.play("Jump Transition")
+						else:
+							sprite.play("Fall")
+						
+				if shoot_delay > 0:
+					match shot_type:
+						0: # Normal
+							$AnimatedSprite2D.play("Jump-Shoot")
+						1: # Normal
+							$AnimatedSprite2D.play("Jump-Shoot")
+						2: # Throw
+							$AnimatedSprite2D.play("Jump-Throw")
+						3: # Shield
+							$AnimatedSprite2D.play("Cast")
+						4: # Shredder
+							$AnimatedSprite2D.play("FinShredder")
+						_: # Everything else
+							$AnimatedSprite2D.play("Jump-Shoot")
+							
+					#behavior of state
+					#movement in state
 				default_movement(direction, delta)
 				
 				if is_on_floor() and !isFirstFrameOfState:
@@ -295,27 +468,34 @@ func _physics_process(delta: float) -> void:
 		numberOfTimesToRunStates -= 1
 	move_and_slide()
 
+	
+	
 
 func default_movement(direction, delta):
 	#movement in state
 	if direction.x:
 		
-		sprite.scale.x = sign(-direction.x)
-		
-		if StepTime < 6:
-			if StepTime < 1:
-				position.x = position.x + direction.x
-			StepTime += 1
+		if is_on_floor() == true && no_grounded_movement == true:
+			currentSpeed = 0
 		
 		else:
-			StepTime = 7
-			if (sprite.scale.x != sign(-direction.x)) and currentSpeed != 0:
-				currentSpeed = MAXSPEED
-			currentSpeed = lerpf(currentSpeed, MAXSPEED, delta * 20)
-			#no crazy floats because lerp
-			if abs(currentSpeed) > MAXSPEED - (MAXSPEED / 100):
-				currentSpeed = MAXSPEED
-			#shmoovve
+			sprite.scale.x = sign(-direction.x)
+		
+			if StepTime < 6 && currentState != STATES.JUMP:
+				if StepTime < 1:
+					position.x = position.x + direction.x
+				StepTime += 1
+		
+			else:
+				if currentState != STATES.JUMP:
+					StepTime = 7
+				if (sprite.scale.x != sign(-direction.x)) and currentSpeed != 0:
+					currentSpeed = MAXSPEED
+				currentSpeed = lerpf(currentSpeed, MAXSPEED, delta * 20)
+				#no crazy floats because lerp
+				if abs(currentSpeed) > MAXSPEED - (MAXSPEED / 100):
+					currentSpeed = MAXSPEED
+				#shmoovve
 			
 	else:
 		#come to stop (Megaman Should only do this on ice)
@@ -326,6 +506,387 @@ func default_movement(direction, delta):
 		
 		
 	velocity.x = -sprite.scale.x * currentSpeed
+
+func do_charge_palette():
+	if Charge == 0 or Charge < 37: # no charge
+		$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[GameState.current_weapon])
+	elif Charge >= 37 && Charge < 65: # just started charging
+		if Flash_Timer == 2 || Flash_Timer == 3:
+			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[17])
+			Flash_Timer += 1
+		else:
+			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[GameState.current_weapon])
+			Flash_Timer += 1
+		if Flash_Timer == 3:
+			Flash_Timer = 0
+	elif Charge >= 65 && Charge < 92:
+		if Flash_Timer == 1:
+			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[17])
+			Flash_Timer = 0
+		else:
+			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[GameState.current_weapon])
+			Flash_Timer = 1
+	elif Charge >= 92:
+		if Flash_Timer == 1:
+			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[18])
+			Flash_Timer = 0
+		else:
+			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[GameState.current_weapon])
+			Flash_Timer = 1
+
+func handle_weapons():
+	match GameState.current_weapon:
+		1:
+			weapon_blaze()
+		3:
+			weapon_smog()
+		5:
+			weapon_origami()
+		11:
+			weapon_carry()
+		12:
+			weapon_arrow()
+		14:
+			weapon_punk()
+		15:
+			weapon_ballade()
+		_:
+			return
+
+
+func weapon_buster():
+	if shoot_delay > 0:
+		if shot_type == 0:
+			shoot_delay -= 1
+			no_grounded_movement = false
+	if (GameState.current_weapon == 0 and Input.is_action_just_pressed("shoot")) or Input.is_action_just_pressed("buster"):
+		if  currentState != STATES.SLIDE:
+			shot_type = 0
+			shoot_delay = 13
+			projectile = projectile_scenes[0].instantiate()
+			get_parent().add_child(projectile)
+			projectile.position.x = position.x
+			projectile.position.y = position.y
+			projectile.velocity.x = -sprite.scale.x * 350
+			projectile.scale.x = -sprite.scale.x
+			Charge = 0
+			return
+	if (GameState.current_weapon == 0 and Input.is_action_just_released("shoot")) or Input.is_action_just_released("buster"):
+		if currentState != STATES.SLIDE:
+			if Charge < 32: # no Charge
+				Charge = 0
+				return
+			if Charge >= 32 and Charge < 92: # medium charge
+				shot_type = 0
+				shoot_delay = 13
+				projectile = projectile_scenes[1].instantiate()
+				get_parent().add_child(projectile)
+				projectile.position.x = position.x
+				projectile.position.y = position.y
+				projectile.velocity.x = -sprite.scale.x * 450
+				projectile.scale.x = -sprite.scale.x
+				Charge = 0
+				$Audio/Charge1.stop()
+				return
+			if Charge >= 92: # da big boi
+				shot_type = 0
+				shoot_delay = 13
+				projectile = projectile_scenes[2].instantiate()
+				get_parent().add_child(projectile)
+				projectile.position.x = position.x
+				projectile.position.y = position.y
+				projectile.velocity.x = -sprite.scale.x * 500
+				projectile.scale.x = -sprite.scale.x
+				Charge = 0
+				return
+	if (GameState.current_weapon == 0 and Input.is_action_pressed("shoot")) or Input.is_action_pressed("buster"):
+		if Charge < 105:
+			Charge += 1
+			if Charge == 32:
+				$Audio/Charge1.play()
+			if Charge == 100:
+				$Audio/Charge2.play()
+		else:
+			Charge = 100
+			$Audio/Charge2.stop()
+				
+			
+	else:
+		Charge = 0
+		return
+
+func weapon_blaze():
+	if shoot_delay > 0:
+		if shot_type == 2 or shot_type == 3:
+			shoot_delay -= 1
+			no_grounded_movement = true
+	else:
+		no_grounded_movement = false
+
+	if Input.is_action_just_pressed("shoot"):
+		$AnimatedSprite2D.set_frame_and_progress(0, 0)
+		
+		var space : int = 17
+		if shield == null && shield2 == null && shield3 == null && shield4 == null:
+			shot_type = 3
+			shoot_delay = 26
+			shield = weapon_scenes[2].instantiate()
+			get_parent().add_child(shield)
+			shield.theta = 0*space
+			
+			shield2 = weapon_scenes[2].instantiate()
+			get_parent().add_child(shield2)
+			shield2.theta = 1*space
+			
+			shield3 = weapon_scenes[2].instantiate()
+			get_parent().add_child(shield3)
+			shield3.theta = 2*space
+			
+			shield4 = weapon_scenes[2].instantiate()
+			get_parent().add_child(shield4)
+			shield4.theta = 3*space
+		else:
+			shot_type = 2
+			shoot_delay = 13
+			if shield != null:
+				shield.fired = true
+				if sprite.scale.x == 1:
+					shield.left = true
+			if shield2 != null:
+				shield2.fired = true
+				if sprite.scale.x == 1:
+					shield2.left = true
+			if shield3 != null:
+				shield3.fired = true
+				if sprite.scale.x == 1:
+					shield3.left = true
+			if shield4 != null:
+				shield4.fired = true
+				if sprite.scale.x == 1:
+					shield4.left = true
+				
+			shield = null
+			shield2 = null
+			shield3 = null
+			shield4 = null
+
+func weapon_smog():
+	if shoot_delay > 0:
+		if shot_type == 1:
+			shoot_delay -= 1
+			no_grounded_movement = true
+	else:
+		no_grounded_movement = false
+
+	if Input.is_action_just_pressed("shoot") && currentState != STATES.SLIDE:
+		$AnimatedSprite2D.set_frame_and_progress(0, 0)
+		shot_type = 1
+		shoot_delay = 13
+		projectile = weapon_scenes[1].instantiate()
+		get_parent().add_child(projectile)
+		
+		projectile.position.x = position.x -sprite.scale.x * 15
+		projectile.position.y = position.y + 4
+		projectile.velocity.x = -sprite.scale.x * 100
+		projectile.scale.x = -sprite.scale.x
+		
+		# inputs
+		
+		return
+
+func weapon_origami():
+	if shoot_delay > 0:
+		if shot_type == 2:
+			shoot_delay -= 1
+			no_grounded_movement = true
+	else:
+		no_grounded_movement = false
+	if Input.is_action_just_pressed("shoot"):
+		$AnimatedSprite2D.set_frame_and_progress(0, 0)
+		shot_type = 2
+		shoot_delay = 13
+		projectile = weapon_scenes[0].instantiate()
+			
+		#SHOOT FORWARD 
+		if !Input.is_action_pressed("move_up") && !Input.is_action_pressed("move_down"):
+			get_parent().add_child(projectile)
+			projectile.position.x = position.x
+			projectile.position.y = position.y
+			projectile.scale.x = sprite.scale.x
+			projectile.velocity.x = -sprite.scale.x * ORIGAMI_SPEED
+					
+			projectile = weapon_scenes[0].instantiate()
+			get_parent().add_child(projectile)
+			projectile.position.x = position.x
+			projectile.position.y = position.y
+			projectile.scale.x = sprite.scale.x
+			projectile.velocity.x = -sprite.scale.x * ORIGAMI_SPEED * 0.775
+			projectile.velocity.y = -ORIGAMI_SPEED * 0.225
+					
+			projectile = weapon_scenes[0].instantiate()
+			get_parent().add_child(projectile)
+			projectile.position.x = position.x
+			projectile.position.y = position.y
+			projectile.scale.x = sprite.scale.x
+			projectile.velocity.x = -sprite.scale.x * ORIGAMI_SPEED * 0.775
+			projectile.velocity.y =  ORIGAMI_SPEED * 0.225
+	
+		if Input.is_action_pressed("move_up"):
+			projectile = weapon_scenes[0].instantiate()
+			get_parent().add_child(projectile)
+			projectile.position.x = position.x
+			projectile.position.y = position.y
+			projectile.scale.x = sprite.scale.x
+			projectile.velocity.x = -sprite.scale.x *ORIGAMI_SPEED *  0.225
+			projectile.velocity.y =  -ORIGAMI_SPEED * 0.775
+			
+			projectile = weapon_scenes[0].instantiate()
+			get_parent().add_child(projectile)
+			projectile.position.x = position.x
+			projectile.position.y = position.y
+			projectile.scale.x = sprite.scale.x
+			projectile.velocity.x = -sprite.scale.x * ORIGAMI_SPEED * 0.5
+			projectile.velocity.y =  -ORIGAMI_SPEED * 0.5
+			
+			projectile = weapon_scenes[0].instantiate()
+			get_parent().add_child(projectile)
+			projectile.position.x = position.x
+			projectile.position.y = position.y
+			projectile.scale.x = sprite.scale.x
+			projectile.velocity.x = -sprite.scale.x * ORIGAMI_SPEED * 0.775
+			projectile.velocity.y =  -ORIGAMI_SPEED * 0.225
+			
+		if Input.is_action_pressed("move_down"):
+			projectile = weapon_scenes[0].instantiate()
+			get_parent().add_child(projectile)
+			projectile.position.x = position.x
+			projectile.position.y = position.y
+			projectile.scale.x = sprite.scale.x
+			projectile.velocity.x = -sprite.scale.x * ORIGAMI_SPEED *  0.225
+			projectile.velocity.y =  ORIGAMI_SPEED * 0.775
+			
+			projectile = weapon_scenes[0].instantiate()
+			get_parent().add_child(projectile)
+			projectile.position.x = position.x
+			projectile.position.y = position.y
+			projectile.scale.x = sprite.scale.x
+			projectile.velocity.x = -sprite.scale.x * ORIGAMI_SPEED * 0.5
+			projectile.velocity.y =  ORIGAMI_SPEED * 0.5
+			
+			projectile = weapon_scenes[0].instantiate()
+			get_parent().add_child(projectile)
+			projectile.position.x = position.x
+			projectile.position.y = position.y
+			projectile.scale.x = sprite.scale.x
+			projectile.velocity.x = -sprite.scale.x * ORIGAMI_SPEED * 0.775
+			projectile.velocity.y =  ORIGAMI_SPEED * 0.225
+		
+		return
+
+func weapon_carry():
+	if shoot_delay > 0:
+		if shot_type == 2:
+			shoot_delay -= 1
+			no_grounded_movement = true
+	else:
+		no_grounded_movement = false
+	if Input.is_action_just_pressed("shoot"):
+		$AnimatedSprite2D.set_frame_and_progress(0, 0)
+		shot_type = 2
+		shoot_delay = 13
+		projectile = projectile_scenes[3].instantiate()
+		
+		#SHOOT FORWARD REGARDLESS
+		get_parent().add_child(projectile)
+		if is_on_floor():	
+			projectile.position.y = position.y
+			projectile.position.x = position.x  - sprite.scale.x * 30
+		else:
+			projectile.position.y = position.y + 24
+			projectile.position.x = position.x
+
+func weapon_arrow():
+	if shoot_delay > 0:
+		if shot_type == 1:
+			shoot_delay -= 1
+			no_grounded_movement = false
+	else:
+		no_grounded_movement = false
+	if Input.is_action_just_pressed("shoot"):
+		$AnimatedSprite2D.set_frame_and_progress(0, 0)
+		shot_type = 1
+		shoot_delay = 13
+		projectile = projectile_scenes[6].instantiate()
+		
+		#SHOOT FORWARD REGARDLESS
+		get_parent().add_child(projectile)
+		projectile.position.y = position.y
+		projectile.position.x = position.x - sprite.scale.x * 27
+		projectile.velocity.x = -sprite.scale.x
+		projectile.scale.x = -sprite.scale.x
+
+
+func weapon_punk():
+	if shoot_delay > 0:
+		if shot_type == 2:
+			shoot_delay -= 1
+		no_grounded_movement = true
+	else:
+		no_grounded_movement = false
+		
+	if Input.is_action_just_pressed("shoot"):
+		$AnimatedSprite2D.set_frame_and_progress(0, 0)
+		shot_type = 2
+		shoot_delay = 13
+		projectile = projectile_scenes[5].instantiate()
+		
+		if $AnimatedSprite2D.flip_h:
+			projectile.scale.x = -1
+				
+		get_parent().add_child(projectile)
+		projectile.position.x = position.x
+		projectile.position.y = position.y
+		
+		projectile.velocity.y = -450
+		projectile.velocity.x = -sprite.scale.x * 95
+	return
+
+
+func weapon_ballade():
+	if shoot_delay > 0:
+		if shot_type == 2:
+			shoot_delay -= 1
+		no_grounded_movement = true
+	else:
+		no_grounded_movement = false
+		
+	if Input.is_action_just_pressed("shoot"):
+		$AnimatedSprite2D.set_frame_and_progress(0, 0)
+		
+		shot_type = 2
+		shoot_delay = 13
+		projectile = projectile_scenes[4].instantiate()
+		
+		get_parent().add_child(projectile)
+		projectile.position.x = position.x
+		projectile.position.y = position.y
+		
+		projectile.velocity.y = 0
+		projectile.velocity.x = -sprite.scale.x * CRACKER_SPEED * 1
+			
+		if(Input.is_action_pressed("move_up")):
+			projectile.velocity.y = -CRACKER_SPEED * 0.5
+			projectile.velocity.x = -sprite.scale.x * CRACKER_SPEED * 0.5
+			
+		if(Input.is_action_pressed("move_up") && !Input.is_action_pressed("move_left") && !Input.is_action_pressed("move_right")):
+			projectile.velocity.y = -CRACKER_SPEED * 1
+			projectile.velocity.x = 0
+						
+		if(Input.is_action_pressed("move_down")):
+			projectile.velocity.y = CRACKER_SPEED * 0.5
+			projectile.velocity.x = -sprite.scale.x * CRACKER_SPEED * 0.5
+			return
+
 
 func _DamageAndInvincible():
 	if InvincFrames > 0:

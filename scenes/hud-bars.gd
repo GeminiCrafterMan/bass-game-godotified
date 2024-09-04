@@ -15,7 +15,7 @@ func _process(delta: float) -> void:
 	else:
 		$WeaponBar.visible = true
 		$WeaponBar.frame = GameState.weapon_energy[GameState.current_weapon]
-		$WeaponBar.material.set_shader_parameter("palette", get_node(GameState.player).get_node("AnimatedSprite2D").material.get_shader_parameter("palette"))
+		#$WeaponBar.material.set_shader_parameter("palette", get_node(GameState.player).get_node("AnimatedSprite2D").material.get_shader_parameter("palette"))
 
 	# Health bar
 	$HealthBar.frame = GameState.current_hp
