@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://by07rq184shwd"]
+[gd_scene load_steps=15 format=4 uid="uid://by07rq184shwd"]
 
 [ext_resource type="Script" path="res://scenes/Stages/Stage.gd" id="1_ac8st"]
 [ext_resource type="TileSet" uid="uid://bglohi0dt4uvq" path="res://tilesets/test_stage.tres" id="2_cu0lw"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://ba1usu2a5isjc" path="res://scenes/Objects/Level Objs/BreakableBlock.tscn" id="8_ugwe1"]
 [ext_resource type="PackedScene" uid="uid://bdurhvklic0ac" path="res://scenes/HUD.tscn" id="8_v2unc"]
 [ext_resource type="PackedScene" uid="uid://bingbkdyjdsbs" path="res://scenes/Objects/Players/start_position.tscn" id="10_4y8fd"]
+[ext_resource type="PackedScene" uid="uid://cwqbm80i7pv6x" path="res://scenes/Objects/Level Objs/ladder_hitbox.tscn" id="11_n5yro"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_xmhis"]
 normal = Vector2(1, 0)
@@ -179,3 +180,7 @@ position = Vector2(320, 256)
 
 [node name="StartPosition" parent="." instance=ExtResource("10_4y8fd")]
 position = Vector2(64, 368)
+
+[node name="LadderHitbox" parent="." instance=ExtResource("11_n5yro")]
+position = Vector2(792, 333)
+scale = Vector2(1, 4.5)

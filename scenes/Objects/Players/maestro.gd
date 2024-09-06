@@ -12,6 +12,7 @@ enum STATES {
 	WALK, 
 	SLIDE,
 	JUMP, 
+	LADDER,
 	HURT
 	}
 
@@ -39,6 +40,7 @@ const ORIGAMI_SPEED = 350
 const CRACKER_SPEED = 450
 
 #refrences
+@onready var ladder_check = $LadderCheck
 @onready var state_timer = $StateTimer
 @onready var sprite = $AnimatedSprite2D
 @onready var FX
@@ -218,16 +220,27 @@ func _physics_process(delta: float) -> void:
 		#ALWAYS MAKE SURE TELEPORT IS IN THE BLACKLIST SO YOU CANT CANCEL IT
 		#other than this, mostly stick to swapping states from inside other states, these are just global cancels
 		if (currentState != STATES.NONE) and (currentState != STATES.TELEPORT):
+			#check for ladder
+			if sign(direction.y) != 0:
+				if ladder_check.is_colliding() and !Input.is_action_pressed("jump"):
+					for i in ladder_check.get_collision_count():
+						if ladder_check.get_collider(i).is_in_group("ladder"):
+							if !(is_on_floor() and Input.is_action_pressed("move_down")):
+								global_position.x = ladder_check.get_collider(i).global_position.x
+								currentState = STATES.LADDER
+								print("Ladder'd")
+								swapState = STATES.NONE
+								isFirstFrameOfState = false
 			
 			#check for jump
-			if ((Input.is_action_just_pressed("jump") and is_on_floor() and !isFirstFrameOfState) and currentState != STATES.HURT):
+			if ((Input.is_action_just_pressed("jump") and is_on_floor() and !isFirstFrameOfState) and currentState != STATES.HURT and currentState != STATES.LADDER):
 				if ($CeilingCheck.is_colliding() == false or currentState != STATES.SLIDE):
 					swapState = STATES.JUMP
 					StepTime = 0
 					JumpHeight = 0
 					
 			#set player to jumping state if not on ground
-			if !is_on_floor() and currentState != STATES.JUMP and currentState != STATES.HURT:
+			if !is_on_floor() and currentState != STATES.JUMP and currentState != STATES.HURT and currentState != STATES.LADDER:
 				#we set current state here or else it will acivate first frame which will make the character jump
 				StepTime = 0
 				currentState = STATES.JUMP
@@ -374,7 +387,6 @@ func _physics_process(delta: float) -> void:
 					if direction.x:
 						sprite.scale.x = sign(-direction.x)
 					
-				
 			STATES.JUMP:
 				#setup needed on first frame of new state
 				if isFirstFrameOfState:
@@ -437,6 +449,28 @@ func _physics_process(delta: float) -> void:
 					$Audio/LandSound.play() #G: ends up playing when you jump, too...?
 					swapState = STATES.IDLE
 				
+			STATES.LADDER:
+				#swap this for the ladder animatrion -lynn
+				if sprite.animation != "Jump Transition":
+					sprite.stop()
+					sprite.play("Jump Transition")
+				
+				#movement
+				velocity.x = 0
+				velocity.y = sign(direction.y) * -100
+				
+				#this is a weird way to do this but whatever man lol
+				#check to see if still on ladder -lynn
+				var stillLadder = false
+				if ladder_check.is_colliding():
+					for i in ladder_check.get_collision_count():
+						if ladder_check.get_collider(i).is_in_group("ladder"):
+							stillLadder = true
+				
+				if (stillLadder == false) or (Input.is_action_just_pressed("jump")) or (is_on_floor() and Input.is_action_pressed("move_down")):
+					currentState = STATES.IDLE
+					velocity.y = 0
+			
 			STATES.HURT:
 				if isFirstFrameOfState:
 					$Audio/HurtSound.play()

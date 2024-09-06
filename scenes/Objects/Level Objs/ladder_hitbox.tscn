@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cwqbm80i7pv6x"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_miopk"]
+size = Vector2(10, 20)
+
+[node name="LadderHitbox" type="Area2D" groups=["ladder"]]
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_miopk")

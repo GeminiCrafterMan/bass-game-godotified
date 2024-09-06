@@ -41,6 +41,10 @@ window/stretch/scale_mode="integer"
 movie_writer/movie_file="C:/Users/Poly/Documents/bass-game-godotified/lol.avi"
 movie_writer/disable_vsync=true
 
+[global_group]
+
+ladder="how to tell if ladder is there"
+
 [gui]
 
 theme/custom="res://themes/ui_theme.tres"
