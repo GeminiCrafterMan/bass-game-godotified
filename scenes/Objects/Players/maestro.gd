@@ -280,7 +280,7 @@ func _physics_process(delta: float) -> void:
 						
 						
 						
-				if Input.is_action_pressed("move_down") && Input.is_action_just_pressed("jump"):
+				if Input.is_action_pressed("move_down") and Input.is_action_just_pressed("jump"):
 					swapState = STATES.SLIDE
 				
 				#movement of this state
@@ -291,7 +291,7 @@ func _physics_process(delta: float) -> void:
 			STATES.WALK:
 				#there is no step state anymore, the walk just kinda winds-up now
 				#the code to do this is silly but not dirty :3 -lynn
-				if Input.is_action_pressed("move_down") && Input.is_action_just_pressed("jump"):
+				if Input.is_action_pressed("move_down") and Input.is_action_just_pressed("jump"):
 					swapState = STATES.SLIDE
 				
 				var progress = sprite.get_frame_progress()
@@ -357,6 +357,8 @@ func _physics_process(delta: float) -> void:
 					if $CeilingCheck.is_colliding() == false:
 						#Changes to normal state.Rest is handled normally
 						swapState = STATES.IDLE
+						SlideTimer = 0
+						print("idled bad")
 				else:
 					SlideTimer += 1
 					
@@ -364,7 +366,7 @@ func _physics_process(delta: float) -> void:
 				
 				if $CeilingCheck.is_colliding() == false:
 					if isFirstFrameOfState == false:
-						if (direction.x == -1 && sprite.scale.x == -1 or direction.x == 1 && sprite.scale.x == 1):
+						if sign(direction.x) == sign(sprite.scale.x):
 							swapState = STATES.WALK
 					
 				
