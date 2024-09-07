@@ -136,8 +136,7 @@ func _physics_process(delta: float) -> void:
 		shield4.baseposx = position.x - sprite.scale.x * 1
 		shield4.baseposy = position.y+4
 	
-	weapon_buster()
-	do_charge_palette()
+	#moved the shoot and charge funcs to the bottom so they dont have a delay between states
 	
 	if currentState != STATES.TELEPORT:
 		if currentState != STATES.SLIDE && currentState != STATES.HURT:
@@ -231,6 +230,8 @@ func _physics_process(delta: float) -> void:
 								print("Ladder'd")
 								swapState = STATES.NONE
 								isFirstFrameOfState = false
+							else:
+								global_position.y += 1
 			
 			#check for jump
 			if ((Input.is_action_just_pressed("jump") and is_on_floor() and !isFirstFrameOfState) and currentState != STATES.HURT and currentState != STATES.LADDER):
@@ -450,14 +451,36 @@ func _physics_process(delta: float) -> void:
 					swapState = STATES.IDLE
 				
 			STATES.LADDER:
-				#swap this for the ladder animatrion -lynn
-				if sprite.animation != "Ladder":
-					sprite.stop()
-					sprite.play("Ladder")
+				if shoot_delay != 0 or Input.is_action_just_pressed("buster") or Input.is_action_just_pressed("shoot"):
+					if direction.x != 0:
+						sprite.scale.x = sign(-direction.x)
+					if sprite.animation != "Ladder-Shoot":
+						sprite.stop()
+						sprite.play("Ladder-Shoot")
+					#pause and play ladder animation
+					#turn this into lining the climb and shoot animations up later
+					if sprite.is_playing() == true:
+						sprite.pause()
+				else:
+					if sprite.animation != "Ladder":
+						sprite.stop()
+						sprite.play("Ladder")
+					#pause and play ladder animation
+					if direction.y != 0:
+						if sprite.is_playing() == false:
+							sprite.play("Ladder")
+					else:
+						if sprite.is_playing() == true:
+							sprite.pause()
 				
 				#movement
 				velocity.x = 0
-				velocity.y = sign(direction.y) * -100
+				#THIS IS THE SPEED OF THE LADDER
+				#remove this if statement to allow moving while shooting on ladders
+				if shoot_delay == 0:
+					velocity.y = sign(direction.y) * -100
+				else:
+					velocity.y = 0
 				
 				#this is a weird way to do this but whatever man lol
 				#check to see if still on ladder -lynn
@@ -503,7 +526,8 @@ func _physics_process(delta: float) -> void:
 			
 		numberOfTimesToRunStates -= 1
 	move_and_slide()
-
+	weapon_buster()
+	do_charge_palette()
 	
 	
 
