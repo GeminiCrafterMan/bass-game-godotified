@@ -35,8 +35,8 @@ texture = ExtResource("13_kbx4a")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 limit_left = 0
-limit_right = 6000
-limit_bottom = 928
+limit_right = 11136
+limit_bottom = 2016
 
 [node name="Foreground" type="TileMapLayer" parent="."]
 texture_filter = 1
@@ -108,11 +108,11 @@ bus = &"Music"
 shape = SubResource("WorldBoundaryShape2D_xmhis")
 
 [node name="Right Boundary" type="CollisionShape2D" parent="Boundaries"]
-position = Vector2(11136, 0)
+position = Vector2(11136, 2016)
 shape = SubResource("WorldBoundaryShape2D_flw1n")
 
 [node name="Bottom Boundary" type="CollisionShape2D" parent="Boundaries"]
-position = Vector2(960, 1280)
+position = Vector2(11136, 2016)
 shape = SubResource("WorldBoundaryShape2D_janwy")
 
 [node name="Level Objects" type="Node2D" parent="."]
