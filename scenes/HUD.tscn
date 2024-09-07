@@ -1,6 +1,5 @@
-[gd_scene load_steps=13 format=3 uid="uid://bdurhvklic0ac"]
+[gd_scene load_steps=12 format=3 uid="uid://bdurhvklic0ac"]
 
-[ext_resource type="Texture2D" uid="uid://ujpqodlh3ibf" path="res://scenes/x1.png" id="1_0t6p1"]
 [ext_resource type="PackedScene" uid="uid://b0opfnom6gmbo" path="res://scenes/module_tester.tscn" id="1_kxric"]
 [ext_resource type="Theme" uid="uid://c1bun7kn776g1" path="res://themes/ui_theme.tres" id="2_15wwj"]
 [ext_resource type="Script" path="res://scenes/hud-life_counter.gd" id="2_iey88"]
@@ -27,11 +26,6 @@ shader_parameter/palette = ExtResource("5_nk4r6")
 
 [node name="HUD" type="CanvasLayer"]
 layer = 2
-
-[node name="X1" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(128, 112)
-texture = ExtResource("1_0t6p1")
 
 [node name="Life Counter" type="Node" parent="."]
 script = ExtResource("2_iey88")

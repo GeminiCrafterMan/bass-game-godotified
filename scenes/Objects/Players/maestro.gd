@@ -451,9 +451,9 @@ func _physics_process(delta: float) -> void:
 				
 			STATES.LADDER:
 				#swap this for the ladder animatrion -lynn
-				if sprite.animation != "Jump Transition":
+				if sprite.animation != "Ladder":
 					sprite.stop()
-					sprite.play("Jump Transition")
+					sprite.play("Ladder")
 				
 				#movement
 				velocity.x = 0

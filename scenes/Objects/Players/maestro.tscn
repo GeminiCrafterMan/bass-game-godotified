@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://bksinirshmwgf"]
+[gd_scene load_steps=56 format=3 uid="uid://bksinirshmwgf"]
 
 [ext_resource type="Script" path="res://scenes/Objects/Players/maestro.gd" id="1_ct76e"]
 [ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="1_lnglj"]
@@ -38,9 +38,9 @@ region = Rect2(349, 12, 48, 48)
 atlas = ExtResource("2_ae8gn")
 region = Rect2(398, 12, 48, 48)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_pefhx"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_boef1"]
 atlas = ExtResource("2_ae8gn")
-region = Rect2(842, 12, 48, 48)
+region = Rect2(843, 12, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_r7318"]
 atlas = ExtResource("2_ae8gn")
@@ -69,6 +69,34 @@ region = Rect2(447, 70, 48, 48)
 [sub_resource type="AtlasTexture" id="AtlasTexture_thems"]
 atlas = ExtResource("2_ae8gn")
 region = Rect2(496, 70, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6vjh2"]
+atlas = ExtResource("2_ae8gn")
+region = Rect2(498, 12, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wc31g"]
+atlas = ExtResource("2_ae8gn")
+region = Rect2(547, 12, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cjl5j"]
+atlas = ExtResource("2_ae8gn")
+region = Rect2(596, 12, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_60t3r"]
+atlas = ExtResource("2_ae8gn")
+region = Rect2(645, 12, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nmoj0"]
+atlas = ExtResource("2_ae8gn")
+region = Rect2(251, 70, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yjkjh"]
+atlas = ExtResource("2_ae8gn")
+region = Rect2(300, 70, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_17r30"]
+atlas = ExtResource("2_ae8gn")
+region = Rect2(694, 12, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bl0lq"]
 atlas = ExtResource("2_ae8gn")
@@ -169,7 +197,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_pefhx")
+"texture": SubResource("AtlasTexture_boef1")
 }],
 "loop": true,
 "name": &"Hurt",
@@ -228,6 +256,42 @@ animations = [{
 "loop": false,
 "name": &"Jump-Throw",
 "speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6vjh2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wc31g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cjl5j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_60t3r")
+}],
+"loop": true,
+"name": &"Ladder",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nmoj0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yjkjh")
+}],
+"loop": true,
+"name": &"Ladder-Shoot",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_17r30")
+}],
+"loop": true,
+"name": &"Ladder-Up",
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -349,7 +413,7 @@ script = ExtResource("1_ct76e")
 material = SubResource("ShaderMaterial_dtetj")
 scale = Vector2(-1, 1)
 sprite_frames = SubResource("SpriteFrames_f3vwn")
-animation = &"Jump Transition"
+animation = &"Ladder"
 autoplay = "Teleport"
 
 [node name="MainHitbox" type="CollisionShape2D" parent="."]
