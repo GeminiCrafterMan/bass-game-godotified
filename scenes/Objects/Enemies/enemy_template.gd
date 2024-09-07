@@ -38,9 +38,9 @@ func _process(delta):
 	if Cur_Inv > 0:
 		Cur_Inv -= 1
 		if Cur_Inv % 2 == 0:
-			visible = false
+			$Sprite.visible = false
 		else:
-			visible = true
+			$Sprite.visible = true
 	else:
 		visible = true
 

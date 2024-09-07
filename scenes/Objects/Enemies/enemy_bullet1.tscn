@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dhdctp2xdimbk"]
+[gd_scene load_steps=14 format=3 uid="uid://dhdctp2xdimbk"]
 
 [ext_resource type="Texture2D" uid="uid://bs5dokmafjugl" path="res://sprites/Players/Bass/Weapons/Buster.png" id="1_ohyvi"]
 [ext_resource type="Script" path="res://scenes/Objects/Enemies/enemy_bullet1.gd" id="1_u5b6e"]
@@ -51,6 +51,9 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0fvlc"]
 size = Vector2(8, 8)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_18vqv"]
+size = Vector2(8, 8)
+
 [node name="EnemyBullet" type="CharacterBody2D"]
 collision_layer = 32
 collision_mask = 0
@@ -76,4 +79,13 @@ stream = ExtResource("4_rsmdk")
 [node name="ReflectSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_n2cxf")
 
+[node name="hurt" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="MainHitbox" type="CollisionShape2D" parent="hurt"]
+shape = SubResource("RectangleShape2D_18vqv")
+debug_color = Color(1, 0.00392157, 0.0705882, 0.419608)
+
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="body_entered" from="hurt" to="." method="_on_hurt_body_entered"]

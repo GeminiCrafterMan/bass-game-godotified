@@ -41,8 +41,13 @@ const CRACKER_SPEED = 450
 
 #refrences
 @onready var ladder_check = $LadderCheck
+@onready var top_ladder_check = $TopLadderCheck
 @onready var state_timer = $StateTimer
+@onready var invul_timer = $InvulTimer
+@onready var pain_timer = $PainTimer
 @onready var sprite = $AnimatedSprite2D
+@onready var starburst = $FX/Starburst
+@onready var sweat = $FX/Sweat
 @onready var FX
 @onready var projectile
 @onready var shield
@@ -62,6 +67,7 @@ var InvincFrames : int
 var Charge : int
 var Flash_Timer : int
 var no_grounded_movement : bool
+
 
 #Attack vars
 var shoot_delay = 0
@@ -109,6 +115,7 @@ var weapon_scenes = [
 func _ready():
 	#start the teleport animation
 	state_timer.start(0.5)
+	invul_timer.start(0.01)
 	currentState = STATES.TELEPORT
 	sprite.play("Teleport")
 
@@ -224,6 +231,7 @@ func _physics_process(delta: float) -> void:
 				if ladder_check.is_colliding() and !Input.is_action_pressed("jump"):
 					for i in ladder_check.get_collision_count():
 						if ladder_check.get_collider(i).is_in_group("ladder"):
+							
 							if !(is_on_floor() and Input.is_action_pressed("move_down")):
 								global_position.x = ladder_check.get_collider(i).global_position.x
 								currentState = STATES.LADDER
@@ -232,6 +240,9 @@ func _physics_process(delta: float) -> void:
 								isFirstFrameOfState = false
 							else:
 								global_position.y += 1
+								
+				
+							
 			
 			#check for jump
 			if ((Input.is_action_just_pressed("jump") and is_on_floor() and !isFirstFrameOfState) and currentState != STATES.HURT and currentState != STATES.LADDER):
@@ -496,14 +507,19 @@ func _physics_process(delta: float) -> void:
 			
 			STATES.HURT:
 				if isFirstFrameOfState:
+					starburst.visible = true
+					sweat.play("active")
+					sweat.set_frame_and_progress(0, 0)
+					
+					
 					$Audio/HurtSound.play()
 					if sprite.animation != "Hurt":
 							sprite.stop()
 							sprite.play("Hurt")
-				if PainTimer == 0:
+				if pain_timer.is_stopped():
 					swapState = STATES.IDLE
+					starburst.visible = false
 				else:
-					PainTimer -= 1
 					velocity.x = sprite.scale.x * 20
 					
 				if isFirstFrameOfState == true:
@@ -512,6 +528,7 @@ func _physics_process(delta: float) -> void:
 					else:
 						velocity.y = -90
 					
+		
 		
 		#this will boot back into loop if state has changed
 		#the reason we do this is so when you do inputs there isnt even a 
@@ -882,7 +899,7 @@ func weapon_arrow():
 		get_parent().add_child(projectile)
 		projectile.position.y = position.y
 		projectile.position.x = position.x - sprite.scale.x * 27
-		projectile.velocity.x = -sprite.scale.x
+		projectile.velocity.x = -sprite.scale.x * 0.001
 		projectile.scale.x = -sprite.scale.x
 
 
@@ -949,16 +966,21 @@ func weapon_ballade():
 
 
 func _DamageAndInvincible():
-	if InvincFrames > 0:
-		InvincFrames -= 1
-		if InvincFrames % 2 == 0:
-			visible = false
-		else:
-			visible = true
+	
+	if !invul_timer.is_stopped():
+		
+		InvincFrames += 1
+		if InvincFrames >= 2:
+			sprite.visible = false
+		if InvincFrames == 3:
+			InvincFrames = 0
+			sprite.visible = true
+			
 	else:
-		visible = true
+		sprite.visible = true
+		
 	if DmgQueue > 0:
-		if InvincFrames > 0:
+		if !invul_timer.is_stopped():
 			DmgQueue = 0
 		else:
 			if GameState.current_hp - DmgQueue > 0:
@@ -967,4 +989,5 @@ func _DamageAndInvincible():
 				GameState.current_hp = 0
 			DmgQueue = 0
 			swapState = STATES.HURT
-			PainTimer = 35
+			invul_timer.start(1)
+			pain_timer.start(0.55)

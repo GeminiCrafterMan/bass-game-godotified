@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://bdurhvklic0ac" path="res://scenes/HUD.tscn" id="8_v2unc"]
 [ext_resource type="PackedScene" uid="uid://bingbkdyjdsbs" path="res://scenes/Objects/Players/start_position.tscn" id="10_4y8fd"]
 [ext_resource type="PackedScene" uid="uid://cwqbm80i7pv6x" path="res://scenes/Objects/Level Objs/ladder_hitbox.tscn" id="11_n5yro"]
-[ext_resource type="Texture2D" uid="uid://b36rav6davcn1" path="res://scenes/Stages/toad.png" id="13_kbx4a"]
+[ext_resource type="Texture2D" uid="uid://b36rav6davcn1" path="res://scenes/Stages/imgonnaKILLYOU.png" id="13_kbx4a"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_xmhis"]
 normal = Vector2(1, 0)

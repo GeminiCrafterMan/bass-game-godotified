@@ -17,38 +17,44 @@ func _process(delta):
 		get_parent().add_child(projectile)
 		projectile.position.x = position.x
 		projectile.position.y = position.y
+		print("yeouch!")
 		queue_free()
+	
 	if Cur_Inv > 0:
 		Cur_Inv -= 1
 		if Cur_Inv % 2 == 0:
-			visible = false
+			$Sprite.visible = false
+			print("disappear!")
+		
 		else:
-			visible = true
+			$Sprite.visible = true
+			print("appear!")
 	else:
-		visible = true
+		$Sprite.visible = true
+		
 	
 	timer = timer -1
 	if timer > 300:
 		timer = 300
 	
-	if timer < 0 && $AnimatedSprite2D.animation == "Idle":
-		$AnimatedSprite2D.play("SwitchAtk")
+	if timer < 0 && $Sprite.animation == "Idle":
+		$Sprite.play("SwitchAtk")
 		$reflect/ShieldHitbox.set_disabled(true)
 		timer = 10
 
-	if timer < 0 && $AnimatedSprite2D.animation == "SwitchAtk":	
-		$AnimatedSprite2D.play("Attack")
-		$AnimatedSprite2D.set_frame_and_progress(1, 1)
+	if timer < 0 && $Sprite.animation == "SwitchAtk":	
+		$Sprite.play("Attack")
+		$Sprite.set_frame_and_progress(1, 1)
 		attacks = 3
 		
-	if timer < 0 && $AnimatedSprite2D.animation == "Attack" &&  attacks == 0:
-		$AnimatedSprite2D.play("SwitchDef")
+	if timer < 0 && $Sprite.animation == "Attack" &&  attacks == 0:
+		$Sprite.play("SwitchDef")
 		timer = 10
 	
-	if timer < 0 && $AnimatedSprite2D.animation == "Attack" &&  attacks > 0:
-		$AnimatedSprite2D.play("Attack")
+	if timer < 0 && $Sprite.animation == "Attack" &&  attacks > 0:
+		$Sprite.play("Attack")
 		$AudioStreamPlayer.play()
-		$AnimatedSprite2D.set_frame_and_progress(0, 0)
+		$Sprite.set_frame_and_progress(0, 0)
 		
 		projectile = preload("res://scenes/Objects/Enemies/enemy_bullet1.tscn").instantiate()
 		get_parent().add_child(projectile)
@@ -63,8 +69,8 @@ func _process(delta):
 	
 		
 		
-	if timer < 0 && $AnimatedSprite2D.animation == "SwitchDef":	
-		$AnimatedSprite2D.play("Idle")
+	if timer < 0 && $Sprite.animation == "SwitchDef":	
+		$Sprite.play("Idle")
 		$reflect/ShieldHitbox.set_disabled(false)
 		timer = 250
 

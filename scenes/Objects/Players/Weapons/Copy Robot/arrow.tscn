@@ -7,7 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://mfk4w30lewvq" path="res://sounds/tink.wav" id="5_udjxu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vdur6"]
-size = Vector2(25, 7)
+size = Vector2(25, 6)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lpp41"]
 atlas = ExtResource("2_gg6tp")
@@ -100,13 +100,13 @@ motion_mode = 1
 script = ExtResource("1_huft4")
 
 [node name="Shape" type="CollisionShape2D" parent="."]
-position = Vector2(-0.5, 0.5)
+position = Vector2(-0.5, 1)
 shape = SubResource("RectangleShape2D_vdur6")
 one_way_collision = true
 one_way_collision_margin = 10.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(-5.5, 0.5)
+position = Vector2(-5, 0)
 sprite_frames = SubResource("SpriteFrames_edaxt")
 animation = &"stick"
 autoplay = "default"

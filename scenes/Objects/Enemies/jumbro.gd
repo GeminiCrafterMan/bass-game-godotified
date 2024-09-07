@@ -15,14 +15,15 @@ func _process(delta):
 		projectile.position.x = position.x
 		projectile.position.y = position.y
 		queue_free()
+	
 	if Cur_Inv > 0:
 		Cur_Inv -= 1
 		if Cur_Inv % 2 == 0:
-			visible = false
+			$Sprite.visible = false
 		else:
-			visible = true
+			$Sprite.visible = true
 	else:
-		visible = true
+		$Sprite.visible = true
 
 func _on_hitable_body_entered(weapon): # needs to be redefined because damage values
 	if Cur_Inv <= 0:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://bksinirshmwgf"]
+[gd_scene load_steps=64 format=3 uid="uid://bksinirshmwgf"]
 
 [ext_resource type="Script" path="res://scenes/Objects/Players/maestro.gd" id="1_ct76e"]
 [ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="1_lnglj"]
@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://mwhiy56ie3ef" path="res://sprites/Players/Maestro (base)/spritesheet.png" id="2_ae8gn"]
 [ext_resource type="AudioStream" uid="uid://d2oevy2xek073" path="res://sounds/jump.wav" id="3_m6hp8"]
 [ext_resource type="AudioStream" uid="uid://cgaetckoiu15m" path="res://sounds/land.wav" id="4_y2cjm"]
+[ext_resource type="Texture2D" uid="uid://bot48w7086agv" path="res://sprites/Players/HurtStar.png" id="5_lg5go"]
+[ext_resource type="Texture2D" uid="uid://8mdvvlmmrxfn" path="res://sprites/Players/HurtSweat.png" id="5_vvkba"]
 [ext_resource type="AudioStream" uid="uid://ds4m68uui1avq" path="res://sounds/switch.wav" id="6_e47ri"]
 [ext_resource type="AudioStream" uid="uid://h87d8b65n30n" path="res://sounds/slide.wav" id="7_iqfqy"]
 [ext_resource type="AudioStream" uid="uid://dr1p57c1kr6na" path="res://sounds/warp.wav" id="9_ht7sb"]
@@ -70,14 +72,6 @@ region = Rect2(447, 70, 48, 48)
 atlas = ExtResource("2_ae8gn")
 region = Rect2(496, 70, 48, 48)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_6vjh2"]
-atlas = ExtResource("2_ae8gn")
-region = Rect2(498, 12, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_wc31g"]
-atlas = ExtResource("2_ae8gn")
-region = Rect2(547, 12, 48, 48)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_cjl5j"]
 atlas = ExtResource("2_ae8gn")
 region = Rect2(596, 12, 48, 48)
@@ -85,6 +79,14 @@ region = Rect2(596, 12, 48, 48)
 [sub_resource type="AtlasTexture" id="AtlasTexture_60t3r"]
 atlas = ExtResource("2_ae8gn")
 region = Rect2(645, 12, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6vjh2"]
+atlas = ExtResource("2_ae8gn")
+region = Rect2(498, 12, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wc31g"]
+atlas = ExtResource("2_ae8gn")
+region = Rect2(547, 12, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nmoj0"]
 atlas = ExtResource("2_ae8gn")
@@ -259,16 +261,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 0.5,
-"texture": SubResource("AtlasTexture_6vjh2")
-}, {
-"duration": 0.5,
-"texture": SubResource("AtlasTexture_wc31g")
-}, {
-"duration": 0.5,
 "texture": SubResource("AtlasTexture_cjl5j")
 }, {
 "duration": 0.5,
 "texture": SubResource("AtlasTexture_60t3r")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_6vjh2")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_wc31g")
 }],
 "loop": true,
 "name": &"Ladder",
@@ -392,14 +394,68 @@ animations = [{
 "speed": 8.57
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_biy2v"]
+atlas = ExtResource("5_lg5go")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_svpli"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_biy2v")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 15.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fomdo"]
+atlas = ExtResource("5_vvkba")
+region = Rect2(0, 0, 26, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1n3ss"]
+atlas = ExtResource("5_vvkba")
+region = Rect2(0, 8, 26, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_52yde"]
+atlas = ExtResource("5_vvkba")
+region = Rect2(0, 16, 26, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dkj8m"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fomdo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1n3ss")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_52yde")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"active",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5u3na"]
 size = Vector2(14, 26)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1cspv"]
 size = Vector2(16, 14)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_nk16k"]
-size = Vector2(1, 20)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wph8j"]
 
 [node name="Maestro" type="CharacterBody2D"]
 editor_description = "Maestro, the base class for every character."
@@ -413,8 +469,27 @@ script = ExtResource("1_ct76e")
 material = SubResource("ShaderMaterial_dtetj")
 scale = Vector2(-1, 1)
 sprite_frames = SubResource("SpriteFrames_f3vwn")
-animation = &"Ladder"
+animation = &"Hurt"
 autoplay = "Teleport"
+
+[node name="FX" type="Node2D" parent="."]
+position = Vector2(0, 2)
+rotation = -3.14159
+scale = Vector2(1, -1)
+
+[node name="Starburst" type="AnimatedSprite2D" parent="FX"]
+visible = false
+sprite_frames = SubResource("SpriteFrames_svpli")
+animation = &"new_animation"
+autoplay = "new_animation"
+frame_progress = 0.620748
+
+[node name="Sweat" type="AnimatedSprite2D" parent="FX"]
+position = Vector2(1.48619e-06, -17)
+sprite_frames = SubResource("SpriteFrames_dkj8m")
+animation = &"active"
+frame = 3
+frame_progress = 1.0
 
 [node name="MainHitbox" type="CollisionShape2D" parent="."]
 position = Vector2(0, 3)
@@ -426,6 +501,14 @@ shape = SubResource("RectangleShape2D_1cspv")
 disabled = true
 
 [node name="StateTimer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[node name="InvulTimer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[node name="PainTimer" type="Timer" parent="."]
 one_shot = true
 autostart = true
 
@@ -465,8 +548,9 @@ position = Vector2(0, 12)
 target_position = Vector2(0, -12)
 
 [node name="LadderCheck" type="ShapeCast2D" parent="."]
+visible = false
 position = Vector2(0, 7)
-shape = SubResource("RectangleShape2D_nk16k")
+shape = SubResource("RectangleShape2D_wph8j")
 target_position = Vector2(0, 0)
 max_results = 1
 collide_with_areas = true
