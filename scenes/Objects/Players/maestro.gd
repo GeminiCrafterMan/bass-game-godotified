@@ -235,12 +235,13 @@ func _physics_process(delta: float) -> void:
 		#ALWAYS MAKE SURE TELEPORT IS IN THE BLACKLIST SO YOU CANT CANCEL IT
 		#other than this, mostly stick to swapping states from inside other states, these are just global cancels
 		if (currentState != STATES.NONE) and (currentState != STATES.TELEPORT):
-			#check for ladder
+			#check for ladder hitbox
 			if sign(direction.y) != 0:
+				#if you are colliding and you press jump it will bonk you off
 				if ladder_check.is_colliding() and !Input.is_action_pressed("jump"):
 					for i in ladder_check.get_collision_count():
 						if ladder_check.get_collider(i).is_in_group("ladder"):
-							
+							#this is to make sure you cant enter ladder animation on ground
 							if !(is_on_floor() and Input.is_action_pressed("move_down")):
 								global_position.x = ladder_check.get_collider(i).global_position.x
 								currentState = STATES.LADDER
@@ -248,6 +249,10 @@ func _physics_process(delta: float) -> void:
 								swapState = STATES.NONE
 								isFirstFrameOfState = false
 							else:
+								#if you are at the top of the ladder, drop down a single pixel to
+								#fall through the 1-way floor so next frame you will grab the ladder
+								#(this means if you hit down for a SINGLE FRAME you can fast fall through ladders
+								#which is hard to do and I actually kinda like) -lynn
 								global_position.y += 1
 								
 				
@@ -473,7 +478,9 @@ func _physics_process(delta: float) -> void:
 					swapState = STATES.IDLE
 				
 			STATES.LADDER:
+				#check if you arent shooting at all and play shooting anims
 				if shoot_delay != 0 or Input.is_action_just_pressed("buster") or Input.is_action_just_pressed("shoot"):
+					#change direction if shooting and holding left or right
 					if direction.x != 0:
 						sprite.scale.x = sign(-direction.x)
 					if sprite.animation != "Ladder-Shoot":
@@ -484,10 +491,11 @@ func _physics_process(delta: float) -> void:
 					if sprite.is_playing() == true:
 						sprite.pause()
 				else:
+					#if not shooting, play normal anim
 					if sprite.animation != "Ladder":
 						sprite.stop()
 						sprite.play("Ladder")
-					#pause and play ladder animation
+					#pause and play ladder animation if holding up or down
 					if direction.y != 0:
 						if sprite.is_playing() == false:
 							sprite.play("Ladder")
@@ -496,22 +504,26 @@ func _physics_process(delta: float) -> void:
 							sprite.pause()
 				
 				#movement
+				#lock horizontal movement
 				velocity.x = 0
 				#THIS IS THE SPEED OF THE LADDER
 				#remove this if statement to allow moving while shooting on ladders
 				if shoot_delay == 0:
+					#this is the code that moves you up and down ladders
 					velocity.y = sign(direction.y) * -100
 				else:
+					#this makes sure you have no gravity if just holding onto a ladder
 					velocity.y = 0
 				
 				#this is a weird way to do this but whatever man lol
-				#check to see if still on ladder -lynn
+				#check to see if still on ladder
+				#if not on ladder anymore, stop ladder-ing -lynn
 				var stillLadder = false
 				if ladder_check.is_colliding():
 					for i in ladder_check.get_collision_count():
 						if ladder_check.get_collider(i).is_in_group("ladder"):
 							stillLadder = true
-				
+				#if you press jump, fall off the ladder
 				if (stillLadder == false) or (Input.is_action_just_pressed("jump")) or (is_on_floor() and Input.is_action_pressed("move_down")):
 					currentState = STATES.IDLE
 					velocity.y = 0
