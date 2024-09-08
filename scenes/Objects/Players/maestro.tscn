@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://bksinirshmwgf"]
+[gd_scene load_steps=65 format=3 uid="uid://bksinirshmwgf"]
 
 [ext_resource type="Script" path="res://scenes/Objects/Players/maestro.gd" id="1_ct76e"]
 [ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="1_lnglj"]
@@ -457,6 +457,8 @@ size = Vector2(16, 14)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wph8j"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fl2cb"]
+
 [node name="Maestro" type="CharacterBody2D" groups=["player"]]
 editor_description = "Maestro, the base class for every character."
 material = SubResource("ShaderMaterial_u81pt")
@@ -469,7 +471,7 @@ script = ExtResource("1_ct76e")
 material = SubResource("ShaderMaterial_dtetj")
 scale = Vector2(-1, 1)
 sprite_frames = SubResource("SpriteFrames_f3vwn")
-animation = &"Hurt"
+animation = &"Ladder-Up"
 autoplay = "Teleport"
 
 [node name="FX" type="Node2D" parent="."]
@@ -487,9 +489,6 @@ frame_progress = 0.620748
 [node name="Sweat" type="AnimatedSprite2D" parent="FX"]
 position = Vector2(1.48619e-06, -17)
 sprite_frames = SubResource("SpriteFrames_dkj8m")
-animation = &"active"
-frame = 3
-frame_progress = 1.0
 
 [node name="MainHitbox" type="CollisionShape2D" parent="."]
 position = Vector2(0, 3)
@@ -544,14 +543,19 @@ stream = ExtResource("11_ebbut")
 stream = ExtResource("12_ixbps")
 
 [node name="CeilingCheck" type="RayCast2D" parent="."]
+visible = false
 position = Vector2(0, 12)
 target_position = Vector2(0, -12)
 
 [node name="LadderCheck" type="ShapeCast2D" parent="."]
-visible = false
 position = Vector2(0, 7)
 shape = SubResource("RectangleShape2D_wph8j")
 target_position = Vector2(0, 0)
 max_results = 1
 collide_with_areas = true
 collide_with_bodies = false
+
+[node name="TopLadderCheck" type="ShapeCast2D" parent="."]
+position = Vector2(0, -13)
+shape = SubResource("RectangleShape2D_fl2cb")
+target_position = Vector2(0, 0)
