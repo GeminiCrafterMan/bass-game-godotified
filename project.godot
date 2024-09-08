@@ -44,6 +44,7 @@ movie_writer/disable_vsync=true
 [global_group]
 
 ladder="how to tell if ladder is there"
+player=""
 
 [gui]
 

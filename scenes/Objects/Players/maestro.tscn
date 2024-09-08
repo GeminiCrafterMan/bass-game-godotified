@@ -457,7 +457,7 @@ size = Vector2(16, 14)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wph8j"]
 
-[node name="Maestro" type="CharacterBody2D"]
+[node name="Maestro" type="CharacterBody2D" groups=["player"]]
 editor_description = "Maestro, the base class for every character."
 material = SubResource("ShaderMaterial_u81pt")
 collision_layer = 2

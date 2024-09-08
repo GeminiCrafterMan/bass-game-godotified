@@ -26,14 +26,15 @@ var currentSpeed = 0
 #input related
 var direction = Vector2.ZERO
 
+var JUMP_VELOCITY : int
+var PEAK_VELOCITY : int
+var STOP_VELOCITY : int
+var JUMP_HEIGHT : int
+var FAST_FALL : int
+
 #consts
 const MAXSPEED = 100.0
 const RUNSPEED = 70.0
-const JUMP_VELOCITY = -225.0
-const PEAK_VELOCITY = -100.0
-const STOP_VELOCITY = -80.0
-const JUMP_HEIGHT = 13
-const FAST_FALL = 400.0
 
 #Wepon consts
 const ORIGAMI_SPEED = 350
@@ -118,6 +119,13 @@ func _ready():
 	invul_timer.start(0.01)
 	currentState = STATES.TELEPORT
 	sprite.play("Teleport")
+	
+	JUMP_VELOCITY = -225.0
+	PEAK_VELOCITY = -90.0
+	STOP_VELOCITY = -80.0
+	JUMP_HEIGHT = 13
+	FAST_FALL = 400.0
+	
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -196,10 +204,11 @@ func _physics_process(delta: float) -> void:
 	if velocity.y > FAST_FALL:
 		velocity.y = FAST_FALL
 		
-	if currentState != STATES.SLIDE:
+	if currentState != STATES.SLIDE && currentState != STATES.TELEPORT:
 		SlideTimer = 0
 		$MainHitbox.set_disabled(false)
 		$SlideHitbox.set_disabled(true)
+		
 		
 		
 	#INPUTS -lynn
@@ -262,12 +271,14 @@ func _physics_process(delta: float) -> void:
 		match currentState:
 			STATES.TELEPORT:
 #				global_position.x = targetpos.x
+				$MainHitbox.set_disabled(true)
 				global_position.y = lerpf(global_position.y, targetpos, delta * 10)
 				
 				#exit teleport
-				if roundi(global_position.y) == roundi(targetpos):
+				if roundi(global_position.y) >= roundi(targetpos):
 					if not sprite.animation == "Teleport In":
 						sprite.play("Teleport In")
+						$MainHitbox.set_disabled(false)
 						$Audio/WarpInSound.play()
 						await sprite.animation_finished
 						swapState = STATES.IDLE
