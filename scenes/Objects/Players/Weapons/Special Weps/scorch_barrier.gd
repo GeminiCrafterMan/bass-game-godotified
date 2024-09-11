@@ -109,5 +109,8 @@ func destroy():
 			await $MainSprite.animation_finished
 			queue_free()
 
+func kill():
+	pass
+
 func reflect():
 	pass	# not reflectable

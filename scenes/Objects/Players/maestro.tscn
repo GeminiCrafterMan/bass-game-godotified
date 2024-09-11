@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://bksinirshmwgf"]
+[gd_scene load_steps=65 format=3 uid="uid://bksinirshmwgf"]
 
 [ext_resource type="Script" path="res://scenes/Objects/Players/maestro.gd" id="1_ct76e"]
 [ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="1_lnglj"]
@@ -14,6 +14,7 @@
 [ext_resource type="AudioStream" uid="uid://cojuek45oo3hj" path="res://sounds/playerhurt.wav" id="10_gpg6f"]
 [ext_resource type="AudioStream" uid="uid://dtctuhq14tsqk" path="res://sounds/charge1.wav" id="11_ebbut"]
 [ext_resource type="AudioStream" uid="uid://87da5eoorudn" path="res://sounds/charge2.wav" id="12_ixbps"]
+[ext_resource type="AudioStream" uid="uid://dix6rlhdr84oa" path="res://sounds/mega_death.wav" id="15_e1wn3"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_u81pt"]
 shader = ExtResource("1_lnglj")
@@ -542,6 +543,10 @@ stream = ExtResource("11_ebbut")
 
 [node name="Charge2" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("12_ixbps")
+
+[node name="DeathSound" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("15_e1wn3")
+volume_db = -8.432
 
 [node name="CeilingCheck" type="RayCast2D" parent="."]
 position = Vector2(0, 12)

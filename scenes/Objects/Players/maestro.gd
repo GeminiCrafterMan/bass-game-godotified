@@ -13,7 +13,8 @@ enum STATES {
 	SLIDE,
 	JUMP, 
 	LADDER,
-	HURT
+	HURT,
+	DEAD
 	}
 
 #state related
@@ -129,11 +130,12 @@ func _ready():
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
-	if not is_on_floor():
-		velocity += get_gravity() * delta
+	if (currentState != STATES.DEAD):
+		if not is_on_floor():
+			velocity += get_gravity() * delta
 
 	if GameState.current_hp <= 0:
-		GameState.current_hp = 28 # Add death function later!
+		swapState = STATES.DEAD
 	
 	if shield != null:
 		shield.baseposx = position.x - sprite.scale.x * 1
@@ -154,7 +156,7 @@ func _physics_process(delta: float) -> void:
 	#moved the shoot and charge funcs to the bottom so they dont have a delay between states
 	
 	if currentState != STATES.TELEPORT:
-		if currentState != STATES.SLIDE && currentState != STATES.HURT:
+		if currentState != STATES.SLIDE && currentState != STATES.HURT && currentState != STATES.DEAD:
 			handle_weapons()
 		
 		if Input.is_action_just_pressed("switch_right"):
@@ -234,7 +236,7 @@ func _physics_process(delta: float) -> void:
 		#STATES YOU WANT ANY ANIMATION TO BE CANCELLED WITH LIKE JUMPING AND SHOOTING GO HERE
 		#ALWAYS MAKE SURE TELEPORT IS IN THE BLACKLIST SO YOU CANT CANCEL IT
 		#other than this, mostly stick to swapping states from inside other states, these are just global cancels
-		if (currentState != STATES.NONE) and (currentState != STATES.TELEPORT):
+		if (currentState != STATES.NONE) and (currentState != STATES.TELEPORT) and (currentState != STATES.DEAD):
 			#check for ladder
 			if sign(direction.y) != 0:
 				if ladder_check.is_colliding() and !Input.is_action_pressed("jump"):
@@ -254,14 +256,14 @@ func _physics_process(delta: float) -> void:
 							
 			
 			#check for jump
-			if ((Input.is_action_just_pressed("jump") and is_on_floor() and !isFirstFrameOfState) and currentState != STATES.HURT and currentState != STATES.LADDER):
+			if ((Input.is_action_just_pressed("jump") and is_on_floor() and !isFirstFrameOfState) and currentState != STATES.HURT and currentState != STATES.LADDER) and (currentState != STATES.DEAD):
 				if ($CeilingCheck.is_colliding() == false or currentState != STATES.SLIDE):
 					swapState = STATES.JUMP
 					StepTime = 0
 					JumpHeight = 0
 					
 			#set player to jumping state if not on ground
-			if !is_on_floor() and currentState != STATES.JUMP and currentState != STATES.HURT and currentState != STATES.LADDER:
+			if !is_on_floor() and currentState != STATES.JUMP and currentState != STATES.HURT and currentState != STATES.LADDER and currentState != STATES.DEAD:
 				#we set current state here or else it will acivate first frame which will make the character jump
 				StepTime = 0
 				currentState = STATES.JUMP
@@ -518,12 +520,15 @@ func _physics_process(delta: float) -> void:
 			
 			STATES.HURT:
 				if isFirstFrameOfState:
+					if GameState.current_hp <= 0:
+						swapState = STATES.DEAD
 					starburst.visible = true
 					sweat.play("active")
 					sweat.set_frame_and_progress(0, 0)
 					
 					
-					$Audio/HurtSound.play()
+					if GameState.current_hp > 0:
+						$Audio/HurtSound.play()
 					if sprite.animation != "Hurt":
 							sprite.stop()
 							sprite.play("Hurt")
@@ -539,6 +544,27 @@ func _physics_process(delta: float) -> void:
 					else:
 						velocity.y = -90
 					
+			STATES.DEAD:
+				if isFirstFrameOfState:
+					state_timer.start(0.5)
+					sprite.play("Hurt")
+					velocity.y = 0
+					velocity.x = 0
+							
+				if pain_timer.is_stopped():
+					
+					$Audio/DeathSound.play()
+					$Audio/HurtSound.stop()
+						
+					projectile = preload("res://scenes/Objects/explosion_player.tscn").instantiate()
+					get_parent().add_child(projectile)
+					projectile.position.x = position.x
+					projectile.position.y = position.y
+					projectile.velocity.x = -200
+					
+		
+					queue_free()
+				
 		
 		
 		#this will boot back into loop if state has changed
@@ -554,8 +580,9 @@ func _physics_process(delta: float) -> void:
 			
 		numberOfTimesToRunStates -= 1
 	move_and_slide()
-	weapon_buster()
-	do_charge_palette()
+	if swapState != STATES.TELEPORT and  swapState != STATES.DEAD:
+		weapon_buster()
+		do_charge_palette()
 	
 	
 
@@ -980,6 +1007,7 @@ func _DamageAndInvincible():
 	
 	if !invul_timer.is_stopped():
 		
+		
 		InvincFrames += 1
 		if InvincFrames >= 2:
 			sprite.visible = false
@@ -1000,5 +1028,7 @@ func _DamageAndInvincible():
 				GameState.current_hp = 0
 			DmgQueue = 0
 			swapState = STATES.HURT
+			if GameState.current_hp <= 0:
+					swapState = STATES.DEAD
 			invul_timer.start(1)
 			pain_timer.start(0.55)

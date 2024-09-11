@@ -22,6 +22,9 @@ func destroy():
 	$AnimatedSprite2D.play("hit")
 	await $AnimatedSprite2D.animation_finished
 	queue_free()
+	
+func kill():
+	pass
 
 func reflect():
 	$ReflectSound.play()

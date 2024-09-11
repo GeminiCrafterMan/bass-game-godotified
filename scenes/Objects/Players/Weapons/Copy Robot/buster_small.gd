@@ -20,6 +20,9 @@ func destroy():
 	await $AnimatedSprite2D.animation_finished
 	queue_free()
 
+func kill():
+	destroy()
+
 func reflect():
 	$ReflectSound.play()
 	$CollisionShape2D.set_deferred("disabled", true)

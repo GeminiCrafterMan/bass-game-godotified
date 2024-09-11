@@ -26,13 +26,16 @@ func _process(delta):
 		$Sprite.visible = true
 
 func _on_hitable_body_entered(weapon): # needs to be redefined because damage values
-	if Cur_Inv <= 0:
+	if Cur_Inv <= 0 or weapon.W_Type == 2:
 		if Dmg_Vals[weapon.W_Type] == 0:
 			weapon.reflect()
 		else:
 			Cur_HP -= Dmg_Vals[weapon.W_Type]
 			Cur_Inv = 2
-			weapon.destroy()
+			if Cur_HP == 0:
+				weapon.kill()
+			else:
+				weapon.destroy()
 
 func _on_hurt_body_entered(body):
 	body.DmgQueue = Atk_Dmg
