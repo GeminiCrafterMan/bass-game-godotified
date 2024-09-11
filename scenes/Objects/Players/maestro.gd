@@ -130,7 +130,7 @@ func _ready():
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
-	if (currentState != STATES.DEAD):
+	if (currentState != STATES.DEAD) and (currentState != STATES.TELEPORT):
 		if not is_on_floor():
 			velocity += get_gravity() * delta
 
@@ -715,15 +715,15 @@ func weapon_buster():
 				Charge = 0
 				return
 	if (GameState.current_weapon == 0 and Input.is_action_pressed("shoot")) or Input.is_action_pressed("buster"):
-		if Charge < 105:
+		if Charge < 110:
 			Charge += 1
 			if Charge == 32:
 				$Audio/Charge1.play()
-			if Charge == 100:
+			if Charge == 105:
 				$Audio/Charge2.play()
 		else:
-			Charge = 100
-			$Audio/Charge2.stop()
+			Charge = 105
+#			$Audio/Charge2.stop()
 				
 			
 	else:
