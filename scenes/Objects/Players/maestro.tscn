@@ -27,6 +27,7 @@ shader = ExtResource("1_lnglj")
 shader_parameter/skip_first_row = true
 shader_parameter/use_palette_alpha = false
 shader_parameter/fps = 6.0
+shader_parameter/palette = ExtResource("2_6qlls")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bg5pr"]
 atlas = ExtResource("2_ae8gn")
