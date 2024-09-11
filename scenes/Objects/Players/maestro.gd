@@ -115,6 +115,7 @@ var weapon_scenes = [
 ]
 
 func _ready():
+	GameState.player = self.get_path()
 	#start the teleport animation
 	state_timer.start(0.5)
 	invul_timer.start(0.01)

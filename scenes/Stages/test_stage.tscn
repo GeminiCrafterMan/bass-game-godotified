@@ -19,6 +19,9 @@ size = Vector2(646, 506.5)
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_flw1n"]
 normal = Vector2(-1, 0)
 
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_haw0l"]
+normal = Vector2(1, 0)
+
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_janwy"]
 
 [node name="TestStage" type="Node2D"]
@@ -63,11 +66,15 @@ bus = &"Music"
 [node name="Boundaries" type="StaticBody2D" parent="."]
 
 [node name="Right Boundary" type="CollisionShape2D" parent="Boundaries"]
-position = Vector2(11136, 2016)
+position = Vector2(1537, 928)
 shape = SubResource("WorldBoundaryShape2D_flw1n")
 
+[node name="Left Boundary" type="CollisionShape2D" parent="Boundaries"]
+position = Vector2(-720, 928)
+shape = SubResource("WorldBoundaryShape2D_haw0l")
+
 [node name="Bottom Boundary" type="CollisionShape2D" parent="Boundaries"]
-position = Vector2(11136, 2016)
+position = Vector2(1537, 928)
 shape = SubResource("WorldBoundaryShape2D_janwy")
 
 [node name="Level Objects" type="Node2D" parent="."]
@@ -210,30 +217,6 @@ scale = Vector2(1, 6.4)
 [node name="LadderHitbox4" parent="Level Objects/Ladders" instance=ExtResource("11_n5yro")]
 position = Vector2(1400, 512)
 scale = Vector2(1, 6.4)
-
-[node name="LadderHitbox5" parent="Level Objects/Ladders" instance=ExtResource("11_n5yro")]
-position = Vector2(1544, 592)
-scale = Vector2(1, 8)
-
-[node name="LadderHitbox6" parent="Level Objects/Ladders" instance=ExtResource("11_n5yro")]
-position = Vector2(2392, 504)
-scale = Vector2(1, 7)
-
-[node name="LadderHitbox7" parent="Level Objects/Ladders" instance=ExtResource("11_n5yro")]
-position = Vector2(2216, 280)
-scale = Vector2(1, 12)
-
-[node name="LadderHitbox8" parent="Level Objects/Ladders" instance=ExtResource("11_n5yro")]
-position = Vector2(2648, 216)
-scale = Vector2(1, 2.4)
-
-[node name="LadderHitbox9" parent="Level Objects/Ladders" instance=ExtResource("11_n5yro")]
-position = Vector2(3160, 712)
-scale = Vector2(1, 4)
-
-[node name="LadderHitbox10" parent="Level Objects/Ladders" instance=ExtResource("11_n5yro")]
-position = Vector2(2984, 536)
-scale = Vector2(1, 10.4)
 
 [node name="HUD" parent="." instance=ExtResource("8_v2unc")]
 

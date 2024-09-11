@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://bdurhvklic0ac"]
+[gd_scene load_steps=13 format=3 uid="uid://bdurhvklic0ac"]
 
 [ext_resource type="PackedScene" uid="uid://b0opfnom6gmbo" path="res://scenes/module_tester.tscn" id="1_kxric"]
 [ext_resource type="Theme" uid="uid://c1bun7kn776g1" path="res://themes/ui_theme.tres" id="2_15wwj"]
 [ext_resource type="Script" path="res://scenes/hud-life_counter.gd" id="2_iey88"]
 [ext_resource type="Texture2D" uid="uid://blgb1vsp248uk" path="res://sprites/HUD/Life Icons.png" id="3_xdn0h"]
+[ext_resource type="Texture2D" uid="uid://cbwd04mqjtuy0" path="res://sprites/Players/Maestro (base)/Palettes/None.png" id="4_2rvml"]
 [ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="4_7y70l"]
 [ext_resource type="Texture2D" uid="uid://cw3nxdi21ktpt" path="res://sprites/HUD/Bass Weapon Bar.png" id="5_1d45g"]
 [ext_resource type="Texture2D" uid="uid://datbp7dqyeio" path="res://sprites/Players/Bass/Palettes/None.png" id="5_nk4r6"]
@@ -15,7 +16,7 @@ shader = ExtResource("4_7y70l")
 shader_parameter/skip_first_row = true
 shader_parameter/use_palette_alpha = false
 shader_parameter/fps = 6.0
-shader_parameter/palette = ExtResource("5_nk4r6")
+shader_parameter/palette = ExtResource("4_2rvml")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_o6d4v"]
 shader = ExtResource("4_7y70l")
