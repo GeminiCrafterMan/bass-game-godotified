@@ -51,7 +51,10 @@ func _on_hitable_body_entered(weapon): # needs to be redefined because damage va
 		else:
 			Cur_HP -= Dmg_Vals[weapon.W_Type]
 			Cur_Inv = 2
-			weapon.destroy()
+			if Cur_HP == 0:
+				weapon.kill()
+			else:
+				weapon.destroy()
 
 func _on_hurt_body_entered(body):
 	body.DmgQueue = Atk_Dmg

@@ -27,12 +27,13 @@ func _process(_delta):
 	process_camera()
 	
 func process_camera():
-	if (player): # Null check!
-		if (player.currentState != player.STATES.TELEPORT):
-			$Camera2D.position = player.position
-		else:
-			$Camera2D.position = $StartPosition.position
-
+	if (player != null): # Null check!
+		if (GameState.current_hp > 0):
+			if (player.currentState != player.STATES.TELEPORT):
+				$Camera2D.position = player.position
+			else:
+				$Camera2D.position = $StartPosition.position
+	
 
 
 func _on_water_body_exited(wet):

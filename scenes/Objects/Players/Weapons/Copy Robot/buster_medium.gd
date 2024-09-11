@@ -25,3 +25,6 @@ func reflect():
 	$CollisionShape2D.set_deferred("disabled", true)
 	velocity.x = -velocity.x
 	velocity.y = -180
+
+func kill():
+	pass

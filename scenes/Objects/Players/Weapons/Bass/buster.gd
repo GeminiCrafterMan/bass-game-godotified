@@ -25,3 +25,6 @@ func reflect():
 	$ReflectSound.play()
 	destroy()
 	
+func kill():
+	destroy()
+	

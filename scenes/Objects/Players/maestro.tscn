@@ -13,7 +13,8 @@
 [ext_resource type="AudioStream" uid="uid://dr1p57c1kr6na" path="res://sounds/warp.wav" id="9_ht7sb"]
 [ext_resource type="AudioStream" uid="uid://cojuek45oo3hj" path="res://sounds/playerhurt.wav" id="10_gpg6f"]
 [ext_resource type="AudioStream" uid="uid://dtctuhq14tsqk" path="res://sounds/charge1.wav" id="11_ebbut"]
-[ext_resource type="AudioStream" uid="uid://87da5eoorudn" path="res://sounds/charge2.wav" id="12_ixbps"]
+[ext_resource type="AudioStream" uid="uid://brqoxbrriuifw" path="res://sounds/charged.wav" id="14_dcxu5"]
+[ext_resource type="AudioStream" uid="uid://dix6rlhdr84oa" path="res://sounds/mega_death.wav" id="15_e1wn3"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_u81pt"]
 shader = ExtResource("1_lnglj")
@@ -541,7 +542,11 @@ stream = ExtResource("10_gpg6f")
 stream = ExtResource("11_ebbut")
 
 [node name="Charge2" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource("12_ixbps")
+stream = ExtResource("14_dcxu5")
+
+[node name="DeathSound" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("15_e1wn3")
+volume_db = -8.432
 
 [node name="CeilingCheck" type="RayCast2D" parent="."]
 visible = false
