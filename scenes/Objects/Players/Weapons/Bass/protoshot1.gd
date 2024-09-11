@@ -25,5 +25,5 @@ func reflect():
 	velocity.x = -velocity.x
 	velocity.y = -velocity.y
 	
-	func kill():
+func kill():
 	pass

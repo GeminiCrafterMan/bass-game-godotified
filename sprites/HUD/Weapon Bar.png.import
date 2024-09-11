@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b6jgs2d4rdml7"
-path="res://.godot/imported/Copy Robot Weapon Bar.png-661dfa311bf2e3c34ff5b23714a31384.ctex"
+uid="uid://s746ncdpglrq"
+path="res://.godot/imported/Weapon Bar.png-65b2b18faa285cf2f358aef42e1553df.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/HUD/Copy Robot Weapon Bar.png"
-dest_files=["res://.godot/imported/Copy Robot Weapon Bar.png-661dfa311bf2e3c34ff5b23714a31384.ctex"]
+source_file="res://sprites/HUD/Weapon Bar.png"
+dest_files=["res://.godot/imported/Weapon Bar.png-65b2b18faa285cf2f358aef42e1553df.ctex"]
 
 [params]
 
