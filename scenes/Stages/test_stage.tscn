@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://by07rq184shwd"]
+[gd_scene load_steps=17 format=4 uid="uid://by07rq184shwd"]
 
 [ext_resource type="Script" path="res://scenes/Stages/Stage.gd" id="1_ac8st"]
 [ext_resource type="TileSet" uid="uid://bglohi0dt4uvq" path="res://tilesets/test_stage.tres" id="2_cu0lw"]
@@ -218,13 +218,19 @@ scale = Vector2(1, 6.4)
 position = Vector2(1400, 512)
 scale = Vector2(1, 6.4)
 
+[node name="Spikes" type="Node" parent="Level Objects"]
+
+[node name="Spike" parent="Level Objects/Spikes" instance=ExtResource("12_1njev")]
+position = Vector2(392, 552)
+
+[node name="Spike2" parent="Level Objects/Spikes" instance=ExtResource("12_1njev")]
+position = Vector2(607, 761)
+scale = Vector2(16.26, 1)
+
 [node name="HUD" parent="." instance=ExtResource("8_v2unc")]
 
 [node name="StartPosition" parent="." instance=ExtResource("10_4y8fd")]
 position = Vector2(71, 368)
-
-[node name="Jumbro" parent="." instance=ExtResource("12_1njev")]
-position = Vector2(136, 376)
 
 [connection signal="body_entered" from="Water" to="." method="_on_water_body_entered"]
 [connection signal="body_exited" from="Water" to="." method="_on_water_body_exited"]

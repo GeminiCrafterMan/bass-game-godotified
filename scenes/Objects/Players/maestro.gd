@@ -111,7 +111,8 @@ var projectile_scenes = [
 var weapon_scenes = [
 	preload("res://scenes/Objects/Players/Weapons/Special Weps/origami_star.tscn"),
 	preload("res://scenes/Objects/Players/Weapons/Special Weps/poison_cloud.tscn"),
-	preload("res://scenes/Objects/Players/Weapons/Special Weps/scorch_barrier.tscn")
+	preload("res://scenes/Objects/Players/Weapons/Special Weps/scorch_barrier.tscn"),
+	preload("res://scenes/Objects/Players/Weapons/Special Weps/rolling_bomb.tscn")
 ]
 
 func _ready():
@@ -658,6 +659,8 @@ func handle_weapons():
 			weapon_smog()
 		5:
 			weapon_origami()
+		7:
+			weapon_guerilla()
 		11:
 			weapon_carry()
 		12:
@@ -898,6 +901,27 @@ func weapon_origami():
 			projectile.velocity.y =  ORIGAMI_SPEED * 0.225
 		
 		return
+		
+func weapon_guerilla():
+	if shoot_delay > 0:
+		if shot_type == 1:
+			shoot_delay -= 1
+			no_grounded_movement = false
+	else:
+		no_grounded_movement = false
+	if Input.is_action_just_pressed("shoot"):
+		$AnimatedSprite2D.set_frame_and_progress(0, 0)
+		shot_type = 1
+		shoot_delay = 13
+		projectile = weapon_scenes[3].instantiate()
+		
+		#SHOOT FORWARD REGARDLESS
+		get_parent().add_child(projectile)
+		projectile.position.y = position.y
+		projectile.position.x = position.x - sprite.scale.x * 27
+		projectile.velocity.x = -sprite.scale.x * 20
+		projectile.velocity.y = 10
+		projectile.scale.x = -sprite.scale.x
 
 func weapon_carry():
 	if shoot_delay > 0:

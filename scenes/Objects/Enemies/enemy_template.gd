@@ -7,7 +7,7 @@ var Dmg_Vals = [
 		1,	#1  Copy Buster
 		2,	#2  Copy Buster, medium shot
 		4,	#3  Copy Buster, charge shot
-		2,	#4  Scorch Barrier
+		3,	#4  Scorch Barrier
 		0,	#5  Freeze Frame (if it does damage like Time Stopper on Quick Man)
 		1,	#6  Poison Cloud
 		4,	#7  Fin Shredder
@@ -45,7 +45,7 @@ func _process(delta):
 		visible = true
 
 func _on_hitable_body_entered(weapon): # needs to be redefined because damage values
-	if Cur_Inv <= 0:
+	if Cur_Inv <= 0 or weapon.W_Type == 8:
 		if Dmg_Vals[weapon.W_Type] == 0:
 			weapon.reflect()
 		else:

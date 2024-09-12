@@ -19,6 +19,7 @@ var dist : int
 
 var durability : int
 var invul : int
+var DmgQueue : int # make the game not crash when you touch an enemy
 
 
 var fired : bool
@@ -26,7 +27,7 @@ var left : bool
 
 func _ready():
 	$SpawnSound.play()
-	durability = 5
+	durability = 6
 	baseposx = position.x
 	baseposy = position.y
 	theta = rotation
@@ -49,21 +50,21 @@ func _physics_process(delta):
 	
 	if fired == true && GameState.character_selected == 0:
 		if left == false:
-			dist = dist + 2
+			dist = dist + 1
 			if dist > 10 :
-				dist = dist + 2
+				dist = dist + 1
 			if dist > 20 :
-				dist = dist + 2
+				dist = dist + 1
 			if dist > 30 :
-				dist = dist + 2
+				dist = dist + 1
 		if left == true:
-			dist = dist - 2
+			dist = dist - 1
 			if dist < -10 :
-				dist = dist - 2
+				dist = dist - 1
 			if dist < -20 :
-				dist = dist - 2
+				dist = dist - 1
 			if dist < -30 :
-				dist = dist - 2
+				dist = dist - 1
 				
 	if fired == true && GameState.character_selected == 1:
 		radius = radius + 2
@@ -87,6 +88,13 @@ func _physics_process(delta):
 	
 	if move_and_slide() == true:
 		destroy()
+		
+	if DmgQueue > 0:
+		if invul > 0:
+			pass
+		else:
+			durability -= DmgQueue
+			
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	if fired == true:
@@ -98,7 +106,7 @@ func destroy():
 		
 		if durability > 0:
 			$CollisionShape2D.set_deferred("disabled", true)
-			durability = durability - 1
+			durability = durability - 2
 			invul = 5
 		
 		if durability < 1:

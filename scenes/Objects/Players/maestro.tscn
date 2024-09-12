@@ -1,8 +1,8 @@
-[gd_scene load_steps=65 format=3 uid="uid://bksinirshmwgf"]
+[gd_scene load_steps=66 format=3 uid="uid://bksinirshmwgf"]
 
 [ext_resource type="Script" path="res://scenes/Objects/Players/maestro.gd" id="1_ct76e"]
 [ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="1_lnglj"]
-[ext_resource type="Texture2D" uid="uid://cbwd04mqjtuy0" path="res://sprites/Players/Maestro (base)/Palettes/None.png" id="2_6qlls"]
+[ext_resource type="Texture2D" uid="uid://cbwd04mqjtuy0" path="res://sprites/Players/Copy Robot/Palettes/None.png" id="2_6qlls"]
 [ext_resource type="Texture2D" uid="uid://mwhiy56ie3ef" path="res://sprites/Players/Maestro (base)/spritesheet.png" id="2_ae8gn"]
 [ext_resource type="AudioStream" uid="uid://d2oevy2xek073" path="res://sounds/jump.wav" id="3_m6hp8"]
 [ext_resource type="AudioStream" uid="uid://cgaetckoiu15m" path="res://sounds/land.wav" id="4_y2cjm"]
