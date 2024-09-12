@@ -87,7 +87,7 @@ stream = ExtResource("5_tb2vm")
 position = Vector2(0, -9)
 shape = SubResource("RectangleShape2D_31c0o")
 
-[node name="Botbox" type="CollisionShape2D" parent="."]
+[node name="BotBox" type="CollisionShape2D" parent="."]
 position = Vector2(0, 9)
 shape = SubResource("RectangleShape2D_31c0o")
 

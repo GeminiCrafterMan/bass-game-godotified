@@ -555,8 +555,8 @@ func _physics_process(delta: float) -> void:
 							
 				if pain_timer.is_stopped():
 					
-					$Audio/DeathSound.play()
 					$Audio/HurtSound.stop()
+					$Audio/DeathSound.play()
 						
 					projectile = preload("res://scenes/Objects/explosion_player.tscn").instantiate()
 					get_parent().add_child(projectile)

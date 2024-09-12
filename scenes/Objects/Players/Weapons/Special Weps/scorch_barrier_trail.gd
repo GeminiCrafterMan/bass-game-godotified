@@ -4,10 +4,10 @@ var animation_played = false
 
 func _process(delta):
 	if not animation_played:
-		if GameState.character_selected == 0:
-			play("Bass")
-		else:
+		if GameState.character_selected == 2:
 			play("Copy")
+		else:
+			play("Bass")
 		animation_played = true
 	await animation_finished
 	queue_free()

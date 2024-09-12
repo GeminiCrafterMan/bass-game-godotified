@@ -19,7 +19,7 @@ func _ready():
 func _physics_process(delta):
 	pass
 	if CurrentDir == DIRECTION.NONE:
-		if $BotBox.is_colliding():
+		if $BotBox.is_colliding(): # G: I had to fix the node's name to use the proper case. This might not have been an issue on Windows, but it sure was here on Linux.
 			CurrentDir = DIRECTION.RIGHT 
 		if $RgtBox.is_colliding():
 			CurrentDir = DIRECTION.UP 

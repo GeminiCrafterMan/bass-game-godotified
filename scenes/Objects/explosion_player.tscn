@@ -1,7 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://7e34qk3e58mx"]
+[gd_scene load_steps=8 format=3 uid="uid://7e34qk3e58mx"]
 
 [ext_resource type="Texture2D" uid="uid://dgiwcwe0dt077" path="res://sprites/explosion.png" id="1_5gobd"]
-[ext_resource type="AudioStream" uid="uid://crjlkw50illgr" path="res://sounds/enemykill.wav" id="3_4jebh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8mdi0"]
 atlas = ExtResource("1_5gobd")
@@ -53,11 +52,6 @@ collision_layer = 0
 collision_mask = 0
 motion_mode = 1
 wall_min_slide_angle = 0.0
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_4jebh")
-volume_db = 14.631
-autoplay = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_vlx1u")

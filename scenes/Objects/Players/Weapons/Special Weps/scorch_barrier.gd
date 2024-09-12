@@ -32,10 +32,10 @@ func _ready():
 	baseposy = position.y
 	theta = rotation
 	
-	if GameState.character_selected == 0:
-		$MainSprite.play("Bass")
-	else:
+	if GameState.character_selected == 2:
 		$MainSprite.play("Copy")
+	else:
+		$MainSprite.play("Bass")
 		
 func _physics_process(delta):
 	if invul > 0:
