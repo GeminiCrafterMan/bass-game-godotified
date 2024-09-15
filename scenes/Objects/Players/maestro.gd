@@ -112,7 +112,8 @@ var weapon_scenes = [
 	preload("res://scenes/Objects/Players/Weapons/Special Weps/origami_star.tscn"),
 	preload("res://scenes/Objects/Players/Weapons/Special Weps/poison_cloud.tscn"),
 	preload("res://scenes/Objects/Players/Weapons/Special Weps/scorch_barrier.tscn"),
-	preload("res://scenes/Objects/Players/Weapons/Special Weps/rolling_bomb.tscn")
+	preload("res://scenes/Objects/Players/Weapons/Special Weps/rolling_bomb.tscn"),
+	preload("res://scenes/Objects/Players/Weapons/Special Weps/fin_shredder.tscn")
 ]
 
 func _ready():
@@ -312,7 +313,7 @@ func _physics_process(delta: float) -> void:
 							$AnimatedSprite2D.play("Throw")
 						3: # Shield
 							$AnimatedSprite2D.play("Cast")
-						4: # Double Reppuken
+						4: # Fin Shredder
 							$AnimatedSprite2D.play("FinShredder")
 						_: # Everything else
 							$AnimatedSprite2D.play("Idle-Shoot")
@@ -657,6 +658,8 @@ func handle_weapons():
 			weapon_blaze()
 		3:
 			weapon_smog()
+		4:
+			weapon_shark()
 		5:
 			weapon_origami()
 		7:
@@ -808,9 +811,27 @@ func weapon_smog():
 		projectile.position.y = position.y + 4
 		projectile.velocity.x = -sprite.scale.x * 100
 		projectile.scale.x = -sprite.scale.x
+		return
 		
-		# inputs
+func weapon_shark():
+	if shoot_delay > 0:
+		if shot_type == 1:
+			shoot_delay -= 1
+			no_grounded_movement = true
+	else:
+		no_grounded_movement = false
+
+	if Input.is_action_just_pressed("shoot") && currentState != STATES.SLIDE:
+		$AnimatedSprite2D.set_frame_and_progress(0, 0)
+		shot_type = 2
+		shoot_delay = 13
+		projectile = weapon_scenes[4].instantiate()
+		get_parent().add_child(projectile)
 		
+		projectile.position.x = position.x -sprite.scale.x * 15
+		projectile.position.y = position.y - 1
+		projectile.velocity.x = -sprite.scale.x * 65
+		projectile.scale.x = -sprite.scale.x
 		return
 
 func weapon_origami():

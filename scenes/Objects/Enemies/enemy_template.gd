@@ -10,7 +10,7 @@ var Dmg_Vals = [
 		3,	#4  Scorch Barrier
 		0,	#5  Freeze Frame (if it does damage like Time Stopper on Quick Man)
 		1,	#6  Poison Cloud
-		4,	#7  Fin Shredder
+		6,	#7  Fin Shredder
 		2,	#8  Origami Star
 		10,	#9  Wild Gale
 		2,	#10 Rolling Bomb(?)
@@ -47,11 +47,14 @@ func _process(delta):
 func _on_hitable_body_entered(weapon): # needs to be redefined because damage values
 	if Cur_Inv <= 0 or weapon.W_Type == 8:
 		if Dmg_Vals[weapon.W_Type] == 0:
-			weapon.reflect()
+			if weapon.W_Type == 7:
+				weapon.destroy()
+			else:
+				weapon.reflect()
 		else:
 			Cur_HP -= Dmg_Vals[weapon.W_Type]
 			Cur_Inv = 2
-			if Cur_HP == 0:
+			if Cur_HP <= 0 or weapon.W_Type == 7:
 				weapon.kill()
 			else:
 				weapon.destroy()

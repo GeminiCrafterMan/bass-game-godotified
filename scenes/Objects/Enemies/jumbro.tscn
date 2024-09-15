@@ -74,7 +74,7 @@ size = Vector2(20, 29)
 
 [node name="Jumbro" type="CharacterBody2D"]
 collision_layer = 4
-collision_mask = 3
+collision_mask = 19
 script = ExtResource("1_w5820")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]

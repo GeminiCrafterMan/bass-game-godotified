@@ -3,10 +3,12 @@ extends Enemy_Template
 class_name Jumbro
 @onready var projectile
 
+var hops : int
+
 func _ready():
-	Atk_Dmg = 8
-	Max_HP = 4
-	Cur_HP = 4
+	Atk_Dmg = 4
+	Max_HP = 5
+	Cur_HP = 5
 
 func _process(delta):
 	if Cur_HP <= 0:
@@ -15,6 +17,18 @@ func _process(delta):
 		projectile.position.x = position.x
 		projectile.position.y = position.y
 		queue_free()
+	
+	velocity += get_gravity() * delta
+		
+	if !is_on_floor():
+		velocity += get_gravity() * delta
+	else:
+		if hops > 3:
+			velocity.y =  -80
+			hops = 0
+		else:
+			velocity.y =  -30
+			hops += 1
 	
 	if Cur_Inv > 0:
 		Cur_Inv -= 1
@@ -28,11 +42,14 @@ func _process(delta):
 func _on_hitable_body_entered(weapon): # needs to be redefined because damage values
 	if Cur_Inv <= 0 or weapon.W_Type == 8:
 		if Dmg_Vals[weapon.W_Type] == 0:
-			weapon.reflect()
+			if weapon.W_Type == 7:
+				weapon.destroy()
+			else:
+				weapon.reflect()
 		else:
 			Cur_HP -= Dmg_Vals[weapon.W_Type]
 			Cur_Inv = 2
-			if Cur_HP == 0:
+			if Cur_HP <= 0 or weapon.W_Type == 7:
 				weapon.kill()
 			else:
 				weapon.destroy()

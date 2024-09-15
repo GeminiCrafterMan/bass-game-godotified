@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/Objects/Players/maestro.gd" id="1_ct76e"]
 [ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="1_lnglj"]
-[ext_resource type="Texture2D" uid="uid://cbwd04mqjtuy0" path="res://sprites/Players/Copy Robot/Palettes/None.png" id="2_6qlls"]
+[ext_resource type="Texture2D" uid="uid://cbwd04mqjtuy0" path="res://sprites/Players/Maestro (base)/Palettes/None.png" id="2_6qlls"]
 [ext_resource type="Texture2D" uid="uid://mwhiy56ie3ef" path="res://sprites/Players/Maestro (base)/spritesheet.png" id="2_ae8gn"]
 [ext_resource type="AudioStream" uid="uid://d2oevy2xek073" path="res://sounds/jump.wav" id="3_m6hp8"]
 [ext_resource type="AudioStream" uid="uid://cgaetckoiu15m" path="res://sounds/land.wav" id="4_y2cjm"]
@@ -41,6 +41,14 @@ region = Rect2(349, 12, 48, 48)
 [sub_resource type="AtlasTexture" id="AtlasTexture_cp00o"]
 atlas = ExtResource("2_ae8gn")
 region = Rect2(398, 12, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vag15"]
+atlas = ExtResource("2_ae8gn")
+region = Rect2(349, 70, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2r21u"]
+atlas = ExtResource("2_ae8gn")
+region = Rect2(398, 70, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_boef1"]
 atlas = ExtResource("2_ae8gn")
@@ -146,14 +154,6 @@ region = Rect2(346, 128, 48, 48)
 atlas = ExtResource("2_ae8gn")
 region = Rect2(395, 128, 48, 48)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_vag15"]
-atlas = ExtResource("2_ae8gn")
-region = Rect2(349, 70, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2r21u"]
-atlas = ExtResource("2_ae8gn")
-region = Rect2(398, 70, 48, 48)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_ht1xm"]
 atlas = ExtResource("2_ae8gn")
 region = Rect2(152, 12, 48, 48)
@@ -197,6 +197,17 @@ animations = [{
 }],
 "loop": true,
 "name": &"Fall",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vag15")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2r21u")
+}],
+"loop": true,
+"name": &"FinShredder",
 "speed": 5.0
 }, {
 "frames": [{
@@ -473,7 +484,7 @@ script = ExtResource("1_ct76e")
 material = SubResource("ShaderMaterial_dtetj")
 scale = Vector2(-1, 1)
 sprite_frames = SubResource("SpriteFrames_f3vwn")
-animation = &"Ladder-Up"
+animation = &"FinShredder"
 autoplay = "Teleport"
 
 [node name="FX" type="Node2D" parent="."]

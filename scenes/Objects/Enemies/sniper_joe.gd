@@ -5,11 +5,39 @@ class_name Sniper_Joe
 var timer : int
 var attacks : int
 
+
+
 func _ready():
 	Atk_Dmg = 4
 	Max_HP = 8
 	Cur_HP = 8
 	timer = 200
+	
+	Dmg_Vals = [
+		1,	#0  Bass Buster 
+		1,	#1  Copy Buster
+		2,	#2  Copy Buster, medium shot
+		4,	#3  Copy Buster, charge shot
+		3,	#4  Scorch Barrier
+		0,	#5  Freeze Frame (if it does damage like Time Stopper on Quick Man)
+		1,	#6  Poison Cloud
+		15,	#7  Fin Shredder
+		2,	#8  Origami Star
+		8,	#9  Wild Gale
+		2,	#10 Rolling Bomb(?)
+		3,	#11 Boomerang Scythe
+		2,	#12 Proto Buster medium shot
+		4,	#13 Proto Buster charged shot
+		4,	#14 Super Arrow
+		1,	#15 Mirror Buster
+		2,	#16 Screw Crusher
+		4,	#17 Ballade Cracker
+		4,	#18 Sakugarne (Physical hit)
+		1,	#19 Sakugarne (Rock)
+		3,	#20 Blast jump
+		4,	#21 Paper Cut slice
+		0	# Whatever's next...
+]
 
 func _process(delta):
 	if Cur_HP <= 0:
@@ -78,11 +106,14 @@ func _process(delta):
 func _on_hitable_body_entered(weapon): # needs to be redefined because damage values
 	if Cur_Inv <= 0 or weapon.W_Type == 8:
 		if Dmg_Vals[weapon.W_Type] == 0:
-			weapon.reflect()
+			if weapon.W_Type == 7:
+				weapon.destroy()
+			else:
+				weapon.reflect()
 		else:
 			Cur_HP -= Dmg_Vals[weapon.W_Type]
 			Cur_Inv = 2
-			if Cur_HP == 0:
+			if Cur_HP <= 0 or weapon.W_Type == 7:
 				weapon.kill()
 			else:
 				weapon.destroy()
