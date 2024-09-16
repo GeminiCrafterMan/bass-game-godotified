@@ -17,6 +17,10 @@ var player_lives : int = 3
 var current_weapon : int
 var old_weapon : int
 var current_hp = 28
+var bolts = 0
+var ETanks = 0
+var WTanks = 0
+var STanks = 0
 var max_hp = 28 # upgradeable
 
 var PROGRESSDICT = {

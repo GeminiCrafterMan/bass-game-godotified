@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=3 uid="uid://bksinirshmwgf"]
+[gd_scene load_steps=68 format=3 uid="uid://bksinirshmwgf"]
 
 [ext_resource type="Script" path="res://scenes/Objects/Players/maestro.gd" id="1_ct76e"]
 [ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="1_lnglj"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://mwhiy56ie3ef" path="res://sprites/Players/Maestro (base)/spritesheet.png" id="2_ae8gn"]
 [ext_resource type="AudioStream" uid="uid://d2oevy2xek073" path="res://sounds/jump.wav" id="3_m6hp8"]
 [ext_resource type="AudioStream" uid="uid://cgaetckoiu15m" path="res://sounds/land.wav" id="4_y2cjm"]
+[ext_resource type="Texture2D" uid="uid://dl4uojxtlp1pf" path="res://sprites/Players/Player Start.png" id="5_cqv8k"]
 [ext_resource type="Texture2D" uid="uid://bot48w7086agv" path="res://sprites/Players/HurtStar.png" id="5_lg5go"]
 [ext_resource type="Texture2D" uid="uid://8mdvvlmmrxfn" path="res://sprites/Players/HurtSweat.png" id="5_vvkba"]
 [ext_resource type="AudioStream" uid="uid://ds4m68uui1avq" path="res://sounds/switch.wav" id="6_e47ri"]
@@ -109,6 +110,10 @@ region = Rect2(300, 70, 48, 48)
 [sub_resource type="AtlasTexture" id="AtlasTexture_17r30"]
 atlas = ExtResource("2_ae8gn")
 region = Rect2(694, 12, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tc5a5"]
+atlas = ExtResource("5_cqv8k")
+region = Rect2(0, 0, 8, 8)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bl0lq"]
 atlas = ExtResource("2_ae8gn")
@@ -310,6 +315,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_tc5a5")
+}],
+"loop": true,
+"name": &"None",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_bl0lq")
 }],
 "loop": true,
@@ -484,7 +497,7 @@ script = ExtResource("1_ct76e")
 material = SubResource("ShaderMaterial_dtetj")
 scale = Vector2(-1, 1)
 sprite_frames = SubResource("SpriteFrames_f3vwn")
-animation = &"FinShredder"
+animation = &"None"
 autoplay = "Teleport"
 
 [node name="FX" type="Node2D" parent="."]
@@ -560,7 +573,6 @@ stream = ExtResource("15_e1wn3")
 volume_db = -8.432
 
 [node name="CeilingCheck" type="RayCast2D" parent="."]
-visible = false
 position = Vector2(0, 12)
 target_position = Vector2(0, -12)
 

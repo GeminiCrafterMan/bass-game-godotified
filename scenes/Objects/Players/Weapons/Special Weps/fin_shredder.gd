@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 const W_Type = 7	# This is Fin Shredder.
+var dying : bool
 
 func _ready():
 	$SpawnSound.play()
@@ -8,28 +9,39 @@ func _ready():
 		$AnimatedSprite2D.play("Copy")
 	else:
 		$AnimatedSprite2D.play("Bass")
+	velocity.y = 2
 		
 		
 func _physics_process(delta):
-	if ($AnimatedSprite2D.animation == "Bass") and ($AnimatedSprite2D.get_frame() == 3):
+	move_and_slide()
+	
+	if ($AnimatedSprite2D.animation == "Bass") and ($AnimatedSprite2D.get_frame() == 3) and (is_on_floor()):
 		velocity.x = velocity.x * 4
 		$AnimatedSprite2D.play("Bass-loop")
-	move_and_slide()
+	
+	if dying == true:
+		if ($AnimatedSprite2D.get_frame() == 0):
+			velocity.x = velocity.x * 0.7
+		velocity.x = velocity.x * 0.8
+		if ($AnimatedSprite2D.get_frame() == 3):
+			queue_free()
+	
+	
+	if !is_on_floor():
+		destroy()
+	
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	queue_free()
 
 func destroy():
 	$HitSound.play()
-	$CollisionShape2D.set_disabled(true)
-	velocity.x = velocity.x * 0.5
 	velocity.y = 0
 	if !GameState.character_selected == 0:
 		$AnimatedSprite2D.play("Copy-hit")
 	else:
 		$AnimatedSprite2D.play("Bass-hit")
-	await $AnimatedSprite2D.animation_finished
-	queue_free()
+	dying = true
 	
 	
 

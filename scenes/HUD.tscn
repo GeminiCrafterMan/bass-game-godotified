@@ -1,5 +1,6 @@
-[gd_scene load_steps=14 format=3 uid="uid://bdurhvklic0ac"]
+[gd_scene load_steps=18 format=3 uid="uid://bdurhvklic0ac"]
 
+[ext_resource type="Script" path="res://scenes/hud.gd" id="1_gwyxg"]
 [ext_resource type="PackedScene" uid="uid://b0opfnom6gmbo" path="res://scenes/module_tester.tscn" id="1_kxric"]
 [ext_resource type="Theme" uid="uid://c1bun7kn776g1" path="res://themes/ui_theme.tres" id="2_15wwj"]
 [ext_resource type="Script" path="res://scenes/hud-life_counter.gd" id="2_iey88"]
@@ -10,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://datbp7dqyeio" path="res://sprites/Players/Bass/Palettes/None.png" id="5_nk4r6"]
 [ext_resource type="Script" path="res://scenes/hud-bars.gd" id="6_83krn"]
 [ext_resource type="Texture2D" uid="uid://dj8dbh1vderdl" path="res://sprites/HUD/Health Bar.png" id="6_dn5r5"]
+[ext_resource type="Texture2D" uid="uid://bbn3fnovvleio" path="res://sprites/HUD/READY.png" id="11_7y6ti"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fqfbl"]
 shader = ExtResource("4_7y70l")
@@ -32,8 +34,32 @@ shader_parameter/use_palette_alpha = false
 shader_parameter/fps = 6.0
 shader_parameter/palette = ExtResource("5_nk4r6")
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_6b278"]
+atlas = ExtResource("11_7y6ti")
+region = Rect2(0, 0, 39, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tirtj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6b278")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"READY",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"SCENE",
+"speed": 5.0
+}]
+
 [node name="HUD" type="CanvasLayer"]
 layer = 2
+script = ExtResource("1_gwyxg")
 
 [node name="Life Counter" type="Node" parent="."]
 script = ExtResource("2_iey88")
@@ -77,3 +103,13 @@ hframes = 29
 frame = 28
 
 [node name="Module Tester" parent="." instance=ExtResource("1_kxric")]
+
+[node name="READY" type="AnimatedSprite2D" parent="."]
+position = Vector2(192, 108)
+sprite_frames = SubResource("SpriteFrames_tirtj")
+animation = &"READY"
+autoplay = "READY"
+
+[node name="timer" type="Timer" parent="."]
+wait_time = 10.0
+autostart = true

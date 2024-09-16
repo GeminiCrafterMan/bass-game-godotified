@@ -1,0 +1,65 @@
+[gd_scene load_steps=8 format=3 uid="uid://dyfigdi287y78"]
+
+[ext_resource type="Texture2D" uid="uid://dyecajv0oil0s" path="res://sprites/Objects/Items.png" id="1_357tn"]
+
+[sub_resource type="GDScript" id="GDScript_4n6b3"]
+script/source = "extends CharacterBody2D
+
+func _process(delta):
+	pass
+
+func _on_touch_body_entered(body):
+	if body.is_in_group(\"player\"):
+		GameState.current_hp = GameState.current_hp + 10
+		queue_free()
+"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y1w7c"]
+atlas = ExtResource("1_357tn")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s58wy"]
+atlas = ExtResource("1_357tn")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pfpbr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y1w7c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s58wy")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r4kx5"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_urp8p"]
+size = Vector2(16, 16)
+
+[node name="LargeHealthPickup" type="CharacterBody2D"]
+collision_layer = 64
+collision_mask = 3
+script = SubResource("GDScript_4n6b3")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_pfpbr")
+autoplay = "default"
+frame_progress = 0.265444
+
+[node name="Touch" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="Hitbox" type="CollisionShape2D" parent="Touch"]
+shape = SubResource("RectangleShape2D_r4kx5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_urp8p")
+
+[connection signal="body_entered" from="Touch" to="." method="_on_touch_body_entered"]

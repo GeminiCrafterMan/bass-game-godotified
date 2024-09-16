@@ -5,7 +5,7 @@ extends Node2D
 @onready var splash  
 
 func _ready():
-	$StartPosition/Sprite2D.queue_free()	# just delete the sprite2d instead of making it invisible. why have it stick around?
+	#$StartPosition/Sprite2D.queue_free()	# just delete the sprite2d instead of making it invisible. why have it stick around?
 	$Camera2D.position = $StartPosition.position
 	await Fade.fade_in().finished
 	$Music.play()
@@ -17,8 +17,9 @@ func _ready():
 	player = player_scene.instantiate()
 	add_child(player)
 	player.position.x = $StartPosition.position.x
+	player.position.y = $StartPosition.position.y -225
 	player.targetpos = $StartPosition.position.y
-	player.position.y = $StartPosition.position.y -1000
+	player.velocity.y = 250
 	await player.teleported
 	
 

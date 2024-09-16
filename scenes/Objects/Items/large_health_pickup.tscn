@@ -1,9 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://y1n4gk7jb462"]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_pfpbr"]
-
-[node name="LargeHealthPickup" type="RigidBody2D"]
-collision_layer = 64
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_pfpbr")
