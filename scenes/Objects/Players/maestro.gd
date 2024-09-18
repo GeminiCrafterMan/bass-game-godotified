@@ -582,9 +582,12 @@ func _physics_process(delta: float) -> void:
 					pain_timer.start(2550)
 					
 				if state_timer.is_stopped():
+					sprite.visible = false
+					Fade.fade_out()
+					await Fade.fade_out()
 					GameState.current_hp = 28
 					GameState.player_lives -= 1
-					sprite.visible = false
+					GameState.current_weapon = 0
 					get_tree().reload_current_scene()
 					#Reset the stage
 			
