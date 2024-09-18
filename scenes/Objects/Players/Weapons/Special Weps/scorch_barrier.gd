@@ -36,16 +36,22 @@ func _ready():
 	
 		
 func _physics_process(_delta):
+	if GameState.current_weapon != 1:
+		durability = 0
+		destroy()
+	
 	if wet == false:
-		W_Type = 4
-		if ($MainSprite.animation == "Wet"):
-			if GameState.character_selected == 2:
-				$MainSprite.play("Copy")
-			else:
-				$MainSprite.play("Bass")
+		if durability > 0:
+			W_Type = 4
+			if ($MainSprite.animation == "Wet"):
+				if GameState.character_selected == 2:
+					$MainSprite.play("Copy")
+				else:
+					$MainSprite.play("Bass")
 	else:
-		W_Type = 2
-		$MainSprite.play("Wet")
+		if durability > 0:
+			W_Type = 2
+			$MainSprite.play("Wet")
 	
 	if invul > 0:
 		invul = invul - 1

@@ -10,6 +10,9 @@ func _ready():
 	$SpawnSound.play()
 
 func _process(_delta):
+	if GameState.current_weapon != 12:
+		queue_free()
+	
 	if move_and_slide() == true && $AnimatedSprite2D.animation == "move":
 		$AnimatedSprite2D.play("stick")
 		timer = 0

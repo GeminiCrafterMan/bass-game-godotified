@@ -558,7 +558,7 @@ func _physics_process(delta: float) -> void:
 					
 					$MainHitbox.set_disabled(true)
 					$SlideHitbox.set_disabled(true)
-					state_timer.start(8.00)
+					state_timer.start(5.00)
 					sprite.play("Hurt")
 					velocity.y = 0
 					velocity.x = 0
@@ -577,14 +577,15 @@ func _physics_process(delta: float) -> void:
 					projectile.position.y = position.y
 					projectile.velocity.x = -200
 					
-		
 					velocity.x = 0
 					velocity.y = 0
 					pain_timer.start(2550)
 					
-					
 				if state_timer.is_stopped():
+					GameState.current_hp = 28
+					GameState.player_lives -= 1
 					sprite.visible = false
+					get_tree().reload_current_scene()
 					#Reset the stage
 			
 		

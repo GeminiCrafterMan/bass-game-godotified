@@ -5,10 +5,15 @@ var gravity = 1400
 
 func _ready():
 	$SpawnSound.play()
+	
+
 
 func _physics_process(delta):
 	velocity.y += gravity * delta
 	move_and_slide()
+	
+	if GameState.current_weapon != 14:
+		destroy()
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	queue_free()

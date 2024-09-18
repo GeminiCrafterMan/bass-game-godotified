@@ -17,6 +17,9 @@ func _ready():
 	$SpawnSound.play()
 
 func _physics_process(_delta):
+	if GameState.current_weapon != 7:
+		queue_free()
+	
 	pass
 	#if CurrentDir == DIRECTION.NONE:
 		#if $BotBox.is_colliding(): # G: I had to fix the node's name to use the proper case. This might not have been an issue on Windows, but it sure was here on Linux.

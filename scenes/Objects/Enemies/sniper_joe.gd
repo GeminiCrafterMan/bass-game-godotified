@@ -87,11 +87,11 @@ func _process(_delta):
 		get_parent().add_child(projectile)
 		projectile.position.x = position.x - 8
 		projectile.position.y = position.y - 6
-		projectile.velocity.x = -250
+		projectile.velocity.x = -230
 		attacks = attacks - 1
-		timer = 15
+		timer = 24
 		if attacks > 0:
-			timer = 25
+			timer = 32
 		
 	
 		

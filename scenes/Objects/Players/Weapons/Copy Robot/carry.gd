@@ -5,6 +5,12 @@ var timer : int
 var flashtimer : int
 
 func _process(_delta):
+	if GameState.current_weapon != 11 && $AnimatedSprite2D.animation != "explode":
+		$AnimatedSprite2D.play("explode")
+		$Shape.disabled = true
+		await $AnimatedSprite2D.animation_finished
+		queue_free()
+		
 	timer = (timer + 1)
 	if timer > 300:
 		flashtimer = (flashtimer + 1)

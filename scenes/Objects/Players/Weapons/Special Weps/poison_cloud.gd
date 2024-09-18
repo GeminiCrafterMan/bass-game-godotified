@@ -12,6 +12,9 @@ func _ready():
 		$AnimatedSprite2D.play("Copy")
 		
 func _physics_process(_delta):
+	if GameState.current_weapon != 3:
+		queue_free()
+	
 	time = time + 1
 	if $AnimatedSprite2D.animation == "Bass":
 		if time > 25:

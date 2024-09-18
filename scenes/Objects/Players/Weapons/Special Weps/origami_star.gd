@@ -11,6 +11,9 @@ func _ready():
 		$AnimatedSprite2D.play("Copy")
 		
 func _physics_process(_delta):
+	if GameState.current_weapon != 5:
+		queue_free()
+	
 	if broken == true:
 		$AnimatedSprite2D.set_frame_and_progress(0, 0)
 		velocity.y = velocity.y + 12

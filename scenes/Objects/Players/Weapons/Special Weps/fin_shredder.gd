@@ -15,6 +15,9 @@ func _ready():
 func _physics_process(_delta):
 	move_and_slide()
 	
+	if GameState.current_weapon != 4:
+		queue_free()
+	
 	if ($AnimatedSprite2D.animation == "Bass") and ($AnimatedSprite2D.get_frame() == 3) and (is_on_floor()):
 		velocity.x = velocity.x * 4
 		$AnimatedSprite2D.play("Bass-loop")

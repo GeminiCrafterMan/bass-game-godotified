@@ -8,6 +8,9 @@ func _ready():
 func _physics_process(_delta):
 	if move_and_slide() == true:
 		destroy()
+		
+	if GameState.current_weapon != 15:
+		queue_free()
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	queue_free()
