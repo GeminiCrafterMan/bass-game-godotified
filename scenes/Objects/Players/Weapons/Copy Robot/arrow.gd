@@ -9,7 +9,7 @@ var flashtimer : int
 func _ready():
 	$SpawnSound.play()
 
-func _process (delta):
+func _process(_delta):
 	if move_and_slide() == true && $AnimatedSprite2D.animation == "move":
 		$AnimatedSprite2D.play("stick")
 		timer = 0

@@ -5,7 +5,7 @@ const W_Type = 17	# This is Ballade Cracker.
 func _ready():
 	$SpawnSound.play()
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if move_and_slide() == true:
 		destroy()
 

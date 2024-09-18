@@ -1,6 +1,6 @@
 extends Node2D
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	transform = get_parent().transform
 #	offset -= Vector2(384/2, 216/2) 
 

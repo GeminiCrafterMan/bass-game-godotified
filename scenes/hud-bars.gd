@@ -1,7 +1,7 @@
 extends Node
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	# Weapon bar
 	if GameState.max_weapon_energy[GameState.current_weapon] == 0:
 		$WeaponBar.visible = false

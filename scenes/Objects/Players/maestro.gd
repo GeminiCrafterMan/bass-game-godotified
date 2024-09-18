@@ -283,8 +283,7 @@ func _physics_process(delta: float) -> void:
 		match currentState:
 			STATES.TELEPORT:
 				$MainHitbox.set_disabled(true)
-				#global_position.y = lerpf(global_position.y, targetpos, delta * 10)
-				#global_position.x = targetpos.x
+				position.y = move_toward(position.y, targetpos, 10)
 				#exit teleport
 				if position.y >= targetpos:
 					if not sprite.animation == "Teleport In":

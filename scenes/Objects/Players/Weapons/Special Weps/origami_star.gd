@@ -10,7 +10,7 @@ func _ready():
 	else:
 		$AnimatedSprite2D.play("Copy")
 		
-func _physics_process(delta):
+func _physics_process(_delta):
 	if broken == true:
 		$AnimatedSprite2D.set_frame_and_progress(0, 0)
 		velocity.y = velocity.y + 12

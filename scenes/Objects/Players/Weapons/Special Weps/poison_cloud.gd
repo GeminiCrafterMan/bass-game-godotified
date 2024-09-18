@@ -11,7 +11,7 @@ func _ready():
 	else:
 		$AnimatedSprite2D.play("Copy")
 		
-func _physics_process(delta):
+func _physics_process(_delta):
 	time = time + 1
 	if $AnimatedSprite2D.animation == "Bass":
 		if time > 25:

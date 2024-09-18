@@ -2,7 +2,7 @@ extends AnimatedSprite2D
 
 var animation_played = false
 
-func _process(delta):
+func _process(_delta):
 	if not animation_played:
 		if GameState.character_selected == 2:
 			play("Copy")

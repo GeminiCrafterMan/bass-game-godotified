@@ -35,7 +35,7 @@ func _ready():
 	animate()
 	
 		
-func _physics_process(delta):
+func _physics_process(_delta):
 	if wet == false:
 		W_Type = 4
 		if ($MainSprite.animation == "Wet"):

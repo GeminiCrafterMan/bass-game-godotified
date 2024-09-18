@@ -12,7 +12,7 @@ func _ready():
 	velocity.y = 2
 		
 		
-func _physics_process(delta):
+func _physics_process(_delta):
 	move_and_slide()
 	
 	if ($AnimatedSprite2D.animation == "Bass") and ($AnimatedSprite2D.get_frame() == 3) and (is_on_floor()):

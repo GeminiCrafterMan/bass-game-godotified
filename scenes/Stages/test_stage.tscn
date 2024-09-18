@@ -259,7 +259,7 @@ scale = Vector2(16.26, 1)
 [node name="HUD" parent="." instance=ExtResource("8_v2unc")]
 
 [node name="StartPosition" parent="." instance=ExtResource("10_4y8fd")]
-position = Vector2(441, 288)
+position = Vector2(320, 304)
 
 [node name="Items" type="Node2D" parent="."]
 

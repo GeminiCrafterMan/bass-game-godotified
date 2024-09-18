@@ -5,7 +5,7 @@ const W_Type = 3	# This is Copy Robot's large charge shot.
 func _ready():
 	$SpawnSound.play()
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if GameState.player != null:
 		$AnimatedSprite2D.material.set_shader_parameter("palette", get_node(GameState.player).get_node("AnimatedSprite2D").material.get_shader_parameter("palette"))
 	move_and_slide()

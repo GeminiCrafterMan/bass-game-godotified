@@ -57,7 +57,7 @@ var _destroyed: bool
 		$VBoxContainer/Portrait/Border.theme_type_variation = "RobotMasterPanelDestroyed" if value else "RobotMasterPanel"
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	if not Engine.is_editor_hint():
 		if selected or hovered:
 			$VBoxContainer/Portrait/Lights.visible = (Engine.get_frames_drawn() % 60) < 30

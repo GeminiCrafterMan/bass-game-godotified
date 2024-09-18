@@ -26,8 +26,8 @@ config/icon="res://icon.png"
 [autoload]
 
 Loading="*res://addons/loading/loading.tscn"
-Fullscreen="*res://autoload/fullscreen.gd"
 GameState="*res://scenes/game_state.gd"
+Debug="*res://autoload/debug.gd"
 
 [display]
 

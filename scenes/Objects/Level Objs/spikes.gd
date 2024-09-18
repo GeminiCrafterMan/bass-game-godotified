@@ -5,10 +5,10 @@ class_name Spikes
 func _ready():
 	pass
 
-func _process(delta):
+func _process(_delta):
 	pass
 
-func _on_hitable_body_entered(weapon): # needs to be redefined because damage values
+func _on_hitable_body_entered(_weapon): # needs to be redefined because damage values
 	pass
 
 func _on_hurt_body_entered(body):

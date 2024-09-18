@@ -5,7 +5,7 @@ const W_Type = 1	# This is Copy Robot's basic buster shot.
 func _ready():
 	$SpawnSound.play()
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	move_and_slide()
 
 func _on_visible_on_screen_notifier_2d_screen_exited():

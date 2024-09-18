@@ -10,7 +10,7 @@ var collected : bool
 func _ready():
 	pass
 
-func _process(delta):
+func _process(_delta):
 	match item_type:
 		0: #HP Item
 			match item_size:

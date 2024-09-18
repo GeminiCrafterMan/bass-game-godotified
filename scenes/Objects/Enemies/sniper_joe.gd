@@ -38,7 +38,7 @@ func _ready():
 		0	# Whatever's next...
 ]
 
-func _process(delta):
+func _process(_delta):
 	if Cur_HP <= 0:
 		projectile = preload("res://scenes/Objects/explosion_1.tscn").instantiate()
 		get_parent().add_child(projectile)

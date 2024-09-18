@@ -40,7 +40,7 @@ func _ready():
 		static_audio_player = $YokuSound
 	$Sprite2D.texture = load(styles[_style])
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if timer == interval * 60:
 		if not Engine.is_editor_hint():
 			var players = get_tree().get_nodes_in_group("Player")

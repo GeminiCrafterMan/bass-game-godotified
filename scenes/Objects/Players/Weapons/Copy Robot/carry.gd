@@ -4,7 +4,7 @@ extends StaticBody2D
 var timer : int
 var flashtimer : int
 
-func _process (delta):
+func _process(_delta):
 	timer = (timer + 1)
 	if timer > 300:
 		flashtimer = (flashtimer + 1)

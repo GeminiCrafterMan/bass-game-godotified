@@ -16,7 +16,7 @@ var CurrentDir = DIRECTION.NONE
 func _ready():
 	$SpawnSound.play()
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	pass
 	#if CurrentDir == DIRECTION.NONE:
 		#if $BotBox.is_colliding(): # G: I had to fix the node's name to use the proper case. This might not have been an issue on Windows, but it sure was here on Linux.
@@ -27,7 +27,7 @@ func _physics_process(delta):
 			#CurrentDir = DIRECTION.UP 
 		
 	if CurrentDir == DIRECTION.LEFT:
-		velocity.x - 200
+		velocity.x -= 200
 		velocity.y = 0
 	
 	if CurrentDir == DIRECTION.RIGHT:
