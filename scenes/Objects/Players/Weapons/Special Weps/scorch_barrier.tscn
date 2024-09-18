@@ -1,11 +1,20 @@
-[gd_scene load_steps=14 format=3 uid="uid://biy1mk3b78gh"]
+[gd_scene load_steps=17 format=3 uid="uid://biy1mk3b78gh"]
 
 [ext_resource type="Script" path="res://scenes/Objects/Players/Weapons/Special Weps/scorch_barrier.gd" id="1_emmpe"]
 [ext_resource type="Texture2D" uid="uid://cie5vcuenl5b6" path="res://sprites/Players/Bass/Weapons/Blaze.png" id="2_hbrij"]
 [ext_resource type="Texture2D" uid="uid://dt7wlywsvetdu" path="res://sprites/Players/Copy Robot/Weapons/Blaze.png" id="3_7ld0g"]
 [ext_resource type="Texture2D" uid="uid://b0wmbfr68jjcj" path="res://sprites/Players/Copy Robot/Weapons/BusterSmall.png" id="4_ke4xy"]
+[ext_resource type="Texture2D" uid="uid://byfelmyxuhyw2" path="res://sprites/Players/Bass/Weapons/Blaze2.png" id="4_t2ilv"]
 [ext_resource type="AudioStream" uid="uid://dcvhxvuushcu4" path="res://sounds/chargeshot.wav" id="5_l2puw"]
 [ext_resource type="AudioStream" uid="uid://cs2dmn3ahpbea" path="res://sounds/pop.wav" id="6_wmt8g"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sbhj1"]
+atlas = ExtResource("2_hbrij")
+region = Rect2(40, 0, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kx4vh"]
+atlas = ExtResource("2_hbrij")
+region = Rect2(20, 0, 20, 20)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kdpgp"]
 atlas = ExtResource("2_hbrij")
@@ -31,11 +40,20 @@ region = Rect2(48, 0, 16, 16)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_sbhj1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kx4vh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kdpgp")
+}, {
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_kdpgp")
 }],
-"loop": true,
+"loop": false,
 "name": &"Bass",
-"speed": 30.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -44,6 +62,14 @@ animations = [{
 "loop": true,
 "name": &"Copy",
 "speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_t2ilv")
+}],
+"loop": true,
+"name": &"Wet",
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -63,19 +89,19 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0fvlc"]
 size = Vector2(14, 14)
 
-[node name="ScorchBarrier" type="CharacterBody2D"]
+[node name="ScorchBarrier" type="CharacterBody2D" groups=["scorch"]]
 collision_layer = 10
 collision_mask = 20
 script = ExtResource("1_emmpe")
 
-[node name="MainSprite" type="AnimatedSprite2D" parent="."]
+[node name="MainSprite" type="AnimatedSprite2D" parent="." groups=["scorch"]]
 position = Vector2(-0.25, 0)
 scale = Vector2(1.02381, 1)
 sprite_frames = SubResource("SpriteFrames_tmmfq")
-animation = &"hit"
+animation = &"Wet"
 autoplay = "Bass"
 
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." groups=["scorch"]]
 position = Vector2(1.26362e-05, 0.499992)
 scale = Vector2(19.3, 18.15)
 

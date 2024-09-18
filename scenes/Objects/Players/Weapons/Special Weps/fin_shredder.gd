@@ -27,7 +27,7 @@ func _physics_process(delta):
 			queue_free()
 	
 	
-	if !is_on_floor():
+	if !is_on_floor() or velocity.x == 0:
 		destroy()
 	
 

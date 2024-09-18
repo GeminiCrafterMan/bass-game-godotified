@@ -226,9 +226,9 @@ script = ExtResource("1_6kmgf")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_3l2vc")
 sprite_frames = SubResource("SpriteFrames_pfpbr")
-animation = &"ETnk"
+animation = &"SmHP"
 autoplay = "SmHP"
-frame_progress = 0.0339034
+frame_progress = 0.901946
 
 [node name="Touch" type="Area2D" parent="."]
 collision_layer = 4

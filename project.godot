@@ -45,6 +45,7 @@ movie_writer/disable_vsync=true
 
 ladder="how to tell if ladder is there"
 player=""
+scorch=""
 
 [gui]
 

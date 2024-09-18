@@ -7,7 +7,6 @@ var hops : int
 
 func _ready():
 	Atk_Dmg = 4
-	Max_HP = 5
 	Cur_HP = 5
 
 func _process(delta):
@@ -17,8 +16,6 @@ func _process(delta):
 		projectile.position.x = position.x
 		projectile.position.y = position.y
 		queue_free()
-	
-	velocity += get_gravity() * delta
 		
 	if !is_on_floor():
 		velocity += get_gravity() * delta

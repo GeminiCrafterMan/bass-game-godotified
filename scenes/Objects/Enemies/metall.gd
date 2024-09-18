@@ -7,9 +7,8 @@ var attacks : int
 
 
 func _ready():
-	Atk_Dmg = 2
-	Max_HP = 8
-	Cur_HP = 8
+	Atk_Dmg = 3
+	Cur_HP = 1
 	timer = 200
 
 func _process(_delta):

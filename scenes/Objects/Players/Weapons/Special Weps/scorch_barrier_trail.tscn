@@ -31,7 +31,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"Bass",
-"speed": 30.0
+"speed": 25.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -51,4 +51,6 @@ scale = Vector2(1.02381, 1)
 sprite_frames = SubResource("SpriteFrames_nlvml")
 animation = &"Bass"
 autoplay = "Bass"
+frame = 1
+frame_progress = 1.0
 script = ExtResource("3_h1715")

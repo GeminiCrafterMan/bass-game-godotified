@@ -9,7 +9,6 @@ var attacks : int
 
 func _ready():
 	Atk_Dmg = 4
-	Max_HP = 8
 	Cur_HP = 8
 	timer = 200
 	
@@ -21,7 +20,7 @@ func _ready():
 		3,	#4  Scorch Barrier
 		0,	#5  Freeze Frame (if it does damage like Time Stopper on Quick Man)
 		1,	#6  Poison Cloud
-		15,	#7  Fin Shredder
+		8,	#7  Fin Shredder
 		2,	#8  Origami Star
 		8,	#9  Wild Gale
 		2,	#10 Rolling Bomb(?)

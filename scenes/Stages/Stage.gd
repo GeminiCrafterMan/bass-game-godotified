@@ -37,24 +37,20 @@ func process_camera():
 	
 
 
-func _on_water_body_exited(wet):
-	splash = preload("res://scenes/Objects/splash.tscn").instantiate()
-	add_child(splash)
-	splash.position.x = wet.position.x
-	splash.position.y = wet.position.y + 21
+func _on_water_body_exited(dry):
 	
-	if wet.is_in_group("player"):
-		wet.JUMP_VELOCITY = -225.0
-		wet.PEAK_VELOCITY = -90.0	
-		wet.STOP_VELOCITY = -80.0
-		wet.JUMP_HEIGHT = 13
-		wet.FAST_FALL = 400.0
+	if dry.is_in_group("player"):
+		dry.JUMP_VELOCITY = -225.0
+		dry.PEAK_VELOCITY = -90.0	
+		dry.STOP_VELOCITY = -80.0
+		dry.JUMP_HEIGHT = 13
+		dry.FAST_FALL = 400.0
+		
+	if dry.is_in_group("scorch"):
+		dry.wet = false
+
 
 func _on_water_body_entered(wet):
-	splash = preload("res://scenes/Objects/splash.tscn").instantiate()
-	add_child(splash)
-	splash.position.x = wet.position.x
-	splash.position.y = wet.position.y + 10
 	
 	if wet.is_in_group("player"):
 		wet.JUMP_VELOCITY = -285.0
@@ -62,3 +58,15 @@ func _on_water_body_entered(wet):
 		wet.STOP_VELOCITY = -110.0
 		wet.JUMP_HEIGHT = 23
 		wet.FAST_FALL = 200.0
+		
+	if wet.is_in_group("scorch"):
+		wet.wet = true
+		
+	
+
+func _on_splash_zone_body_entered(body):
+	splash = preload("res://scenes/Objects/splash.tscn").instantiate()
+	add_child(splash)
+	splash.position.x = body.position.x
+	splash.position.y = body.position.y + body.velocity.y * 0.0005
+	#wet.is_wet = false

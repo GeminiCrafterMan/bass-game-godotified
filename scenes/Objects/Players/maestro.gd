@@ -246,9 +246,9 @@ func _physics_process(delta: float) -> void:
 		#STATES YOU WANT ANY ANIMATION TO BE CANCELLED WITH LIKE JUMPING AND SHOOTING GO HERE
 		#ALWAYS MAKE SURE TELEPORT IS IN THE BLACKLIST SO YOU CANT CANCEL IT
 		#other than this, mostly stick to swapping states from inside other states, these are just global cancels
-		if (currentState != STATES.NONE) and (currentState != STATES.TELEPORT) and (currentState != STATES.DEAD):
+		if  (currentState != STATES.NONE) and (currentState != STATES.TELEPORT) and (currentState != STATES.DEAD):
 			#check for ladder
-			if sign(direction.y) != 0:
+			if currentState != STATES.SLIDE and  sign(direction.y) != 0:
 				if ladder_check.is_colliding() and !Input.is_action_pressed("jump"):
 					for i in ladder_check.get_collision_count():
 						if ladder_check.get_collider(i).is_in_group("ladder"):
@@ -764,7 +764,7 @@ func weapon_blaze():
 
 	if Input.is_action_just_pressed("shoot"):
 		
-		var space : int = 17
+		var space : int = 19
 		if shield == null && shield2 == null && shield3 == null && shield4 == null && GameState.weapon_energy[1] >= 1:
 			
 			shot_type = 3

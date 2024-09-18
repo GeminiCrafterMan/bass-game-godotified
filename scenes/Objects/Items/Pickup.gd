@@ -61,8 +61,8 @@ func _process(delta):
 func _on_touch_body_entered(body):
 	if body.is_in_group("player"):
 		collected = true
-		position.y == -2000
-		position.x == -2000
+		position.y = -2000
+		position.x = -2000
 		$Timer.start(1)
 	
 			

@@ -3,7 +3,7 @@ extends CharacterBody2D
 const trailscn = preload("res://scenes/Objects/Players/Weapons/Special Weps/scorch_barrier_trail.tscn")
 var trail
 
-const W_Type = 4	# This is Scorch Barrier!!!
+var W_Type = 4	# This is Scorch Barrier!!!
 const FOLLOW_SPEED = 4.0 # follow speed
 var player
 @onready var parent = get_parent().get_parent()
@@ -17,34 +17,44 @@ var radius : int
 
 var dist : int
 
-var durability : int
+var durability : int = 6
 var invul : int
 var DmgQueue : int # make the game not crash when you touch an enemy
 
+var speed : int
 
+var wet : bool
 var fired : bool
 var left : bool
 
 func _ready():
 	$SpawnSound.play()
-	durability = 6
 	baseposx = position.x
 	baseposy = position.y
 	theta = rotation
+	animate()
 	
-	if GameState.character_selected == 2:
-		$MainSprite.play("Copy")
-	else:
-		$MainSprite.play("Bass")
 		
 func _physics_process(delta):
+	if wet == false:
+		W_Type = 4
+		if ($MainSprite.animation == "Wet"):
+			if GameState.character_selected == 2:
+				$MainSprite.play("Copy")
+			else:
+				$MainSprite.play("Bass")
+	else:
+		W_Type = 2
+		$MainSprite.play("Wet")
+	
 	if invul > 0:
 		invul = invul - 1
 	else:
 		$CollisionShape2D.set_deferred("disabled", false)
 	
 	if theta < 68:
-		theta = theta + 3
+		theta += 3
+		
 	else:
 		theta = 0
 	
@@ -80,9 +90,14 @@ func _physics_process(delta):
 		
 	position.x = dist + baseposx + cos(theta*0.09)*radius
 	position.y = baseposy + sin(theta*0.09)*radius
-	trail = trailscn.instantiate()
-	get_parent().add_child(trail)
-	trail.position = position
+		
+	if ($MainSprite.animation == "Bass" or $MainSprite.animation == "Copy") and ($MainSprite.get_frame() > 0):
+		trail = trailscn.instantiate()
+		get_parent().add_child(trail)
+		trail.position = position
+		if $MainSprite.get_frame() == 1:
+			trail.set_frame_and_progress(1,0)
+	
 	
 	#20*cos(pitch), 0, 8*sin(-pitch)
 	
@@ -122,3 +137,9 @@ func kill():
 
 func reflect():
 	pass	# not reflectable
+	
+func animate():
+	if GameState.character_selected == 2:
+		$MainSprite.play("Copy")
+	else:
+		$MainSprite.play("Bass")
