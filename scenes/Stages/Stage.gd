@@ -4,6 +4,8 @@ extends Node2D
 @onready var player # kind of the same thing as GameState.player, but not really? This one's used to *instantiate* the player.
 @onready var splash  
 
+var refilltimer : int
+
 func _ready():
 	GameState.player = null
 	$StartPosition/Sprite2D.queue_free()	# just delete the sprite2d instead of making it invisible. why have it stick around?
@@ -26,6 +28,18 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	process_camera()
+	process_refills()
+	process_drops()
+	
+	
+func process_drops():
+	GameState.droptimer += 1
+	if GameState.droptimer > 8:
+		GameState.droptimer = 0
+		
+	GameState.itemtimer -= 1
+	if GameState.itemtimer <= 0:
+		GameState.itemtimer = 15
 	
 func process_camera():
 	if (player != null): # Null check!
@@ -35,6 +49,32 @@ func process_camera():
 			else:
 				$Camera2D.position = $StartPosition.position
 	
+func process_refills():
+	if (player != null): # Null check!
+		if (GameState.ammoamt):
+			if refilltimer == 0:
+				if GameState.weapon_energy[GameState.current_weapon] < 28:
+					refilltimer = 3
+					GameState.weapon_energy[GameState.current_weapon] += 1
+					GameState.ammoamt -= 1
+				else:
+					GameState.ammoamt = 0
+			else:
+				refilltimer -= 1
+			
+		if (GameState.healamt):
+			if refilltimer == 0:
+				if GameState.current_hp < 28:
+					refilltimer = 3
+					GameState.current_hp += 1
+					GameState.healamt -= 1
+				else:
+					GameState.healamt = 0
+			else:
+				refilltimer -= 1
+		
+			
+				
 
 
 func _on_water_body_exited(dry):
@@ -70,3 +110,15 @@ func _on_splash_zone_body_entered(body):
 	splash.position.x = body.position.x
 	splash.position.y = body.position.y + body.velocity.y * 0.0005
 	#wet.is_wet = false
+
+
+func _on_ice_body_entered(body):
+	if body.is_in_group("player"):
+		body.on_ice = true
+		print("YeICE")
+
+
+func _on_ice_body_exited(body):
+	if body.is_in_group("player"):
+		body.on_ice = false
+		print("NoICE")

@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://bs5dokmafjugl" path="res://sprites/Players/Bass/Weapons/Buster.png" id="1_ohyvi"]
 [ext_resource type="Script" path="res://scenes/Objects/Enemies/enemy_bullet1.gd" id="1_u5b6e"]
 [ext_resource type="Texture2D" uid="uid://b0wmbfr68jjcj" path="res://sprites/Players/Copy Robot/Weapons/BusterSmall.png" id="2_ccoiq"]
-[ext_resource type="AudioStream" uid="uid://dcvhxvuushcu4" path="res://sounds/chargeshot.wav" id="3_7gfcs"]
+[ext_resource type="AudioStream" uid="uid://cq4lw880ecl7v" path="res://sounds/enemyattack.wav" id="4_46343"]
 [ext_resource type="AudioStream" uid="uid://cs2dmn3ahpbea" path="res://sounds/pop.wav" id="4_rsmdk"]
 [ext_resource type="AudioStream" uid="uid://mfk4w30lewvq" path="res://sounds/tink.wav" id="5_n2cxf"]
 
@@ -71,7 +71,7 @@ scale = Vector2(0.8, 0.8)
 shape = SubResource("RectangleShape2D_0fvlc")
 
 [node name="SpawnSound" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("3_7gfcs")
+stream = ExtResource("4_46343")
 
 [node name="HitSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_rsmdk")

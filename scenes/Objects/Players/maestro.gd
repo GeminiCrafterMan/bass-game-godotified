@@ -69,6 +69,8 @@ var InvincFrames : int
 var Charge : int
 var Flash_Timer : int
 var no_grounded_movement : bool
+var on_ice : bool
+var ice_jump : bool
 
 
 #Attack vars
@@ -269,6 +271,8 @@ func _physics_process(delta: float) -> void:
 			if ((Input.is_action_just_pressed("jump") and is_on_floor() and !isFirstFrameOfState) and currentState != STATES.HURT and currentState != STATES.LADDER) and (currentState != STATES.DEAD):
 				if ($CeilingCheck.is_colliding() == false or currentState != STATES.SLIDE):
 					swapState = STATES.JUMP
+					if on_ice == true:
+						ice_jump = true
 					StepTime = 0
 					JumpHeight = 0
 					
@@ -278,6 +282,8 @@ func _physics_process(delta: float) -> void:
 				StepTime = 0
 				currentState = STATES.JUMP
 				swapState = STATES.NONE
+				if on_ice == true:
+						ice_jump = true
 				isFirstFrameOfState = false
 				
 		match currentState:
@@ -408,8 +414,12 @@ func _physics_process(delta: float) -> void:
 						print("idled bad")
 				else:
 					SlideTimer += 1
-					
-				velocity.x = -sprite.scale.x * 200
+									
+				if on_ice == false:
+					velocity.x = -sprite.scale.x * 200
+				else:
+					velocity.x = lerpf(velocity.x, -sprite.scale.x * 250, delta * 4)
+				
 				
 				if $CeilingCheck.is_colliding() == false:
 					if isFirstFrameOfState == false:
@@ -430,7 +440,7 @@ func _physics_process(delta: float) -> void:
 					sprite.stop()
 					sprite.play("Fall")
 				#set animation based on falling for rising
-				if velocity.y < 0:
+				if velocity.y < 0 && JumpHeight != 80:
 					
 					if (JumpHeight < JUMP_HEIGHT && Input.is_action_pressed("jump")):
 						velocity.y = JUMP_VELOCITY
@@ -477,11 +487,16 @@ func _physics_process(delta: float) -> void:
 							
 					#behavior of state
 					#movement in state
-				default_movement(direction, delta)
+				if ice_jump == false:
+					default_movement(direction, delta)
+				else:
+					ice_jump_move(direction,delta)
 				
 				if is_on_floor() and !isFirstFrameOfState:
 					$Audio/LandSound.play() #G: ends up playing when you jump, too...?
 					swapState = STATES.IDLE
+					if on_ice == false:
+						ice_jump = false
 				
 			STATES.LADDER:
 				if shoot_delay != 0 or Input.is_action_just_pressed("buster") or Input.is_action_just_pressed("shoot"):
@@ -617,36 +632,59 @@ func default_movement(direction, delta):
 	if direction.x:
 		
 		if is_on_floor() == true && no_grounded_movement == true:
-			currentSpeed = 0
+			if on_ice == false:
+				currentSpeed = 0
 		
 		else:
 			sprite.scale.x = sign(-direction.x)
 		
 			if StepTime < 6 && currentState != STATES.JUMP:
 				if StepTime < 1:
-					position.x = position.x + direction.x
+					if is_on_floor() == true && on_ice == false:
+						position.x = position.x + direction.x
 				StepTime += 1
 		
 			else:
 				if currentState != STATES.JUMP:
 					StepTime = 7
 				if (sprite.scale.x != sign(-direction.x)) and currentSpeed != 0:
-					currentSpeed = MAXSPEED
-				currentSpeed = lerpf(currentSpeed, MAXSPEED, delta * 20)
-				#no crazy floats because lerp
-				if abs(currentSpeed) > MAXSPEED - (MAXSPEED / 100):
+					if is_on_floor() == true && on_ice == true:
+						if velocity.x <= -MAXSPEED && velocity.x >= MAXSPEED:
+							velocity.x = lerpf(velocity.x, direction.x * MAXSPEED, delta * 3)
+					else:
+						currentSpeed = MAXSPEED
+
+				if is_on_floor() == true && on_ice == true:
+					velocity.x = lerpf(velocity.x, direction.x * MAXSPEED*1.5, delta * 2)
+					
+				else:
 					currentSpeed = MAXSPEED
 				#shmoovve
 			
 	else:
-		#come to stop (Megaman Should only do this on ice)
-		#currentSpeed = lerpf(currentSpeed, 0, delta * 25)
-		#no crazy floats because lerp
-			
-		currentSpeed = 0
+		if is_on_floor() == false or on_ice == false:
+			currentSpeed = 0
+		else:
+			velocity.x = lerpf(velocity.x, 0, delta * 2)
 		
+	if on_ice == false:
+		velocity.x = -sprite.scale.x * currentSpeed
 		
-	velocity.x = -sprite.scale.x * currentSpeed
+func ice_jump_move(direction, delta):
+	#movement in state
+	
+	if direction.x:
+		sprite.scale.x = sign(-direction.x)
+		
+		if (direction.x == -1 && velocity.x > 20) or (direction.x == 1 && velocity.x < -20):
+			velocity.x = lerpf(velocity.x, 0, delta * 7)
+		else:
+			if (direction.x == 1 && velocity.x < 30) or (direction.x == -1 && velocity.x > -30):
+				velocity.x = lerpf(direction.x * 50, 0, delta * 7)
+		
+	else:
+		velocity.x = lerpf(velocity.x, 0, delta * 4)
+		
 
 func do_charge_palette():
 	if Charge == 0 or Charge < 37: # no charge
