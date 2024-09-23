@@ -15,6 +15,12 @@ func _process(delta):
 		get_parent().add_child(projectile)
 		projectile.position.x = position.x
 		projectile.position.y = position.y
+		if GameState.droptimer < 3:
+			projectile = preload("res://scenes/Objects/Items/pickup.tscn").instantiate()
+			get_parent().add_child(projectile)
+			projectile.position.x = position.x
+			projectile.position.y = position.y
+			projectile.dropped = true
 		queue_free()
 		
 	if !is_on_floor():

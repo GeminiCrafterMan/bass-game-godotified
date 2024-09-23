@@ -21,7 +21,13 @@ var bolts = 0
 var ETanks = 0
 var WTanks = 0
 var STanks = 0
-var max_hp = 28 # upgradeable
+var max_hp = 28 # upgradeable #not upgradable anymore
+var healamt = 0
+var ammoamt = 0
+
+var droptimer : int
+var itemtimer : int
+
 
 var PROGRESSDICT = {
 	"NumberOfScrews" : 0,
@@ -67,6 +73,7 @@ var weapon_energy = [
 	28	# Sakugarne
 ]
 var max_weapon_energy = [ # Energy use is always 1, *no matter what*. Increase energy and max_energy values to have larger shot counts.
+							#what the hell are you talking about???
 	0,	# Buster
 	28,	# Scorch Barrier
 	28,	# Freeze Frame
@@ -115,9 +122,9 @@ var modules_enabled = [
 	false, # Track 2
 	false, # Mist Dash
 	false, # Aqua Drive
-	false, # Kami-Ha
+	false, # Paper Cut
 	false, # Aero Glide
-	false, # ???
-	false, # ???
+	false, # Machine Buster
+	false, # Spirit Dash
 	false, # Proto Shield
 ]

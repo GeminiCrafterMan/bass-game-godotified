@@ -45,6 +45,12 @@ func _process(_delta):
 		projectile.position.x = position.x
 		projectile.position.y = position.y
 		print("yeouch!")
+		if GameState.droptimer < 3:
+			projectile = preload("res://scenes/Objects/Items/pickup.tscn").instantiate()
+			get_parent().add_child(projectile)
+			projectile.position.x = position.x
+			projectile.position.y = position.y
+			projectile.dropped = true
 		queue_free()
 	
 	if Cur_Inv > 0:
@@ -80,7 +86,6 @@ func _process(_delta):
 	
 	if timer < 0 && $Sprite.animation == "Attack" &&  attacks > 0:
 		$Sprite.play("Attack")
-		$AudioStreamPlayer.play()
 		$Sprite.set_frame_and_progress(0, 0)
 		
 		projectile = preload("res://scenes/Objects/Enemies/enemy_bullet1.tscn").instantiate()

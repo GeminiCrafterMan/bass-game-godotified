@@ -1,8 +1,7 @@
-[gd_scene load_steps=18 format=3 uid="uid://dmulyeg8hg6yt"]
+[gd_scene load_steps=17 format=3 uid="uid://dmulyeg8hg6yt"]
 
 [ext_resource type="Script" path="res://scenes/Objects/Enemies/sniper_joe.gd" id="1_ds0gt"]
 [ext_resource type="Texture2D" uid="uid://daefccg61j7bv" path="res://sprites/Enemies/Sniper Joe.png" id="1_vqtgt"]
-[ext_resource type="AudioStream" uid="uid://cq4lw880ecl7v" path="res://sounds/enemyattack.wav" id="3_jc3c0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lwhwx"]
 atlas = ExtResource("1_vqtgt")
@@ -161,10 +160,6 @@ visible = false
 position = Vector2(6.5, -5.5)
 shape = SubResource("RectangleShape2D_wp5vq")
 debug_color = Color(0, 1, 0.0705882, 0.419608)
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_jc3c0")
-volume_db = -2.811
 
 [node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
 position = Vector2(2.5, -5)
