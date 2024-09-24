@@ -143,6 +143,8 @@ polygon = PackedVector2Array(0, 240, 2816, 240, 2816, 248, 0, 248)
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_bkhak")
+volume_db = -5.622
+stream_paused = true
 bus = &"Music"
 parameters/looping = true
 
@@ -215,4 +217,4 @@ style = 1
 [node name="HUD" parent="." instance=ExtResource("5_3ms7c")]
 
 [node name="StartPosition" parent="." instance=ExtResource("7_kik4n")]
-position = Vector2(1305, 128)
+position = Vector2(136, 80)

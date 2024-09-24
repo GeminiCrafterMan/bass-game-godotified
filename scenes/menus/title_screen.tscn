@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b2qdyqi73m1nh"]
+[gd_scene load_steps=13 format=3 uid="uid://b2qdyqi73m1nh"]
 
 [ext_resource type="Script" path="res://scenes/menus/title_screen.gd" id="1_8u8ci"]
 [ext_resource type="Texture2D" uid="uid://ci27q2k5qw6ig" path="res://sprites/Menus/Title Screen - Logo.png" id="1_urgqw"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://iqatecmiuy6e" path="res://sprites/Menus/Title Screen - Bass.png" id="3_u5ruh"]
 [ext_resource type="Theme" uid="uid://c1bun7kn776g1" path="res://themes/ui_theme.tres" id="5_v27ry"]
 [ext_resource type="Texture2D" uid="uid://blgb1vsp248uk" path="res://sprites/HUD/Life Icons.png" id="6_rvesi"]
+[ext_resource type="Script" path="res://scenes/menus/volumeslider.gd" id="8_8ahmy"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l4n2s"]
 bg_color = Color(0, 0, 0, 0)
@@ -84,6 +85,16 @@ layout_mode = 2
 theme = ExtResource("5_v27ry")
 text = "PRESS START"
 flat = true
+
+[node name="HSlider" type="HSlider" parent="."]
+offset_left = 13.0
+offset_right = 183.0
+offset_bottom = 16.0
+max_value = 1.0
+step = 0.01
+tick_count = 10
+script = ExtResource("8_8ahmy")
+bus_name = "Music"
 
 [connection signal="item_selected" from="CenterContainer/HBoxContainer/VBoxContainer/ItemList" to="." method="_on_item_list_item_selected"]
 [connection signal="pressed" from="CenterContainer/HBoxContainer/VBoxContainer/StartButton" to="." method="_on_startbutton_pressed"]
