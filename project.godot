@@ -26,8 +26,9 @@ config/icon="res://icon.png"
 [autoload]
 
 Loading="*res://addons/loading/loading.tscn"
-GameState="*res://scenes/game_state.gd"
 Debug="*res://autoload/debug.gd"
+GameState="*res://autoload/game_state.tscn"
+DebugMenu="*res://addons/debug_menu/debug_menu.tscn"
 
 [display]
 
@@ -40,6 +41,10 @@ window/stretch/scale_mode="integer"
 
 movie_writer/movie_file="C:/Users/Poly/Documents/bass-game-godotified/lol.avi"
 movie_writer/disable_vsync=true
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/debug_menu/plugin.cfg")
 
 [global_group]
 

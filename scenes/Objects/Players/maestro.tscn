@@ -497,7 +497,7 @@ script = ExtResource("1_ct76e")
 material = SubResource("ShaderMaterial_dtetj")
 scale = Vector2(-1, 1)
 sprite_frames = SubResource("SpriteFrames_f3vwn")
-animation = &"None"
+animation = &"Idle"
 autoplay = "Teleport"
 
 [node name="FX" type="Node2D" parent="."]
@@ -574,10 +574,12 @@ stream = ExtResource("15_e1wn3")
 volume_db = -16.0
 
 [node name="CeilingCheck" type="RayCast2D" parent="."]
+visible = false
 position = Vector2(0, 12)
 target_position = Vector2(0, -12)
 
 [node name="LadderCheck" type="ShapeCast2D" parent="."]
+visible = false
 position = Vector2(0, 7)
 shape = SubResource("RectangleShape2D_wph8j")
 target_position = Vector2(0, 0)
@@ -586,6 +588,7 @@ collide_with_areas = true
 collide_with_bodies = false
 
 [node name="TopLadderCheck" type="ShapeCast2D" parent="."]
+visible = false
 position = Vector2(0, -13)
 shape = SubResource("RectangleShape2D_fl2cb")
 target_position = Vector2(0, 0)

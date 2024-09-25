@@ -16,7 +16,7 @@ func _process(delta):
 		projectile.position.x = position.x
 		projectile.position.y = position.y
 		if GameState.droptimer < 3:
-			projectile = preload("res://scenes/Objects/Items/pickup.tscn").instantiate()
+			projectile = preload("res://scenes/Objects/Items/Pickup.tscn").instantiate()
 			get_parent().add_child(projectile)
 			projectile.position.x = position.x
 			projectile.position.y = position.y
