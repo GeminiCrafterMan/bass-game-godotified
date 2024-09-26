@@ -1,7 +1,8 @@
-[gd_scene load_steps=23 format=3 uid="uid://b0opfnom6gmbo"]
+[gd_scene load_steps=30 format=3 uid="uid://b0opfnom6gmbo"]
 
 [ext_resource type="Script" path="res://scenes/module_tester.gd" id="1_8wlr0"]
 [ext_resource type="Texture2D" uid="uid://cau6vfnef7e7f" path="res://sprites/HUD/Bass Modules.png" id="2_41jk2"]
+[ext_resource type="Texture2D" uid="uid://dspk0k641qf8b" path="res://sprites/HUD/Copy Robot Weapons.png" id="3_oh0nk"]
 [ext_resource type="Texture2D" uid="uid://bu1d7yfrawcb5" path="res://sprites/HUD/Bass Weapons.png" id="3_t6oby"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dxhje"]
@@ -39,6 +40,22 @@ region = Rect2(112, 0, 16, 16)
 [sub_resource type="AtlasTexture" id="AtlasTexture_10ksf"]
 atlas = ExtResource("2_41jk2")
 region = Rect2(128, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cl4pn"]
+atlas = ExtResource("3_oh0nk")
+region = Rect2(208, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qo07h"]
+atlas = ExtResource("3_oh0nk")
+region = Rect2(224, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nn32p"]
+atlas = ExtResource("3_oh0nk")
+region = Rect2(240, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d3bvh"]
+atlas = ExtResource("3_oh0nk")
+region = Rect2(256, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7cw5a"]
 atlas = ExtResource("3_t6oby")
@@ -79,6 +96,14 @@ region = Rect2(144, 0, 16, 16)
 [sub_resource type="AtlasTexture" id="AtlasTexture_bblnj"]
 atlas = ExtResource("3_t6oby")
 region = Rect2(160, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7820v"]
+atlas = ExtResource("3_oh0nk")
+region = Rect2(176, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_je76y"]
+atlas = ExtResource("3_oh0nk")
+region = Rect2(192, 0, 16, 16)
 
 [node name="Module Tester" type="Node2D"]
 script = ExtResource("1_8wlr0")
@@ -137,15 +162,19 @@ icon = SubResource("AtlasTexture_10ksf")
 
 [node name="CheckButton23" type="CheckButton" parent="Modules"]
 layout_mode = 2
+icon = SubResource("AtlasTexture_cl4pn")
 
 [node name="CheckButton24" type="CheckButton" parent="Modules"]
 layout_mode = 2
+icon = SubResource("AtlasTexture_qo07h")
 
 [node name="CheckButton25" type="CheckButton" parent="Modules"]
 layout_mode = 2
+icon = SubResource("AtlasTexture_nn32p")
 
 [node name="CheckButton26" type="CheckButton" parent="Modules"]
 layout_mode = 2
+icon = SubResource("AtlasTexture_d3bvh")
 
 [node name="Weapons" type="GridContainer" parent="."]
 offset_right = 60.0
@@ -205,9 +234,11 @@ icon = SubResource("AtlasTexture_bblnj")
 
 [node name="CheckButton20" type="CheckButton" parent="Weapons"]
 layout_mode = 2
+icon = SubResource("AtlasTexture_7820v")
 
 [node name="CheckButton21" type="CheckButton" parent="Weapons"]
 layout_mode = 2
+icon = SubResource("AtlasTexture_je76y")
 
 [node name="Button" type="Button" parent="."]
 offset_left = 344.0
@@ -240,6 +271,6 @@ text = "hide"
 [connection signal="toggled" from="Weapons/CheckButton18" to="." method="_on_check_button_18_toggled"]
 [connection signal="toggled" from="Weapons/CheckButton19" to="." method="_on_check_button_19_toggled"]
 [connection signal="toggled" from="Weapons/CheckButton20" to="." method="_on_check_button_20_toggled"]
-[connection signal="toggled" from="Weapons/CheckButton21" to="." method="_on_check_button_2_toggled"]
 [connection signal="toggled" from="Weapons/CheckButton21" to="." method="_on_check_button_21_toggled"]
+[connection signal="toggled" from="Weapons/CheckButton21" to="." method="_on_check_button_2_toggled"]
 [connection signal="toggled" from="Button" to="." method="_on_button_toggled"]

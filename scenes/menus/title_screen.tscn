@@ -77,8 +77,6 @@ item_1/selectable = false
 item_1/disabled = true
 item_2/text = "COPY ROBOT (!)"
 item_2/icon = SubResource("AtlasTexture_t7tyd")
-item_2/selectable = false
-item_2/disabled = true
 
 [node name="StartButton" type="Button" parent="CenterContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2

@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+class_name MaestroPlayer
+
 #signals
 signal teleported
 
@@ -15,7 +17,7 @@ enum STATES {
 	LADDER,
 	HURT,
 	DEAD
-	}
+}
 
 #state related
 var currentState = STATES.TELEPORT
@@ -107,7 +109,6 @@ var projectile_scenes = [
 	preload("res://scenes/Objects/Players/Weapons/Copy Robot/ballade_cracker.tscn"),
 	preload("res://scenes/Objects/Players/Weapons/Copy Robot/screw_crusher.tscn"),
 	preload("res://scenes/Objects/Players/Weapons/Copy Robot/arrow.tscn")
-	
 ]
 
 var weapon_scenes = [
@@ -149,19 +150,19 @@ func _physics_process(delta: float) -> void:
 		swapState = STATES.DEAD
 	
 	if shield != null:
-		shield.baseposx = position.x - sprite.scale.x * 1
+		shield.baseposx = position.x + sprite.scale.x * 1
 		shield.baseposy = position.y+4
 		
 	if shield2 != null:
-		shield2.baseposx = position.x - sprite.scale.x * 1
+		shield2.baseposx = position.x + sprite.scale.x * 1
 		shield2.baseposy = position.y+4
 		
 	if shield3 != null:
-		shield3.baseposx = position.x - sprite.scale.x * 1
+		shield3.baseposx = position.x + sprite.scale.x * 1
 		shield3.baseposy = position.y+4
 		
 	if shield4 != null:
-		shield4.baseposx = position.x - sprite.scale.x * 1
+		shield4.baseposx = position.x + sprite.scale.x * 1
 		shield4.baseposy = position.y+4
 	
 	if currentState != STATES.TELEPORT:
@@ -322,9 +323,9 @@ func _physics_process(delta: float) -> void:
 						1: # StopShoot
 							$AnimatedSprite2D.play("Idle-Shoot")
 						2: # Throw
-							$AnimatedSprite2D.play("Throw")
+							$AnimatedSprite2D.play("Idle-Throw")
 						3: # Shield
-							$AnimatedSprite2D.play("Cast")
+							$AnimatedSprite2D.play("Idle-Shield")
 						4: # Fin Shredder
 							$AnimatedSprite2D.play("FinShredder")
 						_: # Everything else
@@ -357,11 +358,11 @@ func _physics_process(delta: float) -> void:
 						1: # Stop
 							$AnimatedSprite2D.play("Idle-Shoot")
 						2: # Throw
-							$AnimatedSprite2D.play("Throw")
+							$AnimatedSprite2D.play("Idle-Throw")
 						3: # Shield
-							$AnimatedSprite2D.play("Cast")
+							$AnimatedSprite2D.play("Idle-Shield")
 						4: # Shredder
-							$AnimatedSprite2D.play("FinShredder")		
+							$AnimatedSprite2D.play("FinShredder")
 						_: # Everything else
 							$AnimatedSprite2D.play("Walk-Shoot")
 				else:
@@ -398,7 +399,7 @@ func _physics_process(delta: float) -> void:
 					#Spawns Smoke
 					FX = preload("res://scenes/Objects/Players/dashtrail.tscn").instantiate()
 					get_parent().add_child(FX)
-					if sprite.scale.x == 1:
+					if sprite.scale.x == -1:
 						FX.scale.x = -1
 						FX.position.x = position.x + 15
 					else:
@@ -416,20 +417,20 @@ func _physics_process(delta: float) -> void:
 					SlideTimer += 1
 									
 				if on_ice == false:
-					velocity.x = -sprite.scale.x * 200
+					velocity.x = sprite.scale.x * 200
 				else:
-					velocity.x = lerpf(velocity.x, -sprite.scale.x * 250, delta * 4)
+					velocity.x = lerpf(velocity.x, sprite.scale.x * 250, delta * 4)
 				
 				
 				if $CeilingCheck.is_colliding() == false:
 					if isFirstFrameOfState == false:
-						if sign(direction.x) == sign(sprite.scale.x):
+						if sign(direction.x) == sign(-sprite.scale.x):
 							swapState = STATES.WALK
 					
 				
 				if $CeilingCheck.is_colliding() == true:
 					if direction.x:
-						sprite.scale.x = sign(-direction.x)
+						sprite.scale.x = sign(direction.x)
 					
 			STATES.JUMP:
 				#setup needed on first frame of new state
@@ -479,7 +480,7 @@ func _physics_process(delta: float) -> void:
 						2: # Throw
 							$AnimatedSprite2D.play("Jump-Throw")
 						3: # Shield
-							$AnimatedSprite2D.play("Cast")
+							$AnimatedSprite2D.play("Jump-Shield")
 						4: # Shredder
 							$AnimatedSprite2D.play("FinShredder")
 						_: # Everything else
@@ -501,7 +502,7 @@ func _physics_process(delta: float) -> void:
 			STATES.LADDER:
 				if shoot_delay != 0 or Input.is_action_just_pressed("buster") or Input.is_action_just_pressed("shoot"):
 					if direction.x != 0:
-						sprite.scale.x = sign(-direction.x)
+						sprite.scale.x = sign(direction.x)
 					if sprite.animation != "Ladder-Shoot":
 						sprite.stop()
 						sprite.play("Ladder-Shoot")
@@ -636,7 +637,7 @@ func default_movement(direction, delta):
 				currentSpeed = 0
 		
 		else:
-			sprite.scale.x = sign(-direction.x)
+			sprite.scale.x = sign(direction.x)
 		
 			if StepTime < 6 && currentState != STATES.JUMP:
 				if StepTime < 1:
@@ -647,7 +648,7 @@ func default_movement(direction, delta):
 			else:
 				if currentState != STATES.JUMP:
 					StepTime = 7
-				if (sprite.scale.x != sign(-direction.x)) and currentSpeed != 0:
+				if (sprite.scale.x != sign(direction.x)) and currentSpeed != 0:
 					if is_on_floor() == true && on_ice == true:
 						if velocity.x <= -MAXSPEED && velocity.x >= MAXSPEED:
 							velocity.x = lerpf(velocity.x, direction.x * MAXSPEED, delta * 3)
@@ -668,13 +669,13 @@ func default_movement(direction, delta):
 			velocity.x = lerpf(velocity.x, 0, delta * 2)
 		
 	if on_ice == false:
-		velocity.x = -sprite.scale.x * currentSpeed
+		velocity.x = sprite.scale.x * currentSpeed
 		
 func ice_jump_move(direction, delta):
 	#movement in state
 	
 	if direction.x:
-		sprite.scale.x = sign(-direction.x)
+		sprite.scale.x = sign(direction.x)
 		
 		if (direction.x == -1 && velocity.x > 20) or (direction.x == 1 && velocity.x < -20):
 			velocity.x = lerpf(velocity.x, 0, delta * 7)
@@ -753,8 +754,8 @@ func weapon_buster():
 			get_parent().add_child(projectile)
 			projectile.position.x = position.x
 			projectile.position.y = position.y
-			projectile.velocity.x = -sprite.scale.x * 350
-			projectile.scale.x = -sprite.scale.x
+			projectile.velocity.x = sprite.scale.x * 350
+			projectile.scale.x = sprite.scale.x
 			Charge = 0
 			return
 	if (GameState.current_weapon == 0 and Input.is_action_just_released("shoot")) or Input.is_action_just_released("buster"):
@@ -769,8 +770,8 @@ func weapon_buster():
 				get_parent().add_child(projectile)
 				projectile.position.x = position.x
 				projectile.position.y = position.y
-				projectile.velocity.x = -sprite.scale.x * 450
-				projectile.scale.x = -sprite.scale.x
+				projectile.velocity.x = sprite.scale.x * 450
+				projectile.scale.x = sprite.scale.x
 				Charge = 0
 				$Audio/Charge1.stop()
 				return
@@ -781,8 +782,8 @@ func weapon_buster():
 				get_parent().add_child(projectile)
 				projectile.position.x = position.x
 				projectile.position.y = position.y
-				projectile.velocity.x = -sprite.scale.x * 500
-				projectile.scale.x = -sprite.scale.x
+				projectile.velocity.x = sprite.scale.x * 500
+				projectile.scale.x = sprite.scale.x
 				Charge = 0
 				return
 	if (GameState.current_weapon == 0 and Input.is_action_pressed("shoot")) or Input.is_action_pressed("buster"):
@@ -841,19 +842,19 @@ func weapon_blaze():
 				shoot_delay = 16
 				if shield != null:
 					shield.fired = true
-					if sprite.scale.x == 1:
+					if sprite.scale.x == -1:
 						shield.left = true
 				if shield2 != null:
 					shield2.fired = true
-					if sprite.scale.x == 1:
+					if sprite.scale.x == -1:
 						shield2.left = true
 				if shield3 != null:
 					shield3.fired = true
-					if sprite.scale.x == 1:
+					if sprite.scale.x == -1:
 						shield3.left = true
 				if shield4 != null:
 					shield4.fired = true
-					if sprite.scale.x == 1:
+					if sprite.scale.x == -1:
 						shield4.left = true
 						
 				shield = null
@@ -869,10 +870,10 @@ func weapon_smog():
 		projectile = weapon_scenes[1].instantiate()
 		get_parent().add_child(projectile)
 		
-		projectile.position.x = position.x -sprite.scale.x * 15
+		projectile.position.x = position.x + sprite.scale.x * 15
 		projectile.position.y = position.y + 4
-		projectile.velocity.x = -sprite.scale.x * 100
-		projectile.scale.x = -sprite.scale.x
+		projectile.velocity.x = sprite.scale.x * 100
+		projectile.scale.x = sprite.scale.x
 		return
 		
 func weapon_shark():
@@ -884,10 +885,10 @@ func weapon_shark():
 		projectile = weapon_scenes[4].instantiate()
 		get_parent().add_child(projectile)
 		
-		projectile.position.x = position.x -sprite.scale.x * 15
+		projectile.position.x = position.x + sprite.scale.x * 15
 		projectile.position.y = position.y - 3
-		projectile.velocity.x = -sprite.scale.x * 65
-		projectile.scale.x = -sprite.scale.x
+		projectile.velocity.x = sprite.scale.x * 65
+		projectile.scale.x = sprite.scale.x
 		return
 
 func weapon_origami():
@@ -903,23 +904,23 @@ func weapon_origami():
 			get_parent().add_child(projectile)
 			projectile.position.x = position.x
 			projectile.position.y = position.y
-			projectile.scale.x = sprite.scale.x
-			projectile.velocity.x = -sprite.scale.x * ORIGAMI_SPEED
+			projectile.scale.x = -sprite.scale.x
+			projectile.velocity.x = sprite.scale.x * ORIGAMI_SPEED
 					
 			projectile = weapon_scenes[0].instantiate()
 			get_parent().add_child(projectile)
 			projectile.position.x = position.x
 			projectile.position.y = position.y
-			projectile.scale.x = sprite.scale.x
-			projectile.velocity.x = -sprite.scale.x * ORIGAMI_SPEED * 0.775
+			projectile.scale.x = -sprite.scale.x
+			projectile.velocity.x = sprite.scale.x * ORIGAMI_SPEED * 0.775
 			projectile.velocity.y = -ORIGAMI_SPEED * 0.225
 					
 			projectile = weapon_scenes[0].instantiate()
 			get_parent().add_child(projectile)
 			projectile.position.x = position.x
 			projectile.position.y = position.y
-			projectile.scale.x = sprite.scale.x
-			projectile.velocity.x = -sprite.scale.x * ORIGAMI_SPEED * 0.775
+			projectile.scale.x = -sprite.scale.x
+			projectile.velocity.x = sprite.scale.x * ORIGAMI_SPEED * 0.775
 			projectile.velocity.y =  ORIGAMI_SPEED * 0.225
 	
 		if Input.is_action_pressed("move_up"):
@@ -927,24 +928,24 @@ func weapon_origami():
 			get_parent().add_child(projectile)
 			projectile.position.x = position.x
 			projectile.position.y = position.y
-			projectile.scale.x = sprite.scale.x
-			projectile.velocity.x = -sprite.scale.x *ORIGAMI_SPEED *  0.225
+			projectile.scale.x = -sprite.scale.x
+			projectile.velocity.x = sprite.scale.x *ORIGAMI_SPEED *  0.225
 			projectile.velocity.y =  -ORIGAMI_SPEED * 0.775
 			
 			projectile = weapon_scenes[0].instantiate()
 			get_parent().add_child(projectile)
 			projectile.position.x = position.x
 			projectile.position.y = position.y
-			projectile.scale.x = sprite.scale.x
-			projectile.velocity.x = -sprite.scale.x * ORIGAMI_SPEED * 0.5
+			projectile.scale.x = -sprite.scale.x
+			projectile.velocity.x = sprite.scale.x * ORIGAMI_SPEED * 0.5
 			projectile.velocity.y =  -ORIGAMI_SPEED * 0.5
 			
 			projectile = weapon_scenes[0].instantiate()
 			get_parent().add_child(projectile)
 			projectile.position.x = position.x
 			projectile.position.y = position.y
-			projectile.scale.x = sprite.scale.x
-			projectile.velocity.x = -sprite.scale.x * ORIGAMI_SPEED * 0.775
+			projectile.scale.x = -sprite.scale.x
+			projectile.velocity.x = sprite.scale.x * ORIGAMI_SPEED * 0.775
 			projectile.velocity.y =  -ORIGAMI_SPEED * 0.225
 			
 		if Input.is_action_pressed("move_down"):
@@ -952,24 +953,24 @@ func weapon_origami():
 			get_parent().add_child(projectile)
 			projectile.position.x = position.x
 			projectile.position.y = position.y
-			projectile.scale.x = sprite.scale.x
-			projectile.velocity.x = -sprite.scale.x * ORIGAMI_SPEED *  0.225
+			projectile.scale.x = -sprite.scale.x
+			projectile.velocity.x = sprite.scale.x * ORIGAMI_SPEED *  0.225
 			projectile.velocity.y =  ORIGAMI_SPEED * 0.775
 			
 			projectile = weapon_scenes[0].instantiate()
 			get_parent().add_child(projectile)
 			projectile.position.x = position.x
 			projectile.position.y = position.y
-			projectile.scale.x = sprite.scale.x
-			projectile.velocity.x = -sprite.scale.x * ORIGAMI_SPEED * 0.5
+			projectile.scale.x = -sprite.scale.x
+			projectile.velocity.x = sprite.scale.x * ORIGAMI_SPEED * 0.5
 			projectile.velocity.y =  ORIGAMI_SPEED * 0.5
 			
 			projectile = weapon_scenes[0].instantiate()
 			get_parent().add_child(projectile)
 			projectile.position.x = position.x
 			projectile.position.y = position.y
-			projectile.scale.x = sprite.scale.x
-			projectile.velocity.x = -sprite.scale.x * ORIGAMI_SPEED * 0.775
+			projectile.scale.x = -sprite.scale.x
+			projectile.velocity.x = sprite.scale.x * ORIGAMI_SPEED * 0.775
 			projectile.velocity.y =  ORIGAMI_SPEED * 0.225
 		
 		return
@@ -985,10 +986,10 @@ func weapon_guerilla():
 		#SHOOT FORWARD REGARDLESS
 		get_parent().add_child(projectile)
 		projectile.position.y = position.y
-		projectile.position.x = position.x - sprite.scale.x * 27
-		projectile.velocity.x = -sprite.scale.x * 20
+		projectile.position.x = position.x + sprite.scale.x * 27
+		projectile.velocity.x = sprite.scale.x * 20
 		projectile.velocity.y = 10
-		projectile.scale.x = -sprite.scale.x
+		projectile.scale.x = sprite.scale.x
 
 func weapon_carry():
 	if Input.is_action_just_pressed("shoot") && GameState.weapon_energy[11] >= 3:
@@ -1002,7 +1003,7 @@ func weapon_carry():
 		get_parent().add_child(projectile)
 		if is_on_floor():	
 			projectile.position.y = position.y
-			projectile.position.x = position.x  - sprite.scale.x * 30
+			projectile.position.x = position.x + sprite.scale.x * 30
 		else:
 			projectile.position.y = position.y + 24
 			projectile.position.x = position.x
@@ -1018,9 +1019,9 @@ func weapon_arrow():
 		#SHOOT FORWARD REGARDLESS
 		get_parent().add_child(projectile)
 		projectile.position.y = position.y
-		projectile.position.x = position.x - sprite.scale.x * 27
-		projectile.velocity.x = -sprite.scale.x * 0.001
-		projectile.scale.x = -sprite.scale.x
+		projectile.position.x = position.x + sprite.scale.x * 27
+		projectile.velocity.x = sprite.scale.x * 0.001
+		projectile.scale.x = sprite.scale.x
 
 
 func weapon_punk():
@@ -1039,7 +1040,7 @@ func weapon_punk():
 		projectile.position.y = position.y
 		
 		projectile.velocity.y = -450
-		projectile.velocity.x = -sprite.scale.x * 95
+		projectile.velocity.x = sprite.scale.x * 95
 	return
 
 
@@ -1057,11 +1058,11 @@ func weapon_ballade():
 		projectile.position.y = position.y
 		
 		projectile.velocity.y = 0
-		projectile.velocity.x = -sprite.scale.x * CRACKER_SPEED * 1
+		projectile.velocity.x = sprite.scale.x * CRACKER_SPEED * 1
 			
 		if(Input.is_action_pressed("move_up")):
 			projectile.velocity.y = -CRACKER_SPEED * 0.5
-			projectile.velocity.x = -sprite.scale.x * CRACKER_SPEED * 0.5
+			projectile.velocity.x = sprite.scale.x * CRACKER_SPEED * 0.5
 			
 		if(Input.is_action_pressed("move_up") && !Input.is_action_pressed("move_left") && !Input.is_action_pressed("move_right")):
 			projectile.velocity.y = -CRACKER_SPEED * 1
@@ -1069,7 +1070,7 @@ func weapon_ballade():
 						
 		if(Input.is_action_pressed("move_down")):
 			projectile.velocity.y = CRACKER_SPEED * 0.5
-			projectile.velocity.x = -sprite.scale.x * CRACKER_SPEED * 0.5
+			projectile.velocity.x = sprite.scale.x * CRACKER_SPEED * 0.5
 			return
 
 

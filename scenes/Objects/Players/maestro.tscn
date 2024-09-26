@@ -31,14 +31,6 @@ shader_parameter/use_palette_alpha = false
 shader_parameter/fps = 6.0
 shader_parameter/palette = ExtResource("2_6qlls")
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_bg5pr"]
-atlas = ExtResource("2_ae8gn")
-region = Rect2(545, 70, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_mmfui"]
-atlas = ExtResource("2_ae8gn")
-region = Rect2(349, 12, 48, 48)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_cp00o"]
 atlas = ExtResource("2_ae8gn")
 region = Rect2(398, 12, 48, 48)
@@ -62,6 +54,14 @@ region = Rect2(3, 12, 48, 48)
 [sub_resource type="AtlasTexture" id="AtlasTexture_l8y2a"]
 atlas = ExtResource("2_ae8gn")
 region = Rect2(52, 12, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bg5pr"]
+atlas = ExtResource("2_ae8gn")
+region = Rect2(545, 70, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mmfui"]
+atlas = ExtResource("2_ae8gn")
+region = Rect2(349, 12, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_10nr3"]
 atlas = ExtResource("2_ae8gn")
@@ -187,17 +187,6 @@ region = Rect2(151, 70, 48, 48)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_bg5pr")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_mmfui")
-}],
-"loop": false,
-"name": &"Cast",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_cp00o")
 }],
 "loop": true,
@@ -236,11 +225,33 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_bg5pr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mmfui")
+}],
+"loop": true,
+"name": &"Idle-Shield",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_10nr3")
 }],
 "loop": true,
 "name": &"Idle-Shoot",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vag15")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2r21u")
+}],
+"loop": false,
+"name": &"Idle-Throw",
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -256,6 +267,17 @@ animations = [{
 }],
 "loop": true,
 "name": &"Jump Transition",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bg5pr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mmfui")
+}],
+"loop": false,
+"name": &"Jump-Shield",
 "speed": 5.0
 }, {
 "frames": [{
@@ -376,17 +398,6 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_vag15")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_2r21u")
-}],
-"loop": false,
-"name": &"Throw",
-"speed": 8.0
-}, {
-"frames": [{
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_ht1xm")
 }, {
 "duration": 1.0,
@@ -497,7 +508,7 @@ script = ExtResource("1_ct76e")
 material = SubResource("ShaderMaterial_dtetj")
 scale = Vector2(-1, 1)
 sprite_frames = SubResource("SpriteFrames_f3vwn")
-animation = &"Idle"
+animation = &"Ladder-Shoot"
 autoplay = "Teleport"
 
 [node name="FX" type="Node2D" parent="."]
