@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=4 uid="uid://by07rq184shwd"]
+[gd_scene load_steps=23 format=4 uid="uid://by07rq184shwd"]
 
 [ext_resource type="Script" path="res://scenes/Stages/Stage.gd" id="1_ac8st"]
 [ext_resource type="TileSet" uid="uid://bglohi0dt4uvq" path="res://tilesets/test_stage.tres" id="2_cu0lw"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://bingbkdyjdsbs" path="res://scenes/Objects/Players/start_position.tscn" id="10_4y8fd"]
 [ext_resource type="PackedScene" uid="uid://cwqbm80i7pv6x" path="res://scenes/Objects/Level Objs/ladder_hitbox.tscn" id="11_n5yro"]
 [ext_resource type="PackedScene" uid="uid://mi0hw7tknuco" path="res://scenes/Objects/Level Objs/spikes.tscn" id="12_1njev"]
+[ext_resource type="PackedScene" uid="uid://b8vqvqer5c6o3" path="res://scenes/Objects/Enemies/commando_joe.tscn" id="14_q1mcp"]
 [ext_resource type="PackedScene" uid="uid://bobtsvomowe28" path="res://scenes/Objects/Items/Pickup.tscn" id="15_bvxqh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d8swr"]
@@ -333,6 +334,9 @@ position = Vector2(88, 280)
 item_type = 4
 item_size = 1
 dropped = false
+
+[node name="Commando Joe" parent="." instance=ExtResource("14_q1mcp")]
+position = Vector2(429, 296)
 
 [connection signal="body_entered" from="Water" to="." method="_on_water_body_entered"]
 [connection signal="body_exited" from="Water" to="." method="_on_water_body_exited"]

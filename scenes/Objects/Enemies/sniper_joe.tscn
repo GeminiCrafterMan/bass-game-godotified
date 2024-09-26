@@ -120,7 +120,7 @@ size = Vector2(13, 24)
 size = Vector2(21, 27)
 
 [node name="Sniper Joe" type="CharacterBody2D"]
-collision_layer = 4
+collision_layer = 0
 collision_mask = 3
 script = ExtResource("1_ds0gt")
 

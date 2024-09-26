@@ -105,7 +105,8 @@ autoplay = "Bass"
 position = Vector2(1.26362e-05, 0.499992)
 scale = Vector2(19.3, 18.15)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["scorch"]]
+scale = Vector2(1.75, 1.75)
 shape = SubResource("RectangleShape2D_0fvlc")
 
 [node name="SpawnSound" type="AudioStreamPlayer" parent="."]

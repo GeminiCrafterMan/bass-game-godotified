@@ -73,7 +73,7 @@ size = Vector2(31, 41)
 size = Vector2(20, 29)
 
 [node name="Jumbro" type="CharacterBody2D"]
-collision_layer = 4
+collision_layer = 0
 collision_mask = 19
 script = ExtResource("1_w5820")
 

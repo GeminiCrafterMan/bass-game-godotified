@@ -269,7 +269,7 @@ func _physics_process(delta: float) -> void:
 							
 			
 			#check for jump
-			if ((Input.is_action_just_pressed("jump") and is_on_floor() and !isFirstFrameOfState) and currentState != STATES.HURT and currentState != STATES.LADDER) and (currentState != STATES.DEAD):
+			if ((Input.is_action_just_pressed("jump") and is_on_floor() and (!isFirstFrameOfState or (currentState == STATES.IDLE or currentState == STATES.WALK)) and currentState != STATES.HURT and currentState != STATES.LADDER and currentState != STATES.DEAD)):
 				if ($CeilingCheck.is_colliding() == false or currentState != STATES.SLIDE):
 					swapState = STATES.JUMP
 					if on_ice == true:
@@ -806,7 +806,7 @@ func weapon_blaze():
 
 	if Input.is_action_just_pressed("shoot"):
 		
-		var space : int = 19
+		var space : int = 18
 		if shield == null && shield2 == null && shield3 == null && shield4 == null && GameState.weapon_energy[1] >= 1:
 			
 			shot_type = 3

@@ -5,14 +5,12 @@ var broken
 
 func _ready():
 	$SpawnSound.play()
-	if GameState.character_selected == 0:
-		$AnimatedSprite2D.play("Bass")
-	else:
-		$AnimatedSprite2D.play("Copy")
 		
 func _physics_process(_delta):
 	if GameState.current_weapon != 5:
 		queue_free()
+	if GameState.player != null:
+		$AnimatedSprite2D.material.set_shader_parameter("palette", get_node(GameState.player).get_node("AnimatedSprite2D").material.get_shader_parameter("palette"))
 	
 	if broken == true:
 		$AnimatedSprite2D.set_frame_and_progress(0, 0)

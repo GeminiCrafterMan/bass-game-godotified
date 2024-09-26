@@ -7,7 +7,7 @@ var Dmg_Vals = [
 		1,	#1  Copy Buster
 		2,	#2  Copy Buster, medium shot
 		4,	#3  Copy Buster, charge shot
-		3,	#4  Scorch Barrier
+		2,	#4  Scorch Barrier
 		0,	#5  Freeze Frame (if it does damage like Time Stopper on Quick Man)
 		1,	#6  Poison Cloud
 		6,	#7  Fin Shredder

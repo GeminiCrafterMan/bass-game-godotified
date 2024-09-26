@@ -36,9 +36,16 @@ func _ready():
 	
 		
 func _physics_process(_delta):
+	if durability < 1:
+			$CollisionShape2D.set_deferred("disabled", true)
+			velocity.x = 0
+			velocity.y = 0
+			$MainSprite.play("hit")
+			await $MainSprite.animation_finished
+			queue_free()
+	
 	if GameState.current_weapon != 1:
 		durability = 0
-		destroy()
 	
 	if wet == false:
 		if durability > 0:
@@ -55,6 +62,7 @@ func _physics_process(_delta):
 	
 	if invul > 0:
 		invul = invul - 1
+		$CollisionShape2D.set_deferred("disabled", true)
 	else:
 		$CollisionShape2D.set_deferred("disabled", false)
 	
@@ -109,13 +117,6 @@ func _physics_process(_delta):
 	
 	if move_and_slide() == true:
 		destroy()
-		
-	if DmgQueue > 0:
-		if invul > 0:
-			pass
-		else:
-			durability -= DmgQueue
-			
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	if fired == true:
@@ -129,14 +130,6 @@ func destroy():
 			$CollisionShape2D.set_deferred("disabled", true)
 			durability = durability - 2
 			invul = 5
-		
-		if durability < 1:
-			$CollisionShape2D.set_deferred("disabled", true)
-			velocity.x = 0
-			velocity.y = 0
-			$MainSprite.play("hit")
-			await $MainSprite.animation_finished
-			queue_free()
 
 func kill():
 	pass

@@ -22,3 +22,6 @@ func destroy():
 
 func _on_hurt_body_entered(body):
 	body.DmgQueue = Atk_Dmg
+	if body.is_in_group("scorch"):
+		body.durability -= 1
+		queue_free()
