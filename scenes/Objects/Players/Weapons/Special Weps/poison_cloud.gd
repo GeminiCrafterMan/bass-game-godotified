@@ -7,21 +7,20 @@ var time : int
 func _ready():
 	$SpawnSound.play()
 	if GameState.character_selected == 0:
-		$AnimatedSprite2D.play("Bass")
-	else:
-		$AnimatedSprite2D.play("Copy")
+		$AnimatedSprite2D.play("Spawn")
 		
 func _physics_process(_delta):
+	if GameState.player != null:
+		$AnimatedSprite2D.material.set_shader_parameter("palette", get_node(GameState.player).get_node("AnimatedSprite2D").material.get_shader_parameter("palette"))
+	
+	
 	if GameState.current_weapon != 3:
-		queue_free()
+		queue_free()	
 	
 	time = time + 1
-	if $AnimatedSprite2D.animation == "Bass":
+	if $AnimatedSprite2D.animation == "Spawn":
 		if time > 25:
-			$AnimatedSprite2D.play("Bass2")
-	if $AnimatedSprite2D.animation == "Copy":
-		if time > 25:
-			$AnimatedSprite2D.play("Copy2")
+			$AnimatedSprite2D.play("Loop")
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	queue_free()

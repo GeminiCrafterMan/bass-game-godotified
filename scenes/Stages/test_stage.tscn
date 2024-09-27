@@ -336,7 +336,7 @@ item_size = 1
 dropped = false
 
 [node name="Commando Joe" parent="." instance=ExtResource("14_q1mcp")]
-position = Vector2(429, 296)
+position = Vector2(517, 40)
 
 [connection signal="body_entered" from="Water" to="." method="_on_water_body_entered"]
 [connection signal="body_exited" from="Water" to="." method="_on_water_body_exited"]

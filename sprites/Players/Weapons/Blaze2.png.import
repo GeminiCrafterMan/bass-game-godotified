@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://byfelmyxuhyw2"
-path="res://.godot/imported/Blaze2.png-3ab382d2a2d79d91e7491b61e5c151bd.ctex"
+uid="uid://bswfxxprmqqcy"
+path="res://.godot/imported/Blaze2.png-cff29b081e017af47fd6759b66dd13bf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/Players/Bass/Weapons/Blaze2.png"
-dest_files=["res://.godot/imported/Blaze2.png-3ab382d2a2d79d91e7491b61e5c151bd.ctex"]
+source_file="res://sprites/Players/Weapons/Blaze2.png"
+dest_files=["res://.godot/imported/Blaze2.png-cff29b081e017af47fd6759b66dd13bf.ctex"]
 
 [params]
 

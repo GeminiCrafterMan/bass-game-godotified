@@ -5,6 +5,9 @@ var timer : int
 var flashtimer : int
 
 func _process(_delta):
+	if GameState.player != null:
+		$AnimatedSprite2D.material.set_shader_parameter("palette", get_node(GameState.player).get_node("AnimatedSprite2D").material.get_shader_parameter("palette"))
+	
 	if GameState.current_weapon != 11 && $AnimatedSprite2D.animation != "explode":
 		$AnimatedSprite2D.play("explode")
 		$Shape.disabled = true

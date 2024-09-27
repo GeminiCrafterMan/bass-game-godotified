@@ -1,26 +1,33 @@
-[gd_scene load_steps=23 format=3 uid="uid://ct7rciidstb04"]
+[gd_scene load_steps=25 format=3 uid="uid://ct7rciidstb04"]
 
 [ext_resource type="Script" path="res://scenes/Objects/Players/Weapons/Copy Robot/ballade_cracker.gd" id="1_srl0e"]
-[ext_resource type="Texture2D" uid="uid://o8qgh1r06aj5" path="res://sprites/Players/Copy Robot/Weapons/Cracker.png" id="3_3toys"]
+[ext_resource type="Texture2D" uid="uid://dh77qoc2reed5" path="res://sprites/Players/Weapons/Cracker.png" id="2_1n5gq"]
+[ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="2_ovmyo"]
 [ext_resource type="Texture2D" uid="uid://di1wfh2x1b16k" path="res://sprites/big_explosion.png" id="3_omsw6"]
 [ext_resource type="AudioStream" uid="uid://dagp08oy1dyj5" path="res://sounds/bomb.wav" id="5_20dw4"]
 [ext_resource type="AudioStream" uid="uid://dcvhxvuushcu4" path="res://sounds/chargeshot.wav" id="5_wx4fk"]
 [ext_resource type="AudioStream" uid="uid://mfk4w30lewvq" path="res://sounds/tink.wav" id="6_ihs6t"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_7alei"]
-atlas = ExtResource("3_3toys")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xynrx"]
+shader = ExtResource("2_ovmyo")
+shader_parameter/skip_first_row = true
+shader_parameter/use_palette_alpha = false
+shader_parameter/fps = 6.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_en8if"]
+atlas = ExtResource("2_1n5gq")
 region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_4wndv"]
-atlas = ExtResource("3_3toys")
+[sub_resource type="AtlasTexture" id="AtlasTexture_67u6c"]
+atlas = ExtResource("2_1n5gq")
 region = Rect2(16, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_bcsd0"]
-atlas = ExtResource("3_3toys")
+[sub_resource type="AtlasTexture" id="AtlasTexture_iub2o"]
+atlas = ExtResource("2_1n5gq")
 region = Rect2(32, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_2xrgi"]
-atlas = ExtResource("3_3toys")
+[sub_resource type="AtlasTexture" id="AtlasTexture_mbwt8"]
+atlas = ExtResource("2_1n5gq")
 region = Rect2(48, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xvtsx"]
@@ -63,16 +70,16 @@ region = Rect2(464, 0, 58, 56)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_7alei")
+"texture": SubResource("AtlasTexture_en8if")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_4wndv")
+"texture": SubResource("AtlasTexture_67u6c")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_bcsd0")
+"texture": SubResource("AtlasTexture_iub2o")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_2xrgi")
+"texture": SubResource("AtlasTexture_mbwt8")
 }],
 "loop": true,
 "name": &"Move",
@@ -122,13 +129,13 @@ collision_layer = 8
 script = ExtResource("1_srl0e")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_xynrx")
 position = Vector2(-0.25, 0)
 scale = Vector2(1.02381, 1)
 sprite_frames = SubResource("SpriteFrames_tmmfq")
-animation = &"hit"
+animation = &"Move"
 autoplay = "Move"
-frame = 8
-frame_progress = 1.0
+frame_progress = 0.13611
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(1.19209e-07, 4.17233e-07)

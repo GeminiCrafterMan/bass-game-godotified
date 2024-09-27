@@ -1,56 +1,67 @@
-[gd_scene load_steps=15 format=3 uid="uid://bgpq81upok6bf"]
+[gd_scene load_steps=18 format=3 uid="uid://bgpq81upok6bf"]
 
 [ext_resource type="Script" path="res://scenes/Objects/Players/Weapons/Special Weps/fin_shredder.gd" id="1_nr124"]
-[ext_resource type="Texture2D" uid="uid://bn7jy70wae25q" path="res://sprites/Players/Bass/Weapons/Shark.png" id="2_qdeko"]
+[ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="2_xvq3c"]
+[ext_resource type="Texture2D" uid="uid://bmfbbubre4nsu" path="res://sprites/Players/Weapons/Shark1.png" id="3_w5x32"]
 [ext_resource type="AudioStream" uid="uid://bu17jfenhhtt8" path="res://sounds/explode.wav" id="4_db5so"]
 [ext_resource type="AudioStream" uid="uid://cs2dmn3ahpbea" path="res://sounds/pop.wav" id="6_ynx38"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_l4ff1"]
-atlas = ExtResource("2_qdeko")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ygio2"]
+shader = ExtResource("2_xvq3c")
+shader_parameter/skip_first_row = true
+shader_parameter/use_palette_alpha = false
+shader_parameter/fps = 6.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g3ewl"]
+atlas = ExtResource("3_w5x32")
 region = Rect2(0, 0, 38, 38)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_5bl2r"]
-atlas = ExtResource("2_qdeko")
+[sub_resource type="AtlasTexture" id="AtlasTexture_s3yrw"]
+atlas = ExtResource("3_w5x32")
 region = Rect2(0, 38, 38, 38)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_u1no8"]
-atlas = ExtResource("2_qdeko")
+[sub_resource type="AtlasTexture" id="AtlasTexture_7y71r"]
+atlas = ExtResource("3_w5x32")
 region = Rect2(0, 190, 38, 38)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ll34e"]
-atlas = ExtResource("2_qdeko")
+[sub_resource type="AtlasTexture" id="AtlasTexture_nk288"]
+atlas = ExtResource("3_w5x32")
+region = Rect2(0, 190, 38, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hmuqn"]
+atlas = ExtResource("3_w5x32")
 region = Rect2(0, 228, 38, 38)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_8c5r4"]
-atlas = ExtResource("2_qdeko")
+[sub_resource type="AtlasTexture" id="AtlasTexture_e0xy8"]
+atlas = ExtResource("3_w5x32")
 region = Rect2(0, 266, 38, 38)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_8uck1"]
-atlas = ExtResource("2_qdeko")
+[sub_resource type="AtlasTexture" id="AtlasTexture_5yube"]
+atlas = ExtResource("3_w5x32")
 region = Rect2(0, 76, 38, 38)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_mhqw7"]
-atlas = ExtResource("2_qdeko")
+[sub_resource type="AtlasTexture" id="AtlasTexture_rrn17"]
+atlas = ExtResource("3_w5x32")
 region = Rect2(0, 114, 38, 38)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_xdso6"]
-atlas = ExtResource("2_qdeko")
+[sub_resource type="AtlasTexture" id="AtlasTexture_nq5t1"]
+atlas = ExtResource("3_w5x32")
 region = Rect2(0, 152, 38, 38)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_tmmfq"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_l4ff1")
+"texture": SubResource("AtlasTexture_g3ewl")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_5bl2r")
+"texture": SubResource("AtlasTexture_s3yrw")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_u1no8")
+"texture": SubResource("AtlasTexture_7y71r")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_u1no8")
+"texture": SubResource("AtlasTexture_7y71r")
 }],
 "loop": false,
 "name": &"Bass",
@@ -58,16 +69,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_u1no8")
+"texture": SubResource("AtlasTexture_nk288")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ll34e")
+"texture": SubResource("AtlasTexture_hmuqn")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_8c5r4")
+"texture": SubResource("AtlasTexture_e0xy8")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_8c5r4")
+"texture": SubResource("AtlasTexture_e0xy8")
 }],
 "loop": false,
 "name": &"Bass-hit",
@@ -75,13 +86,13 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_8uck1")
+"texture": SubResource("AtlasTexture_5yube")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_mhqw7")
+"texture": SubResource("AtlasTexture_rrn17")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_xdso6")
+"texture": SubResource("AtlasTexture_nq5t1")
 }],
 "loop": true,
 "name": &"Bass-loop",
@@ -96,11 +107,13 @@ collision_layer = 8
 script = ExtResource("1_nr124")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_ygio2")
 position = Vector2(-0.178566, 0)
 scale = Vector2(1.01948, 1)
 sprite_frames = SubResource("SpriteFrames_tmmfq")
-animation = &"Bass-hit"
+animation = &"Bass-loop"
 autoplay = "Bass"
+frame_progress = 0.101885
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(-1.13687e-13, 2)

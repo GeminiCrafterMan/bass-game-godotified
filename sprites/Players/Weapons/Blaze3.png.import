@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c7eekfmkq8ast"
-path="res://.godot/imported/OrigamiNew.png-0f8f1248edd36431aa8492be7d870a5a.ctex"
+uid="uid://gu0ow5kip6hj"
+path="res://.godot/imported/Blaze3.png-1a25aabd1c343d3cf6a5318914e8f266.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/Players/Bass/Weapons/OrigamiNew.png"
-dest_files=["res://.godot/imported/OrigamiNew.png-0f8f1248edd36431aa8492be7d870a5a.ctex"]
+source_file="res://sprites/Players/Weapons/Blaze3.png"
+dest_files=["res://.godot/imported/Blaze3.png-1a25aabd1c343d3cf6a5318914e8f266.ctex"]
 
 [params]
 

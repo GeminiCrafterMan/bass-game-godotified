@@ -10,6 +10,10 @@ func _ready():
 	$SpawnSound.play()
 
 func _process(_delta):
+	if GameState.player != null:
+		$AnimatedSprite2D.material.set_shader_parameter("palette", get_node(GameState.player).get_node("AnimatedSprite2D").material.get_shader_parameter("palette"))
+
+	
 	if GameState.current_weapon != 12:
 		queue_free()
 	

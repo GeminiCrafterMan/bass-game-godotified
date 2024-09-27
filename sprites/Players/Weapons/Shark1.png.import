@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://4smrue2q4mp"
-path="res://.godot/imported/Smog.png-6170b57466e67fbf6d45fef8dd2da18a.ctex"
+uid="uid://bmfbbubre4nsu"
+path="res://.godot/imported/Shark1.png-b4a9cb39d72106787583a34981917664.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/Players/Bass/Weapons/Smog.png"
-dest_files=["res://.godot/imported/Smog.png-6170b57466e67fbf6d45fef8dd2da18a.ctex"]
+source_file="res://sprites/Players/Weapons/Shark1.png"
+dest_files=["res://.godot/imported/Shark1.png-b4a9cb39d72106787583a34981917664.ctex"]
 
 [params]
 

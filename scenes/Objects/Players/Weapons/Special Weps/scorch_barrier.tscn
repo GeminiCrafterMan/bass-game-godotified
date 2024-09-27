@@ -1,28 +1,47 @@
-[gd_scene load_steps=17 format=3 uid="uid://biy1mk3b78gh"]
+[gd_scene load_steps=22 format=3 uid="uid://biy1mk3b78gh"]
 
 [ext_resource type="Script" path="res://scenes/Objects/Players/Weapons/Special Weps/scorch_barrier.gd" id="1_emmpe"]
-[ext_resource type="Texture2D" uid="uid://cie5vcuenl5b6" path="res://sprites/Players/Bass/Weapons/Blaze.png" id="2_hbrij"]
-[ext_resource type="Texture2D" uid="uid://dt7wlywsvetdu" path="res://sprites/Players/Copy Robot/Weapons/Blaze.png" id="3_7ld0g"]
+[ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="2_ca07l"]
+[ext_resource type="Texture2D" uid="uid://dvjjfk8p26ypa" path="res://sprites/Players/Weapons/Blaze1.png" id="2_e0r6x"]
+[ext_resource type="Texture2D" uid="uid://bswfxxprmqqcy" path="res://sprites/Players/Weapons/Blaze2.png" id="3_88uls"]
+[ext_resource type="Texture2D" uid="uid://gu0ow5kip6hj" path="res://sprites/Players/Weapons/Blaze3.png" id="4_3y8vu"]
 [ext_resource type="Texture2D" uid="uid://b0wmbfr68jjcj" path="res://sprites/Players/Copy Robot/Weapons/BusterSmall.png" id="4_ke4xy"]
-[ext_resource type="Texture2D" uid="uid://byfelmyxuhyw2" path="res://sprites/Players/Bass/Weapons/Blaze2.png" id="4_t2ilv"]
 [ext_resource type="AudioStream" uid="uid://dcvhxvuushcu4" path="res://sounds/chargeshot.wav" id="5_l2puw"]
 [ext_resource type="AudioStream" uid="uid://cs2dmn3ahpbea" path="res://sounds/pop.wav" id="6_wmt8g"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_sbhj1"]
-atlas = ExtResource("2_hbrij")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fyvtn"]
+shader = ExtResource("2_ca07l")
+shader_parameter/skip_first_row = true
+shader_parameter/use_palette_alpha = false
+shader_parameter/fps = 6.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_74rfn"]
+atlas = ExtResource("2_e0r6x")
 region = Rect2(40, 0, 20, 20)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_kx4vh"]
-atlas = ExtResource("2_hbrij")
+[sub_resource type="AtlasTexture" id="AtlasTexture_kw5y1"]
+atlas = ExtResource("2_e0r6x")
 region = Rect2(20, 0, 20, 20)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_kdpgp"]
-atlas = ExtResource("2_hbrij")
+[sub_resource type="AtlasTexture" id="AtlasTexture_ooxn3"]
+atlas = ExtResource("2_e0r6x")
 region = Rect2(0, 0, 20, 20)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ddpy4"]
-atlas = ExtResource("3_7ld0g")
+[sub_resource type="AtlasTexture" id="AtlasTexture_cvpth"]
+atlas = ExtResource("3_88uls")
+region = Rect2(48, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ej2ts"]
+atlas = ExtResource("3_88uls")
+region = Rect2(24, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p4uct"]
+atlas = ExtResource("3_88uls")
 region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lvi4w"]
+atlas = ExtResource("4_3y8vu")
+region = Rect2(0, 0, 8, 8)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e08mh"]
 atlas = ExtResource("4_ke4xy")
@@ -40,16 +59,16 @@ region = Rect2(48, 0, 16, 16)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_sbhj1")
+"texture": SubResource("AtlasTexture_74rfn")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_kx4vh")
+"texture": SubResource("AtlasTexture_kw5y1")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_kdpgp")
+"texture": SubResource("AtlasTexture_ooxn3")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_kdpgp")
+"texture": SubResource("AtlasTexture_ooxn3")
 }],
 "loop": false,
 "name": &"Bass",
@@ -57,7 +76,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ddpy4")
+"texture": SubResource("AtlasTexture_cvpth")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ej2ts")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p4uct")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p4uct")
 }],
 "loop": true,
 "name": &"Copy",
@@ -65,7 +93,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("4_t2ilv")
+"texture": SubResource("AtlasTexture_lvi4w")
 }],
 "loop": true,
 "name": &"Wet",
@@ -95,6 +123,7 @@ collision_mask = 20
 script = ExtResource("1_emmpe")
 
 [node name="MainSprite" type="AnimatedSprite2D" parent="." groups=["scorch"]]
+material = SubResource("ShaderMaterial_fyvtn")
 position = Vector2(-0.25, 0)
 scale = Vector2(1.02381, 1)
 sprite_frames = SubResource("SpriteFrames_tmmfq")
