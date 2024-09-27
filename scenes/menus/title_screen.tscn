@@ -118,5 +118,17 @@ offset_right = 328.0
 offset_bottom = 32.0
 text = "SFX Volume"
 
+[node name="MenuButton" type="MenuButton" parent="."]
+visible = false
+offset_left = 8.0
+offset_top = 32.0
+offset_right = 72.0
+offset_bottom = 48.0
+text = "Palette"
+item_count = 2
+popup/item_0/text = "Genesis / Mega Drive"
+popup/item_1/text = "Pico-8"
+popup/item_1/id = 1
+
 [connection signal="item_selected" from="CenterContainer/HBoxContainer/VBoxContainer/ItemList" to="." method="_on_item_list_item_selected"]
 [connection signal="pressed" from="CenterContainer/HBoxContainer/VBoxContainer/StartButton" to="." method="_on_startbutton_pressed"]

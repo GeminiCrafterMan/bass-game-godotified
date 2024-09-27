@@ -73,8 +73,11 @@ var weapon_energy = [
 	28,	# Ballade Cracker
 	28	# Sakugarne
 ]
-var max_weapon_energy = [ # Energy use is always 1, *no matter what*. Increase energy and max_energy values to have larger shot counts.
-							#what the hell are you talking about???
+var max_weapon_energy = [
+# G: Energy use is always 1, *no matter what*. Increase energy and max_energy values to have larger shot counts.
+# M: what the hell are you talking about???
+# G: i literally have no idea, i think i was trying to think of how we'd spend ammo in a more automatic way but like
+# G: that's stupid
 	0,	# Buster
 	28,	# Scorch Barrier
 	28,	# Freeze Frame
