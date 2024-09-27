@@ -76,12 +76,15 @@ shape = SubResource("RectangleShape2D_bjbb8")
 
 [node name="SpawnSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_7ylgb")
+bus = &"SFX"
 
 [node name="HitSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_qabuy")
+bus = &"SFX"
 
 [node name="ReflectSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_tb2vm")
+bus = &"SFX"
 
 [node name="TopBox" type="CollisionShape2D" parent="."]
 position = Vector2(0, -9)

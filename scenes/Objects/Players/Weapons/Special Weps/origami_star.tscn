@@ -96,11 +96,14 @@ shape = SubResource("RectangleShape2D_0fvlc")
 
 [node name="SpawnSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_qwdhh")
+bus = &"SFX"
 
 [node name="HitSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_mlgpt")
+bus = &"SFX"
 
 [node name="ReflectSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_fhrtu")
+bus = &"SFX"
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

@@ -122,6 +122,8 @@ autoplay = "default"
 
 [node name="SpawnSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_nvdiy")
+bus = &"SFX"
 
 [node name="ReflectSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_udjxu")
+bus = &"SFX"

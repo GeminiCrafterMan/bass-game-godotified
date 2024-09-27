@@ -38,7 +38,7 @@ var targetpos : float
 signal teleported
 
 var weapon_palette: Array[Texture2D] = [
-	preload("res://sprites/Players/Bass/Palettes/None.png"),
+	preload("res://sprites/Players/Bass/Palettes/Bass Buster.png"),
 	preload("res://sprites/Players/Bass/Palettes/Scorch Barrier.png"),
 	preload("res://sprites/Players/Bass/Palettes/Freeze Frame.png"),
 	preload("res://sprites/Players/Bass/Palettes/Poison Cloud.png"),

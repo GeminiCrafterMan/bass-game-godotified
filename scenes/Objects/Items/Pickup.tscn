@@ -228,7 +228,7 @@ material = SubResource("ShaderMaterial_3l2vc")
 sprite_frames = SubResource("SpriteFrames_pfpbr")
 animation = &"SmHP"
 autoplay = "SmHP"
-frame_progress = 0.901946
+frame_progress = 0.756062
 
 [node name="Touch" type="Area2D" parent="."]
 collision_layer = 4
@@ -242,9 +242,11 @@ shape = SubResource("RectangleShape2D_urp8p")
 
 [node name="BoltSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_mliej")
+bus = &"SFX"
 
 [node name="ItemSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_4oso0")
+bus = &"SFX"
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true

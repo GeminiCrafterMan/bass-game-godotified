@@ -10,8 +10,8 @@
 [ext_resource type="AudioStream" uid="uid://bgfwytu8kifqv" path="res://sounds/blastjump.wav" id="8_xq33u"]
 [ext_resource type="AudioStream" uid="uid://pk86bd6damih" path="res://sounds/start_bass.wav" id="9_e7if1"]
 [ext_resource type="AudioStream" uid="uid://dr1p57c1kr6na" path="res://sounds/warp.wav" id="10_kmnn1"]
-[ext_resource type="AudioStream" uid="uid://chia0oxnvce13" path="res://sounds/charge.wav" id="11_gdffj"]
-[ext_resource type="AudioStream" uid="uid://brqoxbrriuifw" path="res://sounds/charged.wav" id="12_om6tc"]
+[ext_resource type="AudioStream" uid="uid://dtctuhq14tsqk" path="res://sounds/charge1.wav" id="11_gdffj"]
+[ext_resource type="AudioStream" uid="uid://ctn1jvbasggdq" path="res://sounds/charge2.wav" id="12_om6tc"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qymoq"]
 shader = ExtResource("2_m015p")

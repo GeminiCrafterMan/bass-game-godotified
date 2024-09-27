@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://datbp7dqyeio"
-path="res://.godot/imported/None.png-8c3a593b231ac17558392926106a02b2.ctex"
+uid="uid://bgqo6j6piqevr"
+path="res://.godot/imported/Maestro Buster.png-e8c6032fb79c39d72dd3bec44e3e40f8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/Players/Bass/Palettes/None.png"
-dest_files=["res://.godot/imported/None.png-8c3a593b231ac17558392926106a02b2.ctex"]
+source_file="res://sprites/Players/Maestro (base)/Palettes/Maestro Buster.png"
+dest_files=["res://.godot/imported/Maestro Buster.png-e8c6032fb79c39d72dd3bec44e3e40f8.ctex"]
 
 [params]
 

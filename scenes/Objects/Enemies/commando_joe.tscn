@@ -172,6 +172,7 @@ debug_color = Color(0, 1, 0.0705882, 0.419608)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_vk6v2")
+bus = &"SFX"
 
 [node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
 position = Vector2(2, -5)

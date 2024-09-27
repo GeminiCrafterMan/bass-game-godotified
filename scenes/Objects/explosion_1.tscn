@@ -61,3 +61,4 @@ script = ExtResource("2_ys5c7")
 stream = ExtResource("2_84kx1")
 volume_db = 8.0
 autoplay = true
+bus = &"SFX"

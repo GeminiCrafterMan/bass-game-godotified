@@ -245,7 +245,8 @@ offset_left = 344.0
 offset_right = 384.0
 offset_bottom = 24.0
 toggle_mode = true
-text = "hide"
+text = "Hide"
+metadata/_edit_use_anchors_ = true
 
 [connection signal="toggled" from="Modules/CheckButton1" to="." method="_on_check_button_1_toggled"]
 [connection signal="toggled" from="Modules/CheckButton2" to="." method="_on_check_button_2_toggled"]

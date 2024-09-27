@@ -72,12 +72,15 @@ shape = SubResource("RectangleShape2D_0fvlc")
 
 [node name="SpawnSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_46343")
+bus = &"SFX"
 
 [node name="HitSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_rsmdk")
+bus = &"SFX"
 
 [node name="ReflectSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_n2cxf")
+bus = &"SFX"
 
 [node name="hurt" type="Area2D" parent="."]
 collision_layer = 4

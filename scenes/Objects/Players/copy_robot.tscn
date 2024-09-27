@@ -1,7 +1,8 @@
-[gd_scene load_steps=90 format=3 uid="uid://cnpcm2juvcutu"]
+[gd_scene load_steps=91 format=3 uid="uid://cnpcm2juvcutu"]
 
 [ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="1_hk0hv"]
 [ext_resource type="Script" path="res://scenes/Objects/Players/copy_robot.gd" id="2_we56i"]
+[ext_resource type="Texture2D" uid="uid://c18jx5q3e1uac" path="res://sprites/Players/Copy Robot/Palettes/Copy Buster.png" id="3_ipvlp"]
 [ext_resource type="AudioStream" uid="uid://d2oevy2xek073" path="res://sounds/jump.wav" id="4_8xyqo"]
 [ext_resource type="Texture2D" uid="uid://bot48w7086agv" path="res://sprites/Players/HurtStar.png" id="4_a3x8f"]
 [ext_resource type="Texture2D" uid="uid://dolddeab1tc5g" path="res://sprites/Players/Copy Robot/spritesheet.png" id="4_oq3cr"]
@@ -11,10 +12,10 @@
 [ext_resource type="AudioStream" uid="uid://dr1p57c1kr6na" path="res://sounds/warp.wav" id="8_i1h0k"]
 [ext_resource type="AudioStream" uid="uid://ds4m68uui1avq" path="res://sounds/switch.wav" id="8_utf8u"]
 [ext_resource type="AudioStream" uid="uid://b5ogbbgcst441" path="res://sounds/start_copy.wav" id="9_xhkjd"]
-[ext_resource type="AudioStream" uid="uid://brqoxbrriuifw" path="res://sounds/charged.wav" id="11_55w7a"]
 [ext_resource type="AudioStream" uid="uid://cojuek45oo3hj" path="res://sounds/playerhurt.wav" id="11_scrgg"]
 [ext_resource type="AudioStream" uid="uid://dtctuhq14tsqk" path="res://sounds/charge1.wav" id="12_y5pge"]
 [ext_resource type="AudioStream" uid="uid://dix6rlhdr84oa" path="res://sounds/mega_death.wav" id="14_cy0jf"]
+[ext_resource type="AudioStream" uid="uid://ctn1jvbasggdq" path="res://sounds/charge2.wav" id="14_uv4ph"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qymoq"]
 shader = ExtResource("1_hk0hv")
@@ -27,6 +28,7 @@ shader = ExtResource("1_hk0hv")
 shader_parameter/skip_first_row = true
 shader_parameter/use_palette_alpha = false
 shader_parameter/fps = 6.0
+shader_parameter/palette = ExtResource("3_ipvlp")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7ghvl"]
 atlas = ExtResource("4_oq3cr")
@@ -726,7 +728,7 @@ size = Vector2(16, 14)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1foj6"]
 
-[node name="Copy Robot" type="CharacterBody2D" groups=["Player"]]
+[node name="Copy Robot" type="CharacterBody2D" groups=["player"]]
 material = SubResource("ShaderMaterial_qymoq")
 collision_layer = 2
 collision_mask = 17
@@ -800,19 +802,24 @@ bus = &"SFX"
 
 [node name="HurtSound" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("11_scrgg")
+bus = &"SFX"
 
 [node name="Charge1" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("12_y5pge")
+bus = &"SFX"
 
 [node name="Charge2" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource("11_55w7a")
+stream = ExtResource("14_uv4ph")
+bus = &"SFX"
 
 [node name="DeathSound" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("14_cy0jf")
 volume_db = -16.0
+bus = &"SFX"
 
 [node name="StartSound" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("9_xhkjd")
+bus = &"SFX"
 
 [node name="CeilingCheck" type="RayCast2D" parent="."]
 visible = false

@@ -146,12 +146,15 @@ shape = SubResource("RectangleShape2D_0fvlc")
 
 [node name="SpawnSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_wx4fk")
+bus = &"SFX"
 
 [node name="HitSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_20dw4")
+bus = &"SFX"
 
 [node name="ReflectSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_ihs6t")
+bus = &"SFX"
 
 [node name="Blast" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_qa05p")

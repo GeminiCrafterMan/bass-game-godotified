@@ -43,7 +43,7 @@ func _ready():
 func _physics_process(_delta):
 	if timer == interval * 60:
 		if not Engine.is_editor_hint():
-			var players = get_tree().get_nodes_in_group("Player")
+			var players = get_tree().get_nodes_in_group("player")
 			if static_audio_player && players.size() >= 1:
 				if position.distance_to(players[0].position) < 216:
 					static_audio_player.play()

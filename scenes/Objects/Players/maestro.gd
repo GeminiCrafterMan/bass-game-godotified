@@ -80,7 +80,7 @@ var shoot_delay = 0
 var shot_type = 0
 
 var weapon_palette: Array[Texture2D] = [
-	preload("res://sprites/Players/Maestro (base)/Palettes/None.png"),
+	preload("res://sprites/Players/Maestro (base)/Palettes/Maestro Buster.png"),
 	preload("res://sprites/Players/Maestro (base)/Palettes/Scorch Barrier.png"),
 	preload("res://sprites/Players/Maestro (base)/Palettes/Track 2.png"),
 	preload("res://sprites/Players/Maestro (base)/Palettes/Poison Cloud.png"),
@@ -89,7 +89,7 @@ var weapon_palette: Array[Texture2D] = [
 	preload("res://sprites/Players/Maestro (base)/Palettes/Wild Gale.png"),
 	preload("res://sprites/Players/Maestro (base)/Palettes/Rolling Bomb.png"),
 	preload("res://sprites/Players/Maestro (base)/Palettes/Boomerang Scythe.png"),
-	preload("res://sprites/Players/Maestro (base)/Palettes/None.png"), # Proto Shield
+	preload("res://sprites/Players/Maestro (base)/Palettes/Maestro Buster.png"), # Proto Shield
 	preload("res://sprites/Players/Maestro (base)/Palettes/Treble.png"), # "Treble Boost" (skip it)
 	preload("res://sprites/Players/Maestro (base)/Palettes/Carry.png"),
 	preload("res://sprites/Players/Maestro (base)/Palettes/Super Arrow.png"),
@@ -166,7 +166,7 @@ func _physics_process(delta: float) -> void:
 		shield4.baseposy = position.y+4
 	
 	if currentState != STATES.TELEPORT:
-		if currentState != STATES.SLIDE && currentState != STATES.HURT && currentState != STATES.DEAD:
+		if (currentState != STATES.SLIDE) and (currentState != STATES.HURT) && currentState != STATES.HURT && currentState != STATES.DEAD:
 			handle_weapons()
 		
 		if Input.is_action_just_pressed("switch_right"):
@@ -213,13 +213,13 @@ func _physics_process(delta: float) -> void:
 		
 	
 	
-	if ($CeilingCheck.is_colliding() == false or currentState != STATES.SLIDE):
+	if ($CeilingCheck.is_colliding() == false or (currentState != STATES.SLIDE) and (currentState != STATES.HURT)):
 		_DamageAndInvincible()
 	
 	if velocity.y > FAST_FALL:
 		velocity.y = FAST_FALL
 		
-	if currentState != STATES.SLIDE && currentState != STATES.TELEPORT:
+	if (currentState != STATES.SLIDE) and (currentState != STATES.HURT) && currentState != STATES.TELEPORT:
 		SlideTimer = 0
 		$MainHitbox.set_disabled(false)
 		$SlideHitbox.set_disabled(true)
@@ -251,7 +251,7 @@ func _physics_process(delta: float) -> void:
 		#other than this, mostly stick to swapping states from inside other states, these are just global cancels
 		if  (currentState != STATES.NONE) and (currentState != STATES.TELEPORT) and (currentState != STATES.DEAD):
 			#check for ladder
-			if currentState != STATES.SLIDE and  sign(direction.y) != 0:
+			if (currentState != STATES.SLIDE) and (currentState != STATES.HURT) and  sign(direction.y) != 0:
 				if ladder_check.is_colliding() and !Input.is_action_pressed("jump"):
 					for i in ladder_check.get_collision_count():
 						if ladder_check.get_collider(i).is_in_group("ladder"):
@@ -270,7 +270,7 @@ func _physics_process(delta: float) -> void:
 			
 			#check for jump
 			if ((Input.is_action_just_pressed("jump") and is_on_floor() and (!isFirstFrameOfState or (currentState == STATES.IDLE or currentState == STATES.WALK)) and currentState != STATES.HURT and currentState != STATES.LADDER and currentState != STATES.DEAD)):
-				if ($CeilingCheck.is_colliding() == false or currentState != STATES.SLIDE):
+				if ($CeilingCheck.is_colliding() == false or (currentState != STATES.SLIDE) and (currentState != STATES.HURT)):
 					swapState = STATES.JUMP
 					if on_ice == true:
 						ice_jump = true
@@ -747,7 +747,7 @@ func handle_weapons():
 
 func weapon_buster():
 	if (GameState.current_weapon == 0 and Input.is_action_just_pressed("shoot")) or Input.is_action_just_pressed("buster"):
-		if  currentState != STATES.SLIDE:
+		if (currentState != STATES.SLIDE) and (currentState != STATES.HURT):
 			shot_type = 0
 			shoot_delay = 16
 			projectile = projectile_scenes[0].instantiate()
@@ -759,7 +759,7 @@ func weapon_buster():
 			Charge = 0
 			return
 	if (GameState.current_weapon == 0 and Input.is_action_just_released("shoot")) or Input.is_action_just_released("buster"):
-		if currentState != STATES.SLIDE:
+		if (currentState != STATES.SLIDE) and (currentState != STATES.HURT):
 			if Charge < 32: # no Charge
 				Charge = 0
 				return
@@ -863,7 +863,7 @@ func weapon_blaze():
 				shield4 = null
 
 func weapon_smog():
-	if Input.is_action_just_pressed("shoot") && currentState != STATES.SLIDE:
+	if Input.is_action_just_pressed("shoot") && (currentState != STATES.SLIDE) and (currentState != STATES.HURT):
 		$AnimatedSprite2D.set_frame_and_progress(0, 0)
 		shot_type = 1
 		shoot_delay = 16
@@ -877,7 +877,7 @@ func weapon_smog():
 		return
 		
 func weapon_shark():
-	if Input.is_action_just_pressed("shoot") && currentState != STATES.SLIDE && is_on_floor() && GameState.weapon_energy[4] >= 5:
+	if Input.is_action_just_pressed("shoot") && (currentState != STATES.SLIDE) and (currentState != STATES.HURT) && is_on_floor() && GameState.weapon_energy[4] >= 5:
 		GameState.weapon_energy[4] -= 5
 		$AnimatedSprite2D.set_frame_and_progress(0, 0)
 		shot_type = 1

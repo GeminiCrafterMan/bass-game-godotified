@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cbwd04mqjtuy0"
-path="res://.godot/imported/None.png-fa592ad1178d88b2ab6babc16f2c7c73.ctex"
+uid="uid://culj6yyxpqgs1"
+path="res://.godot/imported/Bass Buster.png-7bf845edcbe76dd73910e297bf23f7cc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/Players/Copy Robot/Palettes/None.png"
-dest_files=["res://.godot/imported/None.png-fa592ad1178d88b2ab6babc16f2c7c73.ctex"]
+source_file="res://sprites/Players/Bass/Palettes/Bass Buster.png"
+dest_files=["res://.godot/imported/Bass Buster.png-7bf845edcbe76dd73910e297bf23f7cc.ctex"]
 
 [params]
 

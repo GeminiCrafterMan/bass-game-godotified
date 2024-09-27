@@ -120,8 +120,7 @@ func _on_touch_body_entered(body):
 						GameState.player_lives += 1
 					1:
 						GameState.STanks += 1
-		
-		
-		
-		
-		
+
+# G: Needs gravity!! I forgot how to implement it and I'm kinda just cleaning up for the alpha test.
+#func _physics_process(delta: float) -> void:
+#	move_and_slide()
