@@ -11,8 +11,8 @@ shader_parameter/palette = ExtResource("3_dsie5")
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_u8fa7"]
 size = Vector2(32, 32)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_v3a6d"]
-radius = 20.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pvs5e"]
+size = Vector2(40, 40)
 
 [node name="GameState" type="CanvasLayer"]
 layer = 128
@@ -32,59 +32,79 @@ mouse_filter = 2
 [node name="Up" type="TouchScreenButton" parent="TouchControls"]
 position = Vector2(48, 104)
 texture_normal = SubResource("PlaceholderTexture2D_u8fa7")
-shape = SubResource("CircleShape2D_v3a6d")
+shape = SubResource("RectangleShape2D_pvs5e")
+passby_press = true
 action = "move_up"
+visibility_mode = 1
 
 [node name="Down" type="TouchScreenButton" parent="TouchControls"]
 position = Vector2(48, 168)
 texture_normal = SubResource("PlaceholderTexture2D_u8fa7")
-shape = SubResource("CircleShape2D_v3a6d")
+shape = SubResource("RectangleShape2D_pvs5e")
+passby_press = true
 action = "move_down"
+visibility_mode = 1
 
 [node name="Right" type="TouchScreenButton" parent="TouchControls"]
 position = Vector2(80, 136)
 texture_normal = SubResource("PlaceholderTexture2D_u8fa7")
-shape = SubResource("CircleShape2D_v3a6d")
+shape = SubResource("RectangleShape2D_pvs5e")
+passby_press = true
 action = "move_right"
+visibility_mode = 1
 
 [node name="Left" type="TouchScreenButton" parent="TouchControls"]
 position = Vector2(16, 136)
 texture_normal = SubResource("PlaceholderTexture2D_u8fa7")
-shape = SubResource("CircleShape2D_v3a6d")
+shape = SubResource("RectangleShape2D_pvs5e")
+passby_press = true
 action = "move_left"
+visibility_mode = 1
 
 [node name="Switch Left" type="TouchScreenButton" parent="TouchControls"]
 position = Vector2(240, 128)
 texture_normal = SubResource("PlaceholderTexture2D_u8fa7")
-shape = SubResource("CircleShape2D_v3a6d")
+shape = SubResource("RectangleShape2D_pvs5e")
+passby_press = true
 action = "switch_left"
+visibility_mode = 1
 
 [node name="Switch Right" type="TouchScreenButton" parent="TouchControls"]
 position = Vector2(288, 128)
 texture_normal = SubResource("PlaceholderTexture2D_u8fa7")
-shape = SubResource("CircleShape2D_v3a6d")
+shape = SubResource("RectangleShape2D_pvs5e")
+passby_press = true
 action = "switch_right"
+visibility_mode = 1
 
 [node name="Buster" type="TouchScreenButton" parent="TouchControls"]
 position = Vector2(336, 128)
 texture_normal = SubResource("PlaceholderTexture2D_u8fa7")
-shape = SubResource("CircleShape2D_v3a6d")
+shape = SubResource("RectangleShape2D_pvs5e")
+passby_press = true
 action = "switch_right"
+visibility_mode = 1
 
 [node name="Dash" type="TouchScreenButton" parent="TouchControls"]
 position = Vector2(240, 168)
 texture_normal = SubResource("PlaceholderTexture2D_u8fa7")
-shape = SubResource("CircleShape2D_v3a6d")
+shape = SubResource("RectangleShape2D_pvs5e")
+passby_press = true
 action = "dash"
+visibility_mode = 1
 
 [node name="Shoot" type="TouchScreenButton" parent="TouchControls"]
 position = Vector2(288, 168)
 texture_normal = SubResource("PlaceholderTexture2D_u8fa7")
-shape = SubResource("CircleShape2D_v3a6d")
+shape = SubResource("RectangleShape2D_pvs5e")
+passby_press = true
 action = "shoot"
+visibility_mode = 1
 
 [node name="Jump" type="TouchScreenButton" parent="TouchControls"]
 position = Vector2(336, 168)
 texture_normal = SubResource("PlaceholderTexture2D_u8fa7")
-shape = SubResource("CircleShape2D_v3a6d")
+shape = SubResource("RectangleShape2D_pvs5e")
+passby_press = true
 action = "jump"
+visibility_mode = 1
