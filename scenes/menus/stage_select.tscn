@@ -271,7 +271,7 @@ portrait = SubResource("AtlasTexture_4drve")
 [node name="Origami Man" parent="MarginContainer/CenterContainer/VBoxContainer/GridContainer" instance=ExtResource("9_wx53p")]
 layout_mode = 2
 Lines = true
-stageName = "ORIGAM"
+stageName = "ORIGM."
 stageTitle = "MAN"
 portrait = SubResource("AtlasTexture_h7y0k")
 scene = ExtResource("14_kr1yd")
