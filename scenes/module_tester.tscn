@@ -109,6 +109,7 @@ region = Rect2(192, 0, 16, 16)
 script = ExtResource("1_8wlr0")
 
 [node name="Modules" type="GridContainer" parent="."]
+visible = false
 offset_left = 50.0
 offset_right = 110.0
 offset_bottom = 152.0
@@ -177,6 +178,7 @@ layout_mode = 2
 icon = SubResource("AtlasTexture_d3bvh")
 
 [node name="Weapons" type="GridContainer" parent="."]
+visible = false
 offset_right = 60.0
 offset_bottom = 168.0
 theme_override_constants/h_separation = 0
@@ -245,7 +247,7 @@ offset_left = 344.0
 offset_right = 384.0
 offset_bottom = 24.0
 toggle_mode = true
-text = "Hide"
+text = "Show"
 metadata/_edit_use_anchors_ = true
 
 [connection signal="toggled" from="Modules/CheckButton1" to="." method="_on_check_button_1_toggled"]

@@ -1,0 +1,80 @@
+[gd_scene load_steps=12 format=3 uid="uid://dofcqmuh8q5qu"]
+
+[ext_resource type="Script" path="res://scenes/objects/players/weapons/bass/buster.gd" id="1_3torn"]
+[ext_resource type="AudioStream" uid="uid://62xrmywm48ps" path="res://sounds/bustershot.wav" id="3_jwno0"]
+[ext_resource type="Texture2D" uid="uid://bs5dokmafjugl" path="res://sprites/Players/Bass/Weapons/Buster.png" id="3_yqbr1"]
+[ext_resource type="AudioStream" uid="uid://cs2dmn3ahpbea" path="res://sounds/pop.wav" id="4_rs3n2"]
+[ext_resource type="AudioStream" uid="uid://mfk4w30lewvq" path="res://sounds/tink.wav" id="5_q156p"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n8v8e"]
+atlas = ExtResource("3_yqbr1")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n8tys"]
+atlas = ExtResource("3_yqbr1")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ybei2"]
+atlas = ExtResource("3_yqbr1")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rdbwc"]
+atlas = ExtResource("3_yqbr1")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tmmfq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n8v8e")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n8tys")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ybei2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rdbwc")
+}],
+"loop": false,
+"name": &"hit",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bjbb8"]
+size = Vector2(8, 6)
+
+[node name="Buster" type="CharacterBody2D"]
+collision_layer = 8
+script = ExtResource("1_3torn")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_tmmfq")
+autoplay = "default"
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(3.57628e-07, 0)
+scale = Vector2(0.8, 0.8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_bjbb8")
+
+[node name="SpawnSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_jwno0")
+bus = &"SFX"
+
+[node name="HitSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_rs3n2")
+bus = &"SFX"
+
+[node name="ReflectSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_q156p")
+bus = &"SFX"
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

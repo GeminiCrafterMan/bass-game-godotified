@@ -1,0 +1,173 @@
+[gd_scene load_steps=17 format=3 uid="uid://dmulyeg8hg6yt"]
+
+[ext_resource type="Script" path="res://scenes/objects/enemies/sniper_joe.gd" id="1_ds0gt"]
+[ext_resource type="Texture2D" uid="uid://daefccg61j7bv" path="res://sprites/Enemies/Sniper Joe.png" id="1_vqtgt"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lwhwx"]
+atlas = ExtResource("1_vqtgt")
+region = Rect2(114, 0, 38, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eb16r"]
+atlas = ExtResource("1_vqtgt")
+region = Rect2(76, 0, 38, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ncy6"]
+atlas = ExtResource("1_vqtgt")
+region = Rect2(0, 0, 38, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8k5ek"]
+atlas = ExtResource("1_vqtgt")
+region = Rect2(152, 0, 38, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_00sqq"]
+atlas = ExtResource("1_vqtgt")
+region = Rect2(190, 0, 38, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_of3t0"]
+atlas = ExtResource("1_vqtgt")
+region = Rect2(190, 0, 38, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h1sn5"]
+atlas = ExtResource("1_vqtgt")
+region = Rect2(152, 0, 38, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nlx71"]
+atlas = ExtResource("1_vqtgt")
+region = Rect2(38, 0, 38, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hrjgk"]
+atlas = ExtResource("1_vqtgt")
+region = Rect2(76, 0, 38, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yyoe0"]
+atlas = ExtResource("1_vqtgt")
+region = Rect2(76, 0, 38, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nctvd"]
+atlas = ExtResource("1_vqtgt")
+region = Rect2(38, 0, 38, 36)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_62nvj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lwhwx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eb16r")
+}],
+"loop": false,
+"name": &"Attack",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ncy6")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8k5ek")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_00sqq")
+}],
+"loop": true,
+"name": &"Jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_of3t0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h1sn5")
+}],
+"loop": true,
+"name": &"Land",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nlx71")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hrjgk")
+}],
+"loop": false,
+"name": &"SwitchAtk",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yyoe0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nctvd")
+}],
+"loop": false,
+"name": &"SwitchDef",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_btiql"]
+size = Vector2(13, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wp5vq"]
+size = Vector2(21, 27)
+
+[node name="Sniper Joe" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 3
+script = ExtResource("1_ds0gt")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -3)
+sprite_frames = SubResource("SpriteFrames_62nvj")
+animation = &"Idle"
+autoplay = "Idle"
+
+[node name="reflect" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 8
+
+[node name="ShieldHitbox" type="CollisionShape2D" parent="reflect"]
+position = Vector2(-6.5, -5)
+shape = SubResource("RectangleShape2D_btiql")
+
+[node name="hitable" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 8
+
+[node name="MainHitbox" type="CollisionShape2D" parent="hitable"]
+position = Vector2(6.5, -5.5)
+shape = SubResource("RectangleShape2D_wp5vq")
+
+[node name="hurt" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="Hurtbox" type="CollisionShape2D" parent="hurt"]
+position = Vector2(2, -2)
+shape = SubResource("RectangleShape2D_wp5vq")
+debug_color = Color(1, 0.00392157, 0.0705882, 0.419608)
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(6.5, -5.5)
+shape = SubResource("RectangleShape2D_wp5vq")
+debug_color = Color(0, 1, 0.0705882, 0.419608)
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+position = Vector2(2.5, -5)
+scale = Vector2(1.55, 1.5)
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="body_entered" from="reflect" to="." method="_on_reflect_body_entered"]
+[connection signal="body_entered" from="hitable" to="." method="_on_hitable_body_entered"]
+[connection signal="body_entered" from="hurt" to="." method="_on_hurt_body_entered"]

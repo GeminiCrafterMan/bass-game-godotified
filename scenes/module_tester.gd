@@ -62,7 +62,7 @@ func _on_check_button_19_toggled(toggled_on):
 	GameState.weapons_unlocked[10] = toggled_on
 
 func _on_button_toggled(toggled_on):
-	if toggled_on == true:
+	if toggled_on == false:
 		$Modules.hide()
 		$Weapons.hide()
 		$Button.text = "Show"

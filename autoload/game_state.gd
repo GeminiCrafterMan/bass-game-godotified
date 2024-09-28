@@ -8,9 +8,9 @@ enum PALETTE {NONE, MD, NES, DOOM, PICO8, GB, VB, C64, CGA, G4, G8, G16}
 
 # variables
 var characters = [ # It's a var now so mods can add more
-	"res://scenes/Objects/Players/maestro.tscn",
-	"res://scenes/Objects/Players/bass.tscn",
-	"res://scenes/Objects/Players/copy_robot.tscn"
+	"res://scenes/objects/players/maestro.tscn",
+	"res://scenes/objects/players/bass.tscn",
+	"res://scenes/objects/players/copy_robot.tscn"
 ]
 var maxCharacterID = characters.size() - 1 # Whyyyyy...?
 var character_selected : int
@@ -54,7 +54,7 @@ var PROGRESSDICT = {
 	"HaveProtoKey4": false
 }
 
-var weapon_energy = [
+var weapon_energy : Array = [
 	0,	# Buster
 	28,	# Scorch Barrier
 	28,	# Freeze Frame
@@ -74,7 +74,7 @@ var weapon_energy = [
 	28,	# Ballade Cracker
 	28	# Sakugarne
 ]
-var max_weapon_energy = [
+var max_weapon_energy : Array = [
 # G: Energy use is always 1, *no matter what*. Increase energy and max_energy values to have larger shot counts.
 # M: what the hell are you talking about???
 # G: i literally have no idea, i think i was trying to think of how we'd spend ammo in a more automatic way but like

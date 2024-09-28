@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://d088cfq81rloi"]
+
+[ext_resource type="Script" path="res://scenes/objects/level_objects/bottomless_pit.gd" id="1_a7nh2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_euuk7"]
+size = Vector2(16, 16)
+
+[node name="Bottomless Pit" type="Area2D"]
+collision_layer = 32
+collision_mask = 0
+script = ExtResource("1_a7nh2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_euuk7")
+debug_color = Color(1, 0, 0, 0.623529)
+
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

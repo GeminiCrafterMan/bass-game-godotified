@@ -13,8 +13,6 @@ func _process(_delta: float) -> void:
 	if GameState.player != null:
 		$HealthBar.material.set_shader_parameter("palette", get_node(GameState.player).get_node("AnimatedSprite2D").material.get_shader_parameter("palette"))
 		$WeaponBar.material.set_shader_parameter("palette", get_node(GameState.player).get_node("AnimatedSprite2D").material.get_shader_parameter("palette"))
-
+		
 	# Health bar
 	$HealthBar.frame = GameState.current_hp
-
-	

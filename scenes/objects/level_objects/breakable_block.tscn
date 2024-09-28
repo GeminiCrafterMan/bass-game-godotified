@@ -1,0 +1,163 @@
+[gd_scene load_steps=15 format=3 uid="uid://ba1usu2a5isjc"]
+
+[ext_resource type="Script" path="res://scenes/objects/level_objects/breakable_block.gd" id="1_qx6ad"]
+[ext_resource type="Texture2D" uid="uid://qmvendq018cq" path="res://sprites/Objects/Breakables/Test.png" id="2_kephd"]
+[ext_resource type="Texture2D" uid="uid://dsd6tnm8cvo7f" path="res://sprites/Objects/Breakables/Blaze.png" id="3_jtltb"]
+[ext_resource type="Texture2D" uid="uid://dgiwcwe0dt077" path="res://sprites/explosion.png" id="4_putgt"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3v033"]
+atlas = ExtResource("3_jtltb")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vgje4"]
+atlas = ExtResource("4_putgt")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xa7dc"]
+atlas = ExtResource("4_putgt")
+region = Rect2(24, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gqsrx"]
+atlas = ExtResource("4_putgt")
+region = Rect2(48, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8nqrw"]
+atlas = ExtResource("4_putgt")
+region = Rect2(72, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_68qbs"]
+atlas = ExtResource("4_putgt")
+region = Rect2(96, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pm42s"]
+atlas = ExtResource("2_kephd")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_o6h4x"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3v033")
+}],
+"loop": true,
+"name": &"Blaze",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vgje4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xa7dc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gqsrx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8nqrw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_68qbs")
+}],
+"loop": false,
+"name": &"Explode",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pm42s")
+}],
+"loop": true,
+"name": &"Gale",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pm42s")
+}],
+"loop": true,
+"name": &"Guerrilla",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pm42s")
+}],
+"loop": true,
+"name": &"Origami",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pm42s")
+}],
+"loop": true,
+"name": &"Reaper",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pm42s")
+}],
+"loop": true,
+"name": &"Shark",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pm42s")
+}],
+"loop": true,
+"name": &"Smog",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pm42s")
+}],
+"loop": true,
+"name": &"Test",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pm42s")
+}],
+"loop": true,
+"name": &"Video",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vdur6"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d0fqh"]
+size = Vector2(16, 16)
+
+[node name="BreakableBlock" type="StaticBody2D"]
+collision_layer = 16
+collision_mask = 17
+script = ExtResource("1_qx6ad")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(8, 8)
+sprite_frames = SubResource("SpriteFrames_o6h4x")
+animation = &"Test"
+autoplay = "Test"
+frame_progress = 0.464901
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(8, 8)
+shape = SubResource("RectangleShape2D_vdur6")
+debug_color = Color(0, 1, 0.0705882, 0.419608)
+
+[node name="hitable" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 8
+
+[node name="MainHitbox" type="CollisionShape2D" parent="hitable"]
+position = Vector2(8, 8)
+shape = SubResource("RectangleShape2D_d0fqh")
+
+[connection signal="body_entered" from="hitable" to="." method="_on_hitable_body_entered"]
