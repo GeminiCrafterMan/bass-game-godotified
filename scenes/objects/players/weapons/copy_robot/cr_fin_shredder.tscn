@@ -1,51 +1,51 @@
 [gd_scene load_steps=18 format=3 uid="uid://wnfydbxtfjs6"]
 
-[ext_resource type="Script" path="res://scenes/objects/players/weapons/copy_robot/cr_fin_shredder.gd" id="1_h7hg4"]
-[ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="2_vrxed"]
-[ext_resource type="Texture2D" uid="uid://bmfbbubre4nsu" path="res://sprites/Players/Weapons/Shark1.png" id="3_ot3kq"]
-[ext_resource type="AudioStream" uid="uid://cs2dmn3ahpbea" path="res://sounds/pop.wav" id="4_ixcki"]
-[ext_resource type="AudioStream" uid="uid://bu17jfenhhtt8" path="res://sounds/explode.wav" id="5_0w7qb"]
+[ext_resource type="Script" path="res://scenes/objects/players/weapons/copy_robot/cr_fin_shredder.gd" id="1_bs2ki"]
+[ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="2_8xx7m"]
+[ext_resource type="Texture2D" uid="uid://bmfbbubre4nsu" path="res://sprites/Players/Weapons/Shark1.png" id="3_ofkqh"]
+[ext_resource type="AudioStream" uid="uid://cs2dmn3ahpbea" path="res://sounds/pop.wav" id="4_f802m"]
+[ext_resource type="AudioStream" uid="uid://bu17jfenhhtt8" path="res://sounds/explode.wav" id="5_nptya"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ygio2"]
-shader = ExtResource("2_vrxed")
+shader = ExtResource("2_8xx7m")
 shader_parameter/skip_first_row = true
 shader_parameter/use_palette_alpha = false
 shader_parameter/fps = 6.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g3ewl"]
-atlas = ExtResource("3_ot3kq")
+atlas = ExtResource("3_ofkqh")
 region = Rect2(0, 0, 38, 38)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_s3yrw"]
-atlas = ExtResource("3_ot3kq")
+atlas = ExtResource("3_ofkqh")
 region = Rect2(0, 38, 38, 38)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7y71r"]
-atlas = ExtResource("3_ot3kq")
+atlas = ExtResource("3_ofkqh")
 region = Rect2(0, 190, 38, 38)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nk288"]
-atlas = ExtResource("3_ot3kq")
+atlas = ExtResource("3_ofkqh")
 region = Rect2(0, 190, 38, 38)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hmuqn"]
-atlas = ExtResource("3_ot3kq")
+atlas = ExtResource("3_ofkqh")
 region = Rect2(0, 228, 38, 38)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e0xy8"]
-atlas = ExtResource("3_ot3kq")
+atlas = ExtResource("3_ofkqh")
 region = Rect2(0, 266, 38, 38)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5yube"]
-atlas = ExtResource("3_ot3kq")
+atlas = ExtResource("3_ofkqh")
 region = Rect2(0, 76, 38, 38)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rrn17"]
-atlas = ExtResource("3_ot3kq")
+atlas = ExtResource("3_ofkqh")
 region = Rect2(0, 114, 38, 38)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nq5t1"]
-atlas = ExtResource("3_ot3kq")
+atlas = ExtResource("3_ofkqh")
 region = Rect2(0, 152, 38, 38)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_tmmfq"]
@@ -104,7 +104,7 @@ size = Vector2(32, 30.5)
 
 [node name="Fin Shredder" type="CharacterBody2D"]
 collision_layer = 8
-script = ExtResource("1_h7hg4")
+script = ExtResource("1_bs2ki")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_ygio2")
@@ -124,11 +124,11 @@ scale = Vector2(0.475, 1)
 shape = SubResource("RectangleShape2D_0fvlc")
 
 [node name="HitSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_ixcki")
+stream = ExtResource("4_f802m")
 bus = &"SFX"
 
 [node name="SpawnSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("5_0w7qb")
+stream = ExtResource("5_nptya")
 bus = &"SFX"
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
