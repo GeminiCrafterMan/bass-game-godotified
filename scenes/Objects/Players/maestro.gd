@@ -600,7 +600,7 @@ func _physics_process(delta: float) -> void:
 				if state_timer.is_stopped():
 					sprite.visible = false
 					Fade.fade_out()
-					await Fade.fade_out()
+					#await Fade.fade_out().finished # G: Seems to not work
 					GameState.current_hp = 28
 					GameState.player_lives -= 1
 					GameState.current_weapon = 0

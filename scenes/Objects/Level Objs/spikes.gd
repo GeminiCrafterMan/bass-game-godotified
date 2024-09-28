@@ -1,4 +1,4 @@
-extends Enemy_Template
+extends StaticBody2D
 
 class_name Spikes
 
