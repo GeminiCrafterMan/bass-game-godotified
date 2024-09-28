@@ -1,5 +1,8 @@
 class_name StageSelect extends CanvasLayer
 
+var fadeout : int = 120
+var timer : int = 60
+
 const _playerPortraits: Array[AtlasTexture] = [
 	preload("res://sprites/Menus/Stage Select - Maestro - Atlas.tres"),
 	preload("res://sprites/Menus/Stage Select - Bass - Atlas.tres"),
@@ -12,6 +15,15 @@ func _ready():
 	player.portrait = _playerPortraits[GameState.character_selected]
 	await Fade.fade_in().finished
 	%Player.grab_focus()
+
+func _process(delta):
+	if timer == 0:
+		$Darkness.hide()
+		%Player.grab_focus()
+		$Music.play()
+		$Rows/RowBright.play()
+		#$PortraitFlashes/PortraitFlash.play()
+	timer -= 1
 	
 func panel_focused(index: int):
 	var player := %Player as StageSelectPanel
