@@ -60,7 +60,7 @@ var _destroyed: bool
 func _process(_delta):
 	if not Engine.is_editor_hint():
 		if selected or hovered:
-			$VBoxContainer/Portrait/Lights.visible = (Engine.get_frames_drawn() % 60) < 30
+			$VBoxContainer/Portrait/Lights.visible = true
 		else:
 			$VBoxContainer/Portrait/Lights.visible = false
 

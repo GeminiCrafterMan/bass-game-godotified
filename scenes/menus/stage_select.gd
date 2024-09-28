@@ -22,7 +22,7 @@ func _process(delta):
 		%Player.grab_focus()
 		$Music.play()
 		$Rows/RowBright.play()
-		#$PortraitFlashes/PortraitFlash.play()
+		$PortraitFlashes/PortraitFlash.play()
 	timer -= 1
 	
 func panel_focused(index: int):
