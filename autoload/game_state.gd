@@ -5,13 +5,14 @@ enum WEAPONS {BUSTER, BLAZE, VIDEO, SMOG, SHARK, ORIGAMI, GALE, GUERRILLA, REAPE
 enum PALETTE {NONE, MD, NES, DOOM, PICO8, GB, VB, C64, CGA, G4, G8, G16}
 
 # constants
-const characters = [
+
+# variables
+var characters = [ # It's a var now so mods can add more
 	"res://scenes/Objects/Players/maestro.tscn",
 	"res://scenes/Objects/Players/bass.tscn",
 	"res://scenes/Objects/Players/copy_robot.tscn"
 ]
-
-# variables
+var maxCharacterID = characters.size() - 1 # Whyyyyy...?
 var character_selected : int
 var player # absolute path to player node
 var player_lives : int = 3
@@ -22,7 +23,7 @@ var bolts = 0
 var ETanks = 0
 var WTanks = 0
 var STanks = 0
-var max_hp = 28 # upgradeable #not upgradable anymore
+var max_hp = 28 # G: upgradeable # M: not upgradable anymore # G: yeah but mod characters :))
 var healamt = 0
 var ammoamt = 0
 

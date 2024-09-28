@@ -601,9 +601,8 @@ func _physics_process(delta: float) -> void:
 					sprite.visible = false
 					Fade.fade_out()
 					#await Fade.fade_out().finished # G: Seems to not work
-					GameState.current_hp = 28
 					GameState.player_lives -= 1
-					GameState.current_weapon = 0
+					reset(false)
 					get_tree().reload_current_scene()
 					#Reset the stage
 			
@@ -1103,3 +1102,10 @@ func _DamageAndInvincible():
 					swapState = STATES.DEAD
 			invul_timer.start(1)
 			pain_timer.start(0.55)
+
+func reset(everything: bool) -> void:
+	GameState.current_hp = GameState.max_hp # Reset HP
+	GameState.current_weapon = 0 # Reset current weapon
+	if everything == true:
+		GameState.weapon_energy = GameState.max_weapon_energy # Reset WE
+		
