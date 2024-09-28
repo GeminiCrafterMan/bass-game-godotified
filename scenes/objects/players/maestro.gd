@@ -123,6 +123,7 @@ func _ready():
 	GameState.player = self.get_path()
 	#start the teleport animation
 	GameState.onscreen_bullets = 0
+	GameState.onscreen_sp_bullets = 0
 	state_timer.start(0.5)
 	invul_timer.start(0.01)
 	currentState = STATES.TELEPORT
@@ -201,6 +202,7 @@ func _physics_process(delta: float) -> void:
 						
 		
 	if GameState.old_weapon != GameState.current_weapon:
+		GameState.onscreen_sp_bullets = 0
 		$Audio/SwitchSound.play()
 		GameState.old_weapon = GameState.current_weapon
 		$AnimatedSprite2D.material.set_shader_parameter("palette", weapon_palette[GameState.current_weapon])
@@ -210,6 +212,7 @@ func _physics_process(delta: float) -> void:
 			GameState.current_weapon = 0
 			if GameState.old_weapon != GameState.current_weapon:
 				$Audio/SwitchSound.play()
+				GameState.onscreen_sp_bullets = 0
 			$AnimatedSprite2D.material.set_shader_parameter("palette", weapon_palette[GameState.current_weapon])
 		
 	
@@ -764,28 +767,32 @@ func weapon_blaze():
 	if Input.is_action_just_pressed("shoot"):
 		
 		var space : int = 18
-		if shield == null && shield2 == null && shield3 == null && shield4 == null && GameState.weapon_energy[1] >= 1:
+		if shield == null && shield2 == null && shield3 == null && shield4 == null && GameState.weapon_energy[1] >= 1 && GameState.onscreen_sp_bullets == 0:
 			
 			shot_type = 3
 			$AnimatedSprite2D.set_frame_and_progress(0, 0)
 			shoot_delay = 26
 			
 			if GameState.weapon_energy[1] >= 1:
+				GameState.onscreen_sp_bullets += 1
 				shield = weapon_scenes[2].instantiate()
 				get_parent().add_child(shield)
 				shield.theta = 0*space
 			
 			if GameState.weapon_energy[1] >= 3:
+				GameState.onscreen_sp_bullets += 1
 				shield2 = weapon_scenes[2].instantiate()
 				get_parent().add_child(shield2)
 				shield2.theta = 1*space
 			
 			if GameState.weapon_energy[1] >= 2:
+				GameState.onscreen_sp_bullets += 1
 				shield3 = weapon_scenes[2].instantiate()
 				get_parent().add_child(shield3)
 				shield3.theta = 2*space
 			
 			if GameState.weapon_energy[1] >= 4:
+				GameState.onscreen_sp_bullets += 1
 				shield4 = weapon_scenes[2].instantiate()
 				get_parent().add_child(shield4)
 				shield4.theta = 3*space
@@ -820,10 +827,11 @@ func weapon_blaze():
 				shield4 = null
 
 func weapon_smog():
-	if Input.is_action_just_pressed("shoot") && (currentState != STATES.SLIDE) and (currentState != STATES.HURT):
+	if Input.is_action_just_pressed("shoot") && (currentState != STATES.SLIDE) and (currentState != STATES.HURT) and GameState.onscreen_sp_bullets < 1:
 		$AnimatedSprite2D.set_frame_and_progress(0, 0)
 		shot_type = 1
 		shoot_delay = 16
+		GameState.onscreen_sp_bullets += 1
 		projectile = weapon_scenes[1].instantiate()
 		get_parent().add_child(projectile)
 		
@@ -835,25 +843,28 @@ func weapon_smog():
 		
 func weapon_shark():
 	if Input.is_action_just_pressed("shoot") && (currentState != STATES.SLIDE) and (currentState != STATES.HURT) && is_on_floor() && GameState.weapon_energy[4] >= 5:
-		GameState.weapon_energy[4] -= 5
-		$AnimatedSprite2D.set_frame_and_progress(0, 0)
-		shot_type = 1
-		shoot_delay = 16
-		projectile = weapon_scenes[4].instantiate()
-		get_parent().add_child(projectile)
+		if GameState.onscreen_sp_bullets < 2:
+			GameState.weapon_energy[4] -= 5
+			$AnimatedSprite2D.set_frame_and_progress(0, 0)
+			shot_type = 1
+			shoot_delay = 16
+			GameState.onscreen_sp_bullets += 1
+			projectile = weapon_scenes[4].instantiate()
+			get_parent().add_child(projectile)
 		
-		projectile.position.x = position.x + sprite.scale.x * 15
-		projectile.position.y = position.y - 3
-		projectile.velocity.x = sprite.scale.x * 65
-		projectile.scale.x = sprite.scale.x
-		return
+			projectile.position.x = position.x + sprite.scale.x * 15
+			projectile.position.y = position.y - 3
+			projectile.velocity.x = sprite.scale.x * 65
+			projectile.scale.x = sprite.scale.x
+			return
 
 func weapon_origami():
-	if Input.is_action_just_pressed("shoot") && GameState.weapon_energy[5] >= 1:
+	if Input.is_action_just_pressed("shoot") && GameState.weapon_energy[5] >= 1 && GameState.onscreen_sp_bullets < 4:
 		GameState.weapon_energy[5] -= 1
 		$AnimatedSprite2D.set_frame_and_progress(0, 0)
 		shot_type = 2
 		shoot_delay = 16
+		GameState.onscreen_sp_bullets += 3
 		projectile = weapon_scenes[0].instantiate()
 			
 		#SHOOT FORWARD 
@@ -897,6 +908,14 @@ func weapon_origami():
 			projectile.velocity.x = sprite.scale.x * ORIGAMI_SPEED * 0.775
 			projectile.velocity.y =  -ORIGAMI_SPEED * 0.225
 			
+			projectile = weapon_scenes[0].instantiate()
+			get_parent().add_child(projectile)
+			projectile.position.x = position.x + (sprite.scale.x * 9)
+			projectile.position.y = position.y + 2
+			projectile.scale.x = -sprite.scale.x
+			projectile.velocity.x = sprite.scale.x * ORIGAMI_SPEED *  0.225
+			projectile.velocity.y =  -ORIGAMI_SPEED * 0.775
+			
 		if Input.is_action_pressed("move_down"):
 			projectile = weapon_scenes[0].instantiate()
 			get_parent().add_child(projectile)
@@ -925,11 +944,12 @@ func weapon_origami():
 		return
 		
 func weapon_guerilla():
-	if Input.is_action_just_pressed("shoot") && GameState.weapon_energy[7] >= 2:
+	if Input.is_action_just_pressed("shoot") && GameState.weapon_energy[7] >= 2 && GameState.onscreen_sp_bullets <= 2:
 		GameState.weapon_energy[7] -= 2
 		$AnimatedSprite2D.set_frame_and_progress(0, 0)
 		shot_type = 1
 		shoot_delay = 16
+		GameState.onscreen_sp_bullets += 1
 		projectile = weapon_scenes[3].instantiate()
 		
 		#SHOOT FORWARD REGARDLESS
@@ -941,11 +961,11 @@ func weapon_guerilla():
 		projectile.scale.x = sprite.scale.x
 
 func weapon_carry():
-	if Input.is_action_just_pressed("shoot") && GameState.weapon_energy[11] >= 3:
-		GameState.weapon_energy[11] -= 3
+	if Input.is_action_just_pressed("shoot") && GameState.weapon_energy[11] >= 3 && GameState.onscreen_sp_bullets < 3:
 		$AnimatedSprite2D.set_frame_and_progress(0, 0)
 		shot_type = 2
 		shoot_delay = 16
+		GameState.onscreen_sp_bullets += 1
 		projectile = projectile_scenes[3].instantiate()
 		
 		#SHOOT FORWARD REGARDLESS
@@ -958,11 +978,12 @@ func weapon_carry():
 			projectile.position.x = position.x
 
 func weapon_arrow():
-	if Input.is_action_just_pressed("shoot") && GameState.weapon_energy[12] >= 4:
+	if Input.is_action_just_pressed("shoot") && GameState.weapon_energy[12] >= 4 && GameState.onscreen_sp_bullets == 0:
 		GameState.weapon_energy[12] -= 4
 		$AnimatedSprite2D.set_frame_and_progress(0, 0)
 		shot_type = 1
 		shoot_delay = 16
+		GameState.onscreen_sp_bullets += 1
 		projectile = projectile_scenes[6].instantiate()
 		
 		#SHOOT FORWARD REGARDLESS
@@ -974,11 +995,12 @@ func weapon_arrow():
 
 
 func weapon_punk():
-	if Input.is_action_just_pressed("shoot") && GameState.weapon_energy[14] >= 1:
+	if Input.is_action_just_pressed("shoot") && GameState.weapon_energy[14] >= 1 && GameState.onscreen_sp_bullets < 4:
 		GameState.weapon_energy[14] -= 1
 		$AnimatedSprite2D.set_frame_and_progress(0, 0)
 		shot_type = 2
 		shoot_delay = 16
+		GameState.onscreen_sp_bullets += 1
 		projectile = projectile_scenes[5].instantiate()
 		
 		if $AnimatedSprite2D.flip_h:
@@ -994,12 +1016,13 @@ func weapon_punk():
 
 
 func weapon_ballade():
-	if Input.is_action_just_pressed("shoot") && GameState.weapon_energy[15] >= 3:
+	if Input.is_action_just_pressed("shoot") && GameState.weapon_energy[15] >= 3 && GameState.onscreen_sp_bullets == 0:
 		GameState.weapon_energy[15] -= 3
 		$AnimatedSprite2D.set_frame_and_progress(0, 0)
 		
 		shot_type = 2
 		shoot_delay = 16
+		GameState.onscreen_sp_bullets += 1
 		projectile = projectile_scenes[4].instantiate()
 		
 		get_parent().add_child(projectile)

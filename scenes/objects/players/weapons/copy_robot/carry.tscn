@@ -104,3 +104,12 @@ material = SubResource("ShaderMaterial_u4myh")
 sprite_frames = SubResource("SpriteFrames_edaxt")
 autoplay = "default"
 frame_progress = 0.783049
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
+autostart = true
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(3.57628e-07, 0)
+scale = Vector2(0.8, 0.8)

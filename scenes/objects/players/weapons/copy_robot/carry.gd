@@ -1,21 +1,36 @@
 
 extends StaticBody2D
 
-var timer : int
+var timer : int = -1
 var flashtimer : int
 
+@onready var Interval = $Timer
+
+
+func _ready():
+	Interval.start(0.1)
+
 func _process(_delta):
+	if Interval.is_stopped():
+		timer += 1
+		Interval.start(0.8)
+		if timer > 0:
+			GameState.weapon_energy[GameState.current_weapon] -= 1
+	
 	if GameState.player != null:
 		$AnimatedSprite2D.material.set_shader_parameter("palette", get_node(GameState.player).get_node("AnimatedSprite2D").material.get_shader_parameter("palette"))
 	
 	if GameState.current_weapon != 11 && $AnimatedSprite2D.animation != "explode":
+		GameState.onscreen_sp_bullets -= 1
 		$AnimatedSprite2D.play("explode")
 		$Shape.disabled = true
 		await $AnimatedSprite2D.animation_finished
 		queue_free()
 		
-	timer = (timer + 1)
-	if timer > 300:
+	
+	
+	
+	if timer > 1:
 		flashtimer = (flashtimer + 1)
 		if $AnimatedSprite2D.animation != "explode":
 			if flashtimer == 3:
@@ -25,8 +40,14 @@ func _process(_delta):
 				flashtimer = 0
 		else:
 			$AnimatedSprite2D.show()
-	if timer == 400:
+	if timer == 3:
+		timer = 5
 		$AnimatedSprite2D.play("explode")
+		GameState.onscreen_sp_bullets -= 1
 		$Shape.disabled = true
 		await $AnimatedSprite2D.animation_finished
 		queue_free()
+
+func _on_visible_on_screen_notifier_2d_screen_exited():
+	GameState.onscreen_bullets -= 1
+	queue_free()

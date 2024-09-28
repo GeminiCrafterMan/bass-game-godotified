@@ -57,6 +57,7 @@ func destroy():
 	$HitSound.play()
 	velocity.x = 0
 	velocity.y = 0
+	GameState.onscreen_sp_bullets -= 1
 	$AnimatedSprite2D.play("hit")
 	await $AnimatedSprite2D.animation_finished
 	queue_free()

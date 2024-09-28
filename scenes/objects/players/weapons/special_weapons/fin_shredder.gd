@@ -31,6 +31,7 @@ func _physics_process(_delta):
 			velocity.x = velocity.x * 0.7
 		velocity.x = velocity.x * 0.8
 		if ($AnimatedSprite2D.get_frame() == 3):
+			GameState.onscreen_sp_bullets -= 1
 			queue_free()
 	
 	
@@ -39,6 +40,7 @@ func _physics_process(_delta):
 	
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
+	GameState.onscreen_sp_bullets -= 1
 	queue_free()
 
 func destroy():

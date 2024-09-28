@@ -23,6 +23,7 @@ func _physics_process(_delta):
 			$AnimatedSprite2D.play("Loop")
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
+	GameState.onscreen_sp_bullets -= 1
 	queue_free()
 
 func destroy():

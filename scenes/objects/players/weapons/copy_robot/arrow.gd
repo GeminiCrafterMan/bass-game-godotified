@@ -15,6 +15,10 @@ func _process(_delta):
 
 	
 	if GameState.current_weapon != 12:
+		GameState.onscreen_sp_bullets -= 1
+		$AnimatedSprite2D.play("explode")
+		$Shape.disabled = true
+		await $AnimatedSprite2D.animation_finished
 		queue_free()
 	
 	if move_and_slide() == true && $AnimatedSprite2D.animation == "move":
@@ -44,6 +48,7 @@ func _process(_delta):
 		else:
 			$AnimatedSprite2D.show()
 	if timer == 400 && $AnimatedSprite2D.animation == "stick":
+		GameState.onscreen_sp_bullets -= 1
 		$AnimatedSprite2D.play("explode")
 		$Shape.disabled = true
 		await $AnimatedSprite2D.animation_finished
@@ -52,6 +57,7 @@ func _process(_delta):
 func destroy():
 	velocity.x = 0
 	velocity.y = 0
+	GameState.onscreen_sp_bullets -= 1
 	$AnimatedSprite2D.play("explode")
 	await $AnimatedSprite2D.animation_finished
 	queue_free()

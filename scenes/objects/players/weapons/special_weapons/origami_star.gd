@@ -8,6 +8,7 @@ func _ready():
 		
 func _physics_process(_delta):
 	if GameState.current_weapon != 5:
+		GameState.onscreen_sp_bullets -= 1
 		queue_free()
 	if GameState.player != null:
 		$AnimatedSprite2D.material.set_shader_parameter("palette", get_node(GameState.player).get_node("AnimatedSprite2D").material.get_shader_parameter("palette"))
@@ -19,6 +20,7 @@ func _physics_process(_delta):
 		destroy()
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
+	GameState.onscreen_sp_bullets -= 1
 	queue_free()
 
 func destroy():
@@ -26,6 +28,7 @@ func destroy():
 	$HitSound.play()
 	velocity.x = 0
 	velocity.y = 0
+	GameState.onscreen_sp_bullets -= 1
 	$AnimatedSprite2D.play("hit")
 	await $AnimatedSprite2D.animation_finished
 	queue_free()

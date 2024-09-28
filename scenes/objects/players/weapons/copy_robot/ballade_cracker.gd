@@ -10,6 +10,7 @@ func _physics_process(_delta):
 		destroy()
 		
 	if GameState.current_weapon != 15:
+		GameState.onscreen_sp_bullets = 0
 		queue_free()
 	
 	if GameState.player != null:
@@ -17,6 +18,7 @@ func _physics_process(_delta):
 	
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
+	GameState.onscreen_sp_bullets = 0
 	queue_free()
 
 func destroy():
@@ -27,6 +29,7 @@ func destroy():
 	#$Blast.set_deferred("disabled", false)
 	$AnimatedSprite2D.play("hit")
 	await $AnimatedSprite2D.animation_finished
+	GameState.onscreen_sp_bullets = 0
 	queue_free()
 	
 func kill():
