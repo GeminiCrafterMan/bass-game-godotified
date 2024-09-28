@@ -1,46 +1,62 @@
-[gd_scene load_steps=12 format=3 uid="uid://d3bthms0xcmi1"]
+[gd_scene load_steps=30 format=3 uid="uid://d3bthms0xcmi1"]
 
 [ext_resource type="Script" path="res://scenes/Objects/menus/stage_select/StageSelectPanel.gd" id="1_k1tp0"]
 [ext_resource type="Theme" uid="uid://c1bun7kn776g1" path="res://themes/ui_theme.tres" id="1_o6l8c"]
 [ext_resource type="PackedScene" uid="uid://by07rq184shwd" path="res://scenes/Stages/test_stage.tscn" id="2_alciw"]
+[ext_resource type="Texture2D" uid="uid://c340y0ic887dr" path="res://sprites/Menus/Scanlines.png" id="4_gcfd5"]
 [ext_resource type="AudioStream" uid="uid://1ujjh0m4lfmf" path="res://sounds/menumove.wav" id="4_jgr38"]
 [ext_resource type="Texture2D" uid="uid://dc1wr52i7yf05" path="res://sprites/Menus/Stage Select - Lights.png" id="5_7fyoy"]
+[ext_resource type="Texture2D" uid="uid://qwdi35jvf2y8" path="res://sprites/LeFade.png" id="6_or4sg"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_1yrwy"]
 size = Vector2(32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_r4nb6"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_073cm"]
 atlas = ExtResource("5_7fyoy")
 region = Rect2(96, 0, 48, 48)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_bk2k3"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_qw08p"]
 atlas = ExtResource("5_7fyoy")
 region = Rect2(48, 0, 48, 48)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_apd6f"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_3mn6x"]
 atlas = ExtResource("5_7fyoy")
 region = Rect2(0, 0, 48, 48)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_p3jdh"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_flroc"]
+atlas = ExtResource("5_7fyoy")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_la4em"]
+atlas = ExtResource("5_7fyoy")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_et2xd"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_r4nb6")
+"texture": SubResource("AtlasTexture_073cm")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_bk2k3")
+"texture": SubResource("AtlasTexture_qw08p")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_apd6f")
+"texture": SubResource("AtlasTexture_3mn6x")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_apd6f")
+"texture": SubResource("AtlasTexture_3mn6x")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_bk2k3")
+"texture": SubResource("AtlasTexture_3mn6x")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_r4nb6")
+"texture": SubResource("AtlasTexture_flroc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_la4em")
+}, {
+"duration": 1.0,
+"texture": null
 }, {
 "duration": 1.0,
 "texture": null
@@ -49,6 +65,112 @@ animations = [{
 "texture": null
 }],
 "loop": true,
+"name": &"default",
+"speed": 20.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qrdna"]
+atlas = ExtResource("4_gcfd5")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6yk73"]
+atlas = ExtResource("4_gcfd5")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_p3jdh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qrdna")
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6yk73")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": true,
+"name": &"default",
+"speed": 45.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_imywm"]
+atlas = ExtResource("6_or4sg")
+region = Rect2(0, 0, 1, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vq5ci"]
+atlas = ExtResource("6_or4sg")
+region = Rect2(1, 0, 1, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3bce8"]
+atlas = ExtResource("6_or4sg")
+region = Rect2(2, 0, 1, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ly02w"]
+atlas = ExtResource("6_or4sg")
+region = Rect2(3, 0, 1, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uxkeu"]
+atlas = ExtResource("6_or4sg")
+region = Rect2(4, 0, 1, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ps35w"]
+atlas = ExtResource("6_or4sg")
+region = Rect2(5, 0, 1, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_14nv2"]
+atlas = ExtResource("6_or4sg")
+region = Rect2(6, 0, 1, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8io7p"]
+atlas = ExtResource("6_or4sg")
+region = Rect2(7, 0, 1, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tan43"]
+atlas = ExtResource("6_or4sg")
+region = Rect2(8, 0, 1, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mya1s"]
+atlas = ExtResource("6_or4sg")
+region = Rect2(9, 0, 1, 1)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fx27l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_imywm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vq5ci")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3bce8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ly02w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uxkeu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ps35w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_14nv2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8io7p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tan43")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mya1s")
+}],
+"loop": false,
 "name": &"default",
 "speed": 15.0
 }]
@@ -62,6 +184,7 @@ focus_mode = 2
 mouse_filter = 0
 mouse_default_cursor_shape = 2
 script = ExtResource("1_k1tp0")
+Lines = null
 stageName = "LOREM"
 stageTitle = "IPSUM"
 portrait = SubResource("PlaceholderTexture2D_1yrwy")
@@ -91,9 +214,23 @@ stretch_mode = 4
 [node name="Lights" type="AnimatedSprite2D" parent="VBoxContainer/Portrait"]
 visible = false
 position = Vector2(24, 24)
+sprite_frames = SubResource("SpriteFrames_et2xd")
+autoplay = "default"
+frame_progress = 0.710226
+
+[node name="Scanlines" type="AnimatedSprite2D" parent="VBoxContainer/Portrait"]
+position = Vector2(24, 24)
 sprite_frames = SubResource("SpriteFrames_p3jdh")
 autoplay = "default"
-frame_progress = 0.931228
+frame_progress = 0.7597
+
+[node name="PortraitFlash" type="AnimatedSprite2D" parent="VBoxContainer/Portrait"]
+position = Vector2(8, 8)
+scale = Vector2(32, 32.25)
+sprite_frames = SubResource("SpriteFrames_fx27l")
+frame = 9
+frame_progress = 1.0
+centered = false
 
 [node name="Text" type="CenterContainer" parent="VBoxContainer"]
 layout_mode = 2

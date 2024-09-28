@@ -4,6 +4,8 @@ class_name StageSelectPanel extends MarginContainer
 var selected: bool
 var hovered: bool
 
+@export var Lines : bool
+
 var _stageName: String = "LOREM"
 @export var stageName: String :
 	get:
@@ -61,8 +63,11 @@ func _process(_delta):
 	if not Engine.is_editor_hint():
 		if selected or hovered:
 			$VBoxContainer/Portrait/Lights.visible = true
+			$VBoxContainer/Portrait/Scanlines.visible = false
 		else:
 			$VBoxContainer/Portrait/Lights.visible = false
+			if Lines == true:
+				$VBoxContainer/Portrait/Scanlines.visible = true
 
 func _gui_input(event):
 	if (event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed) or (event is InputEvent and event.is_action_pressed("ui_accept")):

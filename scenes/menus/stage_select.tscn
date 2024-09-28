@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=4 uid="uid://bb1e018s8kwu7"]
+[gd_scene load_steps=36 format=4 uid="uid://bb1e018s8kwu7"]
 
 [ext_resource type="Script" path="res://scenes/menus/stage_select.gd" id="1_v0p28"]
 [ext_resource type="TileSet" uid="uid://buvesedl67lpj" path="res://tilesets/stage_select.tres" id="2_knvnc"]
@@ -130,84 +130,6 @@ region = Rect2(192, 0, 32, 32)
 atlas = ExtResource("4_myqdi")
 region = Rect2(224, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_imywm"]
-atlas = ExtResource("3_dp4q6")
-region = Rect2(0, 0, 1, 1)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vq5ci"]
-atlas = ExtResource("3_dp4q6")
-region = Rect2(1, 0, 1, 1)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_3bce8"]
-atlas = ExtResource("3_dp4q6")
-region = Rect2(2, 0, 1, 1)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ly02w"]
-atlas = ExtResource("3_dp4q6")
-region = Rect2(3, 0, 1, 1)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_uxkeu"]
-atlas = ExtResource("3_dp4q6")
-region = Rect2(4, 0, 1, 1)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ps35w"]
-atlas = ExtResource("3_dp4q6")
-region = Rect2(5, 0, 1, 1)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_14nv2"]
-atlas = ExtResource("3_dp4q6")
-region = Rect2(6, 0, 1, 1)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8io7p"]
-atlas = ExtResource("3_dp4q6")
-region = Rect2(7, 0, 1, 1)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tan43"]
-atlas = ExtResource("3_dp4q6")
-region = Rect2(8, 0, 1, 1)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_mya1s"]
-atlas = ExtResource("3_dp4q6")
-region = Rect2(9, 0, 1, 1)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_ji38b"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_imywm")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_vq5ci")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_3bce8")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ly02w")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_uxkeu")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ps35w")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_14nv2")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_8io7p")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tan43")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_mya1s")
-}],
-"loop": false,
-"name": &"default",
-"speed": 15.0
-}]
-
 [node name="Stage Select" type="CanvasLayer"]
 script = ExtResource("1_v0p28")
 
@@ -308,6 +230,7 @@ columns = 3
 
 [node name="Blaze Man" parent="MarginContainer/CenterContainer/VBoxContainer/GridContainer" instance=ExtResource("9_wx53p")]
 layout_mode = 2
+Lines = true
 stageName = "BLAZE"
 stageTitle = "MAN"
 portrait = SubResource("AtlasTexture_mrqkx")
@@ -315,6 +238,7 @@ scene = ExtResource("10_plgfr")
 
 [node name="Video Man" parent="MarginContainer/CenterContainer/VBoxContainer/GridContainer" instance=ExtResource("9_wx53p")]
 layout_mode = 2
+Lines = true
 stageName = "VIDEO"
 stageTitle = "MAN"
 portrait = SubResource("AtlasTexture_ffwup")
@@ -322,6 +246,7 @@ scene = ExtResource("11_a0b8h")
 
 [node name="Smog Man" parent="MarginContainer/CenterContainer/VBoxContainer/GridContainer" instance=ExtResource("9_wx53p")]
 layout_mode = 2
+Lines = true
 stageName = "SMOG"
 stageTitle = "MAN"
 portrait = SubResource("AtlasTexture_g04qk")
@@ -329,6 +254,7 @@ scene = ExtResource("12_0v5gu")
 
 [node name="Shark Man" parent="MarginContainer/CenterContainer/VBoxContainer/GridContainer" instance=ExtResource("9_wx53p")]
 layout_mode = 2
+Lines = true
 stageName = "SHARK"
 stageTitle = "MAN"
 portrait = SubResource("AtlasTexture_gcbkw")
@@ -337,12 +263,14 @@ scene = ExtResource("13_2ksq2")
 [node name="Player" parent="MarginContainer/CenterContainer/VBoxContainer/GridContainer" instance=ExtResource("9_wx53p")]
 unique_name_in_owner = true
 layout_mode = 2
+Lines = false
 stageName = "TEST"
 stageTitle = "STAGE"
 portrait = SubResource("AtlasTexture_4drve")
 
 [node name="Origami Man" parent="MarginContainer/CenterContainer/VBoxContainer/GridContainer" instance=ExtResource("9_wx53p")]
 layout_mode = 2
+Lines = true
 stageName = "ORIGAM"
 stageTitle = "MAN"
 portrait = SubResource("AtlasTexture_h7y0k")
@@ -350,6 +278,7 @@ scene = ExtResource("14_kr1yd")
 
 [node name="Gale Woman" parent="MarginContainer/CenterContainer/VBoxContainer/GridContainer" instance=ExtResource("9_wx53p")]
 layout_mode = 2
+Lines = true
 stageName = "GALE"
 stageTitle = "WOMAN"
 portrait = SubResource("AtlasTexture_7aiti")
@@ -357,6 +286,7 @@ scene = ExtResource("15_7nr6x")
 
 [node name="Guerilla Man" parent="MarginContainer/CenterContainer/VBoxContainer/GridContainer" instance=ExtResource("9_wx53p")]
 layout_mode = 2
+Lines = true
 stageName = "GUERL."
 stageTitle = "MAN"
 portrait = SubResource("AtlasTexture_1um4e")
@@ -364,6 +294,7 @@ scene = ExtResource("16_ailq2")
 
 [node name="Reaper Man" parent="MarginContainer/CenterContainer/VBoxContainer/GridContainer" instance=ExtResource("9_wx53p")]
 layout_mode = 2
+Lines = true
 stageName = "REAPER"
 stageTitle = "MAN"
 portrait = SubResource("AtlasTexture_pmmyx")
@@ -374,20 +305,6 @@ stream = ExtResource("14_2oaul")
 volume_db = -5.316
 bus = &"Music"
 parameters/looping = true
-
-[node name="ScanLines" type="TileMapLayer" parent="."]
-use_parent_material = true
-tile_map_data = PackedByteArray("AAANAAEAAAAIAAoAAAAOAAEAAAAIAAoAAAAPAAEAAAAIAAoAAAAQAAEAAAAIAAoAAAAWAAEAAAAIAAoAAAAXAAEAAAAIAAoAAAAYAAEAAAAIAAoAAAAZAAEAAAAIAAoAAAAfAAEAAAAIAAoAAAAgAAEAAAAIAAoAAAAhAAEAAAAIAAoAAAAiAAEAAAAIAAoAAAAfAAoAAAAIAAoAAAAgAAoAAAAIAAoAAAAhAAoAAAAIAAoAAAAiAAoAAAAIAAoAAAANAAoAAAAIAAoAAAAOAAoAAAAIAAoAAAAPAAoAAAAIAAoAAAAQAAoAAAAIAAoAAAANABMAAAAIAAoAAAAOABMAAAAIAAoAAAAPABMAAAAIAAoAAAAQABMAAAAIAAoAAAAWABMAAAAIAAoAAAAXABMAAAAIAAoAAAAYABMAAAAIAAoAAAAZABMAAAAIAAoAAAAfABMAAAAIAAoAAAAgABMAAAAIAAoAAAAhABMAAAAIAAoAAAAiABMAAAAIAAoAAAANAAsAAAAIAAsAAAANAAwAAAAIAAsAAAANAA0AAAAIAAsAAAAOAAsAAAAIAAsAAAAOAAwAAAAIAAsAAAAOAA0AAAAIAAsAAAAPAAsAAAAIAAsAAAAPAAwAAAAIAAsAAAAPAA0AAAAIAAsAAAAQAAsAAAAIAAsAAAAQAAwAAAAIAAsAAAAQAA0AAAAIAAsAAAAfAAsAAAAIAAsAAAAfAAwAAAAIAAsAAAAfAA0AAAAIAAsAAAAgAAsAAAAIAAsAAAAgAAwAAAAIAAsAAAAgAA0AAAAIAAsAAAAhAAsAAAAIAAsAAAAhAAwAAAAIAAsAAAAhAA0AAAAIAAsAAAAiAAsAAAAIAAsAAAAiAAwAAAAIAAsAAAAiAA0AAAAIAAsAAAAfABUAAAAIAAsAAAAfABYAAAAIAAsAAAAgABUAAAAIAAsAAAAgABYAAAAIAAsAAAAhABUAAAAIAAsAAAAhABYAAAAIAAsAAAAiABUAAAAIAAsAAAAiABYAAAAIAAsAAAAWABQAAAAIAAsAAAAWABUAAAAIAAsAAAAWABYAAAAIAAsAAAAXABQAAAAIAAsAAAAXABUAAAAIAAsAAAAXABYAAAAIAAsAAAAYABQAAAAIAAsAAAAYABUAAAAIAAsAAAAYABYAAAAIAAsAAAAZABQAAAAIAAsAAAAZABUAAAAIAAsAAAAZABYAAAAIAAsAAAANABQAAAAIAAsAAAANABUAAAAIAAsAAAANABYAAAAIAAsAAAAOABQAAAAIAAsAAAAOABUAAAAIAAsAAAAOABYAAAAIAAsAAAAPABQAAAAIAAsAAAAPABUAAAAIAAsAAAAPABYAAAAIAAsAAAAQABQAAAAIAAsAAAAQABUAAAAIAAsAAAAQABYAAAAIAAsAAAANAAIAAAAIAAsAAAANAAMAAAAIAAsAAAANAAQAAAAIAAsAAAAOAAIAAAAIAAsAAAAOAAMAAAAIAAsAAAAOAAQAAAAIAAsAAAAPAAIAAAAIAAsAAAAPAAMAAAAIAAsAAAAPAAQAAAAIAAsAAAAQAAIAAAAIAAsAAAAQAAMAAAAIAAsAAAAQAAQAAAAIAAsAAAAWAAIAAAAIAAsAAAAWAAMAAAAIAAsAAAAWAAQAAAAIAAsAAAAXAAIAAAAIAAsAAAAXAAMAAAAIAAsAAAAXAAQAAAAIAAsAAAAYAAIAAAAIAAsAAAAYAAMAAAAIAAsAAAAYAAQAAAAIAAsAAAAZAAIAAAAIAAsAAAAZAAMAAAAIAAsAAAAZAAQAAAAIAAsAAAAfAAIAAAAIAAsAAAAfAAMAAAAIAAsAAAAfAAQAAAAIAAsAAAAgAAIAAAAIAAsAAAAgAAMAAAAIAAsAAAAgAAQAAAAIAAsAAAAhAAIAAAAIAAsAAAAhAAMAAAAIAAsAAAAhAAQAAAAIAAsAAAAiAAIAAAAIAAsAAAAiAAMAAAAIAAsAAAAiAAQAAAAIAAsAAAAfABcAAAAIAAwAAAAgABcAAAAIAAwAAAAhABcAAAAIAAwAAAAiABcAAAAIAAwAAAAfAA4AAAAIAAwAAAAgAA4AAAAIAAwAAAAhAA4AAAAIAAwAAAAiAA4AAAAIAAwAAAAfAAUAAAAIAAwAAAAgAAUAAAAIAAwAAAAhAAUAAAAIAAwAAAAiAAUAAAAIAAwAAAAWAAUAAAAIAAwAAAAXAAUAAAAIAAwAAAAYAAUAAAAIAAwAAAAZAAUAAAAIAAwAAAANAAUAAAAIAAwAAAAOAAUAAAAIAAwAAAAPAAUAAAAIAAwAAAAQAAUAAAAIAAwAAAANAA4AAAAIAAwAAAAOAA4AAAAIAAwAAAAPAA4AAAAIAAwAAAAQAA4AAAAIAAwAAAANABcAAAAIAAwAAAAOABcAAAAIAAwAAAAPABcAAAAIAAwAAAAQABcAAAAIAAwAAAAWABcAAAAIAAwAAAAXABcAAAAIAAwAAAAYABcAAAAIAAwAAAAZABcAAAAIAAwAAAAfABQAAAAIAAsAAAAgABQAAAAIAAsAAAAhABQAAAAIAAsAAAAiABQAAAAIAAsAAAA=")
-tile_set = ExtResource("2_knvnc")
-
-[node name="PortraitFlashes" type="Node2D" parent="."]
-position = Vector2(104, 12)
-scale = Vector2(32, 32)
-
-[node name="PortraitFlash" type="AnimatedSprite2D" parent="PortraitFlashes"]
-position = Vector2(0.1875, 0.25)
-sprite_frames = SubResource("SpriteFrames_ji38b")
-frame = 5
 
 [node name="Darkness" type="Node2D" parent="."]
 

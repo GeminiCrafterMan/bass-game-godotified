@@ -22,7 +22,18 @@ func _process(delta):
 		%Player.grab_focus()
 		$Music.play()
 		$Rows/RowBright.play()
-		$PortraitFlashes/PortraitFlash.play()
+		
+		$"MarginContainer/CenterContainer/VBoxContainer/GridContainer/Blaze Man/VBoxContainer/Portrait/PortraitFlash".play()
+		$"MarginContainer/CenterContainer/VBoxContainer/GridContainer/Video Man/VBoxContainer/Portrait/PortraitFlash".play()
+		$"MarginContainer/CenterContainer/VBoxContainer/GridContainer/Smog Man/VBoxContainer/Portrait/PortraitFlash".play()
+		$"MarginContainer/CenterContainer/VBoxContainer/GridContainer/Shark Man/VBoxContainer/Portrait/PortraitFlash".play()
+		$"MarginContainer/CenterContainer/VBoxContainer/GridContainer/Player/VBoxContainer/Portrait/PortraitFlash".play()
+		$"MarginContainer/CenterContainer/VBoxContainer/GridContainer/Origami Man/VBoxContainer/Portrait/PortraitFlash".play()
+		$"MarginContainer/CenterContainer/VBoxContainer/GridContainer/Gale Woman/VBoxContainer/Portrait/PortraitFlash".play()
+		$"MarginContainer/CenterContainer/VBoxContainer/GridContainer/Guerilla Man/VBoxContainer/Portrait/PortraitFlash".play()
+		$"MarginContainer/CenterContainer/VBoxContainer/GridContainer/Reaper Man/VBoxContainer/Portrait/PortraitFlash".play()
+		
+		
 	timer -= 1
 	
 func panel_focused(index: int):
