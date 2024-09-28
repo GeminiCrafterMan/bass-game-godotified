@@ -16,6 +16,10 @@ var maxCharacterID = characters.size() - 1 # Whyyyyy...?
 var character_selected : int
 var player # absolute path to player node
 var player_lives : int = 3
+
+var onscreen_bullets : int
+var onscreen_sp_bullets : int
+
 var current_weapon : int
 var old_weapon : int
 var current_hp = 28

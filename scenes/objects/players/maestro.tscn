@@ -606,3 +606,4 @@ visible = false
 position = Vector2(0, -13)
 shape = SubResource("RectangleShape2D_fl2cb")
 target_position = Vector2(0, 0)
+max_results = 1

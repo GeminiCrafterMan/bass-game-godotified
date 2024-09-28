@@ -1,0 +1,134 @@
+[gd_scene load_steps=18 format=3 uid="uid://wnfydbxtfjs6"]
+
+[ext_resource type="Script" path="res://scenes/objects/players/weapons/copy_robot/cr_fin_shredder.gd" id="1_m68ix"]
+[ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="2_0b2po"]
+[ext_resource type="Texture2D" uid="uid://bmfbbubre4nsu" path="res://sprites/Players/Weapons/Shark1.png" id="3_ve13w"]
+[ext_resource type="AudioStream" uid="uid://cs2dmn3ahpbea" path="res://sounds/pop.wav" id="4_8s26a"]
+[ext_resource type="AudioStream" uid="uid://bu17jfenhhtt8" path="res://sounds/explode.wav" id="5_arsep"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ygio2"]
+shader = ExtResource("2_0b2po")
+shader_parameter/skip_first_row = true
+shader_parameter/use_palette_alpha = false
+shader_parameter/fps = 6.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g3ewl"]
+atlas = ExtResource("3_ve13w")
+region = Rect2(0, 0, 38, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s3yrw"]
+atlas = ExtResource("3_ve13w")
+region = Rect2(0, 38, 38, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7y71r"]
+atlas = ExtResource("3_ve13w")
+region = Rect2(0, 190, 38, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nk288"]
+atlas = ExtResource("3_ve13w")
+region = Rect2(0, 190, 38, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hmuqn"]
+atlas = ExtResource("3_ve13w")
+region = Rect2(0, 228, 38, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e0xy8"]
+atlas = ExtResource("3_ve13w")
+region = Rect2(0, 266, 38, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5yube"]
+atlas = ExtResource("3_ve13w")
+region = Rect2(0, 76, 38, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rrn17"]
+atlas = ExtResource("3_ve13w")
+region = Rect2(0, 114, 38, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nq5t1"]
+atlas = ExtResource("3_ve13w")
+region = Rect2(0, 152, 38, 38)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tmmfq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g3ewl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s3yrw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7y71r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7y71r")
+}],
+"loop": false,
+"name": &"Bass",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nk288")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hmuqn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e0xy8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e0xy8")
+}],
+"loop": false,
+"name": &"Bass-hit",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5yube")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rrn17")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nq5t1")
+}],
+"loop": true,
+"name": &"Bass-loop",
+"speed": 15.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0fvlc"]
+size = Vector2(32, 30.5)
+
+[node name="Fin Shredder" type="CharacterBody2D"]
+collision_layer = 8
+script = ExtResource("1_m68ix")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_ygio2")
+position = Vector2(-0.178566, 0)
+scale = Vector2(1.01948, 1)
+sprite_frames = SubResource("SpriteFrames_tmmfq")
+animation = &"Bass"
+autoplay = "Bass"
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-1.13687e-13, 2)
+scale = Vector2(2, 1.7)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3.75)
+scale = Vector2(0.475, 1)
+shape = SubResource("RectangleShape2D_0fvlc")
+
+[node name="HitSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_8s26a")
+bus = &"SFX"
+
+[node name="SpawnSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_arsep")
+bus = &"SFX"
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

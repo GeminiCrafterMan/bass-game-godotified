@@ -26,6 +26,15 @@ func _init() -> void:
 	]
 
 func _ready() -> void:
+	
+	weapon_scenes = [
+	preload("res://scenes/objects/players/weapons/special_weapons/origami_star.tscn"),
+	preload("res://scenes/objects/players/weapons/special_weapons/poison_cloud.tscn"),
+	preload("res://scenes/objects/players/weapons/special_weapons/scorch_barrier.tscn"),
+	preload("res://scenes/objects/players/weapons/special_weapons/rolling_bomb.tscn"),
+	preload("res://scenes/objects/players/weapons/copy_robot/CR_fin_shredder.tscn")
+	]	
+	
 	super._ready()
 
 func weapon_buster(): # G: Copy Robot *can* charge his buster, but Maestro and Bass *can't*. Looks like we could easily do the same (replacing the Buster) with Bass's...?
@@ -80,4 +89,19 @@ func weapon_buster(): # G: Copy Robot *can* charge his buster, but Maestro and B
 			Charge = 105
 	else:
 		Charge = 0
+		return
+		
+func weapon_shark():
+	if Input.is_action_just_pressed("shoot") && (currentState != STATES.SLIDE) and (currentState != STATES.HURT) && is_on_floor() && GameState.weapon_energy[4] >= 5:
+		GameState.weapon_energy[4] -= 3
+		$AnimatedSprite2D.set_frame_and_progress(0, 0)
+		shot_type = 2
+		shoot_delay = 16
+		projectile = weapon_scenes[4].instantiate()
+		get_parent().add_child(projectile)
+		
+		projectile.position.x = position.x + sprite.scale.x * 15
+		projectile.position.y = position.y - 3
+		projectile.velocity.x = sprite.scale.x * 65
+		projectile.scale.x = sprite.scale.x
 		return

@@ -122,6 +122,7 @@ var weapon_scenes = [
 func _ready():
 	GameState.player = self.get_path()
 	#start the teleport animation
+	GameState.onscreen_bullets = 0
 	state_timer.start(0.5)
 	invul_timer.start(0.01)
 	currentState = STATES.TELEPORT
@@ -252,10 +253,9 @@ func _physics_process(delta: float) -> void:
 		if  (currentState != STATES.NONE) and (currentState != STATES.TELEPORT) and (currentState != STATES.DEAD):
 			#check for ladder
 			if (currentState != STATES.SLIDE) and (currentState != STATES.HURT) and  sign(direction.y) != 0:
-				if ladder_check.is_colliding() and !Input.is_action_pressed("jump"):
+				if (ladder_check.is_colliding() or top_ladder_check.is_colliding()) and !Input.is_action_pressed("jump") and sign(direction.y) > 0:
 					for i in ladder_check.get_collision_count():
 						if ladder_check.get_collider(i).is_in_group("ladder"):
-							
 							if !(is_on_floor() and Input.is_action_pressed("move_down")):
 								global_position.x = ladder_check.get_collider(i).global_position.x
 								currentState = STATES.LADDER
@@ -746,13 +746,14 @@ func handle_weapons():
 
 func weapon_buster(): # G: Maestro can't charge his buster, but Copy Robot *can*.
 	if (GameState.current_weapon == 0 and Input.is_action_just_pressed("shoot")) or Input.is_action_just_pressed("buster"):
-		if (currentState != STATES.SLIDE) and (currentState != STATES.HURT):
+		if (currentState != STATES.SLIDE) and (currentState != STATES.HURT) and (GameState.onscreen_bullets < 3):
 			shot_type = 0
 			shoot_delay = 16
+			GameState.onscreen_bullets += 1
 			projectile = projectile_scenes[0].instantiate()
 			get_parent().add_child(projectile)
-			projectile.position.x = position.x
-			projectile.position.y = position.y
+			projectile.position.x = position.x + (sprite.scale.x * 18)
+			projectile.position.y = position.y + 4
 			projectile.velocity.x = sprite.scale.x * 350
 			projectile.scale.x = sprite.scale.x
 			Charge = 0
@@ -858,23 +859,23 @@ func weapon_origami():
 		#SHOOT FORWARD 
 		if !Input.is_action_pressed("move_up") && !Input.is_action_pressed("move_down"):
 			get_parent().add_child(projectile)
-			projectile.position.x = position.x
-			projectile.position.y = position.y
+			projectile.position.x = position.x + (sprite.scale.x * 9)
+			projectile.position.y = position.y + 2
 			projectile.scale.x = -sprite.scale.x
 			projectile.velocity.x = sprite.scale.x * ORIGAMI_SPEED
 					
 			projectile = weapon_scenes[0].instantiate()
 			get_parent().add_child(projectile)
-			projectile.position.x = position.x
-			projectile.position.y = position.y
+			projectile.position.x = position.x + (sprite.scale.x * 9)
+			projectile.position.y = position.y + 2
 			projectile.scale.x = -sprite.scale.x
 			projectile.velocity.x = sprite.scale.x * ORIGAMI_SPEED * 0.775
 			projectile.velocity.y = -ORIGAMI_SPEED * 0.225
 					
 			projectile = weapon_scenes[0].instantiate()
 			get_parent().add_child(projectile)
-			projectile.position.x = position.x
-			projectile.position.y = position.y
+			projectile.position.x = position.x + (sprite.scale.x * 9)
+			projectile.position.y = position.y + 2
 			projectile.scale.x = -sprite.scale.x
 			projectile.velocity.x = sprite.scale.x * ORIGAMI_SPEED * 0.775
 			projectile.velocity.y =  ORIGAMI_SPEED * 0.225
@@ -882,24 +883,16 @@ func weapon_origami():
 		if Input.is_action_pressed("move_up"):
 			projectile = weapon_scenes[0].instantiate()
 			get_parent().add_child(projectile)
-			projectile.position.x = position.x
-			projectile.position.y = position.y
-			projectile.scale.x = -sprite.scale.x
-			projectile.velocity.x = sprite.scale.x *ORIGAMI_SPEED *  0.225
-			projectile.velocity.y =  -ORIGAMI_SPEED * 0.775
-			
-			projectile = weapon_scenes[0].instantiate()
-			get_parent().add_child(projectile)
-			projectile.position.x = position.x
-			projectile.position.y = position.y
+			projectile.position.x = position.x + (sprite.scale.x * 9)
+			projectile.position.y = position.y + 2
 			projectile.scale.x = -sprite.scale.x
 			projectile.velocity.x = sprite.scale.x * ORIGAMI_SPEED * 0.5
 			projectile.velocity.y =  -ORIGAMI_SPEED * 0.5
 			
 			projectile = weapon_scenes[0].instantiate()
 			get_parent().add_child(projectile)
-			projectile.position.x = position.x
-			projectile.position.y = position.y
+			projectile.position.x = position.x + (sprite.scale.x * 9)
+			projectile.position.y = position.y + 2
 			projectile.scale.x = -sprite.scale.x
 			projectile.velocity.x = sprite.scale.x * ORIGAMI_SPEED * 0.775
 			projectile.velocity.y =  -ORIGAMI_SPEED * 0.225
@@ -907,24 +900,24 @@ func weapon_origami():
 		if Input.is_action_pressed("move_down"):
 			projectile = weapon_scenes[0].instantiate()
 			get_parent().add_child(projectile)
-			projectile.position.x = position.x
-			projectile.position.y = position.y
+			projectile.position.x = position.x + (sprite.scale.x * 9)
+			projectile.position.y = position.y + 2
 			projectile.scale.x = -sprite.scale.x
 			projectile.velocity.x = sprite.scale.x * ORIGAMI_SPEED *  0.225
 			projectile.velocity.y =  ORIGAMI_SPEED * 0.775
 			
 			projectile = weapon_scenes[0].instantiate()
 			get_parent().add_child(projectile)
-			projectile.position.x = position.x
-			projectile.position.y = position.y
+			projectile.position.x = position.x + (sprite.scale.x * 9)
+			projectile.position.y = position.y + 2
 			projectile.scale.x = -sprite.scale.x
 			projectile.velocity.x = sprite.scale.x * ORIGAMI_SPEED * 0.5
 			projectile.velocity.y =  ORIGAMI_SPEED * 0.5
 			
 			projectile = weapon_scenes[0].instantiate()
 			get_parent().add_child(projectile)
-			projectile.position.x = position.x
-			projectile.position.y = position.y
+			projectile.position.x = position.x + (sprite.scale.x * 9)
+			projectile.position.y = position.y + 2
 			projectile.scale.x = -sprite.scale.x
 			projectile.velocity.x = sprite.scale.x * ORIGAMI_SPEED * 0.775
 			projectile.velocity.y =  ORIGAMI_SPEED * 0.225
@@ -941,8 +934,8 @@ func weapon_guerilla():
 		
 		#SHOOT FORWARD REGARDLESS
 		get_parent().add_child(projectile)
-		projectile.position.y = position.y
-		projectile.position.x = position.x + sprite.scale.x * 27
+		projectile.position.x = position.x + (sprite.scale.x * 18)
+		projectile.position.y = position.y + 4
 		projectile.velocity.x = sprite.scale.x * 20
 		projectile.velocity.y = 10
 		projectile.scale.x = sprite.scale.x
@@ -974,8 +967,8 @@ func weapon_arrow():
 		
 		#SHOOT FORWARD REGARDLESS
 		get_parent().add_child(projectile)
-		projectile.position.y = position.y
-		projectile.position.x = position.x + sprite.scale.x * 27
+		projectile.position.x = position.x + (sprite.scale.x * 18)
+		projectile.position.y = position.y + 4
 		projectile.velocity.x = sprite.scale.x * 0.001
 		projectile.scale.x = sprite.scale.x
 
