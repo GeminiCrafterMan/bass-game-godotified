@@ -1,7 +1,7 @@
 [gd_scene load_steps=17 format=3 uid="uid://dmulyeg8hg6yt"]
 
 [ext_resource type="Script" path="res://scenes/objects/enemies/sniper_joe.gd" id="1_ds0gt"]
-[ext_resource type="Texture2D" uid="uid://daefccg61j7bv" path="res://sprites/Enemies/Sniper Joe.png" id="1_vqtgt"]
+[ext_resource type="Texture2D" uid="uid://daefccg61j7bv" path="res://sprites/enemies/sniper_joe.png" id="1_vqtgt"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lwhwx"]
 atlas = ExtResource("1_vqtgt")

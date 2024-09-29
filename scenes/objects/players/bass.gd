@@ -38,19 +38,19 @@ var targetpos : float
 signal teleported
 
 var weapon_palette: Array[Texture2D] = [
-	preload("res://sprites/Players/Bass/Palettes/Bass Buster.png"),
-	preload("res://sprites/Players/Bass/Palettes/Scorch Barrier.png"),
-	preload("res://sprites/Players/Bass/Palettes/Freeze Frame.png"),
-	preload("res://sprites/Players/Bass/Palettes/Poison Cloud.png"),
-	preload("res://sprites/Players/Bass/Palettes/Fin Shredder.png"),
-	preload("res://sprites/Players/Bass/Palettes/Origami Star.png"),
-	preload("res://sprites/Players/Bass/Palettes/Wild Gale.png"),
-	preload("res://sprites/Players/Bass/Palettes/Rolling Bomb.png"),
-	preload("res://sprites/Players/Bass/Palettes/Boomerang Scythe.png"),
-	preload("res://sprites/Players/Bass/Palettes/Proto Buster.png"),
-	preload("res://sprites/Players/Bass/Palettes/Treble.png"),
-	preload("res://sprites/Players/Bass/Palettes/Proto Charge 1.png"),
-	preload("res://sprites/Players/Bass/Palettes/Proto Charge 2.png")
+	preload("res://sprites/players/bass/palettes/Bass Buster.png"),
+	preload("res://sprites/players/bass/palettes/Scorch Barrier.png"),
+	preload("res://sprites/players/bass/palettes/Freeze Frame.png"),
+	preload("res://sprites/players/bass/palettes/Poison Cloud.png"),
+	preload("res://sprites/players/bass/palettes/Fin Shredder.png"),
+	preload("res://sprites/players/bass/palettes/Origami Star.png"),
+	preload("res://sprites/players/bass/palettes/Wild Gale.png"),
+	preload("res://sprites/players/bass/palettes/Rolling Bomb.png"),
+	preload("res://sprites/players/bass/palettes/Boomerang Scythe.png"),
+	preload("res://sprites/players/bass/palettes/Proto Buster.png"),
+	preload("res://sprites/players/bass/palettes/Treble.png"),
+	preload("res://sprites/players/bass/palettes/Proto Charge 1.png"),
+	preload("res://sprites/players/bass/palettes/Proto Charge 2.png")
 ]
 
 var projectile_scenes = [

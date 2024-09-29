@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://cd6ylcbm7jxj3"]
 
-[ext_resource type="Texture2D" uid="uid://di6go1ggwvl7q" path="res://sprites/Players/Bass/Weapons/Gale.png" id="1_lyf43"]
-[ext_resource type="Texture2D" uid="uid://dt7wlywsvetdu" path="res://sprites/Players/Copy Robot/Weapons/Blaze.png" id="2_fyvni"]
+[ext_resource type="Texture2D" uid="uid://cbq8sh7rtu3jy" path="res://sprites/players/weapons/Gale.png" id="1_lyf43"]
+[ext_resource type="Texture2D" uid="uid://dt7wlywsvetdu" path="res://sprites/players/copy_robot/weapons/Blaze.png" id="2_fyvni"]
 [ext_resource type="Script" path="res://scenes/objects/players/weapons/special_weapons/wild_gale_vfx.gd" id="3_asvg1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hbrbx"]

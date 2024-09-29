@@ -1,7 +1,0 @@
-[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://whp0011lohqj"]
-
-[ext_resource type="Texture2D" uid="uid://diukfgrcpw6sy" path="res://sprites/Tilesets/Stage Select.png" id="1_n5ocb"]
-
-[resource]
-atlas = ExtResource("1_n5ocb")
-region = Rect2(0, 32, 48, 48)

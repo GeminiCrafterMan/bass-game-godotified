@@ -1,8 +1,8 @@
 [gd_scene load_steps=16 format=3 uid="uid://bkh7qcfae3jbp"]
 
 [ext_resource type="Script" path="res://scenes/objects/players/weapons/bass/protoshot2.gd" id="1_wt7gl"]
-[ext_resource type="Texture2D" uid="uid://c8sv8718ps0on" path="res://sprites/Players/Copy Robot/Weapons/BusterLarge.png" id="2_4kepq"]
-[ext_resource type="Texture2D" uid="uid://b0wmbfr68jjcj" path="res://sprites/Players/Copy Robot/Weapons/BusterSmall.png" id="3_06m8m"]
+[ext_resource type="Texture2D" uid="uid://c8sv8718ps0on" path="res://sprites/players/copy_robot/weapons/BusterLarge.png" id="2_4kepq"]
+[ext_resource type="Texture2D" uid="uid://b0wmbfr68jjcj" path="res://sprites/players/copy_robot/weapons/BusterSmall.png" id="3_06m8m"]
 [ext_resource type="AudioStream" uid="uid://hpniuwujnaff" path="res://sounds/chargeshot_full.wav" id="4_af23a"]
 [ext_resource type="AudioStream" uid="uid://cs2dmn3ahpbea" path="res://sounds/pop.wav" id="5_rtsb6"]
 [ext_resource type="AudioStream" uid="uid://mfk4w30lewvq" path="res://sounds/tink.wav" id="6_73as0"]

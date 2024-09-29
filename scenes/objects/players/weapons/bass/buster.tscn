@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/objects/players/weapons/bass/buster.gd" id="1_3torn"]
 [ext_resource type="AudioStream" uid="uid://62xrmywm48ps" path="res://sounds/bustershot.wav" id="3_jwno0"]
-[ext_resource type="Texture2D" uid="uid://bs5dokmafjugl" path="res://sprites/Players/Bass/Weapons/Buster.png" id="3_yqbr1"]
+[ext_resource type="Texture2D" uid="uid://bs5dokmafjugl" path="res://sprites/players/bass/weapons/buster.png" id="3_yqbr1"]
 [ext_resource type="AudioStream" uid="uid://cs2dmn3ahpbea" path="res://sounds/pop.wav" id="4_rs3n2"]
 [ext_resource type="AudioStream" uid="uid://mfk4w30lewvq" path="res://sounds/tink.wav" id="5_q156p"]
 

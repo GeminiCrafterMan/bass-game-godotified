@@ -4,15 +4,15 @@ extends StaticBody2D
 
 static var static_audio_player : AudioStreamPlayer2D
 const styles = [
-	"res://sprites/Objects/Yoku Blocks/Test.png",
-	"res://sprites/Objects/Yoku Blocks/Blaze.png",
-	"res://sprites/Objects/Yoku Blocks/Video.png",
-	"res://sprites/Objects/Yoku Blocks/Smog.png",
-	"res://sprites/Objects/Yoku Blocks/Shark.png",
-	"res://sprites/Objects/Yoku Blocks/Origami.png",
-	"res://sprites/Objects/Yoku Blocks/Gale.png",
-	"res://sprites/Objects/Yoku Blocks/Guerrilla.png",
-	"res://sprites/Objects/Yoku Blocks/Reaper.png"
+	"res://sprites/objects/yoku_blocks/Test.png",
+	"res://sprites/objects/yoku_blocks/Blaze.png",
+	"res://sprites/objects/yoku_blocks/Video.png",
+	"res://sprites/objects/yoku_blocks/Smog.png",
+	"res://sprites/objects/yoku_blocks/Shark.png",
+	"res://sprites/objects/yoku_blocks/Origami.png",
+	"res://sprites/objects/yoku_blocks/Gale.png",
+	"res://sprites/objects/yoku_blocks/Guerrilla.png",
+	"res://sprites/objects/yoku_blocks/Reaper.png"
 ]
 
 var _style : int = 0

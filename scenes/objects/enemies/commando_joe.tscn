@@ -1,6 +1,6 @@
 [gd_scene load_steps=19 format=3 uid="uid://b8vqvqer5c6o3"]
 
-[ext_resource type="Texture2D" uid="uid://dj6gd8ibp7013" path="res://sprites/Enemies/Chaingun Joe.png" id="1_aooud"]
+[ext_resource type="Texture2D" uid="uid://dj6gd8ibp7013" path="res://sprites/enemies/chaingun_joe.png" id="1_aooud"]
 [ext_resource type="Script" path="res://scenes/objects/enemies/commando_joe.gd" id="1_dn881"]
 [ext_resource type="AudioStream" uid="uid://62xrmywm48ps" path="res://sounds/bustershot.wav" id="3_vk6v2"]
 

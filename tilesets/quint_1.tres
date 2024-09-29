@@ -1,6 +1,6 @@
 [gd_resource type="TileSet" load_steps=3 format=3 uid="uid://dnv2005q55t0x"]
 
-[ext_resource type="Texture2D" uid="uid://bwkxattxfg0ny" path="res://sprites/Tilesets/Quint.png" id="1_4ni5a"]
+[ext_resource type="Texture2D" uid="uid://bwkxattxfg0ny" path="res://sprites/tilesets/Quint.png" id="1_4ni5a"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dlclr"]
 resource_name = "Test"

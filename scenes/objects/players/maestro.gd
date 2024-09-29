@@ -80,25 +80,25 @@ var shoot_delay = 0
 var shot_type = 0
 
 var weapon_palette: Array[Texture2D] = [
-	preload("res://sprites/Players/Maestro (base)/Palettes/Maestro Buster.png"),
-	preload("res://sprites/Players/Maestro (base)/Palettes/Scorch Barrier.png"),
-	preload("res://sprites/Players/Maestro (base)/Palettes/Track 2.png"),
-	preload("res://sprites/Players/Maestro (base)/Palettes/Poison Cloud.png"),
-	preload("res://sprites/Players/Maestro (base)/Palettes/Fin Shredder.png"),
-	preload("res://sprites/Players/Maestro (base)/Palettes/Origami Star.png"),
-	preload("res://sprites/Players/Maestro (base)/Palettes/Wild Gale.png"),
-	preload("res://sprites/Players/Maestro (base)/Palettes/Rolling Bomb.png"),
-	preload("res://sprites/Players/Maestro (base)/Palettes/Boomerang Scythe.png"),
-	preload("res://sprites/Players/Maestro (base)/Palettes/Maestro Buster.png"), # Proto Shield
-	preload("res://sprites/Players/Maestro (base)/Palettes/Treble.png"), # "Treble Boost" (skip it)
-	preload("res://sprites/Players/Maestro (base)/Palettes/Carry.png"),
-	preload("res://sprites/Players/Maestro (base)/Palettes/Super Arrow.png"),
-	preload("res://sprites/Players/Maestro (base)/Palettes/Mirror Buster.png"),
-	preload("res://sprites/Players/Maestro (base)/Palettes/Screw Crusher.png"),
-	preload("res://sprites/Players/Maestro (base)/Palettes/Ballade Cracker.png"),
-	preload("res://sprites/Players/Maestro (base)/Palettes/Sakugarne.png"),
-	preload("res://sprites/Players/Maestro (base)/Palettes/ChargeX1.png"),
-	preload("res://sprites/Players/Maestro (base)/Palettes/ChargeX2.png")
+	preload("res://sprites/players/maestro/palettes/Maestro Buster.png"),
+	preload("res://sprites/players/maestro/palettes/Scorch Barrier.png"),
+	preload("res://sprites/players/maestro/palettes/Track 2.png"),
+	preload("res://sprites/players/maestro/palettes/Poison Cloud.png"),
+	preload("res://sprites/players/maestro/palettes/Fin Shredder.png"),
+	preload("res://sprites/players/maestro/palettes/Origami Star.png"),
+	preload("res://sprites/players/maestro/palettes/Wild Gale.png"),
+	preload("res://sprites/players/maestro/palettes/Rolling Bomb.png"),
+	preload("res://sprites/players/maestro/palettes/Boomerang Scythe.png"),
+	preload("res://sprites/players/maestro/palettes/Maestro Buster.png"), # Proto Shield
+	preload("res://sprites/players/maestro/palettes/Treble.png"), # "Treble Boost" (skip it)
+	preload("res://sprites/players/maestro/palettes/Carry.png"),
+	preload("res://sprites/players/maestro/palettes/Super Arrow.png"),
+	preload("res://sprites/players/maestro/palettes/Mirror Buster.png"),
+	preload("res://sprites/players/maestro/palettes/Screw Crusher.png"),
+	preload("res://sprites/players/maestro/palettes/Ballade Cracker.png"),
+	preload("res://sprites/players/maestro/palettes/Sakugarne.png"),
+	preload("res://sprites/players/maestro/palettes/ChargeX1.png"),
+	preload("res://sprites/players/maestro/palettes/ChargeX2.png")
 ]
 
 var projectile_scenes = [

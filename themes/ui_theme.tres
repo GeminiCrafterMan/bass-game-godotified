@@ -1,8 +1,8 @@
 [gd_resource type="Theme" load_steps=9 format=3 uid="uid://c1bun7kn776g1"]
 
-[ext_resource type="Texture2D" uid="uid://5p4sf5vffvvi" path="res://sprites/Tilesets/image.png" id="1_2oupw"]
-[ext_resource type="Texture2D" uid="uid://whp0011lohqj" path="res://sprites/Tilesets/border.tres" id="1_5vpme"]
-[ext_resource type="Texture2D" uid="uid://diukfgrcpw6sy" path="res://sprites/Tilesets/Stage Select.png" id="2_8qgm8"]
+[ext_resource type="Texture2D" uid="uid://5p4sf5vffvvi" path="res://sprites/tilesets/image.png" id="1_2oupw"]
+[ext_resource type="Texture2D" uid="uid://whp0011lohqj" path="res://sprites/tilesets/border.tres" id="1_5vpme"]
+[ext_resource type="Texture2D" uid="uid://diukfgrcpw6sy" path="res://sprites/tilesets/Stage Select.png" id="2_8qgm8"]
 [ext_resource type="FontFile" uid="uid://cd37r82y033w8" path="res://fonts/font.png" id="2_w24ss"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gejau"]

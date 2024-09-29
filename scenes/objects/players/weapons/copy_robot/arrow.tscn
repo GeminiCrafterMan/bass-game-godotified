@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/objects/players/weapons/copy_robot/arrow.gd" id="1_huft4"]
 [ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="2_e13y7"]
-[ext_resource type="Texture2D" uid="uid://qml1jth3jsd" path="res://sprites/Players/Weapons/Arrow.png" id="2_jyocg"]
+[ext_resource type="Texture2D" uid="uid://qml1jth3jsd" path="res://sprites/players/weapons/Arrow.png" id="2_jyocg"]
 [ext_resource type="Texture2D" uid="uid://dgiwcwe0dt077" path="res://sprites/explosion.png" id="3_h006o"]
 [ext_resource type="AudioStream" uid="uid://62xrmywm48ps" path="res://sounds/bustershot.wav" id="4_nvdiy"]
 [ext_resource type="AudioStream" uid="uid://mfk4w30lewvq" path="res://sounds/tink.wav" id="5_udjxu"]

@@ -1,9 +1,9 @@
 [gd_scene load_steps=17 format=3 uid="uid://q2bcchnguvfg"]
 
 [ext_resource type="Script" path="res://scenes/objects/players/weapons/copy_robot/screw_crusher.gd" id="1_arag5"]
-[ext_resource type="Texture2D" uid="uid://dc0kt6y685t4h" path="res://sprites/Players/Copy Robot/Weapons/Crusher.png" id="2_4236g"]
+[ext_resource type="Texture2D" uid="uid://dc0kt6y685t4h" path="res://sprites/players/copy_robot/weapons/Crusher.png" id="2_4236g"]
 [ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="2_xc3ul"]
-[ext_resource type="Texture2D" uid="uid://b0wmbfr68jjcj" path="res://sprites/Players/Copy Robot/Weapons/BusterSmall.png" id="3_tksod"]
+[ext_resource type="Texture2D" uid="uid://b0wmbfr68jjcj" path="res://sprites/players/copy_robot/weapons/BusterSmall.png" id="3_tksod"]
 [ext_resource type="AudioStream" uid="uid://dcvhxvuushcu4" path="res://sounds/chargeshot.wav" id="4_ig54h"]
 [ext_resource type="AudioStream" uid="uid://cs2dmn3ahpbea" path="res://sounds/pop.wav" id="5_21833"]
 [ext_resource type="AudioStream" uid="uid://mfk4w30lewvq" path="res://sounds/tink.wav" id="6_ox70o"]

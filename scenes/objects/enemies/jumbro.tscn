@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://7vytwtvvonec"]
 
-[ext_resource type="Texture2D" uid="uid://5m5m4sib6hsc" path="res://sprites/Enemies/Jumbro.png" id="1_hw46l"]
+[ext_resource type="Texture2D" uid="uid://5m5m4sib6hsc" path="res://sprites/enemies/jumbro.png" id="1_hw46l"]
 [ext_resource type="Script" path="res://scenes/objects/enemies/jumbro.gd" id="1_w5820"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2eeja"]

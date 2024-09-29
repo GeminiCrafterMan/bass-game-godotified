@@ -1,9 +1,9 @@
 [gd_scene load_steps=30 format=3 uid="uid://b0opfnom6gmbo"]
 
 [ext_resource type="Script" path="res://scenes/module_tester.gd" id="1_8wlr0"]
-[ext_resource type="Texture2D" uid="uid://cau6vfnef7e7f" path="res://sprites/HUD/Bass Modules.png" id="2_41jk2"]
-[ext_resource type="Texture2D" uid="uid://dspk0k641qf8b" path="res://sprites/HUD/Copy Robot Weapons.png" id="3_oh0nk"]
-[ext_resource type="Texture2D" uid="uid://bu1d7yfrawcb5" path="res://sprites/HUD/Bass Weapons.png" id="3_t6oby"]
+[ext_resource type="Texture2D" uid="uid://cau6vfnef7e7f" path="res://sprites/hud/bass_modules.png" id="2_41jk2"]
+[ext_resource type="Texture2D" uid="uid://dspk0k641qf8b" path="res://sprites/hud/copy_robot_weapons.png" id="3_oh0nk"]
+[ext_resource type="Texture2D" uid="uid://bu1d7yfrawcb5" path="res://sprites/hud/bass_weapons.png" id="3_t6oby"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dxhje"]
 atlas = ExtResource("2_41jk2")

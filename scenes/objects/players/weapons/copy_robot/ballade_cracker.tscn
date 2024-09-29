@@ -1,7 +1,7 @@
 [gd_scene load_steps=25 format=3 uid="uid://ct7rciidstb04"]
 
 [ext_resource type="Script" path="res://scenes/objects/players/weapons/copy_robot/ballade_cracker.gd" id="1_srl0e"]
-[ext_resource type="Texture2D" uid="uid://dh77qoc2reed5" path="res://sprites/Players/Weapons/Cracker.png" id="2_1n5gq"]
+[ext_resource type="Texture2D" uid="uid://dh77qoc2reed5" path="res://sprites/players/weapons/Cracker.png" id="2_1n5gq"]
 [ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="2_ovmyo"]
 [ext_resource type="Texture2D" uid="uid://di1wfh2x1b16k" path="res://sprites/big_explosion.png" id="3_omsw6"]
 [ext_resource type="AudioStream" uid="uid://dagp08oy1dyj5" path="res://sounds/bomb.wav" id="5_20dw4"]

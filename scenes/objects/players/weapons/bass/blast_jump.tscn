@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://bp8o82k0cp4kg"]
 
 [ext_resource type="Script" path="res://scenes/objects/players/weapons/bass/blast_jump.gd" id="1_w2psd"]
-[ext_resource type="Texture2D" uid="uid://brbjrbjn1ma07" path="res://sprites/Players/Bass/Weapons/ModBlaze.png" id="2_b0gih"]
+[ext_resource type="Texture2D" uid="uid://brbjrbjn1ma07" path="res://sprites/players/bass/weapons/mod_blaze.png" id="2_b0gih"]
 [ext_resource type="AudioStream" uid="uid://mfk4w30lewvq" path="res://sounds/tink.wav" id="4_arvjp"]
 [ext_resource type="AudioStream" uid="uid://cs2dmn3ahpbea" path="res://sounds/pop.wav" id="5_5yeab"]
 

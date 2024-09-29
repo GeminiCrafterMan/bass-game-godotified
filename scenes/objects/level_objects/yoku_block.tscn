@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://blmlnutul2hyu"]
 
 [ext_resource type="Script" path="res://scenes/objects/level_objects/yoku_block.gd" id="1_jphyu"]
-[ext_resource type="Texture2D" uid="uid://lgywvb01j6qj" path="res://sprites/Objects/Yoku Blocks/Test.png" id="2_vhyso"]
+[ext_resource type="Texture2D" uid="uid://lgywvb01j6qj" path="res://sprites/objects/yoku_blocks/Test.png" id="2_vhyso"]
 [ext_resource type="AudioStream" uid="uid://xgre6yptpa2v" path="res://sounds/yoku.wav" id="3_y5jt4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vdur6"]

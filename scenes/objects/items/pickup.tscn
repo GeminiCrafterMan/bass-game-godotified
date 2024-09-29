@@ -1,7 +1,7 @@
 [gd_scene load_steps=31 format=3 uid="uid://bobtsvomowe28"]
 
 [ext_resource type="Script" path="res://scenes/objects/items/pickup.gd" id="1_6kmgf"]
-[ext_resource type="Texture2D" uid="uid://dyecajv0oil0s" path="res://sprites/Objects/Items.png" id="2_20fia"]
+[ext_resource type="Texture2D" uid="uid://dyecajv0oil0s" path="res://sprites/objects/items.png" id="2_20fia"]
 [ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="2_y512r"]
 [ext_resource type="AudioStream" uid="uid://cd1pt0mn386bt" path="res://sounds/bolts.wav" id="4_mliej"]
 [ext_resource type="AudioStream" uid="uid://cbfqfx4e0lol3" path="res://sounds/item.wav" id="5_4oso0"]

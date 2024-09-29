@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bingbkdyjdsbs"]
 
-[ext_resource type="Texture2D" uid="uid://dl4uojxtlp1pf" path="res://sprites/Players/Player Start.png" id="1_wc46e"]
+[ext_resource type="Texture2D" uid="uid://dl4uojxtlp1pf" path="res://sprites/players/Player Start.png" id="1_wc46e"]
 
 [node name="StartPosition" type="Marker2D"]
 

@@ -1,9 +1,9 @@
 [gd_scene load_steps=15 format=3 uid="uid://c22u5slgddh8h"]
 
 [ext_resource type="Script" path="res://scenes/objects/players/weapons/special_weapons/wild_gale_visuals.gd" id="1_epy8d"]
-[ext_resource type="Texture2D" uid="uid://di6go1ggwvl7q" path="res://sprites/Players/Bass/Weapons/Gale.png" id="2_w1vhe"]
-[ext_resource type="Texture2D" uid="uid://b3tdngoiitsne" path="res://sprites/Players/Copy Robot/Weapons/OrigamiNew.png" id="3_v2lxx"]
-[ext_resource type="Texture2D" uid="uid://b0wmbfr68jjcj" path="res://sprites/Players/Copy Robot/Weapons/BusterSmall.png" id="4_c52wd"]
+[ext_resource type="Texture2D" uid="uid://cbq8sh7rtu3jy" path="res://sprites/players/weapons/Gale.png" id="2_w1vhe"]
+[ext_resource type="Texture2D" uid="uid://b3tdngoiitsne" path="res://sprites/players/copy_robot/weapons/OrigamiNew.png" id="3_v2lxx"]
+[ext_resource type="Texture2D" uid="uid://b0wmbfr68jjcj" path="res://sprites/players/copy_robot/weapons/BusterSmall.png" id="4_c52wd"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4pk5p"]
 atlas = ExtResource("2_w1vhe")

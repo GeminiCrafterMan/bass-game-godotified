@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=3 uid="uid://csa620pihkaf"]
 
 [ext_resource type="Script" path="res://scenes/objects/players/weapons/special_weapons/rolling_bomb.gd" id="1_kvwvl"]
-[ext_resource type="Texture2D" uid="uid://b0wmbfr68jjcj" path="res://sprites/Players/Copy Robot/Weapons/BusterSmall.png" id="2_e3u38"]
+[ext_resource type="Texture2D" uid="uid://b0wmbfr68jjcj" path="res://sprites/players/copy_robot/weapons/BusterSmall.png" id="2_e3u38"]
 [ext_resource type="Texture2D" uid="uid://dgiwcwe0dt077" path="res://sprites/explosion.png" id="2_r28ig"]
 [ext_resource type="AudioStream" uid="uid://62xrmywm48ps" path="res://sounds/bustershot.wav" id="3_7ylgb"]
 [ext_resource type="AudioStream" uid="uid://cs2dmn3ahpbea" path="res://sounds/pop.wav" id="4_qabuy"]

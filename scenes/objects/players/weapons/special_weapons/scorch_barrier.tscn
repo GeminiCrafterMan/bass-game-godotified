@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" path="res://scenes/objects/players/weapons/special_weapons/scorch_barrier.gd" id="1_emmpe"]
 [ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="2_ca07l"]
-[ext_resource type="Texture2D" uid="uid://dvjjfk8p26ypa" path="res://sprites/Players/Weapons/Blaze1.png" id="2_e0r6x"]
-[ext_resource type="Texture2D" uid="uid://bswfxxprmqqcy" path="res://sprites/Players/Weapons/Blaze2.png" id="3_88uls"]
-[ext_resource type="Texture2D" uid="uid://gu0ow5kip6hj" path="res://sprites/Players/Weapons/Blaze3.png" id="4_3y8vu"]
-[ext_resource type="Texture2D" uid="uid://b0wmbfr68jjcj" path="res://sprites/Players/Copy Robot/Weapons/BusterSmall.png" id="4_ke4xy"]
+[ext_resource type="Texture2D" uid="uid://dvjjfk8p26ypa" path="res://sprites/players/weapons/Blaze1.png" id="2_e0r6x"]
+[ext_resource type="Texture2D" uid="uid://bswfxxprmqqcy" path="res://sprites/players/weapons/Blaze2.png" id="3_88uls"]
+[ext_resource type="Texture2D" uid="uid://gu0ow5kip6hj" path="res://sprites/players/weapons/Blaze3.png" id="4_3y8vu"]
+[ext_resource type="Texture2D" uid="uid://b0wmbfr68jjcj" path="res://sprites/players/copy_robot/weapons/BusterSmall.png" id="4_ke4xy"]
 [ext_resource type="AudioStream" uid="uid://dcvhxvuushcu4" path="res://sounds/chargeshot.wav" id="5_l2puw"]
 [ext_resource type="AudioStream" uid="uid://cs2dmn3ahpbea" path="res://sounds/pop.wav" id="6_wmt8g"]
 

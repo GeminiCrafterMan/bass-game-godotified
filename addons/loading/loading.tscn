@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://ckypo4jsjuepe"]
 
 [ext_resource type="Script" path="res://addons/loading/loading.gd" id="1"]
-[ext_resource type="Texture2D" uid="uid://ci27q2k5qw6ig" path="res://sprites/Menus/Title Screen - Logo.png" id="2_iqtl2"]
+[ext_resource type="Texture2D" uid="uid://ci27q2k5qw6ig" path="res://sprites/menus/Title Screen - Logo.png" id="2_iqtl2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_goe4c"]
 bg_color = Color(0, 0, 0, 1)

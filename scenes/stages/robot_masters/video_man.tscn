@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=4 uid="uid://dqmd0sycqay4"]
 
 [ext_resource type="Script" path="res://scenes/stages/stage.gd" id="1_hs2cl"]
-[ext_resource type="Texture2D" uid="uid://63kwqi5jdugg" path="res://sprites/Tilesets/Test.png" id="2_f0uie"]
+[ext_resource type="Texture2D" uid="uid://63kwqi5jdugg" path="res://sprites/tilesets/Test.png" id="2_f0uie"]
 [ext_resource type="Script" path="res://scenes/objects/level_objects/bottomless_pit.gd" id="3_m068f"]
 [ext_resource type="AudioStream" uid="uid://cb0vuiofgo415" path="res://music/Video Stage.mp3" id="4_waymo"]
 [ext_resource type="PackedScene" uid="uid://bingbkdyjdsbs" path="res://scenes/objects/players/start_position.tscn" id="5_bjw86"]

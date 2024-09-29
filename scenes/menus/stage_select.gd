@@ -4,9 +4,9 @@ var fadeout : int = 120
 var timer : int = 60
 
 const _playerPortraits: Array[AtlasTexture] = [
-	preload("res://sprites/Menus/Stage Select - Maestro - Atlas.tres"),
-	preload("res://sprites/Menus/Stage Select - Bass - Atlas.tres"),
-	preload("res://sprites/Menus/Stage Select - Copy Robot - Atlas.tres")
+	preload("res://sprites/menus/Stage Select - Maestro - Atlas.tres"),
+	preload("res://sprites/menus/Stage Select - Bass - Atlas.tres"),
+	preload("res://sprites/menus/Stage Select - Copy Robot - Atlas.tres")
 ]
 
 # Called when the node enters the scene tree for the first time.

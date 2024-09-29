@@ -1,45 +1,45 @@
 [gd_scene load_steps=9 format=3 uid="uid://baxcw6x5prpdq"]
 
-[ext_resource type="Texture2D" uid="uid://ck4ah8n6qbedv" path="res://sprites/Players/Bass/dashsmoke.png" id="1_3apsr"]
+[ext_resource type="Texture2D" uid="uid://ck4ah8n6qbedv" path="res://sprites/players/dashsmoke.png" id="1_3apsr"]
 [ext_resource type="Script" path="res://scenes/objects/players/dash_trail.gd" id="2_r6wpe"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_eqckk"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_oy65w"]
 atlas = ExtResource("1_3apsr")
-region = Rect2(0, 0, 26, 16)
+region = Rect2(0, 0, 27, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ieu2p"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_m6y4j"]
 atlas = ExtResource("1_3apsr")
-region = Rect2(26, 0, 26, 16)
+region = Rect2(27, 0, 27, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_wi83y"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ol7k2"]
 atlas = ExtResource("1_3apsr")
-region = Rect2(52, 0, 26, 16)
+region = Rect2(54, 0, 27, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_wxf7a"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_bik1x"]
 atlas = ExtResource("1_3apsr")
-region = Rect2(78, 0, 26, 16)
+region = Rect2(81, 0, 27, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_tp42s"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_mt31k"]
 atlas = ExtResource("1_3apsr")
-region = Rect2(104, 0, 26, 16)
+region = Rect2(108, 0, 27, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_nlvml"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_eqckk")
+"texture": SubResource("AtlasTexture_oy65w")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ieu2p")
+"texture": SubResource("AtlasTexture_m6y4j")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_wi83y")
+"texture": SubResource("AtlasTexture_ol7k2")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_wxf7a")
+"texture": SubResource("AtlasTexture_bik1x")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_tp42s")
+"texture": SubResource("AtlasTexture_mt31k")
 }],
 "loop": false,
 "name": &"default",
@@ -51,4 +51,6 @@ position = Vector2(-0.25, 0)
 scale = Vector2(1.02381, 1)
 sprite_frames = SubResource("SpriteFrames_nlvml")
 autoplay = "default"
+frame = 4
+frame_progress = 1.0
 script = ExtResource("2_r6wpe")

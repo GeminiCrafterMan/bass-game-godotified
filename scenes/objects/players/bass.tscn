@@ -1,6 +1,6 @@
 [gd_scene load_steps=73 format=3 uid="uid://kfk1dq7hqeyc"]
 
-[ext_resource type="Texture2D" uid="uid://b56gnn6pfhbv4" path="res://sprites/Players/Bass/spritesheet.png" id="1_ci3qt"]
+[ext_resource type="Texture2D" uid="uid://b56gnn6pfhbv4" path="res://sprites/players/bass/spritesheet.png" id="1_ci3qt"]
 [ext_resource type="Script" path="res://scenes/objects/players/bass.gd" id="1_lug7r"]
 [ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="2_m015p"]
 [ext_resource type="AudioStream" uid="uid://d2oevy2xek073" path="res://sounds/jump.wav" id="3_jevqg"]

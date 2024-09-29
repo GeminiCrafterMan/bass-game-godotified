@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" path="res://scenes/menus/stage_select.gd" id="1_v0p28"]
 [ext_resource type="TileSet" uid="uid://buvesedl67lpj" path="res://tilesets/stage_select.tres" id="2_knvnc"]
-[ext_resource type="Texture2D" uid="uid://qwdi35jvf2y8" path="res://sprites/LeFade.png" id="3_dp4q6"]
-[ext_resource type="Texture2D" uid="uid://d2pc3xb3dsb3a" path="res://sprites/Menus/Stage Select - Bosses.png" id="4_myqdi"]
+[ext_resource type="Texture2D" uid="uid://qwdi35jvf2y8" path="res://sprites/fade.png" id="3_dp4q6"]
+[ext_resource type="Texture2D" uid="uid://d2pc3xb3dsb3a" path="res://sprites/menus/Stage Select - Bosses.png" id="4_myqdi"]
 [ext_resource type="PackedScene" uid="uid://d3bthms0xcmi1" path="res://scenes/objects/menus/stage_select/StageSelectPanel.tscn" id="9_wx53p"]
-[ext_resource type="Texture2D" uid="uid://dflaoj7u7edb1" path="res://sprites/Menus/Stage Select - Bass.png" id="10_5npqj"]
+[ext_resource type="Texture2D" uid="uid://dflaoj7u7edb1" path="res://sprites/menus/Stage Select - Bass.png" id="10_5npqj"]
 [ext_resource type="PackedScene" uid="uid://c1ixcvieoro3x" path="res://scenes/stages/robot_masters/blaze_man.tscn" id="10_plgfr"]
 [ext_resource type="PackedScene" uid="uid://dqmd0sycqay4" path="res://scenes/stages/robot_masters/video_man.tscn" id="11_a0b8h"]
 [ext_resource type="PackedScene" uid="uid://7n5e5bi74b7t" path="res://scenes/stages/robot_masters/smog_man.tscn" id="12_0v5gu"]

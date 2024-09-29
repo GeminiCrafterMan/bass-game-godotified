@@ -4,25 +4,25 @@ class_name CopyRobotPlayer
 
 func _init() -> void:
 	weapon_palette = [
-		preload("res://sprites/Players/Copy Robot/Palettes/Copy Buster.png"),
-		preload("res://sprites/Players/Copy Robot/Palettes/Scorch Barrier.png"),
-		preload("res://sprites/Players/Copy Robot/Palettes/Track 2.png"),
-		preload("res://sprites/Players/Copy Robot/Palettes/Poison Cloud.png"),
-		preload("res://sprites/Players/Copy Robot/Palettes/Fin Shredder.png"),
-		preload("res://sprites/Players/Copy Robot/Palettes/Origami Star.png"),
-		preload("res://sprites/Players/Copy Robot/Palettes/Wild Gale.png"),
-		preload("res://sprites/Players/Copy Robot/Palettes/Rolling Bomb.png"),
-		preload("res://sprites/Players/Copy Robot/Palettes/Boomerang Scythe.png"),
-		preload("res://sprites/Players/Copy Robot/Palettes/Copy Buster.png"), # Proto Shield
-		preload("res://sprites/Players/Copy Robot/Palettes/Copy Buster.png"), # "Treble Boost" (skip it)
-		preload("res://sprites/Players/Copy Robot/Palettes/Carry.png"),
-		preload("res://sprites/Players/Copy Robot/Palettes/Super Arrow.png"),
-		preload("res://sprites/Players/Copy Robot/Palettes/Mirror Buster.png"),
-		preload("res://sprites/Players/Copy Robot/Palettes/Screw Crusher.png"),
-		preload("res://sprites/Players/Copy Robot/Palettes/Ballade Cracker.png"),
-		preload("res://sprites/Players/Copy Robot/Palettes/Sakugarne.png"),
-		preload("res://sprites/Players/Copy Robot/Palettes/ChargeX1.png"),
-		preload("res://sprites/Players/Copy Robot/Palettes/ChargeX2.png")
+		preload("res://sprites/players/copy_robot/palettes/Copy Buster.png"),
+		preload("res://sprites/players/copy_robot/palettes/Scorch Barrier.png"),
+		preload("res://sprites/players/copy_robot/palettes/Track 2.png"),
+		preload("res://sprites/players/copy_robot/palettes/Poison Cloud.png"),
+		preload("res://sprites/players/copy_robot/palettes/Fin Shredder.png"),
+		preload("res://sprites/players/copy_robot/palettes/Origami Star.png"),
+		preload("res://sprites/players/copy_robot/palettes/Wild Gale.png"),
+		preload("res://sprites/players/copy_robot/palettes/Rolling Bomb.png"),
+		preload("res://sprites/players/copy_robot/palettes/Boomerang Scythe.png"),
+		preload("res://sprites/players/copy_robot/palettes/Copy Buster.png"), # Proto Shield
+		preload("res://sprites/players/copy_robot/palettes/Copy Buster.png"), # "Treble Boost" (skip it)
+		preload("res://sprites/players/copy_robot/palettes/Carry.png"),
+		preload("res://sprites/players/copy_robot/palettes/Super Arrow.png"),
+		preload("res://sprites/players/copy_robot/palettes/Mirror Buster.png"),
+		preload("res://sprites/players/copy_robot/palettes/Screw Crusher.png"),
+		preload("res://sprites/players/copy_robot/palettes/Ballade Cracker.png"),
+		preload("res://sprites/players/copy_robot/palettes/Sakugarne.png"),
+		preload("res://sprites/players/copy_robot/palettes/ChargeX1.png"),
+		preload("res://sprites/players/copy_robot/palettes/ChargeX2.png")
 	]
 
 func _ready() -> void:

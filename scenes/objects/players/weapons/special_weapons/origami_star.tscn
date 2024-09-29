@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://scenes/objects/players/weapons/special_weapons/origami_star.gd" id="1_uyu0v"]
 [ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="2_84cxi"]
-[ext_resource type="Texture2D" uid="uid://bowgrp5237wgf" path="res://sprites/Players/Weapons/OrigamiNew.png" id="2_r3n1y"]
-[ext_resource type="Texture2D" uid="uid://b0wmbfr68jjcj" path="res://sprites/Players/Copy Robot/Weapons/BusterSmall.png" id="3_hq45s"]
+[ext_resource type="Texture2D" uid="uid://bowgrp5237wgf" path="res://sprites/players/weapons/OrigamiNew.png" id="2_r3n1y"]
+[ext_resource type="Texture2D" uid="uid://b0wmbfr68jjcj" path="res://sprites/players/copy_robot/weapons/BusterSmall.png" id="3_hq45s"]
 [ext_resource type="AudioStream" uid="uid://dcvhxvuushcu4" path="res://sounds/chargeshot.wav" id="4_qwdhh"]
 [ext_resource type="AudioStream" uid="uid://cs2dmn3ahpbea" path="res://sounds/pop.wav" id="5_mlgpt"]
 [ext_resource type="AudioStream" uid="uid://mfk4w30lewvq" path="res://sounds/tink.wav" id="7_fhrtu"]
