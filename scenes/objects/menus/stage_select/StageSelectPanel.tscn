@@ -184,7 +184,6 @@ focus_mode = 2
 mouse_filter = 0
 mouse_default_cursor_shape = 2
 script = ExtResource("1_k1tp0")
-Lines = null
 stageName = "LOREM"
 stageTitle = "IPSUM"
 portrait = SubResource("PlaceholderTexture2D_1yrwy")

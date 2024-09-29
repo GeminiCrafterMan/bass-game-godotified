@@ -21,6 +21,7 @@ func _process(_delta):
 		$AnimatedSprite2D.material.set_shader_parameter("palette", get_node(GameState.player).get_node("AnimatedSprite2D").material.get_shader_parameter("palette"))
 	
 	if GameState.current_weapon != 11 && $AnimatedSprite2D.animation != "explode":
+		Interval.start(5)
 		GameState.onscreen_sp_bullets -= 1
 		$AnimatedSprite2D.play("explode")
 		$Shape.disabled = true
@@ -45,6 +46,7 @@ func _process(_delta):
 		$AnimatedSprite2D.play("explode")
 		GameState.onscreen_sp_bullets -= 1
 		$Shape.disabled = true
+		Interval.start(5)
 		await $AnimatedSprite2D.animation_finished
 		queue_free()
 

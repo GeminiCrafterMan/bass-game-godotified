@@ -9,6 +9,13 @@ const _playerPortraits: Array[AtlasTexture] = [
 	preload("res://sprites/menus/Stage Select - Copy Robot - Atlas.tres")
 ]
 
+var char_palette: Array[Texture2D] = [
+	preload("res://sprites/menus/mastageseltrans.png"),
+	preload("res://sprites/menus/bastageseltrans.png"),
+	preload("res://sprites/menus/crstageseltrans.png")
+
+]
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var player := %Player as StageSelectPanel
@@ -22,6 +29,14 @@ func _process(delta):
 		%Player.grab_focus()
 		$Music.play()
 		$Rows/RowBright.play()
+		
+		$Background.material.set_shader_parameter("palette", char_palette[GameState.character_selected])
+		$Rows.material.set_shader_parameter("palette", char_palette[GameState.character_selected])
+			
+		$"Rows/Row 2/RowPt1".material.set_shader_parameter("palette", char_palette[GameState.character_selected])
+		$"Rows/Row 2/RowPt2".material.set_shader_parameter("palette", char_palette[GameState.character_selected])
+		$"Rows/Row 2/RowPt3".material.set_shader_parameter("palette", char_palette[GameState.character_selected])
+		$"MarginContainer/CenterContainer/VBoxContainer/GridContainer/Blaze Man".material.set_shader_parameter("palette", char_palette[GameState.character_selected])
 		
 		$"MarginContainer/CenterContainer/VBoxContainer/GridContainer/Blaze Man/VBoxContainer/Portrait/PortraitFlash".play()
 		$"MarginContainer/CenterContainer/VBoxContainer/GridContainer/Video Man/VBoxContainer/Portrait/PortraitFlash".play()
