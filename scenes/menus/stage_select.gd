@@ -12,8 +12,8 @@ const _playerPortraits: Array[AtlasTexture] = [
 var char_palette: Array[Texture2D] = [
 	preload("res://sprites/menus/mastageseltrans.png"),
 	preload("res://sprites/menus/bastageseltrans.png"),
-	preload("res://sprites/menus/crstageseltrans.png")
-
+	preload("res://sprites/menus/crstageseltrans.png"),
+	preload("res://sprites/menus/mmstageseltrans.png")
 ]
 
 # Called when the node enters the scene tree for the first time.
