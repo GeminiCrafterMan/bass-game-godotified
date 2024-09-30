@@ -1,8 +1,9 @@
-[gd_scene load_steps=30 format=3 uid="uid://d3bthms0xcmi1"]
+[gd_scene load_steps=32 format=3 uid="uid://d3bthms0xcmi1"]
 
 [ext_resource type="Script" path="res://scenes/objects/menus/stage_select/StageSelectPanel.gd" id="1_k1tp0"]
 [ext_resource type="Theme" uid="uid://c1bun7kn776g1" path="res://themes/ui_theme.tres" id="1_o6l8c"]
 [ext_resource type="PackedScene" uid="uid://by07rq184shwd" path="res://scenes/stages/test_stage.tscn" id="2_alciw"]
+[ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="3_p6jxo"]
 [ext_resource type="Texture2D" uid="uid://c340y0ic887dr" path="res://sprites/menus/Scanlines.png" id="4_gcfd5"]
 [ext_resource type="AudioStream" uid="uid://1ujjh0m4lfmf" path="res://sounds/menumove.wav" id="4_jgr38"]
 [ext_resource type="Texture2D" uid="uid://dc1wr52i7yf05" path="res://sprites/menus/Stage Select - Lights.png" id="5_7fyoy"]
@@ -10,6 +11,12 @@
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_1yrwy"]
 size = Vector2(32, 32)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_crsks"]
+shader = ExtResource("3_p6jxo")
+shader_parameter/skip_first_row = true
+shader_parameter/use_palette_alpha = false
+shader_parameter/fps = 6.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_073cm"]
 atlas = ExtResource("5_7fyoy")
@@ -199,6 +206,7 @@ alignment = 1
 layout_mode = 2
 
 [node name="Border" type="PanelContainer" parent="VBoxContainer/Portrait"]
+material = SubResource("ShaderMaterial_crsks")
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 mouse_filter = 1
@@ -245,6 +253,7 @@ layout_mode = 2
 mouse_filter = 1
 text = "LOREM"
 label_settings = SubResource("LabelSettings_kcuv3")
+horizontal_alignment = 3
 max_lines_visible = 1
 
 [node name="Title" type="Label" parent="VBoxContainer/Text/VBoxContainer"]

@@ -36,7 +36,7 @@ func _process(delta):
 		$"Rows/Row 2/RowPt1".material.set_shader_parameter("palette", char_palette[GameState.character_selected])
 		$"Rows/Row 2/RowPt2".material.set_shader_parameter("palette", char_palette[GameState.character_selected])
 		$"Rows/Row 2/RowPt3".material.set_shader_parameter("palette", char_palette[GameState.character_selected])
-		$"MarginContainer/CenterContainer/VBoxContainer/GridContainer/Blaze Man".material.set_shader_parameter("palette", char_palette[GameState.character_selected])
+		$"MarginContainer/CenterContainer/VBoxContainer/GridContainer/Blaze Man/VBoxContainer/Portrait/Border".material.set_shader_parameter("palette", char_palette[GameState.character_selected])
 		
 		$"MarginContainer/CenterContainer/VBoxContainer/GridContainer/Blaze Man/VBoxContainer/Portrait/PortraitFlash".play()
 		$"MarginContainer/CenterContainer/VBoxContainer/GridContainer/Video Man/VBoxContainer/Portrait/PortraitFlash".play()
