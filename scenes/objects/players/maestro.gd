@@ -256,7 +256,7 @@ func _physics_process(delta: float) -> void:
 		if  (currentState != STATES.NONE) and (currentState != STATES.TELEPORT) and (currentState != STATES.DEAD):
 			#check for ladder
 			if (currentState != STATES.SLIDE) and (currentState != STATES.HURT) and  sign(direction.y) != 0:
-				if (ladder_check.is_colliding() or top_ladder_check.is_colliding()) and !Input.is_action_pressed("jump") and sign(direction.y) > 0:
+				if (ladder_check.is_colliding() or top_ladder_check.is_colliding()) and !Input.is_action_pressed("jump"):
 					for i in ladder_check.get_collision_count():
 						if ladder_check.get_collider(i).is_in_group("ladder"):
 							if !(is_on_floor() and Input.is_action_pressed("move_down")):
