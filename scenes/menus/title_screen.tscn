@@ -68,15 +68,14 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_styles/panel = SubResource("StyleBoxFlat_l4n2s")
 allow_search = false
 auto_height = true
-item_count = 3
+item_count = 4
 item_0/text = "MAESTRO"
 item_0/icon = SubResource("AtlasTexture_hflye")
 item_1/text = "BASS (!)"
 item_1/icon = SubResource("AtlasTexture_a52vu")
-item_1/selectable = false
-item_1/disabled = true
 item_2/text = "COPY ROBOT (!)"
 item_2/icon = SubResource("AtlasTexture_t7tyd")
+item_3/text = "MEGAMAN (!)"
 
 [node name="StartButton" type="Button" parent="CenterContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2

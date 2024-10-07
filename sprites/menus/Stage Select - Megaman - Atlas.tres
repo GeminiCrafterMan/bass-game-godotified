@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://c5si3ux8ve5a5"]
+
+[ext_resource type="Texture2D" uid="uid://bv8ykqifk8flr" path="res://sprites/menus/Stage Select - Megaman.png" id="1_veigh"]
+
+[resource]
+atlas = ExtResource("1_veigh")
+region = Rect2(128, 0, 32, 32)

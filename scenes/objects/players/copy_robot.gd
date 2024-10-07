@@ -39,30 +39,32 @@ func _ready() -> void:
 
 func weapon_buster(): # G: Copy Robot *can* charge his buster, but Maestro and Bass *can't*. Looks like we could easily do the same (replacing the Buster) with Bass's...?
 	if (GameState.current_weapon == 0 and Input.is_action_just_pressed("shoot")) or Input.is_action_just_pressed("buster"):
-		if (currentState != STATES.SLIDE) and (currentState != STATES.HURT):
+		if (currentState != STATES.SLIDE) and (currentState != STATES.HURT) and (GameState.onscreen_bullets < 3):
 			shot_type = 0
 			shoot_delay = 16
+			GameState.onscreen_bullets += 1
 			projectile = projectile_scenes[0].instantiate()
 			get_parent().add_child(projectile)
-			projectile.position.x = position.x
-			projectile.position.y = position.y
+			projectile.position.x = position.x + (sprite.scale.x * 18)
+			projectile.position.y = position.y + 2
 			projectile.velocity.x = sprite.scale.x * 350
 			projectile.scale.x = sprite.scale.x
 			Charge = 0
 			return
 	if (GameState.current_weapon == 0 and Input.is_action_just_released("shoot")) or Input.is_action_just_released("buster"):
-		if (currentState != STATES.SLIDE) and (currentState != STATES.HURT):
+		if (currentState != STATES.SLIDE) and (currentState != STATES.HURT) and (GameState.onscreen_bullets < 3):
 			if Charge < 32: # no Charge
 				Charge = 0
 				return
 			if Charge >= 32 and Charge < 92: # medium charge
 				shot_type = 0
 				shoot_delay = 16
+				GameState.onscreen_bullets += 1
 				projectile = projectile_scenes[1].instantiate()
 				get_parent().add_child(projectile)
-				projectile.position.x = position.x
-				projectile.position.y = position.y
-				projectile.velocity.x = sprite.scale.x * 450
+				projectile.position.x = position.x + (sprite.scale.x * 18)
+				projectile.position.y = position.y + 2
+				projectile.velocity.x = sprite.scale.x * 350
 				projectile.scale.x = sprite.scale.x
 				Charge = 0
 				$Audio/Charge1.stop()
@@ -70,11 +72,12 @@ func weapon_buster(): # G: Copy Robot *can* charge his buster, but Maestro and B
 			if Charge >= 92: # da big boi
 				shot_type = 0
 				shoot_delay = 16
+				GameState.onscreen_bullets += 3
 				projectile = projectile_scenes[2].instantiate()
 				get_parent().add_child(projectile)
-				projectile.position.x = position.x
-				projectile.position.y = position.y
-				projectile.velocity.x = sprite.scale.x * 500
+				projectile.position.x = position.x + (sprite.scale.x * 18)
+				projectile.position.y = position.y + 2
+				projectile.velocity.x = sprite.scale.x * 350
 				projectile.scale.x = sprite.scale.x
 				Charge = 0
 				return

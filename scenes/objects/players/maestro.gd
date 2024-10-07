@@ -351,13 +351,14 @@ func _physics_process(delta: float) -> void:
 				if Input.is_action_pressed("move_down") and Input.is_action_just_pressed("jump"):
 					swapState = STATES.SLIDE
 				
-				var progress = sprite.get_frame_progress()
 				var frame = sprite.get_frame()
+				var progress = sprite.get_frame_progress()
 					
 				if shoot_delay > 0:
 					match shot_type:
 						0: # Normal
 							$AnimatedSprite2D.play("Walk-Shoot")
+							$AnimatedSprite2D.set_frame_and_progress(frame, progress)
 						1: # Stop
 							$AnimatedSprite2D.play("Idle-Shoot")
 						2: # Throw
@@ -368,6 +369,7 @@ func _physics_process(delta: float) -> void:
 							$AnimatedSprite2D.play("FinShredder")
 						_: # Everything else
 							$AnimatedSprite2D.play("Walk-Shoot")
+							$AnimatedSprite2D.set_frame_and_progress(frame, progress)
 				else:
 					if StepTime > 6:
 						sprite.play("Walk")
@@ -1077,10 +1079,7 @@ func _DamageAndInvincible():
 			pain_timer.start(0.55)
 
 func reset(everything: bool) -> void:
-	GameState.current_hp = GameState.max_hp # Reset HP
+	GameState.refill_health()
 	GameState.current_weapon = 0 # Reset current weapon
 	if everything == true:
-		for n in GameState.weapon_energy.size():
-		# I hate this. So much.
-			GameState.weapon_energy[n] = GameState.max_weapon_energy[n] # Reset WE
-		
+		GameState.refill_ammo()

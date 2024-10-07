@@ -7,10 +7,12 @@ func _unhandled_input(event):
 					get_node(GameState.player).reset(true) # Reset EVERYTHING about the player
 					GameState.player = null
 				get_tree().change_scene_to_file("res://scenes/menus/stage_select.tscn")
-			#KEY_F1:
-			#KEY_F2:
+			KEY_F1: # Refill health
+				GameState.refill_health()
+			KEY_F2: # Refill ammo
+				GameState.refill_ammo()
 			# No F3, because that's our debug info button thanks to that plugin.
-			#KEY_F4:
+			#KEY_F4: # Kill current boss or bring him down to 1HP
 			KEY_F5: # Reload the current level.
 				if GameState.player:
 					if get_node(GameState.player):

@@ -3,10 +3,11 @@ class_name StageSelect extends CanvasLayer
 var fadeout : int = 120
 var timer : int = 60
 
-const _playerPortraits: Array[AtlasTexture] = [
+const _playerPortraits: Array[AtlasTexture] = [ # fix this to be more usable later
 	preload("res://sprites/menus/Stage Select - Maestro - Atlas.tres"),
 	preload("res://sprites/menus/Stage Select - Bass - Atlas.tres"),
-	preload("res://sprites/menus/Stage Select - Copy Robot - Atlas.tres")
+	preload("res://sprites/menus/Stage Select - Copy Robot - Atlas.tres"),
+	preload("res://sprites/menus/Stage Select - Megaman - Atlas.tres")
 ]
 
 var char_palette: Array[Texture2D] = [

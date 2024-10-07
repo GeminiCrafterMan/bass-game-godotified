@@ -9,8 +9,9 @@ enum PALETTE {NONE, MD, NES, DOOM, PICO8, GB, VB, C64, CGA, G4, G8, G16}
 # variables
 var characters = [ # It's a var now so mods can add more
 	"res://scenes/objects/players/maestro.tscn",
-	"res://scenes/objects/players/bass.tscn",
-	"res://scenes/objects/players/copy_robot.tscn"
+	"res://scenes/objects/players/maestro.tscn", # Bass
+	"res://scenes/objects/players/copy_robot.tscn",
+	"res://scenes/objects/players/maestro.tscn" # Megaman
 ]
 var maxCharacterID = characters.size() - 1 # Whyyyyy...?
 var character_selected : int
@@ -137,3 +138,12 @@ var modules_enabled = [
 	false, # Spirit Dash
 	false, # Proto Shield
 ]
+
+
+func refill_health() -> void:
+	current_hp = max_hp # Reset HP
+	
+func refill_ammo() -> void:
+	for n in weapon_energy.size():
+	# I hate this. So much.
+		weapon_energy[n] = max_weapon_energy[n] # Reset WE
