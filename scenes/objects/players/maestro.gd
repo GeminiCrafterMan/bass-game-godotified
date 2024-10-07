@@ -69,6 +69,7 @@ var SlideTimer : int
 var PainTimer : int
 var InvincFrames : int
 var Charge : int
+var ScytheCharge : int
 var Flash_Timer : int
 var no_grounded_movement : bool
 var on_ice : bool
@@ -98,7 +99,9 @@ var weapon_palette: Array[Texture2D] = [
 	preload("res://sprites/players/maestro/palettes/Ballade Cracker.png"),
 	preload("res://sprites/players/maestro/palettes/Sakugarne.png"),
 	preload("res://sprites/players/maestro/palettes/ChargeX1.png"),
-	preload("res://sprites/players/maestro/palettes/ChargeX2.png")
+	preload("res://sprites/players/maestro/palettes/ChargeX2.png"),
+	preload("res://sprites/players/weapons/ScytheCharge0.png"),
+	preload("res://sprites/players/weapons/ScytheCharge1.png")
 ]
 
 var projectile_scenes = [
@@ -629,6 +632,7 @@ func _physics_process(delta: float) -> void:
 	if (currentState != STATES.DEAD) and (currentState != STATES.TELEPORT):
 		weapon_buster()
 		do_charge_palette()
+		scythe_charge_palette()
 	
 	
 
@@ -717,6 +721,37 @@ func do_charge_palette():
 		else:
 			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[GameState.current_weapon])
 			Flash_Timer = 1
+			
+func scythe_charge_palette():
+	if ScytheCharge > 0:
+		Charge = 0
+	if GameState.current_weapon != 8:
+		ScytheCharge = 0
+	if ScytheCharge > 0 and ScytheCharge < 35: # no charge
+		if Flash_Timer == 3:
+			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[19])
+			Flash_Timer = 0
+		else:
+			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[GameState.current_weapon])
+			Flash_Timer += 1
+		
+			
+	elif ScytheCharge >= 35 && ScytheCharge < 75: # just started charging
+		if Flash_Timer == 3:
+			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[20])
+			Flash_Timer = 0
+		else:
+			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[GameState.current_weapon])
+			Flash_Timer += 1
+			
+		
+	elif ScytheCharge >= 75:
+		if Flash_Timer == 3:
+			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[19])
+			Flash_Timer = 0
+		else:
+			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[20])
+			Flash_Timer += 1
 
 func handle_weapons():
 	if shoot_delay > 0:
@@ -737,6 +772,8 @@ func handle_weapons():
 			weapon_origami()
 		7:
 			weapon_guerilla()
+		8:
+			weapon_reaper()
 		11:
 			weapon_carry()
 		12:
@@ -961,6 +998,39 @@ func weapon_guerilla():
 		projectile.velocity.x = sprite.scale.x * 20
 		projectile.velocity.y = 10
 		projectile.scale.x = sprite.scale.x
+
+func weapon_reaper(): # M: Just doing charge levels for now. You go and do the actual projectiles, G.
+	if Input.is_action_just_released("shoot"):
+		if (currentState != STATES.SLIDE) and (currentState != STATES.HURT) and GameState.onscreen_sp_bullets < 2:
+			shot_type = 2
+			shoot_delay = 16
+			ScytheCharge = 0
+			if ScytheCharge < 32: #Uncharged. Throws 1 boomerang with an alternating curve
+				GameState.weapon_energy[8] -= 1
+				GameState.onscreen_sp_bullets += 1
+				return
+			if ScytheCharge >= 32 and ScytheCharge < 92:  #Mid charge. Throws 2 shots that curve back in opposite ways
+				GameState.weapon_energy[8] -= 2
+				GameState.onscreen_sp_bullets += 2
+				return
+			if ScytheCharge >= 92: #Full charge. Throws 2 shots that run to the top and bottom of the screen and return.
+				GameState.weapon_energy[8] -= 4
+				GameState.onscreen_sp_bullets += 2
+				return
+		
+				
+	if Input.is_action_pressed("shoot"):
+		if ScytheCharge < 110:
+			ScytheCharge += 1
+			if ScytheCharge == 32:
+				$Audio/Charge1.play()
+			if ScytheCharge == 105:
+				$Audio/Charge2.play()
+		else:
+			ScytheCharge = 105
+	else:
+		Charge = 0
+		return
 
 func weapon_carry():
 	if Input.is_action_just_pressed("shoot") && GameState.weapon_energy[11] >= 3 && GameState.onscreen_sp_bullets < 3:

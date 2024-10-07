@@ -22,7 +22,9 @@ func _init() -> void:
 		preload("res://sprites/players/copy_robot/palettes/Ballade Cracker.png"),
 		preload("res://sprites/players/copy_robot/palettes/Sakugarne.png"),
 		preload("res://sprites/players/copy_robot/palettes/ChargeX1.png"),
-		preload("res://sprites/players/copy_robot/palettes/ChargeX2.png")
+		preload("res://sprites/players/copy_robot/palettes/ChargeX2.png"),
+		preload("res://sprites/players/weapons/ScytheCharge0.png"),
+		preload("res://sprites/players/weapons/ScytheCharge1.png")
 	]
 
 func _ready() -> void:

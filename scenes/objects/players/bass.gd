@@ -50,7 +50,9 @@ var weapon_palette: Array[Texture2D] = [
 	preload("res://sprites/players/bass/palettes/Proto Buster.png"),
 	preload("res://sprites/players/bass/palettes/Treble.png"),
 	preload("res://sprites/players/bass/palettes/Proto Charge 1.png"),
-	preload("res://sprites/players/bass/palettes/Proto Charge 2.png")
+	preload("res://sprites/players/bass/palettes/Proto Charge 2.png"),
+	preload("res://sprites/players/weapons/ScytheCharge0.png"),
+	preload("res://sprites/players/weapons/ScytheCharge1.png")
 ]
 
 var projectile_scenes = [
