@@ -1005,15 +1005,15 @@ func weapon_reaper(): # M: Just doing charge levels for now. You go and do the a
 			shot_type = 2
 			shoot_delay = 16
 			ScytheCharge = 0
-			if ScytheCharge < 32: #Uncharged. Throws 1 boomerang with an alternating curve
+			if ScytheCharge < 35: #Uncharged. Throws 1 boomerang with an alternating curve
 				GameState.weapon_energy[8] -= 1
 				GameState.onscreen_sp_bullets += 1
 				return
-			if ScytheCharge >= 32 and ScytheCharge < 92:  #Mid charge. Throws 2 shots that curve back in opposite ways
+			if ScytheCharge >= 35 and ScytheCharge < 75:  #Mid charge. Throws 2 shots that curve back in opposite ways
 				GameState.weapon_energy[8] -= 2
 				GameState.onscreen_sp_bullets += 2
 				return
-			if ScytheCharge >= 92: #Full charge. Throws 2 shots that run to the top and bottom of the screen and return.
+			if ScytheCharge >= 75: #Full charge. Throws 2 shots that run to the top and bottom of the screen and return.
 				GameState.weapon_energy[8] -= 4
 				GameState.onscreen_sp_bullets += 2
 				return
