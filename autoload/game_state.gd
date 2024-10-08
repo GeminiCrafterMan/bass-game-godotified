@@ -21,6 +21,10 @@ var player_lives : int = 3
 var onscreen_bullets : int
 var onscreen_sp_bullets : int
 
+var playerposx
+var playerposy
+
+
 var current_weapon : int
 var old_weapon : int
 var current_hp = 28

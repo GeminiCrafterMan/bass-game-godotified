@@ -119,7 +119,8 @@ var weapon_scenes = [
 	preload("res://scenes/objects/players/weapons/special_weapons/poison_cloud.tscn"),
 	preload("res://scenes/objects/players/weapons/special_weapons/scorch_barrier.tscn"),
 	preload("res://scenes/objects/players/weapons/special_weapons/rolling_bomb.tscn"),
-	preload("res://scenes/objects/players/weapons/special_weapons/fin_shredder.tscn")
+	preload("res://scenes/objects/players/weapons/special_weapons/fin_shredder.tscn"),
+	preload("res://scenes/objects/players/weapons/special_weapons/boomer_scythe.tscn")
 ]
 
 func _ready():
@@ -132,6 +133,7 @@ func _ready():
 	currentState = STATES.TELEPORT
 	sprite.play("Teleport")
 	
+	
 	JUMP_VELOCITY = -225.0
 	PEAK_VELOCITY = -90.0
 	STOP_VELOCITY = -80.0
@@ -140,6 +142,16 @@ func _ready():
 	
 
 func _physics_process(delta: float) -> void:
+	GameState.playerposx = position.x
+	GameState.playerposy = position.y
+	
+	if GameState.onscreen_sp_bullets < 0:
+		GameState.onscreen_sp_bullets = 0
+		
+	if GameState.onscreen_bullets < 0:
+		GameState.onscreen_bullets = 0
+				
+	
 	if GameState.current_hp > 28 or Input.is_action_just_pressed("debug_health"):
 		GameState.current_hp = 28
 	if GameState.weapon_energy[GameState.current_weapon] > 28 or Input.is_action_just_pressed("debug_energy"):
@@ -999,38 +1011,87 @@ func weapon_guerilla():
 		projectile.velocity.y = 10
 		projectile.scale.x = sprite.scale.x
 
-func weapon_reaper(): # M: Just doing charge levels for now. You go and do the actual projectiles, G.
+func weapon_reaper():
 	if Input.is_action_just_released("shoot"):
-		if (currentState != STATES.SLIDE) and (currentState != STATES.HURT) and GameState.onscreen_sp_bullets < 2:
+		if (currentState != STATES.SLIDE) and (currentState != STATES.HURT) and GameState.onscreen_sp_bullets < 2 and GameState.weapon_energy[8] > 0:
 			shot_type = 2
 			shoot_delay = 16
-			ScytheCharge = 0
-			if ScytheCharge < 35: #Uncharged. Throws 1 boomerang with an alternating curve
-				GameState.weapon_energy[8] -= 1
+			if ScytheCharge < 25: #Uncharged. Throws 1 boomerang with an alternating curve
+				
+				projectile = weapon_scenes[5].instantiate()
+				get_parent().add_child(projectile)
+				projectile.position.x = position.x + (sprite.scale.x * 15)
+				projectile.position.y = position.y - 2
+				projectile.velocity.x = sprite.scale.x * 170
+				projectile.scale.x = -sprite.scale.x
 				GameState.onscreen_sp_bullets += 1
-				return
-			if ScytheCharge >= 35 and ScytheCharge < 75:  #Mid charge. Throws 2 shots that curve back in opposite ways
+				
+				
+				if Input.is_action_pressed("move_up"):
+					projectile.direction = 1
+				elif Input.is_action_pressed("move_down"):
+					projectile.direction = -1
+				else:
+					if  GameState.onscreen_sp_bullets != 1:
+						projectile.direction = -1
+					else:
+						projectile.direction = 1
+				
+				
+				GameState.weapon_energy[8] -= 1
+				
+			if ScytheCharge >= 25 and ScytheCharge < 75:  #Mid charge. Throws 2 shots that curve back in opposite ways
 				GameState.weapon_energy[8] -= 2
 				GameState.onscreen_sp_bullets += 2
-				return
+				
+				projectile = weapon_scenes[5].instantiate()
+				get_parent().add_child(projectile)
+				projectile.position.x = position.x + (sprite.scale.x * 21)
+				projectile.position.y = position.y - 8
+				projectile.velocity.x = sprite.scale.x * 210
+				projectile.velocity.y = 35
+				projectile.scale.x = -sprite.scale.x
+				projectile.direction = -1
+				
+				projectile = weapon_scenes[5].instantiate()
+				get_parent().add_child(projectile)
+				projectile.position.x = position.x + (sprite.scale.x * 21)
+				projectile.position.y = position.y + 8
+				projectile.velocity.x = sprite.scale.x * 210
+				projectile.velocity.y = -35
+				projectile.scale.x = -sprite.scale.x
+				projectile.direction = 1
+				
 			if ScytheCharge >= 75: #Full charge. Throws 2 shots that run to the top and bottom of the screen and return.
 				GameState.weapon_energy[8] -= 4
 				GameState.onscreen_sp_bullets += 2
-				return
-		
 				
-	if Input.is_action_pressed("shoot"):
-		if ScytheCharge < 110:
+			ScytheCharge = 0
+	
+	if !Input.is_action_pressed("shoot"):
+		ScytheCharge = 0
+		
+	if ScytheCharge >= 25 && GameState.weapon_energy[8] < 2:
+		ScytheCharge = 2
+		
+	if ScytheCharge >= 75 && GameState.weapon_energy[8] < 4:
+		ScytheCharge = 26
+				
+	if Input.is_action_pressed("shoot") && GameState.weapon_energy[8] > 0:
+		if ScytheCharge < 78:
 			ScytheCharge += 1
-			if ScytheCharge == 32:
+			if ScytheCharge == 26:
 				$Audio/Charge1.play()
-			if ScytheCharge == 105:
+			if ScytheCharge == 76:
 				$Audio/Charge2.play()
 		else:
-			ScytheCharge = 105
+			ScytheCharge = 77
 	else:
 		Charge = 0
 		return
+	
+	
+	
 
 func weapon_carry():
 	if Input.is_action_just_pressed("shoot") && GameState.weapon_energy[11] >= 3 && GameState.onscreen_sp_bullets < 3:

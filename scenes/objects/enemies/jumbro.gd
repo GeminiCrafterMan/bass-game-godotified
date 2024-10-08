@@ -7,7 +7,7 @@ var hops : int
 
 func _ready():
 	Atk_Dmg = 4
-	Cur_HP = 5
+	Cur_HP = 4
 
 func _process(delta):
 	if Cur_HP <= 0:
@@ -43,7 +43,7 @@ func _process(delta):
 		$Sprite.visible = true
 
 func _on_hitable_body_entered(weapon): # needs to be redefined because damage values
-	if Cur_Inv <= 0 or weapon.W_Type == 8:
+	if Cur_Inv <= 0 or weapon.W_Type == 8 or weapon.W_Type == 11 or weapon.W_Type == 22:
 		if Dmg_Vals[weapon.W_Type] == 0:
 			if weapon.W_Type == 7:
 				weapon.destroy()
@@ -52,7 +52,7 @@ func _on_hitable_body_entered(weapon): # needs to be redefined because damage va
 		else:
 			Cur_HP -= Dmg_Vals[weapon.W_Type]
 			Cur_Inv = 2
-			if Cur_HP <= 0 or weapon.W_Type == 7:
+			if Cur_HP <= 0 or weapon.W_Type == 7 or weapon.W_Type == 11 or weapon.W_Type == 22:
 				weapon.kill()
 			else:
 				weapon.destroy()

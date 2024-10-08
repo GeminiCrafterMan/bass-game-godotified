@@ -51,6 +51,7 @@ enabled=PackedStringArray("res://addons/debug_menu/plugin.cfg")
 ladder="how to tell if ladder is there"
 player=""
 scorch=""
+boomerang=""
 
 [gui]
 
