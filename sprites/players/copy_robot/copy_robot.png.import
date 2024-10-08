@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://mwhiy56ie3ef"
-path="res://.godot/imported/spritesheet.png-6a11389444782d0b1bccb8ebd359bbe3.ctex"
+uid="uid://cc0x2byiwmvp1"
+path="res://.godot/imported/copy_robot.png-65e052a3705ca3627bf0edfaad5ad0c2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/players/maestro/spritesheet.png"
-dest_files=["res://.godot/imported/spritesheet.png-6a11389444782d0b1bccb8ebd359bbe3.ctex"]
+source_file="res://sprites/players/copy_robot/copy_robot.png"
+dest_files=["res://.godot/imported/copy_robot.png-65e052a3705ca3627bf0edfaad5ad0c2.ctex"]
 
 [params]
 

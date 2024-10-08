@@ -87,7 +87,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_p4uct")
 }],
-"loop": true,
+"loop": false,
 "name": &"Copy",
 "speed": 30.0
 }, {
@@ -127,7 +127,7 @@ material = SubResource("ShaderMaterial_fyvtn")
 position = Vector2(-0.25, 0)
 scale = Vector2(1.02381, 1)
 sprite_frames = SubResource("SpriteFrames_tmmfq")
-animation = &"Wet"
+animation = &"Bass"
 autoplay = "Bass"
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." groups=["scorch"]]

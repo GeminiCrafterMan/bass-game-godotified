@@ -49,7 +49,7 @@ func _physics_process(_delta):
 		durability = 0
 		
 	if GameState.player != null:
-		$MainSprite.material.set_shader_parameter("palette", get_node(GameState.player).get_node("AnimatedSprite2D").material.get_shader_parameter("palette"))
+		$MainSprite.material.set_shader_parameter("palette", get_node(GameState.player).get_node("Sprite2D").material.get_shader_parameter("palette"))
 	
 	
 	if wet == false:

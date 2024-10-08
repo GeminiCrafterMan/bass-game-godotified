@@ -17,7 +17,7 @@ func _physics_process(_delta):
 		GameState.onscreen_sp_bullets -= 1
 		queue_free()
 	if GameState.player != null:
-		$AnimatedSprite2D.material.set_shader_parameter("palette", get_node(GameState.player).get_node("AnimatedSprite2D").material.get_shader_parameter("palette"))
+		$AnimatedSprite2D.material.set_shader_parameter("palette", get_node(GameState.player).get_node("Sprite2D").material.get_shader_parameter("palette"))
 	
 	if state_timer.is_stopped() && state == 1:
 		velocity.x = -velocity.x * 0.55

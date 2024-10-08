@@ -1,5 +1,7 @@
 extends MaestroPlayer
 
+class_name CopyRobotPlayer
+
 func _init() -> void:
 	weapon_palette = [
 		preload("res://sprites/players/copy_robot/palettes/Copy Buster.png"),
@@ -33,6 +35,9 @@ func _init() -> void:
 		preload("res://scenes/objects/players/weapons/special_weapons/boomer_scythe.tscn")
 	]
 
+# ================
+# WEAPON FUNCTIONS
+# ================
 func weapon_buster(): # G: Copy Robot *can* charge his buster, but Maestro and Bass *can't*. Looks like we could easily do the same (replacing the Buster) with Bass's...?
 	if (GameState.current_weapon == 0 and Input.is_action_just_pressed("shoot")) or Input.is_action_just_pressed("buster"):
 		if (currentState != STATES.SLIDE) and (currentState != STATES.HURT) and (GameState.onscreen_bullets < 3):
@@ -93,7 +98,7 @@ func weapon_buster(): # G: Copy Robot *can* charge his buster, but Maestro and B
 func weapon_shark():
 	if Input.is_action_just_pressed("shoot") && (currentState != STATES.SLIDE) and (currentState != STATES.HURT) && is_on_floor() && GameState.weapon_energy[4] >= 5:
 		GameState.weapon_energy[4] -= 3
-		$AnimatedSprite2D.set_frame_and_progress(0, 0)
+		anim.seek(0)
 		shot_type = 2
 		shoot_delay = 16
 		projectile = weapon_scenes[4].instantiate()

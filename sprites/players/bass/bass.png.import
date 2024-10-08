@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dolddeab1tc5g"
-path="res://.godot/imported/spritesheet.png-e1540c3d2d69e160a929e80beb7fc298.ctex"
+uid="uid://c352q0axtprmr"
+path="res://.godot/imported/bass.png-09442dc36623ff175d68b62bc17fcf35.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/players/copy_robot/spritesheet.png"
-dest_files=["res://.godot/imported/spritesheet.png-e1540c3d2d69e160a929e80beb7fc298.ctex"]
+source_file="res://sprites/players/bass/bass.png"
+dest_files=["res://.godot/imported/bass.png-09442dc36623ff175d68b62bc17fcf35.ctex"]
 
 [params]
 

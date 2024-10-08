@@ -14,7 +14,7 @@ var aim : int
 var projectile_scenes = [preload("res://scenes/objects/players/weapons/bass/buster.tscn")]
 
 # Set these to the name of your action (in the Input Map)
-## Name of input action to climb up or generally press up.
+## Name of input action to climb up or generally press up.	
 @export var input_up : String = "move_up"
 ## Name of input action to climb down or generally press down.
 @export var input_down : String = "move_down"

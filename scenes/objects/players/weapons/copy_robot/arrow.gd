@@ -11,7 +11,7 @@ func _ready():
 
 func _process(_delta):
 	if GameState.player != null:
-		$AnimatedSprite2D.material.set_shader_parameter("palette", get_node(GameState.player).get_node("AnimatedSprite2D").material.get_shader_parameter("palette"))
+			$AnimatedSprite2D.material.set_shader_parameter("palette", get_node(GameState.player).get_node("Sprite2D").material.get_shader_parameter("palette"))
 
 	
 	if GameState.current_weapon != 12:
@@ -69,3 +69,7 @@ func reflect():
 	$ReflectSound.play()
 	velocity.x = -velocity.x
 	velocity.y = -velocity.y
+
+func _on_visible_on_screen_notifier_2d_screen_exited():
+	GameState.onscreen_sp_bullets = 0
+	queue_free()

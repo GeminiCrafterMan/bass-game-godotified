@@ -17,7 +17,7 @@ func _physics_process(_delta):
 	move_and_slide()
 	
 	if GameState.player != null:
-		$AnimatedSprite2D.material.set_shader_parameter("palette", get_node(GameState.player).get_node("AnimatedSprite2D").material.get_shader_parameter("palette"))
+		$AnimatedSprite2D.material.set_shader_parameter("palette", get_node(GameState.player).get_node("Sprite2D").material.get_shader_parameter("palette"))
 	
 	if GameState.current_weapon != 4:
 		queue_free()

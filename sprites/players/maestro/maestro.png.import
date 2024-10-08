@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b56gnn6pfhbv4"
-path="res://.godot/imported/spritesheet.png-5ccaf7b0453c6048ccd392ea9b7451d1.ctex"
+uid="uid://oqtdb0ml6qhb"
+path="res://.godot/imported/maestro.png-4bdab6a7bfa89d27b5992e5e40bd8d26.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/players/bass/spritesheet.png"
-dest_files=["res://.godot/imported/spritesheet.png-5ccaf7b0453c6048ccd392ea9b7451d1.ctex"]
+source_file="res://sprites/players/maestro/maestro.png"
+dest_files=["res://.godot/imported/maestro.png-4bdab6a7bfa89d27b5992e5e40bd8d26.ctex"]
 
 [params]
 

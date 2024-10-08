@@ -49,7 +49,8 @@ const CRACKER_SPEED = 450
 @onready var invul_timer = $InvulTimer
 @onready var pain_timer = $PainTimer
 @onready var slide_timer = $SlideTimer
-@onready var sprite = $AnimatedSprite2D
+@onready var sprite = $Sprite2D
+@onready var anim = $AnimationPlayer
 @onready var starburst = $FX/Starburst
 @onready var sweat = $FX/Sweat
 @onready var FX
@@ -70,6 +71,7 @@ var InvincFrames : int
 var Charge : int
 var ScytheCharge : int
 var Flash_Timer : int
+var progress : float
 var no_grounded_movement : bool
 var on_ice : bool
 var ice_jump : bool
@@ -130,7 +132,7 @@ func _ready():
 	state_timer.start(0.5)
 	invul_timer.start(0.01)
 	currentState = STATES.TELEPORT
-	sprite.play("Teleport")
+	anim.play("Teleport")
 
 
 	JUMP_VELOCITY = -225
@@ -141,6 +143,9 @@ func _ready():
 
 
 func _physics_process(delta: float) -> void:
+
+	progress = anim.get_current_animation_position()
+
 	GameState.playerposx = position.x
 	GameState.playerposy = position.y
 
@@ -219,7 +224,7 @@ func _physics_process(delta: float) -> void:
 		GameState.onscreen_sp_bullets = 0
 		$Audio/SwitchSound.play()
 		GameState.old_weapon = GameState.current_weapon
-		$AnimatedSprite2D.material.set_shader_parameter("palette", weapon_palette[GameState.current_weapon])
+		sprite.material.set_shader_parameter("palette", weapon_palette[GameState.current_weapon])
 
 	if  (Input.is_action_just_pressed("switch_left") && Input.is_action_pressed("switch_right")) or (Input.is_action_pressed("switch_left") && Input.is_action_just_pressed("switch_right")):
 		if (currentState != STATES.TELEPORT and currentState != STATES.DEAD):
@@ -227,7 +232,7 @@ func _physics_process(delta: float) -> void:
 			if GameState.old_weapon != GameState.current_weapon:
 				$Audio/SwitchSound.play()
 				GameState.onscreen_sp_bullets = 0
-			$AnimatedSprite2D.material.set_shader_parameter("palette", weapon_palette[GameState.current_weapon])
+			sprite.material.set_shader_parameter("palette", weapon_palette[GameState.current_weapon])
 
 
 
@@ -346,12 +351,12 @@ func state_teleport(_direction: Vector2, _delta: float) -> void:
 	position.y = move_toward(position.y, targetpos, 10)
 	#exit teleport
 	if position.y >= targetpos:
-		if not sprite.animation == "Teleport In":
-			sprite.play("Teleport In")
+		if anim.get_current_animation() != "Teleport In":
+			anim.play("Teleport In")
 			velocity.y = 0
 			$MainHitbox.set_disabled(false)
 			$Audio/WarpInSound.play()
-			await sprite.animation_finished
+			await anim.animation_finished
 			swapState = STATES.IDLE
 			teleported.emit()
 
@@ -361,27 +366,27 @@ func state_idle(_direction: Vector2, _delta: float) -> void:
 	if shoot_delay == 0:
 		if StepTime > 0:
 			StepTime -= 1
-			if sprite.animation != "Step":
-				sprite.stop()
-				sprite.play("Step")
+			if anim.get_current_animation() != "Step":
+				anim.stop()
+				anim.play("Step")
 		else:
-			if sprite.animation != "Idle":
-				sprite.stop()
-				sprite.play("Idle")
+			if anim.get_current_animation() != "Idle":
+				anim.stop()
+				anim.play("Idle")
 	else:
 		match shot_type:
 			0: # Normal
-				$AnimatedSprite2D.play("Idle-Shoot")
+				anim.play("Idle-Shoot")
 			1: # StopShoot
-				$AnimatedSprite2D.play("Idle-Shoot")
+				anim.play("Idle-Shoot")
 			2: # Throw
-				$AnimatedSprite2D.play("Idle-Throw")
+				anim.play("Idle-Throw")
 			3: # Shield
-				$AnimatedSprite2D.play("Idle-Shield")
+				anim.play("Idle-Shield")
 			4: # Fin Shredder
-				$AnimatedSprite2D.play("FinShredder")
+				anim.play("FinShredder")
 			_: # Everything else
-				$AnimatedSprite2D.play("Idle-Shoot")
+				anim.play("Idle-Shoot")
 	if Input.is_action_pressed("move_down") and Input.is_action_just_pressed("jump"):
 		swapState = STATES.SLIDE
 
@@ -398,33 +403,30 @@ func state_walk(_direction: Vector2, _delta: float) -> void:
 	if Input.is_action_pressed("move_down") and Input.is_action_just_pressed("jump"):
 		swapState = STATES.SLIDE
 
-	var frame = sprite.get_frame()
-	var progress = sprite.get_frame_progress()
-
 	if shoot_delay > 0:
 		match shot_type:
 			0: # Normal
-				$AnimatedSprite2D.play("Walk-Shoot")
-				$AnimatedSprite2D.set_frame_and_progress(frame, progress)
+				anim.play("Walk-Shoot")
+				anim.seek(progress)
 			1: # Stop
-				$AnimatedSprite2D.play("Idle-Shoot")
+				anim.play("Idle-Shoot")
 			2: # Throw
-				$AnimatedSprite2D.play("Idle-Throw")
+				anim.play("Idle-Throw")
 			3: # Shield
-				$AnimatedSprite2D.play("Idle-Shield")
+				anim.play("Idle-Shield")
 			4: # Shredder
-				$AnimatedSprite2D.play("FinShredder")
+				anim.play("FinShredder")
 			_: # Everything else
-				$AnimatedSprite2D.play("Walk-Shoot")
-				$AnimatedSprite2D.set_frame_and_progress(frame, progress)
+				anim.play("Walk-Shoot")
+				anim.seek(progress)
 	else:
 		if StepTime > 6:
-			sprite.play("Walk")
-			sprite.set_frame_and_progress(frame, progress)
+			anim.play("Walk")
+			anim.seek(progress)
 		else:
-			if sprite.animation != "Step":
-				sprite.stop()
-				sprite.play("Step")
+			if anim.get_current_animation() != "Step":
+				anim.stop()
+				anim.play("Step")
 	#behavior of state
 	default_movement(_direction, _delta)
 
@@ -432,9 +434,9 @@ func state_walk(_direction: Vector2, _delta: float) -> void:
 	if _direction.x == 0:
 		if StepTime > 0:
 			StepTime -= 1
-			if sprite.animation != "Step":
-				sprite.stop()
-				sprite.play("Step")
+			if anim.get_current_animation() != "Step":
+				anim.stop()
+				anim.play("Step")
 			swapState = STATES.IDLE
 
 ## Slide state
@@ -442,9 +444,9 @@ func state_slide(_direction: Vector2, _delta: float) -> void:
 	if isFirstFrameOfState:
 		slide_timer.start()
 		$Audio/SlideSound.play()
-		if sprite.animation != "Slide":
-			sprite.stop()
-			sprite.play("Slide")
+		if anim.get_current_animation() != "Slide":
+			anim.stop()
+			anim.play("Slide")
 		#Changes Collision
 		$MainHitbox.set_disabled(true)
 		$SlideHitbox.set_disabled(false)
@@ -463,7 +465,6 @@ func state_slide(_direction: Vector2, _delta: float) -> void:
 			#Changes to normal state.Rest is handled normally
 			swapState = STATES.IDLE
 			slide_timer.start()
-			print("idled bad")
 
 	if on_ice == false:
 		velocity.x = sprite.scale.x * 200
@@ -484,9 +485,9 @@ func state_jump(_direction: Vector2, _delta: float) -> void:
 	if isFirstFrameOfState:
 		velocity.y = JUMP_VELOCITY
 	#if coming in from the shoot animation, set immediatley to falling animation
-	if sprite.animation == "Jump-Shoot":
-		sprite.stop()
-		sprite.play("Fall")
+	if anim.get_current_animation() == "Jump-Shoot":
+		anim.stop()
+		anim.play("Fall")
 	#set animation based on falling for rising
 	if velocity.y < 0 && JumpHeight != 80:
 		if (JumpHeight < JUMP_HEIGHT && Input.is_action_pressed("jump")):
@@ -500,31 +501,31 @@ func state_jump(_direction: Vector2, _delta: float) -> void:
 			velocity.y = STOP_VELOCITY
 		if isFirstFrameOfState:
 			if shoot_delay == 0:
-				sprite.stop()
-				sprite.play("Jump")
+				anim.stop()
+				anim.play("Jump")
 			$Audio/JumpSound.play()
 	else:
 		if shoot_delay == 0:
 			if StepTime < 7:
 				StepTime += 1
-				sprite.play("Jump Transition")
+				anim.play("Jump Transition")
 			else:
-				sprite.play("Fall")
+				anim.play("Fall")
 
 	if shoot_delay > 0:
 		match shot_type:
 			0: # Normal
-				$AnimatedSprite2D.play("Jump-Shoot")
+				anim.play("Jump-Shoot")
 			1: # Normal
-				$AnimatedSprite2D.play("Jump-Shoot")
+				anim.play("Jump-Shoot")
 			2: # Throw
-				$AnimatedSprite2D.play("Jump-Throw")
+				anim.play("Jump-Throw")
 			3: # Shield
-				$AnimatedSprite2D.play("Jump-Shield")
+				anim.play("Jump-Shield")
 			4: # Shredder
-				$AnimatedSprite2D.play("FinShredder")
+				anim.play("FinShredder")
 			_: # Everything else
-				$AnimatedSprite2D.play("Jump-Shoot")
+				anim.play("Jump-Shoot")
 
 	#behavior of state
 	#movement in state
@@ -544,24 +545,21 @@ func state_ladder(_direction: Vector2, _delta: float) -> void:
 	if shoot_delay != 0 or Input.is_action_just_pressed("buster") or Input.is_action_just_pressed("shoot"):
 		if _direction.x != 0:
 			sprite.scale.x = sign(_direction.x)
-		if sprite.animation != "Ladder-Shoot":
-			sprite.stop()
-			sprite.play("Ladder-Shoot")
-		#pause and play ladder animation
-		#turn this into lining the climb and shoot animations up later
-		if sprite.is_playing() == true:
-			sprite.pause()
+		if anim.get_current_animation() != "Ladder-Shoot":
+			anim.stop()
+			anim.play("Ladder-Shoot")
 	else:
-		if sprite.animation != "Ladder":
-			sprite.stop()
-			sprite.play("Ladder")
-		#pause and play ladder animation
-		if _direction.y != 0:
-			if sprite.is_playing() == false:
-				sprite.play("Ladder")
+		if anim.get_current_animation() != "Ladder":
+			anim.stop()
+			anim.play("Ladder")
 		else:
-			if sprite.is_playing() == true:
-				sprite.pause()
+			#pause and play ladder animation
+			if _direction.y != 0:
+				if anim.is_playing() == false:
+					anim.play()
+			else:
+				if anim.is_playing() == true:
+					anim.pause()
 
 	#movement
 	velocity.x = 0
@@ -594,9 +592,9 @@ func state_hurt(_direction: Vector2, _delta: float) -> void:
 		sweat.set_frame_and_progress(0, 0)
 		if GameState.current_hp > 0:
 			$Audio/HurtSound.play()
-		if sprite.animation != "Hurt":
-			sprite.stop()
-			sprite.play("Hurt")
+		if anim.get_current_animation() != "Hurt":
+			anim.stop()
+			anim.play("Hurt")
 	if pain_timer.is_stopped():
 		swapState = STATES.IDLE
 		starburst.visible = false
@@ -614,14 +612,13 @@ func state_dead(_direction: Vector2, _delta: float) -> void:
 		$MainHitbox.set_disabled(true)
 		$SlideHitbox.set_disabled(true)
 		state_timer.start(5.00)
-		sprite.play("Hurt")
+		anim.play("Hurt")
 		velocity.y = 0
 		velocity.x = 0
 	if pain_timer.is_stopped():
 		$Audio/HurtSound.stop()
 		$Audio/DeathSound.play()
-		sprite.stop()
-		sprite.play("None")
+		anim.stop()
 		sprite.scale.x = 0
 		sprite.visible = false
 		projectile = preload("res://scenes/objects/explosion_player.tscn").instantiate()
@@ -705,29 +702,29 @@ func ice_jump_move(direction, delta):
 
 func do_charge_palette():
 	if Charge == 0 or Charge < 37: # no charge
-		$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[GameState.current_weapon])
+		sprite.material.set_shader_parameter("palette",weapon_palette[GameState.current_weapon])
 	elif Charge >= 37 && Charge < 65: # just started charging
 		if Flash_Timer == 2 || Flash_Timer == 3:
-			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[17])
+			sprite.material.set_shader_parameter("palette",weapon_palette[17])
 			Flash_Timer += 1
 		else:
-			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[GameState.current_weapon])
+			sprite.material.set_shader_parameter("palette",weapon_palette[GameState.current_weapon])
 			Flash_Timer += 1
 		if Flash_Timer == 3:
 			Flash_Timer = 0
 	elif Charge >= 65 && Charge < 92:
 		if Flash_Timer == 1:
-			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[17])
+			sprite.material.set_shader_parameter("palette",weapon_palette[17])
 			Flash_Timer = 0
 		else:
-			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[GameState.current_weapon])
+			sprite.material.set_shader_parameter("palette",weapon_palette[GameState.current_weapon])
 			Flash_Timer = 1
 	elif Charge >= 92:
 		if Flash_Timer == 1:
-			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[18])
+			sprite.material.set_shader_parameter("palette",weapon_palette[18])
 			Flash_Timer = 0
 		else:
-			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[GameState.current_weapon])
+			sprite.material.set_shader_parameter("palette",weapon_palette[GameState.current_weapon])
 			Flash_Timer = 1
 
 func scythe_charge_palette():
@@ -737,28 +734,28 @@ func scythe_charge_palette():
 		ScytheCharge = 0
 	if ScytheCharge > 0 and ScytheCharge < 35: # no charge
 		if Flash_Timer == 3:
-			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[19])
+			sprite.material.set_shader_parameter("palette",weapon_palette[19])
 			Flash_Timer = 0
 		else:
-			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[GameState.current_weapon])
+			sprite.material.set_shader_parameter("palette",weapon_palette[GameState.current_weapon])
 			Flash_Timer += 1
 
 
 	elif ScytheCharge >= 35 && ScytheCharge < 75: # just started charging
 		if Flash_Timer == 3:
-			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[20])
+			sprite.material.set_shader_parameter("palette",weapon_palette[20])
 			Flash_Timer = 0
 		else:
-			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[GameState.current_weapon])
+			sprite.material.set_shader_parameter("palette",weapon_palette[GameState.current_weapon])
 			Flash_Timer += 1
 
 
 	elif ScytheCharge >= 75:
 		if Flash_Timer == 3:
-			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[19])
+			sprite.material.set_shader_parameter("palette",weapon_palette[19])
 			Flash_Timer = 0
 		else:
-			$AnimatedSprite2D.material.set_shader_parameter("palette",weapon_palette[20])
+			sprite.material.set_shader_parameter("palette",weapon_palette[20])
 			Flash_Timer += 1
 
 func handle_weapons():
@@ -817,7 +814,7 @@ func weapon_blaze():
 		if shield == null && shield2 == null && shield3 == null && shield4 == null && GameState.weapon_energy[1] >= 1 && GameState.onscreen_sp_bullets == 0:
 
 			shot_type = 3
-			$AnimatedSprite2D.set_frame_and_progress(0, 0)
+			anim.seek(0)
 			shoot_delay = 26
 
 			if GameState.weapon_energy[1] >= 1:
@@ -849,7 +846,7 @@ func weapon_blaze():
 		else:
 			if shield or shield2 or shield3 or shield4:
 				shot_type = 2
-				$AnimatedSprite2D.set_frame_and_progress(0, 0)
+				anim.seek(0)
 				shoot_delay = 16
 				if shield != null:
 					shield.fired = true
@@ -875,7 +872,7 @@ func weapon_blaze():
 
 func weapon_smog():
 	if Input.is_action_just_pressed("shoot") && (currentState != STATES.SLIDE) and (currentState != STATES.HURT) and GameState.onscreen_sp_bullets < 1:
-		$AnimatedSprite2D.set_frame_and_progress(0, 0)
+		anim.seek(0)
 		shot_type = 1
 		shoot_delay = 16
 		GameState.onscreen_sp_bullets += 1
@@ -892,9 +889,9 @@ func weapon_shark():
 	if Input.is_action_just_pressed("shoot") && (currentState != STATES.SLIDE) and (currentState != STATES.HURT) && is_on_floor() && GameState.weapon_energy[4] >= 5:
 		if GameState.onscreen_sp_bullets < 2:
 			GameState.weapon_energy[4] -= 5
-			$AnimatedSprite2D.set_frame_and_progress(0, 0)
-			shot_type = 1
-			shoot_delay = 16
+			anim.seek(0)
+			shot_type = 4
+			shoot_delay = 24
 			GameState.onscreen_sp_bullets += 1
 			projectile = weapon_scenes[4].instantiate()
 			get_parent().add_child(projectile)
@@ -908,7 +905,7 @@ func weapon_shark():
 func weapon_origami():
 	if Input.is_action_just_pressed("shoot") && GameState.weapon_energy[5] >= 1 && GameState.onscreen_sp_bullets < 4:
 		GameState.weapon_energy[5] -= 1
-		$AnimatedSprite2D.set_frame_and_progress(0, 0)
+		anim.seek(0)
 		shot_type = 2
 		shoot_delay = 16
 		GameState.onscreen_sp_bullets += 3
@@ -993,7 +990,7 @@ func weapon_origami():
 func weapon_guerilla():
 	if Input.is_action_just_pressed("shoot") && GameState.weapon_energy[7] >= 2 && GameState.onscreen_sp_bullets <= 2:
 		GameState.weapon_energy[7] -= 2
-		$AnimatedSprite2D.set_frame_and_progress(0, 0)
+		anim.seek(0)
 		shot_type = 1
 		shoot_delay = 16
 		GameState.onscreen_sp_bullets += 1
@@ -1091,7 +1088,7 @@ func weapon_reaper():
 
 func weapon_carry():
 	if Input.is_action_just_pressed("shoot") && GameState.weapon_energy[11] >= 3 && GameState.onscreen_sp_bullets < 3:
-		$AnimatedSprite2D.set_frame_and_progress(0, 0)
+		anim.seek(0)
 		shot_type = 2
 		shoot_delay = 16
 		GameState.onscreen_sp_bullets += 1
@@ -1109,7 +1106,7 @@ func weapon_carry():
 func weapon_arrow():
 	if Input.is_action_just_pressed("shoot") && GameState.weapon_energy[12] >= 4 && GameState.onscreen_sp_bullets == 0:
 		GameState.weapon_energy[12] -= 4
-		$AnimatedSprite2D.set_frame_and_progress(0, 0)
+		anim.seek(0)
 		shot_type = 1
 		shoot_delay = 16
 		GameState.onscreen_sp_bullets += 1
@@ -1126,14 +1123,12 @@ func weapon_arrow():
 func weapon_punk():
 	if Input.is_action_just_pressed("shoot") && GameState.weapon_energy[14] >= 1 && GameState.onscreen_sp_bullets < 4:
 		GameState.weapon_energy[14] -= 1
-		$AnimatedSprite2D.set_frame_and_progress(0, 0)
+		anim.seek(0)
 		shot_type = 2
 		shoot_delay = 16
 		GameState.onscreen_sp_bullets += 1
 		projectile = projectile_scenes[5].instantiate()
-
-		if $AnimatedSprite2D.flip_h:
-			projectile.scale.x = -1
+		projectile.scale.x = sprite.scale.x
 
 		get_parent().add_child(projectile)
 		projectile.position.x = position.x
@@ -1147,7 +1142,7 @@ func weapon_punk():
 func weapon_ballade():
 	if Input.is_action_just_pressed("shoot") && GameState.weapon_energy[15] >= 3 && GameState.onscreen_sp_bullets == 0:
 		GameState.weapon_energy[15] -= 3
-		$AnimatedSprite2D.set_frame_and_progress(0, 0)
+		anim.seek(0)
 
 		shot_type = 2
 		shoot_delay = 16

@@ -20,10 +20,7 @@ func _unhandled_input(event):
 				get_tree().reload_current_scene()
 			KEY_F6: # Switch characters... despite the character scene only loading upon level load. /shrug
 				match GameState.character_selected:
-					# Comment case 0 out to allow Bass to be selected via F6.
-					0: # Maestro, but remove this once Bass is at least selectable without crashing
-						GameState.character_selected += 2 # Add 2, since Bass doesn't work yet and selecting him will crash.
-					GameState.maxCharacterID: # Last available character, by default Copy Robot (and later Mega Man himself)
+					GameState.maxCharacterID: # Last available character, by default Mega Man.
 						GameState.character_selected = 0 # Reset to Maestro.
 					_:
 						GameState.character_selected += 1

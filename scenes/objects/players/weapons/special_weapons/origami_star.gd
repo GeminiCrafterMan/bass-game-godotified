@@ -9,9 +9,9 @@ func _ready():
 func _physics_process(_delta):
 	if GameState.current_weapon != 5:
 		GameState.onscreen_sp_bullets -= 1
-		queue_free()
+		queue_free()	
 	if GameState.player != null:
-		$AnimatedSprite2D.material.set_shader_parameter("palette", get_node(GameState.player).get_node("AnimatedSprite2D").material.get_shader_parameter("palette"))
+		$AnimatedSprite2D.material.set_shader_parameter("palette", get_node(GameState.player).get_node("Sprite2D").material.get_shader_parameter("palette"))
 	
 	if broken == true:
 		$AnimatedSprite2D.set_frame_and_progress(0, 0)
