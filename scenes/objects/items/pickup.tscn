@@ -1,10 +1,19 @@
-[gd_scene load_steps=31 format=3 uid="uid://bobtsvomowe28"]
+[gd_scene load_steps=34 format=3 uid="uid://bobtsvomowe28"]
 
 [ext_resource type="Script" path="res://scenes/objects/items/pickup.gd" id="1_6kmgf"]
 [ext_resource type="Texture2D" uid="uid://dyecajv0oil0s" path="res://sprites/objects/items.png" id="2_20fia"]
 [ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="2_y512r"]
+[ext_resource type="Texture2D" uid="uid://culj6yyxpqgs1" path="res://sprites/players/bass/palettes/Bass Buster.png" id="3_6cakr"]
 [ext_resource type="AudioStream" uid="uid://cd1pt0mn386bt" path="res://sounds/bolts.wav" id="4_mliej"]
+[ext_resource type="Texture2D" uid="uid://cuvb46u27vp7v" path="res://sprites/players/maestro/life.png" id="4_o72oi"]
 [ext_resource type="AudioStream" uid="uid://cbfqfx4e0lol3" path="res://sounds/item.wav" id="5_4oso0"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_58gkl"]
+shader = ExtResource("2_y512r")
+shader_parameter/skip_first_row = true
+shader_parameter/use_palette_alpha = false
+shader_parameter/fps = 6.0
+shader_parameter/palette = ExtResource("3_6cakr")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3l2vc"]
 shader = ExtResource("2_y512r")
@@ -56,13 +65,13 @@ region = Rect2(32, 16, 16, 16)
 atlas = ExtResource("2_20fia")
 region = Rect2(48, 16, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_77bm8"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_1vh8q"]
 atlas = ExtResource("2_20fia")
-region = Rect2(0, 64, 16, 16)
+region = Rect2(64, 32, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_83mer"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_x1wp2"]
 atlas = ExtResource("2_20fia")
-region = Rect2(16, 64, 16, 16)
+region = Rect2(80, 32, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bpfem"]
 atlas = ExtResource("2_20fia")
@@ -88,13 +97,13 @@ region = Rect2(0, 16, 16, 16)
 atlas = ExtResource("2_20fia")
 region = Rect2(16, 16, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_4ifqv"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_7gm1t"]
 atlas = ExtResource("2_20fia")
-region = Rect2(0, 48, 16, 16)
+region = Rect2(32, 32, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ux4tq"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_5b47g"]
 atlas = ExtResource("2_20fia")
-region = Rect2(16, 48, 16, 16)
+region = Rect2(48, 32, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_pfpbr"]
 animations = [{
@@ -158,10 +167,10 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_77bm8")
+"texture": SubResource("AtlasTexture_1vh8q")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_83mer")
+"texture": SubResource("AtlasTexture_x1wp2")
 }],
 "loop": true,
 "name": &"STnk",
@@ -202,10 +211,10 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_4ifqv")
+"texture": SubResource("AtlasTexture_7gm1t")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ux4tq")
+"texture": SubResource("AtlasTexture_5b47g")
 }],
 "loop": true,
 "name": &"WTnk",
@@ -223,12 +232,18 @@ collision_layer = 64
 collision_mask = 3
 script = ExtResource("1_6kmgf")
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_58gkl")
+texture = ExtResource("4_o72oi")
+hframes = 2
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_3l2vc")
 sprite_frames = SubResource("SpriteFrames_pfpbr")
 animation = &"SmHP"
 autoplay = "SmHP"
-frame_progress = 0.408103
+frame_progress = 0.73792
 
 [node name="Touch" type="Area2D" parent="."]
 collision_layer = 4

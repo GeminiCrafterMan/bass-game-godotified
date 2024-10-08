@@ -17,6 +17,7 @@ func _unhandled_input(event):
 				if GameState.player:
 					if get_node(GameState.player):
 						get_node(GameState.player).reset(true) # Reset EVERYTHING about the player
+						GameState.player = null
 				get_tree().reload_current_scene()
 			KEY_F6: # Switch characters... despite the character scene only loading upon level load. /shrug
 				match GameState.character_selected:

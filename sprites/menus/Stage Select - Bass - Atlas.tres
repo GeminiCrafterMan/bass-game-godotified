@@ -1,7 +1,0 @@
-[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://bivxgv75r4dv4"]
-
-[ext_resource type="Texture2D" uid="uid://dflaoj7u7edb1" path="res://sprites/menus/Stage Select - Bass.png" id="1_et83b"]
-
-[resource]
-atlas = ExtResource("1_et83b")
-region = Rect2(128, 0, 32, 32)

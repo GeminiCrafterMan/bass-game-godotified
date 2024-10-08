@@ -7,12 +7,36 @@ enum PALETTE {NONE, MD, NES, DOOM, PICO8, GB, VB, C64, CGA, G4, G8, G16}
 # constants
 
 # variables
-var characters = [ # It's a var now so mods can add more
+## List of characters. Mods can add to this to add their own characters.
+var characters : Array[String] = [
 	"res://scenes/objects/players/maestro.tscn",
 	"res://scenes/objects/players/bass.tscn",
 	"res://scenes/objects/players/copy_robot.tscn",
 	"res://scenes/objects/players/maestro.tscn" # Megaman
 ]
+## List of life icon PNGs.
+var lifeIcons = [
+	"res://sprites/players/maestro/life.png",
+	"res://sprites/players/bass/life.png",
+	"res://sprites/players/copy_robot/life.png",
+	"res://sprites/players/megaman/life.png"
+]
+## List of stage select portrait PNGs.
+var stageSelectPlayerPortraits = [
+	"res://sprites/players/maestro/stageselect.png",
+	"res://sprites/players/bass/stageselect.png",
+	"res://sprites/players/copy_robot/stageselect.png",
+	"res://sprites/players/megaman/stageselect.png"
+]
+## List of stage select color translations. G: ...I couldn't make this pick Maestro's by default.
+var stageSelectColorTranslations = [
+	"res://sprites/players/maestro/stageseltrans.png",
+	"res://sprites/players/bass/stageseltrans.png",
+	"res://sprites/players/copy_robot/stageseltrans.png",
+	"res://sprites/players/megaman/stageseltrans.png"
+]
+
+
 var maxCharacterID = characters.size() - 1 # Whyyyyy...?
 var character_selected : int
 var player # absolute path to player node
@@ -151,3 +175,31 @@ func refill_ammo() -> void:
 	for n in weapon_energy.size():
 	# I hate this. So much.
 		weapon_energy[n] = max_weapon_energy[n] # Reset WE
+
+func _ready() -> void:
+	# This could fail if, for example, mod.pck cannot be found.
+	var success = ProjectSettings.load_resource_pack("res://mod.pck")
+
+	if success:
+		print("mod.pck loaded!")
+		var file = FileAccess.open("res://mod.json", FileAccess.READ)
+		var json = JSON.new()
+		var data = json.parse(file.get_as_text(), true)
+		# Save data
+		# ...
+		# Retrieve data
+		if data == OK:
+			var data_received = json.data
+			if typeof(data_received) == TYPE_ARRAY:
+				print(data_received) # Prints array
+				characters.append(json.data[0])
+				lifeIcons.append(json.data[1])
+				stageSelectPlayerPortraits.append(json.data[2])
+				stageSelectColorTranslations.append(json.data[3])
+				maxCharacterID = characters.size() - 1
+			else:
+				print("Unexpected data")
+		else:
+			print("JSON Parse Error: ", json.get_error_message(), " in ", file, " at line ", json.get_error_line())
+	else:
+		print("mod.pck not found!")

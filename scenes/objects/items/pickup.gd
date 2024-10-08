@@ -29,9 +29,6 @@ func _ready():
 			$Timer.start(8)
 			
 			velocity.y = -45
-					
-
-func _process(_delta):
 			
 	match item_type:
 		0: #HP Item
@@ -64,22 +61,20 @@ func _process(_delta):
 		4: #1Up and S tank
 			match item_size:
 				0:
-					$AnimatedSprite2D.play("1Up")
-					if not Engine.is_editor_hint():
-						$AnimatedSprite2D.set_frame_and_progress(GameState.character_selected, 0)
+					$AnimatedSprite2D.hide()
+					$Sprite2D.texture = load(GameState.lifeIcons[GameState.character_selected])
+					$Sprite2D.show()
 				1:
 					$AnimatedSprite2D.play("STnk")
 
-								
-	
-		
-
+func _process(delta: float) -> void:
 	if not Engine.is_editor_hint():
 		if $Timer.is_stopped() && collected == true:
 			queue_free()
-			
+				
 		if GameState.player != null:
 			$AnimatedSprite2D.material.set_shader_parameter("palette", get_node(GameState.player).get_node("Sprite2D").material.get_shader_parameter("palette"))
+			$Sprite2D.material.set_shader_parameter("palette", get_node(GameState.player).get_node("Sprite2D").material.get_shader_parameter("palette"))
 
 func _on_touch_body_entered(body):
 	if body.is_in_group("player"):
