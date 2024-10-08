@@ -1,7 +1,5 @@
 extends MaestroPlayer
 
-class_name CopyRobotPlayer
-
 func _init() -> void:
 	weapon_palette = [
 		preload("res://sprites/players/copy_robot/palettes/Copy Buster.png"),
@@ -26,19 +24,14 @@ func _init() -> void:
 		preload("res://sprites/players/weapons/ScytheCharge0.png"),
 		preload("res://sprites/players/weapons/ScytheCharge1.png")
 	]
-
-func _ready() -> void:
-	
 	weapon_scenes = [
-	preload("res://scenes/objects/players/weapons/special_weapons/origami_star.tscn"),
-	preload("res://scenes/objects/players/weapons/special_weapons/poison_cloud.tscn"),
-	preload("res://scenes/objects/players/weapons/special_weapons/scorch_barrier.tscn"),
-	preload("res://scenes/objects/players/weapons/special_weapons/rolling_bomb.tscn"),
-	preload("res://scenes/objects/players/weapons/copy_robot/cr_fin_shredder.tscn"),
-	preload("res://scenes/objects/players/weapons/special_weapons/boomer_scythe.tscn")
-	]	
-	
-	super._ready()
+		preload("res://scenes/objects/players/weapons/special_weapons/origami_star.tscn"),
+		preload("res://scenes/objects/players/weapons/special_weapons/poison_cloud.tscn"),
+		preload("res://scenes/objects/players/weapons/special_weapons/scorch_barrier.tscn"),
+		preload("res://scenes/objects/players/weapons/special_weapons/rolling_bomb.tscn"),
+		preload("res://scenes/objects/players/weapons/copy_robot/cr_fin_shredder.tscn"),
+		preload("res://scenes/objects/players/weapons/special_weapons/boomer_scythe.tscn")
+	]
 
 func weapon_buster(): # G: Copy Robot *can* charge his buster, but Maestro and Bass *can't*. Looks like we could easily do the same (replacing the Buster) with Bass's...?
 	if (GameState.current_weapon == 0 and Input.is_action_just_pressed("shoot")) or Input.is_action_just_pressed("buster"):

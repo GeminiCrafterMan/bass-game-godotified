@@ -9,7 +9,7 @@ enum PALETTE {NONE, MD, NES, DOOM, PICO8, GB, VB, C64, CGA, G4, G8, G16}
 # variables
 var characters = [ # It's a var now so mods can add more
 	"res://scenes/objects/players/maestro.tscn",
-	"res://scenes/objects/players/maestro.tscn", # Bass
+	"res://scenes/objects/players/bass.tscn",
 	"res://scenes/objects/players/copy_robot.tscn",
 	"res://scenes/objects/players/maestro.tscn" # Megaman
 ]
