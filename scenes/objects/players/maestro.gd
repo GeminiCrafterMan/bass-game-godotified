@@ -48,6 +48,7 @@ const CRACKER_SPEED = 450
 @onready var state_timer = $StateTimer
 @onready var invul_timer = $InvulTimer
 @onready var pain_timer = $PainTimer
+@onready var slide_timer = $SlideTimer
 @onready var sprite = $AnimatedSprite2D
 @onready var starburst = $FX/Starburst
 @onready var sweat = $FX/Sweat
@@ -64,7 +65,6 @@ const CRACKER_SPEED = 450
 var DmgQueue : int # make the game not crash when you touch an enemy
 var JumpHeight : int #How long you're holding the jump button to go higher
 var StepTime : int #How long you're stepping
-var SlideTimer : int
 var PainTimer : int
 var InvincFrames : int
 var Charge : int
@@ -237,12 +237,9 @@ func _physics_process(delta: float) -> void:
 	if velocity.y > FAST_FALL:
 		velocity.y = FAST_FALL
 
-	if (currentState != STATES.SLIDE) and (currentState != STATES.HURT) && currentState != STATES.TELEPORT:
-		SlideTimer = 0
+	if (currentState != STATES.SLIDE) and (currentState != STATES.HURT) and (currentState != STATES.TELEPORT):
 		$MainHitbox.set_disabled(false)
 		$SlideHitbox.set_disabled(true)
-
-
 
 	#INPUTS -lynn
 	var direction := Input.get_vector("move_left", "move_right", "move_down", "move_up")
@@ -443,6 +440,7 @@ func state_walk(_direction: Vector2, _delta: float) -> void:
 ## Slide state
 func state_slide(_direction: Vector2, _delta: float) -> void:
 	if isFirstFrameOfState:
+		slide_timer.start()
 		$Audio/SlideSound.play()
 		if sprite.animation != "Slide":
 			sprite.stop()
@@ -458,17 +456,14 @@ func state_slide(_direction: Vector2, _delta: float) -> void:
 			FX.position.x = position.x + 15
 		else:
 			FX.position.x = position.x - 15
-			FX.position.y = position.y+8
+		FX.position.y = position.y+8
 
-	if SlideTimer > 24:
+	if slide_timer.is_stopped():
 		if $CeilingCheck.is_colliding() == false:
 			#Changes to normal state.Rest is handled normally
 			swapState = STATES.IDLE
-			SlideTimer = 0
+			slide_timer.start()
 			print("idled bad")
-	else:
-		SlideTimer += 1
-		print(SlideTimer)
 
 	if on_ice == false:
 		velocity.x = sprite.scale.x * 200
