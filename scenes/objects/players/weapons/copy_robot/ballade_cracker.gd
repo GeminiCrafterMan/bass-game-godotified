@@ -9,7 +9,7 @@ func _physics_process(_delta):
 	if move_and_slide() == true:
 		destroy()
 		
-	if GameState.current_weapon != 15:
+	if GameState.current_weapon != GameState.WEAPONS.BALLADE:
 		GameState.onscreen_sp_bullets = 0
 		queue_free()
 	

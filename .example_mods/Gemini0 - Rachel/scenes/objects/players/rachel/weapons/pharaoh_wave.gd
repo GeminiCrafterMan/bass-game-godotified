@@ -1,22 +1,19 @@
 extends CharacterBody2D
 
-const W_Type = 16	# This is Screw Crusher.
-var gravity = 1400
+const W_Type = 7	# This is Fin Shredder. G: Um, ackshuwally, it's Pharaoh Wave...
 
 func _ready():
 	$SpawnSound.play()
-	
-
-
-func _physics_process(delta):
-	velocity.y += gravity * delta
+		
+func _physics_process(_delta):
 	move_and_slide()
 	
-	if GameState.current_weapon != GameState.WEAPONS.PUNK:
-		destroy()
-		
 	if GameState.player != null:
 		$AnimatedSprite2D.material.set_shader_parameter("palette", get_node(GameState.player).get_node("Sprite2D").material.get_shader_parameter("palette"))
+	
+	if GameState.current_weapon != 7: # I'd use the enum, but I can't unless I make it global, which wouldn't be a good idea.
+		GameState.onscreen_sp_bullets = 0
+		queue_free()
 	
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
@@ -24,20 +21,11 @@ func _on_visible_on_screen_notifier_2d_screen_exited():
 	queue_free()
 
 func destroy():
-	gravity = 0
-	$CollisionShape2D.set_deferred("disabled", true)
-	$HitSound.play()
-	velocity.x = 0
-	velocity.y = 0
 	GameState.onscreen_sp_bullets -= 1
-	$AnimatedSprite2D.play("hit")
-	await $AnimatedSprite2D.animation_finished
 	queue_free()
-	
+
 func kill():
 	pass
 
 func reflect():
-	$ReflectSound.play()
-	velocity.x = -velocity.x
-	velocity.y = -50
+	pass	# not reflectable

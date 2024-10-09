@@ -19,7 +19,7 @@ func _physics_process(_delta):
 	if GameState.player != null:
 		$AnimatedSprite2D.material.set_shader_parameter("palette", get_node(GameState.player).get_node("Sprite2D").material.get_shader_parameter("palette"))
 	
-	if GameState.current_weapon != 4:
+	if GameState.current_weapon != GameState.WEAPONS.SHARK:
 		queue_free()
 	
 	if ($AnimatedSprite2D.animation == "Bass") and ($AnimatedSprite2D.get_frame() == 3) and (is_on_floor()):

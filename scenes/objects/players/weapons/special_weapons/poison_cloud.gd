@@ -14,7 +14,7 @@ func _physics_process(_delta):
 		$AnimatedSprite2D.material.set_shader_parameter("palette", get_node(GameState.player).get_node("Sprite2D").material.get_shader_parameter("palette"))
 	
 	
-	if GameState.current_weapon != 3:
+	if GameState.current_weapon != GameState.WEAPONS.SMOG:
 		queue_free()	
 	
 	time = time + 1

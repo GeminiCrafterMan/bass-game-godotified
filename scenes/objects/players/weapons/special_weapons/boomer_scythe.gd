@@ -13,7 +13,7 @@ func _ready():
 	state = 1
 		
 func _physics_process(_delta):
-	if GameState.current_weapon != 8:
+	if GameState.current_weapon != GameState.WEAPONS.REAPER:
 		GameState.onscreen_sp_bullets -= 1
 		queue_free()
 	if GameState.player != null:

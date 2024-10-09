@@ -14,7 +14,7 @@ func _process(_delta):
 			$AnimatedSprite2D.material.set_shader_parameter("palette", get_node(GameState.player).get_node("Sprite2D").material.get_shader_parameter("palette"))
 
 	
-	if GameState.current_weapon != 12:
+	if GameState.current_weapon != GameState.WEAPONS.ARROW:
 		GameState.onscreen_sp_bullets -= 1
 		$AnimatedSprite2D.play("explode")
 		$Shape.disabled = true

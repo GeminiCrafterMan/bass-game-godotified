@@ -157,10 +157,10 @@ func _physics_process(delta: float) -> void:
 		GameState.onscreen_bullets = 0
 
 
-	if GameState.current_hp > 28 or Input.is_action_just_pressed("debug_health"):
+	if GameState.current_hp > 28:
 		GameState.current_hp = 28
-	if GameState.weapon_energy[GameState.current_weapon] > 28 or Input.is_action_just_pressed("debug_energy"):
-		GameState.weapon_energy[GameState.current_weapon] = 28
+	if GameState.weapon_energy[GameState.current_weapon] > GameState.max_weapon_energy[GameState.current_weapon]:
+		GameState.weapon_energy[GameState.current_weapon] = GameState.max_weapon_energy[GameState.current_weapon]
 
 
 	# Add the gravity.
@@ -195,15 +195,15 @@ func _physics_process(delta: float) -> void:
 			if (currentState != STATES.TELEPORT and currentState != STATES.DEAD):
 				GameState.old_weapon = GameState.current_weapon
 
-				if (GameState.current_weapon == 16):
-					GameState.current_weapon = 0
+				if (GameState.current_weapon == GameState.WEAPONS.QUINT):
+					GameState.current_weapon = GameState.WEAPONS.BUSTER
 				else:
 					GameState.current_weapon += 1
 
-					if (GameState.current_weapon != 0):
+					if (GameState.current_weapon != GameState.WEAPONS.BUSTER):
 						while (GameState.weapons_unlocked[GameState.current_weapon] == false):
-							if (GameState.current_weapon == 16 && GameState.weapons_unlocked[16] == false):
-								GameState.current_weapon = 0
+							if (GameState.current_weapon == GameState.WEAPONS.QUINT && GameState.weapons_unlocked[GameState.WEAPONS.QUINT] == false):
+								GameState.current_weapon = GameState.WEAPONS.BUSTER
 							else:
 								GameState.current_weapon += 1
 
@@ -212,8 +212,8 @@ func _physics_process(delta: float) -> void:
 			if (currentState != STATES.TELEPORT and currentState != STATES.DEAD):
 				GameState.old_weapon = GameState.current_weapon
 
-				if (GameState.current_weapon == 0):
-					GameState.current_weapon = 16
+				if (GameState.current_weapon == GameState.WEAPONS.BUSTER):
+					GameState.current_weapon = GameState.WEAPONS.QUINT
 				else:
 					GameState.current_weapon -= 1
 
@@ -229,7 +229,7 @@ func _physics_process(delta: float) -> void:
 
 	if  (Input.is_action_just_pressed("switch_left") && Input.is_action_pressed("switch_right")) or (Input.is_action_pressed("switch_left") && Input.is_action_just_pressed("switch_right")):
 		if (currentState != STATES.TELEPORT and currentState != STATES.DEAD):
-			GameState.current_weapon = 0
+			GameState.current_weapon = GameState.WEAPONS.BUSTER
 			if GameState.old_weapon != GameState.current_weapon:
 				$Audio/SwitchSound.play()
 				GameState.onscreen_sp_bullets = 0
@@ -731,7 +731,7 @@ func do_charge_palette():
 func scythe_charge_palette():
 	if ScytheCharge > 0:
 		Charge = 0
-	if GameState.current_weapon != 8:
+	if GameState.current_weapon != GameState.WEAPONS.REAPER:
 		ScytheCharge = 0
 	if ScytheCharge > 0 and ScytheCharge < 35: # no charge
 		if Flash_Timer == 3:
@@ -768,32 +768,32 @@ func handle_weapons():
 		no_grounded_movement = false
 
 	match GameState.current_weapon:
-		1:
+		GameState.WEAPONS.BLAZE:
 			weapon_blaze()
-		3:
+		GameState.WEAPONS.SMOG:
 			weapon_smog()
-		4:
+		GameState.WEAPONS.SHARK:
 			weapon_shark()
-		5:
+		GameState.WEAPONS.ORIGAMI:
 			weapon_origami()
-		7:
+		GameState.WEAPONS.GUERRILLA:
 			weapon_guerilla()
-		8:
+		GameState.WEAPONS.REAPER:
 			weapon_reaper()
-		11:
+		GameState.WEAPONS.CARRY:
 			weapon_carry()
-		12:
+		GameState.WEAPONS.ARROW:
 			weapon_arrow()
-		14:
+		GameState.WEAPONS.PUNK:
 			weapon_punk()
-		15:
+		GameState.WEAPONS.BALLADE:
 			weapon_ballade()
 		_:
 			return
 
 
 func weapon_buster(): # G: Maestro can't charge his buster, but Copy Robot *can*.
-	if (GameState.current_weapon == 0 and Input.is_action_just_pressed("shoot")) or Input.is_action_just_pressed("buster"):
+	if (GameState.current_weapon == GameState.WEAPONS.BUSTER and Input.is_action_just_pressed("shoot")) or Input.is_action_just_pressed("buster"):
 		if (currentState != STATES.SLIDE) and (currentState != STATES.HURT) and (GameState.onscreen_bullets < 3):
 			shot_type = 0
 			shoot_delay = 16
@@ -812,37 +812,37 @@ func weapon_blaze():
 	if Input.is_action_just_pressed("shoot"):
 
 		var space : int = 18
-		if shield == null && shield2 == null && shield3 == null && shield4 == null && GameState.weapon_energy[1] >= 1 && GameState.onscreen_sp_bullets == 0:
+		if shield == null && shield2 == null && shield3 == null && shield4 == null && GameState.weapon_energy[GameState.WEAPONS.BLAZE] >= 1 && GameState.onscreen_sp_bullets == 0:
 
 			shot_type = 3
 			anim.seek(0)
 			shoot_delay = 26
 
-			if GameState.weapon_energy[1] >= 1:
+			if GameState.weapon_energy[GameState.WEAPONS.BLAZE] >= 1:
 				GameState.onscreen_sp_bullets += 1
 				shield = weapon_scenes[2].instantiate()
 				get_parent().add_child(shield)
 				shield.theta = 0*space
 
-			if GameState.weapon_energy[1] >= 3:
+			if GameState.weapon_energy[GameState.WEAPONS.BLAZE] >= 3:
 				GameState.onscreen_sp_bullets += 1
 				shield2 = weapon_scenes[2].instantiate()
 				get_parent().add_child(shield2)
 				shield2.theta = 1*space
 
-			if GameState.weapon_energy[1] >= 2:
+			if GameState.weapon_energy[GameState.WEAPONS.BLAZE] >= 2:
 				GameState.onscreen_sp_bullets += 1
 				shield3 = weapon_scenes[2].instantiate()
 				get_parent().add_child(shield3)
 				shield3.theta = 2*space
 
-			if GameState.weapon_energy[1] >= 4:
+			if GameState.weapon_energy[GameState.WEAPONS.BLAZE] >= 4:
 				GameState.onscreen_sp_bullets += 1
 				shield4 = weapon_scenes[2].instantiate()
 				get_parent().add_child(shield4)
 				shield4.theta = 3*space
 
-			GameState.weapon_energy[1] -= 4
+			GameState.weapon_energy[GameState.WEAPONS.BLAZE] -= 4
 
 		else:
 			if shield or shield2 or shield3 or shield4:
@@ -887,9 +887,9 @@ func weapon_smog():
 		return
 
 func weapon_shark():
-	if Input.is_action_just_pressed("shoot") && (currentState != STATES.SLIDE) and (currentState != STATES.HURT) && is_on_floor() && GameState.weapon_energy[4] >= 5:
+	if Input.is_action_just_pressed("shoot") && (currentState != STATES.SLIDE) and (currentState != STATES.HURT) && is_on_floor() && GameState.weapon_energy[GameState.WEAPONS.SHARK] >= 5:
 		if GameState.onscreen_sp_bullets < 2:
-			GameState.weapon_energy[4] -= 5
+			GameState.weapon_energy[GameState.WEAPONS.SHARK] -= 5
 			anim.seek(0)
 			shot_type = 4
 			shoot_delay = 24
@@ -904,8 +904,8 @@ func weapon_shark():
 			return
 
 func weapon_origami():
-	if Input.is_action_just_pressed("shoot") && GameState.weapon_energy[5] >= 1 && GameState.onscreen_sp_bullets < 4:
-		GameState.weapon_energy[5] -= 1
+	if Input.is_action_just_pressed("shoot") && GameState.weapon_energy[GameState.WEAPONS.ORIGAMI] >= 1 && GameState.onscreen_sp_bullets < 4:
+		GameState.weapon_energy[GameState.WEAPONS.ORIGAMI] -= 1
 		anim.seek(0)
 		shot_type = 2
 		shoot_delay = 16
@@ -989,8 +989,8 @@ func weapon_origami():
 		return
 
 func weapon_guerilla():
-	if Input.is_action_just_pressed("shoot") && GameState.weapon_energy[7] >= 2 && GameState.onscreen_sp_bullets <= 2:
-		GameState.weapon_energy[7] -= 2
+	if Input.is_action_just_pressed("shoot") && GameState.weapon_energy[GameState.WEAPONS.GUERRILLA] >= 2 && GameState.onscreen_sp_bullets <= 2:
+		GameState.weapon_energy[GameState.WEAPONS.GUERRILLA] -= 2
 		anim.seek(0)
 		shot_type = 1
 		shoot_delay = 16
@@ -1007,7 +1007,7 @@ func weapon_guerilla():
 
 func weapon_reaper():
 	if Input.is_action_just_released("shoot"):
-		if (currentState != STATES.SLIDE) and (currentState != STATES.HURT) and GameState.onscreen_sp_bullets < 2 and GameState.weapon_energy[8] > 0:
+		if (currentState != STATES.SLIDE) and (currentState != STATES.HURT) and GameState.onscreen_sp_bullets < 2 and GameState.weapon_energy[GameState.WEAPONS.REAPER] > 0:
 			shot_type = 2
 			shoot_delay = 16
 			if ScytheCharge < 25: #Uncharged. Throws 1 boomerang with an alternating curve
@@ -1032,10 +1032,10 @@ func weapon_reaper():
 						projectile.direction = 1
 
 
-				GameState.weapon_energy[8] -= 1
+				GameState.weapon_energy[GameState.WEAPONS.REAPER] -= 1
 
 			if ScytheCharge >= 25 and ScytheCharge < 75:  #Mid charge. Throws 2 shots that curve back in opposite ways
-				GameState.weapon_energy[8] -= 2
+				GameState.weapon_energy[GameState.WEAPONS.REAPER] -= 2
 				GameState.onscreen_sp_bullets += 2
 
 				projectile = weapon_scenes[5].instantiate()
@@ -1057,7 +1057,7 @@ func weapon_reaper():
 				projectile.direction = 1
 
 			if ScytheCharge >= 75: #Full charge. Throws 2 shots that run to the top and bottom of the screen and return.
-				GameState.weapon_energy[8] -= 4
+				GameState.weapon_energy[GameState.WEAPONS.REAPER] -= 4
 				GameState.onscreen_sp_bullets += 2
 				
 				projectile = weapon_scenes[6].instantiate()
@@ -1083,13 +1083,13 @@ func weapon_reaper():
 	if !Input.is_action_pressed("shoot"):
 		ScytheCharge = 0
 
-	if ScytheCharge >= 25 && GameState.weapon_energy[8] < 2:
+	if ScytheCharge >= 25 && GameState.weapon_energy[GameState.WEAPONS.REAPER] < 2:
 		ScytheCharge = 2
 
-	if ScytheCharge >= 75 && GameState.weapon_energy[8] < 4:
+	if ScytheCharge >= 75 && GameState.weapon_energy[GameState.WEAPONS.REAPER] < 4:
 		ScytheCharge = 26
 
-	if Input.is_action_pressed("shoot") && GameState.weapon_energy[8] > 0:
+	if Input.is_action_pressed("shoot") && GameState.weapon_energy[GameState.WEAPONS.REAPER] > 0:
 		if ScytheCharge < 78:
 			ScytheCharge += 1
 			if ScytheCharge == 26:
@@ -1106,7 +1106,7 @@ func weapon_reaper():
 
 
 func weapon_carry():
-	if Input.is_action_just_pressed("shoot") && GameState.weapon_energy[11] >= 3 && GameState.onscreen_sp_bullets < 3:
+	if Input.is_action_just_pressed("shoot") && GameState.weapon_energy[GameState.WEAPONS.CARRY] >= 3 && GameState.onscreen_sp_bullets < 3:
 		anim.seek(0)
 		shot_type = 2
 		shoot_delay = 16
@@ -1123,8 +1123,8 @@ func weapon_carry():
 			projectile.position.x = position.x
 
 func weapon_arrow():
-	if Input.is_action_just_pressed("shoot") && GameState.weapon_energy[12] >= 4 && GameState.onscreen_sp_bullets == 0:
-		GameState.weapon_energy[12] -= 4
+	if Input.is_action_just_pressed("shoot") && GameState.weapon_energy[GameState.WEAPONS.ARROW] >= 4 && GameState.onscreen_sp_bullets == 0:
+		GameState.weapon_energy[GameState.WEAPONS.ARROW] -= 4
 		anim.seek(0)
 		shot_type = 1
 		shoot_delay = 16
@@ -1140,8 +1140,8 @@ func weapon_arrow():
 
 
 func weapon_punk():
-	if Input.is_action_just_pressed("shoot") && GameState.weapon_energy[14] >= 1 && GameState.onscreen_sp_bullets < 4:
-		GameState.weapon_energy[14] -= 1
+	if Input.is_action_just_pressed("shoot") && GameState.weapon_energy[GameState.WEAPONS.PUNK] >= 1 && GameState.onscreen_sp_bullets < 4:
+		GameState.weapon_energy[GameState.WEAPONS.PUNK] -= 1
 		anim.seek(0)
 		shot_type = 2
 		shoot_delay = 16
@@ -1159,8 +1159,8 @@ func weapon_punk():
 
 
 func weapon_ballade():
-	if Input.is_action_just_pressed("shoot") && GameState.weapon_energy[15] >= 3 && GameState.onscreen_sp_bullets == 0:
-		GameState.weapon_energy[15] -= 3
+	if Input.is_action_just_pressed("shoot") && GameState.weapon_energy[GameState.WEAPONS.BALLADE] >= 3 && GameState.onscreen_sp_bullets == 0:
+		GameState.weapon_energy[GameState.WEAPONS.BALLADE] -= 3
 		anim.seek(0)
 
 		shot_type = 2
@@ -1221,6 +1221,6 @@ func _DamageAndInvincible():
 
 func reset(everything: bool) -> void:
 	GameState.refill_health()
-	GameState.current_weapon = 0 # Reset current weapon
+	GameState.current_weapon = GameState.WEAPONS.BUSTER # Reset current weapon
 	if everything == true:
 		GameState.refill_ammo()

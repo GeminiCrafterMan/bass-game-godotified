@@ -45,7 +45,7 @@ func _physics_process(_delta):
 		await $MainSprite.animation_finished
 		queue_free()
 	
-	if GameState.current_weapon != 1:
+	if GameState.current_weapon != GameState.WEAPONS.BLAZE:
 		durability = 0
 		
 	if GameState.player != null:

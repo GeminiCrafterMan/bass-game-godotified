@@ -17,7 +17,7 @@ func _ready():
 	$SpawnSound.play()
 
 func _physics_process(_delta):
-	if GameState.current_weapon != 7:
+	if GameState.current_weapon != GameState.WEAPONS.GUERRILLA:
 		queue_free()
 	
 	pass

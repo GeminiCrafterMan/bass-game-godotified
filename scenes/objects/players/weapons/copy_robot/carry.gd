@@ -15,12 +15,12 @@ func _process(_delta):
 		timer += 1
 		Interval.start(0.8)
 		if timer > 0:
-			GameState.weapon_energy[GameState.current_weapon] -= 1
+			GameState.weapon_energy[GameState.WEAPONS.CARRY] -= 1
 	
 	if GameState.player != null:
 		$AnimatedSprite2D.material.set_shader_parameter("palette", get_node(GameState.player).get_node("Sprite2D").material.get_shader_parameter("palette"))
 	
-	if GameState.current_weapon != 11 && $AnimatedSprite2D.animation != "explode":
+	if GameState.current_weapon != GameState.WEAPONS.CARRY && $AnimatedSprite2D.animation != "explode":
 		Interval.start(5)
 		GameState.onscreen_sp_bullets -= 1
 		$AnimatedSprite2D.play("explode")

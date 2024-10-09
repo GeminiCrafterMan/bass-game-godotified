@@ -7,7 +7,7 @@ func _ready():
 	$SpawnSound.play()
 		
 func _physics_process(_delta):
-	if GameState.current_weapon != 5:
+	if GameState.current_weapon != GameState.WEAPONS.ORIGAMI:
 		GameState.onscreen_sp_bullets -= 1
 		queue_free()	
 	if GameState.player != null:
