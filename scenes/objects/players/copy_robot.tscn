@@ -504,7 +504,7 @@ script = ExtResource("2_we56i")
 material = SubResource("ShaderMaterial_7773x")
 texture = ExtResource("5_a7tix")
 hframes = 67
-frame = 29
+frame = 42
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -548,6 +548,10 @@ one_shot = true
 autostart = true
 
 [node name="SlideTimer" type="Timer" parent="."]
+wait_time = 0.4
+one_shot = true
+
+[node name="FireDelay" type="Timer" parent="."]
 wait_time = 0.4
 one_shot = true
 

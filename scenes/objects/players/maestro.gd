@@ -49,6 +49,7 @@ const CRACKER_SPEED = 450
 @onready var invul_timer = $InvulTimer
 @onready var pain_timer = $PainTimer
 @onready var slide_timer = $SlideTimer
+@onready var attack_timer = $FireDelay
 @onready var sprite = $Sprite2D
 @onready var anim = $AnimationPlayer
 @onready var starburst = $FX/Starburst
@@ -73,12 +74,12 @@ var ScytheCharge : int
 var Flash_Timer : int
 var progress : float
 var no_grounded_movement : bool
+var in_water : bool
 var on_ice : bool
 var ice_jump : bool
 
 
 #Attack vars
-var shoot_delay = 0
 var shot_type = 0
 
 var weapon_palette: Array[Texture2D] = [
@@ -364,7 +365,7 @@ func state_teleport(_direction: Vector2, _delta: float) -> void:
 ## Idle state
 func state_idle(_direction: Vector2, _delta: float) -> void:
 	#play animation
-	if shoot_delay == 0:
+	if attack_timer.is_stopped():
 		if StepTime > 0:
 			StepTime -= 1
 			if anim.get_current_animation() != "Step":
@@ -404,7 +405,7 @@ func state_walk(_direction: Vector2, _delta: float) -> void:
 	if Input.is_action_pressed("move_down") and Input.is_action_just_pressed("jump"):
 		swapState = STATES.SLIDE
 
-	if shoot_delay > 0:
+	if !attack_timer.is_stopped():
 		match shot_type:
 			0: # Normal
 				anim.play("Walk-Shoot")
@@ -501,19 +502,19 @@ func state_jump(_direction: Vector2, _delta: float) -> void:
 			JumpHeight = 80
 			velocity.y = STOP_VELOCITY
 		if isFirstFrameOfState:
-			if shoot_delay == 0:
+			if attack_timer.is_stopped():
 				anim.stop()
 				anim.play("Jump")
 			$Audio/JumpSound.play()
 	else:
-		if shoot_delay == 0:
+		if attack_timer.is_stopped():
 			if StepTime < 7:
 				StepTime += 1
 				anim.play("Jump Transition")
 			else:
 				anim.play("Fall")
 
-	if shoot_delay > 0:
+	if !attack_timer.is_stopped():
 		match shot_type:
 			0: # Normal
 				anim.play("Jump-Shoot")
@@ -543,7 +544,7 @@ func state_jump(_direction: Vector2, _delta: float) -> void:
 
 ## Ladder state
 func state_ladder(_direction: Vector2, _delta: float) -> void:
-	if shoot_delay != 0 or Input.is_action_just_pressed("buster") or Input.is_action_just_pressed("shoot"):
+	if !attack_timer.is_stopped() or Input.is_action_just_pressed("buster") or Input.is_action_just_pressed("shoot"):
 		if _direction.x != 0:
 			sprite.scale.x = sign(_direction.x)
 		if anim.get_current_animation() != "Ladder-Shoot":
@@ -566,7 +567,7 @@ func state_ladder(_direction: Vector2, _delta: float) -> void:
 	velocity.x = 0
 	#THIS IS THE SPEED OF THE LADDER
 	#remove this if statement to allow moving while shooting on ladders
-	if shoot_delay == 0:
+	if attack_timer.is_stopped():
 		velocity.y = sign(_direction.y) * -100
 	else:
 		velocity.y = 0
@@ -760,8 +761,7 @@ func scythe_charge_palette():
 			Flash_Timer += 1
 
 func handle_weapons():
-	if shoot_delay > 0:
-		shoot_delay -= 1
+	if !attack_timer.is_stopped():
 		if shot_type > 0:
 			no_grounded_movement = true
 	else:
@@ -796,7 +796,7 @@ func weapon_buster(): # G: Maestro can't charge his buster, but Copy Robot *can*
 	if (GameState.current_weapon == GameState.WEAPONS.BUSTER and Input.is_action_just_pressed("shoot")) or Input.is_action_just_pressed("buster"):
 		if (currentState != STATES.SLIDE) and (currentState != STATES.HURT) and (GameState.onscreen_bullets < 3):
 			shot_type = 0
-			shoot_delay = 16
+			attack_timer.start(0.3)
 			GameState.onscreen_bullets += 1
 			projectile = projectile_scenes[0].instantiate()
 			get_parent().add_child(projectile)
@@ -816,8 +816,8 @@ func weapon_blaze():
 
 			shot_type = 3
 			anim.seek(0)
-			shoot_delay = 26
-
+			attack_timer.start(0.5)
+			
 			if GameState.weapon_energy[GameState.WEAPONS.BLAZE] >= 1:
 				GameState.onscreen_sp_bullets += 1
 				shield = weapon_scenes[2].instantiate()
@@ -848,7 +848,7 @@ func weapon_blaze():
 			if shield or shield2 or shield3 or shield4:
 				shot_type = 2
 				anim.seek(0)
-				shoot_delay = 16
+				attack_timer.start(0.3)
 				if shield != null:
 					shield.fired = true
 					if sprite.scale.x == -1:
@@ -875,7 +875,7 @@ func weapon_smog():
 	if Input.is_action_just_pressed("shoot") && (currentState != STATES.SLIDE) and (currentState != STATES.HURT) and GameState.onscreen_sp_bullets < 1:
 		anim.seek(0)
 		shot_type = 1
-		shoot_delay = 16
+		attack_timer.start(0.3)
 		GameState.onscreen_sp_bullets += 1
 		projectile = weapon_scenes[1].instantiate()
 		get_parent().add_child(projectile)
@@ -892,7 +892,7 @@ func weapon_shark():
 			GameState.weapon_energy[GameState.WEAPONS.SHARK] -= 5
 			anim.seek(0)
 			shot_type = 4
-			shoot_delay = 24
+			attack_timer.start(0.51)
 			GameState.onscreen_sp_bullets += 1
 			projectile = weapon_scenes[4].instantiate()
 			get_parent().add_child(projectile)
@@ -908,7 +908,7 @@ func weapon_origami():
 		GameState.weapon_energy[GameState.WEAPONS.ORIGAMI] -= 1
 		anim.seek(0)
 		shot_type = 2
-		shoot_delay = 16
+		attack_timer.start(0.3)
 		GameState.onscreen_sp_bullets += 3
 		projectile = weapon_scenes[0].instantiate()
 
@@ -993,7 +993,7 @@ func weapon_guerilla():
 		GameState.weapon_energy[GameState.WEAPONS.GUERRILLA] -= 2
 		anim.seek(0)
 		shot_type = 1
-		shoot_delay = 16
+		attack_timer.start(0.3)
 		GameState.onscreen_sp_bullets += 1
 		projectile = weapon_scenes[3].instantiate()
 
@@ -1009,7 +1009,7 @@ func weapon_reaper():
 	if Input.is_action_just_released("shoot"):
 		if (currentState != STATES.SLIDE) and (currentState != STATES.HURT) and GameState.onscreen_sp_bullets < 2 and GameState.weapon_energy[GameState.WEAPONS.REAPER] > 0:
 			shot_type = 2
-			shoot_delay = 16
+			attack_timer.start(0.3)
 			if ScytheCharge < 25: #Uncharged. Throws 1 boomerang with an alternating curve
 
 				projectile = weapon_scenes[5].instantiate()
@@ -1109,7 +1109,7 @@ func weapon_carry():
 	if Input.is_action_just_pressed("shoot") && GameState.weapon_energy[GameState.WEAPONS.CARRY] >= 3 && GameState.onscreen_sp_bullets < 3:
 		anim.seek(0)
 		shot_type = 2
-		shoot_delay = 16
+		attack_timer.start(0.3)
 		GameState.onscreen_sp_bullets += 1
 		projectile = projectile_scenes[3].instantiate()
 
@@ -1127,7 +1127,7 @@ func weapon_arrow():
 		GameState.weapon_energy[GameState.WEAPONS.ARROW] -= 4
 		anim.seek(0)
 		shot_type = 1
-		shoot_delay = 16
+		attack_timer.start(0.3)
 		GameState.onscreen_sp_bullets += 1
 		projectile = projectile_scenes[6].instantiate()
 
@@ -1144,7 +1144,7 @@ func weapon_punk():
 		GameState.weapon_energy[GameState.WEAPONS.PUNK] -= 1
 		anim.seek(0)
 		shot_type = 2
-		shoot_delay = 16
+		attack_timer.start(0.3)
 		GameState.onscreen_sp_bullets += 1
 		projectile = projectile_scenes[5].instantiate()
 		projectile.scale.x = sprite.scale.x
@@ -1164,7 +1164,7 @@ func weapon_ballade():
 		anim.seek(0)
 
 		shot_type = 2
-		shoot_delay = 16
+		attack_timer.start(0.3)
 		GameState.onscreen_sp_bullets += 1
 		projectile = projectile_scenes[4].instantiate()
 

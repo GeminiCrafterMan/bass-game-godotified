@@ -110,7 +110,7 @@ scale = Vector2(1.02381, 1)
 sprite_frames = SubResource("SpriteFrames_tmmfq")
 animation = &"Sprite_1"
 autoplay = "Sprite_1"
-frame_progress = 0.978038
+frame_progress = 0.170678
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(1.19209e-07, 4.17233e-07)

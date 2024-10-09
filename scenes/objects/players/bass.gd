@@ -7,6 +7,8 @@ class_name BassPlayer
 var buster_speed = 300
 
 func _init() -> void:
+	attack_timer = $FireDelay
+	
 	weapon_palette = [
 		preload("res://sprites/players/bass/palettes/Bass Buster.png"),
 		preload("res://sprites/players/bass/palettes/Scorch Barrier.png"),
@@ -56,7 +58,7 @@ func _init() -> void:
 ## Idle state
 func state_idle(_direction: Vector2, _delta: float) -> void:
 	#play animation
-	if shoot_delay == 0:
+	if attack_timer.is_stopped():
 		if StepTime > 0:
 			StepTime -= 1
 			if anim.get_current_animation() != "Step":
@@ -98,7 +100,7 @@ func state_walk(_direction: Vector2, _delta: float) -> void:
 
 	var progress = anim.get_current_animation_position()
 
-	if shoot_delay > 0:
+	if !attack_timer.is_stopped():
 		match shot_type:
 			0: # Normal
 				anim.play("Walk-Shoot")
@@ -200,19 +202,19 @@ func state_jump(_direction: Vector2, _delta: float) -> void:
 			JumpHeight = 80
 			velocity.y = STOP_VELOCITY
 		if isFirstFrameOfState:
-			if shoot_delay == 0:
+			if attack_timer.is_stopped():
 				anim.stop()
 				anim.play("Jump")
 			$Audio/JumpSound.play()
 	else:
-		if shoot_delay == 0:
+		if attack_timer.is_stopped():
 			if StepTime < 7:
 				StepTime += 1
 				anim.play("Jump Transition")
 			else:
 				anim.play("Fall")
 
-	if shoot_delay > 0:
+	if !attack_timer.is_stopped():
 		match shot_type:
 			0: # Normal
 				anim.play("Jump-Shoot")
@@ -242,7 +244,7 @@ func state_jump(_direction: Vector2, _delta: float) -> void:
 
 ## Ladder state
 func state_ladder(_direction: Vector2, _delta: float) -> void:
-	if shoot_delay != 0 or Input.is_action_just_pressed("buster") or Input.is_action_just_pressed("shoot"):
+	if !attack_timer.is_stopped() or Input.is_action_just_pressed("buster") or Input.is_action_just_pressed("shoot"):
 		if _direction.x != 0:
 			sprite.scale.x = sign(_direction.x)
 		if anim.get_current_animation() != "Ladder-Shoot":
@@ -268,7 +270,7 @@ func state_ladder(_direction: Vector2, _delta: float) -> void:
 	velocity.x = 0
 	#THIS IS THE SPEED OF THE LADDER
 	#remove this if statement to allow moving while shooting on ladders
-	if shoot_delay == 0:
+	if attack_timer.is_stopped():
 		velocity.y = sign(_direction.y) * -100
 	else:
 		velocity.y = 0
@@ -289,9 +291,8 @@ func state_ladder(_direction: Vector2, _delta: float) -> void:
 # WEAPON FUNCTIONS
 # ================
 func weapon_buster():
-	if shoot_delay > 0:
+	if !attack_timer.is_stopped():
 		if shot_type == 1:
-			shoot_delay -= 1
 			no_grounded_movement = true
 	else:
 		no_grounded_movement = false
@@ -305,7 +306,7 @@ func weapon_buster():
 			rapid_timer.start(0.10)
 			shot_type = 1
 			GameState.onscreen_bullets += 1
-			shoot_delay = 28
+			attack_timer.start(0.4)
 			projectile = projectile_scenes[0].instantiate()
 			get_parent().add_child(projectile)
 			projectile.position.x = position.x + sprite.scale.x * 5
@@ -325,4 +326,47 @@ func weapon_buster():
 				projectile.velocity.x = sign(sprite.scale.x) * buster_speed
 				
 #		is_dashing = false
+		return
+
+func weapon_origami():
+	if Input.is_action_just_pressed("shoot") && GameState.weapon_energy[GameState.WEAPONS.ORIGAMI] >= 1 && GameState.onscreen_sp_bullets < 4:
+		GameState.weapon_energy[GameState.WEAPONS.ORIGAMI] -= 1
+		anim.seek(0)
+		shot_type = 2
+		attack_timer.start(0.3)
+		GameState.onscreen_sp_bullets += 4
+		
+		projectile = weapon_scenes[0].instantiate()
+		get_parent().add_child(projectile)
+		projectile.position.x = position.x + (sprite.scale.x * 9)
+		projectile.position.y = position.y + 2
+		projectile.scale.x = -sprite.scale.x
+		projectile.velocity.x = sprite.scale.x * ORIGAMI_SPEED * 0.775
+		projectile.velocity.y = -ORIGAMI_SPEED * 0.225
+		
+		projectile = weapon_scenes[0].instantiate()
+		get_parent().add_child(projectile)
+		projectile.position.x = position.x + (sprite.scale.x * 9)
+		projectile.position.y = position.y + 2
+		projectile.scale.x = -sprite.scale.x
+		projectile.velocity.x = sprite.scale.x * ORIGAMI_SPEED * 0.775
+		projectile.velocity.y =  ORIGAMI_SPEED * 0.225
+		
+		projectile = weapon_scenes[0].instantiate()
+		get_parent().add_child(projectile)
+		projectile.position.x = position.x + (sprite.scale.x * 9)
+		projectile.position.y = position.y + 2
+		projectile.scale.x = -sprite.scale.x
+		projectile.velocity.x = sprite.scale.x * ORIGAMI_SPEED * 0.5
+		projectile.velocity.y =  ORIGAMI_SPEED * 0.5
+		
+		projectile = weapon_scenes[0].instantiate()
+		get_parent().add_child(projectile)
+		projectile.position.x = position.x + (sprite.scale.x * 9)
+		projectile.position.y = position.y + 2
+		projectile.scale.x = -sprite.scale.x
+		projectile.velocity.x = sprite.scale.x * ORIGAMI_SPEED * 0.5
+		projectile.velocity.y =  -ORIGAMI_SPEED * 0.5
+
+		
 		return

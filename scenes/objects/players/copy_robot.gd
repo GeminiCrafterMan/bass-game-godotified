@@ -3,6 +3,8 @@ extends MaestroPlayer
 class_name CopyRobotPlayer
 
 func _init() -> void:
+	attack_timer = $FireDelay
+	
 	weapon_palette = [
 		preload("res://sprites/players/copy_robot/palettes/Copy Buster.png"),
 		preload("res://sprites/players/copy_robot/palettes/Scorch Barrier.png"),
@@ -43,7 +45,7 @@ func weapon_buster(): # G: Copy Robot *can* charge his buster, but Maestro and B
 	if (GameState.current_weapon == GameState.WEAPONS.BUSTER and Input.is_action_just_pressed("shoot")) or Input.is_action_just_pressed("buster"):
 		if (currentState != STATES.SLIDE) and (currentState != STATES.HURT) and (GameState.onscreen_bullets < 3):
 			shot_type = 0
-			shoot_delay = 16
+			attack_timer.start(0.3)
 			GameState.onscreen_bullets += 1
 			projectile = projectile_scenes[0].instantiate()
 			get_parent().add_child(projectile)
@@ -60,7 +62,7 @@ func weapon_buster(): # G: Copy Robot *can* charge his buster, but Maestro and B
 				return
 			if Charge >= 32 and Charge < 92: # medium charge
 				shot_type = 0
-				shoot_delay = 16
+				attack_timer.start(0.3)
 				GameState.onscreen_bullets += 1
 				projectile = projectile_scenes[1].instantiate()
 				get_parent().add_child(projectile)
@@ -73,7 +75,7 @@ func weapon_buster(): # G: Copy Robot *can* charge his buster, but Maestro and B
 				return
 			if Charge >= 92: # da big boi
 				shot_type = 0
-				shoot_delay = 16
+				attack_timer.start(0.3)
 				GameState.onscreen_bullets += 3
 				projectile = projectile_scenes[2].instantiate()
 				get_parent().add_child(projectile)
@@ -101,7 +103,7 @@ func weapon_shark():
 		GameState.weapon_energy[4] -= 3
 		anim.seek(0)
 		shot_type = 2
-		shoot_delay = 16
+		attack_timer.start(0.51)
 		projectile = weapon_scenes[4].instantiate()
 		get_parent().add_child(projectile)
 		

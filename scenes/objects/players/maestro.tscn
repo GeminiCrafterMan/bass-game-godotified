@@ -539,6 +539,10 @@ autostart = true
 wait_time = 0.4
 one_shot = true
 
+[node name="FireDelay" type="Timer" parent="."]
+wait_time = 0.4
+one_shot = true
+
 [node name="Audio" type="Node" parent="."]
 
 [node name="JumpSound" type="AudioStreamPlayer" parent="Audio"]

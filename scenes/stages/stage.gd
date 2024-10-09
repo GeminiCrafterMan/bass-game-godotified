@@ -87,6 +87,7 @@ func _on_water_body_exited(dry):
 		dry.STOP_VELOCITY = -80.0
 		dry.JUMP_HEIGHT = 13
 		dry.FAST_FALL = 400.0
+		dry.in_water = false
 		
 	if dry.is_in_group("scorch"):
 		dry.wet = false
@@ -100,6 +101,7 @@ func _on_water_body_entered(wet):
 		wet.STOP_VELOCITY = -110.0
 		wet.JUMP_HEIGHT = 23
 		wet.FAST_FALL = 200.0
+		wet.in_water = true
 		
 	if wet.is_in_group("scorch"):
 		wet.wet = true
