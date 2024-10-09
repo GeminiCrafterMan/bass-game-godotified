@@ -121,7 +121,8 @@ var weapon_scenes = [
 	preload("res://scenes/objects/players/weapons/special_weapons/scorch_barrier.tscn"),
 	preload("res://scenes/objects/players/weapons/special_weapons/rolling_bomb.tscn"),
 	preload("res://scenes/objects/players/weapons/special_weapons/fin_shredder.tscn"),
-	preload("res://scenes/objects/players/weapons/special_weapons/boomer_scythe.tscn")
+	preload("res://scenes/objects/players/weapons/special_weapons/boomer_scythe.tscn"),
+	preload("res://scenes/objects/players/weapons/special_weapons/charge_scythe.tscn")
 ]
 
 func _ready():
@@ -1058,6 +1059,24 @@ func weapon_reaper():
 			if ScytheCharge >= 75: #Full charge. Throws 2 shots that run to the top and bottom of the screen and return.
 				GameState.weapon_energy[8] -= 4
 				GameState.onscreen_sp_bullets += 2
+				
+				projectile = weapon_scenes[6].instantiate()
+				get_parent().add_child(projectile)
+				projectile.position.x = position.x + (sprite.scale.x * 21)
+				projectile.position.y = position.y + 8
+				projectile.velocity.x = sprite.scale.x * 310
+				projectile.velocity.y = 35
+				projectile.scale.x = -sprite.scale.x
+				projectile.direction = -1
+
+				projectile = weapon_scenes[6].instantiate()
+				get_parent().add_child(projectile)
+				projectile.position.x = position.x + (sprite.scale.x * 21)
+				projectile.position.y = position.y - 8
+				projectile.velocity.x = sprite.scale.x * 310
+				projectile.velocity.y = -35
+				projectile.scale.x = -sprite.scale.x
+				projectile.direction = 1
 
 			ScytheCharge = 0
 

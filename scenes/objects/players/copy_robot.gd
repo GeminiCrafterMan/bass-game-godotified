@@ -32,7 +32,8 @@ func _init() -> void:
 		preload("res://scenes/objects/players/weapons/special_weapons/scorch_barrier.tscn"),
 		preload("res://scenes/objects/players/weapons/special_weapons/rolling_bomb.tscn"),
 		preload("res://scenes/objects/players/weapons/copy_robot/cr_fin_shredder.tscn"),
-		preload("res://scenes/objects/players/weapons/special_weapons/boomer_scythe.tscn")
+		preload("res://scenes/objects/players/weapons/special_weapons/boomer_scythe.tscn"),
+		preload("res://scenes/objects/players/weapons/special_weapons/charge_scythe.tscn")
 	]
 
 # ================

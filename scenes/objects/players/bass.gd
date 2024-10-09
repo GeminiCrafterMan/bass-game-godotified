@@ -2,6 +2,10 @@ extends MaestroPlayer
 
 class_name BassPlayer
 
+@onready var rapid_timer = $RapidTimer
+
+var buster_speed = 300
+
 func _init() -> void:
 	weapon_palette = [
 		preload("res://sprites/players/bass/palettes/Bass Buster.png"),
@@ -26,13 +30,24 @@ func _init() -> void:
 		preload("res://sprites/players/weapons/ScytheCharge0.png"),
 		preload("res://sprites/players/weapons/ScytheCharge1.png")
 	]
+	
+	projectile_scenes = [
+	preload("res://scenes/objects/players/weapons/bass/buster.tscn"),
+	preload("res://scenes/objects/players/weapons/bass/blast_jump.tscn"),
+	preload("res://scenes/objects/players/weapons/bass/track_2.tscn"),
+	preload("res://scenes/objects/players/weapons/copy_robot/buster_small.tscn"),
+	preload("res://scenes/objects/players/weapons/bass/protoshot1.tscn"),
+	preload("res://scenes/objects/players/weapons/bass/protoshot2.tscn")
+	]
+
 	weapon_scenes = [
 		preload("res://scenes/objects/players/weapons/special_weapons/origami_star.tscn"),
 		preload("res://scenes/objects/players/weapons/special_weapons/poison_cloud.tscn"),
 		preload("res://scenes/objects/players/weapons/special_weapons/scorch_barrier.tscn"),
 		preload("res://scenes/objects/players/weapons/special_weapons/rolling_bomb.tscn"),
 		preload("res://scenes/objects/players/weapons/special_weapons/fin_shredder.tscn"),
-		preload("res://scenes/objects/players/weapons/special_weapons/boomer_scythe.tscn")
+		preload("res://scenes/objects/players/weapons/special_weapons/boomer_scythe.tscn"),
+		preload("res://scenes/objects/players/weapons/special_weapons/charge_scythe.tscn")
 	]
 
 # ===============
@@ -281,25 +296,33 @@ func weapon_buster():
 	else:
 		no_grounded_movement = false
 	if (GameState.current_weapon == GameState.WEAPONS.BUSTER and Input.is_action_pressed("shoot")) or Input.is_action_pressed("buster"):
-		if shoot_delay < 7:
+		if Input.is_action_pressed("move_left"):
+			sprite.scale.x = -1
+		if Input.is_action_pressed("move_right"):
+			sprite.scale.x = 1
+		
+		if rapid_timer.is_stopped() and GameState.onscreen_bullets < 4:
+			rapid_timer.start(0.10)
 			shot_type = 1
-			shoot_delay = 13
+			GameState.onscreen_bullets += 1
+			shoot_delay = 28
 			projectile = projectile_scenes[0].instantiate()
 			get_parent().add_child(projectile)
-			projectile.position.x = position.x
-			projectile.position.y = position.y
+			projectile.position.x = position.x + sprite.scale.x * 5
+			projectile.position.y = position.y + 5
 			projectile.scale.x = sprite.scale.x
 			# inputs
 			if Input.is_action_pressed("move_up"):
 				if Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right"):
-					projectile.velocity.x = sign(sprite.scale.x) * 225
-					projectile.velocity.y = -225
+					projectile.velocity.x = sign(sprite.scale.x) * (buster_speed * 0.5)
+					projectile.velocity.y = -(buster_speed * 0.5)
 				else:
-					projectile.velocity.y = -450
+					projectile.velocity.y = -buster_speed
 			elif Input.is_action_pressed("move_down"):
-				projectile.velocity.x = sign(sprite.scale.x) * 225
-				projectile.velocity.y = 225
+				projectile.velocity.x = sign(sprite.scale.x) * (buster_speed * 0.5)
+				projectile.velocity.y = (buster_speed * 0.5)
 			else:
-				projectile.velocity.x = sign(sprite.scale.x) * 450
+				projectile.velocity.x = sign(sprite.scale.x) * buster_speed
+				
 #		is_dashing = false
 		return
