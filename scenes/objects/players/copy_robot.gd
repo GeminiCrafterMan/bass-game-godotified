@@ -3,8 +3,6 @@ extends MaestroPlayer
 class_name CopyRobotPlayer
 
 func _init() -> void:
-	attack_timer = $FireDelay
-	
 	weapon_palette = [
 		preload("res://sprites/players/copy_robot/palettes/Copy Buster.png"),
 		preload("res://sprites/players/copy_robot/palettes/Scorch Barrier.png"),
@@ -37,6 +35,10 @@ func _init() -> void:
 		preload("res://scenes/objects/players/weapons/special_weapons/boomer_scythe.tscn"),
 		preload("res://scenes/objects/players/weapons/special_weapons/charge_scythe.tscn")
 	]
+
+func _ready() -> void:
+	super._ready()
+	attack_timer = $FireDelay
 
 # ================
 # WEAPON FUNCTIONS

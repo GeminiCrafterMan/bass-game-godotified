@@ -47,7 +47,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_lgup5"]
-length = 0.266667
+length = 0.6
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -125,7 +125,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_sub63"]
-length = 0.25
+length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -202,7 +202,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_rss1p"]
-length = 0.25
+length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -250,7 +250,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_674xt"]
 resource_name = "Ladder-Throw"
-length = 0.8
+length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -504,7 +504,7 @@ script = ExtResource("2_we56i")
 material = SubResource("ShaderMaterial_7773x")
 texture = ExtResource("5_a7tix")
 hframes = 67
-frame = 42
+frame = 54
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

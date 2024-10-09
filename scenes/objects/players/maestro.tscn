@@ -47,8 +47,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_kapwp"]
-length = 0.4
-loop_mode = 1
+length = 0.6
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -127,7 +126,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_5warb"]
-length = 0.25
+length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -205,7 +204,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_udgb2"]
-length = 0.25
+length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -491,7 +490,7 @@ script = ExtResource("1_ct76e")
 material = SubResource("ShaderMaterial_dtetj")
 texture = ExtResource("4_w3lef")
 hframes = 35
-frame = 15
+frame = 21
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

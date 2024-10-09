@@ -7,8 +7,6 @@ class_name BassPlayer
 var buster_speed = 300
 
 func _init() -> void:
-	attack_timer = $FireDelay
-	
 	weapon_palette = [
 		preload("res://sprites/players/bass/palettes/Bass Buster.png"),
 		preload("res://sprites/players/bass/palettes/Scorch Barrier.png"),
@@ -51,6 +49,10 @@ func _init() -> void:
 		preload("res://scenes/objects/players/weapons/special_weapons/boomer_scythe.tscn"),
 		preload("res://scenes/objects/players/weapons/special_weapons/charge_scythe.tscn")
 	]
+
+func _ready() -> void:
+	super._ready()
+	attack_timer = $FireDelay
 
 # ===============
 # STATE FUNCTIONS
@@ -248,22 +250,15 @@ func state_ladder(_direction: Vector2, _delta: float) -> void:
 		if _direction.x != 0:
 			sprite.scale.x = sign(_direction.x)
 		if anim.get_current_animation() != "Ladder-Shoot":
-			anim.stop()
 			anim.play("Ladder-Shoot")
-		#pause and play ladder animation
-		#turn this into lining the climb and shoot animations up later
-		if anim.is_playing() == true:
-			anim.pause()
 	else:
 		if anim.get_current_animation() != "Ladder":
-			anim.stop()
 			anim.play("Ladder")
-		#pause and play ladder animation
-		if _direction.y != 0:
-			if anim.is_playing() == false:
-				anim.play("Ladder")
 		else:
-			if anim.is_playing() == true:
+			#pause and play ladder animation
+			if _direction.y != 0:
+				anim.play()
+			else:
 				anim.pause()
 
 	#movement

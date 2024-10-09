@@ -548,20 +548,16 @@ func state_ladder(_direction: Vector2, _delta: float) -> void:
 		if _direction.x != 0:
 			sprite.scale.x = sign(_direction.x)
 		if anim.get_current_animation() != "Ladder-Shoot":
-			anim.stop()
 			anim.play("Ladder-Shoot")
 	else:
 		if anim.get_current_animation() != "Ladder":
-			anim.stop()
 			anim.play("Ladder")
 		else:
 			#pause and play ladder animation
 			if _direction.y != 0:
-				if anim.is_playing() == false:
-					anim.play()
+				anim.play()
 			else:
-				if anim.is_playing() == true:
-					anim.pause()
+				anim.pause()
 
 	#movement
 	velocity.x = 0
