@@ -165,12 +165,7 @@ func state_slide(_direction: Vector2, _delta: float) -> void:
 		slide_timer.start()
 		SoundManager.play("player", "slide") #	 G: I know, I know, but it's the same sound.
 		if GameState.modules_enabled[GameState.WEAPONS.SMOG] == true:
-			if anim.get_current_animation() != "Mist Dash":
-				anim.stop()
-				anim.play("Mist Dash")
-			#Changes Collision
-			$MainHitbox.set_disabled(true)
-			$SlideHitbox.set_disabled(false)
+			module_smog()
 		else:
 			if anim.get_current_animation() != "Dash":
 				anim.stop()
@@ -413,6 +408,14 @@ func module_blaze() -> void:
 	# G: The way the jump, jump transition, and fall animations play bothers me greatly and this doesn't work because of it.
 	anim.play("Jump")
 	StepTime = 0
+
+func module_smog() -> void:
+	if anim.get_current_animation() != "Mist Dash":
+		anim.stop()
+		anim.play("Mist Dash")
+	#Changes Collision
+	$MainHitbox.set_disabled(true)
+	$SlideHitbox.set_disabled(false)
 
 func _on_teleported() -> void: # Reconnect this to play the sound.
 # G: So, occasionally, this will (for some reason) fire a second time

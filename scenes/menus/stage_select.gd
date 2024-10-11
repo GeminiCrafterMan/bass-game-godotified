@@ -14,7 +14,7 @@ func _process(delta):
 	if timer == 0:
 		$Darkness.hide()
 		%Player.grab_focus()
-		$Music.play()
+		$Music.play() # Not at the very start of the scene; we have to wait for the fade-in
 		$Rows/RowBright.play()
 		
 		$Background.material.set_shader_parameter("palette", load(GameState.stageSelectColorTranslations[GameState.character_selected]))

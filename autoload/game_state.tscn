@@ -192,7 +192,9 @@ passby_press = true
 action = "jump"
 visibility_mode = 1
 
-[node name="SoundBank" type="Node" parent="."]
+[node name="Audio" type="Node" parent="."]
+
+[node name="Player" type="Node" parent="Audio"]
 script = ExtResource("4_xeyqw")
 label = "player"
 bus = "Sound"
