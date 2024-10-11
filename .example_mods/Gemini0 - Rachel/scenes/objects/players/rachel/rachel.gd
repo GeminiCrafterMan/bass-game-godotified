@@ -33,8 +33,7 @@ func _init() -> void:
 	]
 
 func handle_weapons():
-	if shoot_delay > 0:
-		shoot_delay -= 1
+	if !attack_timer.is_stopped():
 		if shot_type > 0:
 			no_grounded_movement = true
 	else:

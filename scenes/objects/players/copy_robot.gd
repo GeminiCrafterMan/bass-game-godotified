@@ -73,7 +73,7 @@ func weapon_buster(): # G: Copy Robot *can* charge his buster, but Maestro and B
 				projectile.velocity.x = sprite.scale.x * 350
 				projectile.scale.x = sprite.scale.x
 				Charge = 0
-				$Audio/Charge1.stop()
+				SoundManager.instance_poly("player", "charge1").release()
 				return
 			if Charge >= 92: # da big boi
 				shot_type = 0
@@ -91,9 +91,9 @@ func weapon_buster(): # G: Copy Robot *can* charge his buster, but Maestro and B
 		if Charge < 110:
 			Charge += 1
 			if Charge == 32:
-				$Audio/Charge1.play()
+				SoundManager.play("player", "charge1")
 			if Charge == 105:
-				$Audio/Charge2.play()
+				SoundManager.play("player", "charge2")
 		else:
 			Charge = 105
 	else:
@@ -114,3 +114,12 @@ func weapon_shark():
 		projectile.velocity.x = sprite.scale.x * 65
 		projectile.scale.x = sprite.scale.x
 		return
+
+func _on_teleported() -> void: # Reconnect this to play the sound.
+# G: So, occasionally, this will (for some reason) fire a second time
+# after some time and returning to the Idle state. Only happens once
+# per life, with no apparent cause -- the player doesn't return to the
+# Teleport state, so they shouldn't be emitting the "teleported" signal
+# a second time... Do we REALLY have to have a bool for this too???
+# Isn't that what signals are for!? Happens with Bass, too.
+	SoundManager.play("copy_robot", "start") # why replace the teleport stuff for a single extra sound?

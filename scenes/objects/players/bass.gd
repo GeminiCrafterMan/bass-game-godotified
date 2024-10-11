@@ -2,9 +2,12 @@ extends MaestroPlayer
 
 class_name BassPlayer
 
+# References
 @onready var rapid_timer = $RapidTimer
 
+# Variables
 var buster_speed = 300
+var blast_jumped = false
 
 func _init() -> void:
 	weapon_palette = [
@@ -32,12 +35,12 @@ func _init() -> void:
 	]
 	
 	projectile_scenes = [
-	preload("res://scenes/objects/players/weapons/bass/buster.tscn"),
-	preload("res://scenes/objects/players/weapons/bass/blast_jump.tscn"),
-	preload("res://scenes/objects/players/weapons/bass/track_2.tscn"),
-	preload("res://scenes/objects/players/weapons/copy_robot/buster_small.tscn"),
-	preload("res://scenes/objects/players/weapons/bass/protoshot1.tscn"),
-	preload("res://scenes/objects/players/weapons/bass/protoshot2.tscn")
+		preload("res://scenes/objects/players/weapons/bass/buster.tscn"),
+		preload("res://scenes/objects/players/weapons/bass/blast_jump.tscn"),
+		preload("res://scenes/objects/players/weapons/bass/track_2.tscn"),
+		preload("res://scenes/objects/players/weapons/copy_robot/buster_small.tscn"),
+		preload("res://scenes/objects/players/weapons/bass/protoshot1.tscn"),
+		preload("res://scenes/objects/players/weapons/bass/protoshot2.tscn")
 	]
 
 	weapon_scenes = [
@@ -59,6 +62,7 @@ func _ready() -> void:
 # ===============
 ## Idle state
 func state_idle(_direction: Vector2, _delta: float) -> void:
+	blast_jumped = false # Extra safeguard
 	#play animation
 	if attack_timer.is_stopped():
 		if StepTime > 0:
@@ -75,7 +79,15 @@ func state_idle(_direction: Vector2, _delta: float) -> void:
 			0: # Normal
 				anim.play("Idle-Shoot")
 			1: # StopShoot
-				anim.play("Idle-Shoot")
+				if Input.is_action_pressed("move_up"):
+					if Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right"):
+						anim.play("Idle-Shoot Steady Diagonal")
+					else:
+						anim.play("Idle-Shoot Steady Up")
+				elif Input.is_action_pressed("move_down"):
+					anim.play("Idle-Shoot Steady Down")
+				else:
+					anim.play("Idle-Shoot Steady")
 			2: # Throw
 				anim.play("Idle-Throw")
 			3: # Shield
@@ -95,6 +107,7 @@ func state_idle(_direction: Vector2, _delta: float) -> void:
 
 ## Walk state
 func state_walk(_direction: Vector2, _delta: float) -> void:
+	blast_jumped = false # Extra safeguard
 	#there is no step state anymore, the walk just kinda winds-up now
 	#the code to do this is silly but not dirty :3 -lynn
 	if Input.is_action_just_pressed("dash"):
@@ -108,7 +121,15 @@ func state_walk(_direction: Vector2, _delta: float) -> void:
 				anim.play("Walk-Shoot")
 				anim.seek(progress)
 			1: # Stop
-				anim.play("Idle-Shoot")
+				if Input.is_action_pressed("move_up"):
+					if Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right"):
+						anim.play("Idle-Shoot Steady Diagonal")
+					else:
+						anim.play("Idle-Shoot Steady Up")
+				elif Input.is_action_pressed("move_down"):
+					anim.play("Idle-Shoot Steady Down")
+				else:
+					anim.play("Idle-Shoot Steady")
 			2: # Throw
 				anim.play("Idle-Throw")
 			3: # Shield
@@ -142,7 +163,7 @@ func state_walk(_direction: Vector2, _delta: float) -> void:
 func state_slide(_direction: Vector2, _delta: float) -> void:
 	if isFirstFrameOfState:
 		slide_timer.start()
-		$Audio/DashSound.play()
+		SoundManager.play("player", "slide") #	 G: I know, I know, but it's the same sound.
 		if GameState.modules_enabled[GameState.WEAPONS.SMOG] == true:
 			if anim.get_current_animation() != "Mist Dash":
 				anim.stop()
@@ -185,6 +206,8 @@ func state_slide(_direction: Vector2, _delta: float) -> void:
 
 ## Jump state
 func state_jump(_direction: Vector2, _delta: float) -> void:
+	if Input.is_action_pressed("move_up") and Input.is_action_just_pressed("jump") and GameState.modules_enabled[GameState.WEAPONS.BLAZE] and blast_jumped == false and isFirstFrameOfState == false:
+		module_blaze() # Blast Jump
 	#setup needed on first frame of new state
 	if isFirstFrameOfState:
 		velocity.y = JUMP_VELOCITY
@@ -193,8 +216,8 @@ func state_jump(_direction: Vector2, _delta: float) -> void:
 		anim.stop()
 		anim.play("Fall")
 	#set animation based on falling for rising
-	if velocity.y < 0 && JumpHeight != 80:
-		if (JumpHeight < JUMP_HEIGHT && Input.is_action_pressed("jump")):
+	if velocity.y < 0 and JumpHeight != 80:
+		if (JumpHeight < JUMP_HEIGHT and Input.is_action_pressed("jump")):
 			velocity.y = JUMP_VELOCITY
 			JumpHeight += 1
 		if (JumpHeight == JUMP_HEIGHT):
@@ -207,7 +230,7 @@ func state_jump(_direction: Vector2, _delta: float) -> void:
 			if attack_timer.is_stopped():
 				anim.stop()
 				anim.play("Jump")
-			$Audio/JumpSound.play()
+			SoundManager.play("player", "jump")
 	else:
 		if attack_timer.is_stopped():
 			if StepTime < 7:
@@ -220,8 +243,16 @@ func state_jump(_direction: Vector2, _delta: float) -> void:
 		match shot_type:
 			0: # Normal
 				anim.play("Jump-Shoot")
-			1: # Normal
-				anim.play("Jump-Shoot")
+			1: # Stop
+				if Input.is_action_pressed("move_up"):
+					if Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right"):
+						anim.play("Jump-Shoot Diagonal")
+					else:
+						anim.play("Jump-Shoot Up")
+				elif Input.is_action_pressed("move_down"):
+					anim.play("Jump-Shoot Down")
+				else:
+					anim.play("Jump-Shoot")
 			2: # Throw
 				anim.play("Jump-Throw")
 			3: # Shield
@@ -239,7 +270,8 @@ func state_jump(_direction: Vector2, _delta: float) -> void:
 		ice_jump_move(_direction, _delta)
 
 	if is_on_floor() and !isFirstFrameOfState:
-		$Audio/LandSound.play() #G: ends up playing when you jump, too...?
+		SoundManager.play("player", "land")
+		blast_jumped = false
 		swapState = STATES.IDLE
 		if on_ice == false:
 			ice_jump = false
@@ -324,7 +356,7 @@ func weapon_buster():
 		return
 
 func weapon_origami():
-	if Input.is_action_just_pressed("shoot") && GameState.weapon_energy[GameState.WEAPONS.ORIGAMI] >= 1 && GameState.onscreen_sp_bullets < 4:
+	if Input.is_action_just_pressed("shoot") and GameState.weapon_energy[GameState.WEAPONS.ORIGAMI] >= 1 and GameState.onscreen_sp_bullets < 4:
 		GameState.weapon_energy[GameState.WEAPONS.ORIGAMI] -= 1
 		anim.seek(0)
 		shot_type = 2
@@ -362,6 +394,31 @@ func weapon_origami():
 		projectile.scale.x = -sprite.scale.x
 		projectile.velocity.x = sprite.scale.x * ORIGAMI_SPEED * 0.5
 		projectile.velocity.y =  -ORIGAMI_SPEED * 0.5
-
-		
 		return
+
+# ================
+# MODULE FUNCTIONS
+# ================
+
+func module_blaze() -> void:
+	SoundManager.play("bass", "blast_jump")
+	velocity.y = -FAST_FALL
+	slide_timer.stop()
+	blast_jumped = true
+	projectile = projectile_scenes[1].instantiate()
+	get_parent().add_child(projectile)
+	projectile.position.x = position.x
+	projectile.position.y = position.y
+	projectile.velocity.y = 280
+	# G: The way the jump, jump transition, and fall animations play bothers me greatly and this doesn't work because of it.
+	anim.play("Jump")
+	StepTime = 0
+
+func _on_teleported() -> void: # Reconnect this to play the sound.
+# G: So, occasionally, this will (for some reason) fire a second time
+# after some time and returning to the Idle state. Only happens once
+# per life, with no apparent cause -- the player doesn't return to the
+# Teleport state, so they shouldn't be emitting the "teleported" signal
+# a second time... Do we REALLY have to have a bool for this too???
+# Isn't that what signals are for!? Happens with Copy Robot, too.
+	SoundManager.play("bass", "start") # why replace the teleport stuff for a single extra sound?

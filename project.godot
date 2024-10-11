@@ -23,12 +23,23 @@ boot_splash/fullsize=false
 boot_splash/use_filter=false
 config/icon="res://icon.png"
 
+[audio]
+
+manager/sound/bus="Sound"
+manager/sound/pool_1D_size=16
+manager/sound/pool_2D_size=16
+manager/sound/pool_3D_size=16
+manager/sound/max_polyphony=32
+manager/music/bus="Music"
+
 [autoload]
 
 Loading="*res://addons/loading/loading.tscn"
 Debug="*res://autoload/debug.gd"
 GameState="*res://autoload/game_state.tscn"
 DebugMenu="*res://addons/debug_menu/debug_menu.tscn"
+SoundManager="*res://addons/resonate/sound_manager/sound_manager.gd"
+MusicManager="*res://addons/resonate/music_manager/music_manager.gd"
 
 [display]
 
@@ -44,7 +55,7 @@ movie_writer/disable_vsync=true
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/AS2P/plugin.cfg", "res://addons/debug_menu/plugin.cfg")
+enabled=PackedStringArray("res://addons/AS2P/plugin.cfg", "res://addons/debug_menu/plugin.cfg", "res://addons/resonate/plugin.cfg")
 
 [global_group]
 

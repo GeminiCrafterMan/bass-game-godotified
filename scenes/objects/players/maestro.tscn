@@ -1,20 +1,11 @@
-[gd_scene load_steps=51 format=3 uid="uid://bksinirshmwgf"]
+[gd_scene load_steps=43 format=3 uid="uid://bksinirshmwgf"]
 
 [ext_resource type="Script" path="res://scenes/objects/players/maestro.gd" id="1_ct76e"]
 [ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="1_lnglj"]
-[ext_resource type="AudioStream" uid="uid://d2oevy2xek073" path="res://sounds/jump.wav" id="3_m6hp8"]
 [ext_resource type="Texture2D" uid="uid://bgqo6j6piqevr" path="res://sprites/players/maestro/palettes/Maestro Buster.png" id="4_sovti"]
 [ext_resource type="Texture2D" uid="uid://oqtdb0ml6qhb" path="res://sprites/players/maestro/maestro.png" id="4_w3lef"]
-[ext_resource type="AudioStream" uid="uid://cgaetckoiu15m" path="res://sounds/land.wav" id="4_y2cjm"]
 [ext_resource type="Texture2D" uid="uid://bot48w7086agv" path="res://sprites/players/HurtStar.png" id="5_lg5go"]
 [ext_resource type="Texture2D" uid="uid://8mdvvlmmrxfn" path="res://sprites/players/HurtSweat.png" id="5_vvkba"]
-[ext_resource type="AudioStream" uid="uid://ds4m68uui1avq" path="res://sounds/switch.wav" id="6_e47ri"]
-[ext_resource type="AudioStream" uid="uid://h87d8b65n30n" path="res://sounds/slide.wav" id="7_iqfqy"]
-[ext_resource type="AudioStream" uid="uid://dr1p57c1kr6na" path="res://sounds/warp.wav" id="9_ht7sb"]
-[ext_resource type="AudioStream" uid="uid://cojuek45oo3hj" path="res://sounds/playerhurt.wav" id="10_gpg6f"]
-[ext_resource type="AudioStream" uid="uid://dtctuhq14tsqk" path="res://sounds/charge1.wav" id="11_ebbut"]
-[ext_resource type="AudioStream" uid="uid://ctn1jvbasggdq" path="res://sounds/charge2.wav" id="15_1na4e"]
-[ext_resource type="AudioStream" uid="uid://dix6rlhdr84oa" path="res://sounds/mega_death.wav" id="15_e1wn3"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_u81pt"]
 shader = ExtResource("1_lnglj")
@@ -387,8 +378,26 @@ tracks/0/keys = {
 "values": [15, 16, 17, 16]
 }
 
+[sub_resource type="Animation" id="Animation_kvtkx"]
+resource_name = "Dead"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [13]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_atfpo"]
 _data = {
+"Dead": SubResource("Animation_kvtkx"),
 "Fall": SubResource("Animation_sun07"),
 "FinShredder": SubResource("Animation_kapwp"),
 "Hurt": SubResource("Animation_1pvat"),
@@ -490,12 +499,13 @@ script = ExtResource("1_ct76e")
 material = SubResource("ShaderMaterial_dtetj")
 texture = ExtResource("4_w3lef")
 hframes = 35
-frame = 21
+frame = 34
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_atfpo")
 }
+autoplay = "Teleport"
 
 [node name="FX" type="Node2D" parent="."]
 position = Vector2(0, 2)
@@ -541,46 +551,6 @@ one_shot = true
 [node name="FireDelay" type="Timer" parent="."]
 wait_time = 0.4
 one_shot = true
-
-[node name="Audio" type="Node" parent="."]
-
-[node name="JumpSound" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource("3_m6hp8")
-bus = &"SFX"
-
-[node name="LandSound" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource("4_y2cjm")
-bus = &"SFX"
-
-[node name="SlideSound" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource("7_iqfqy")
-bus = &"SFX"
-
-[node name="SwitchSound" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource("6_e47ri")
-bus = &"SFX"
-
-[node name="WarpInSound" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource("9_ht7sb")
-volume_db = -8.0
-bus = &"SFX"
-
-[node name="HurtSound" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource("10_gpg6f")
-bus = &"SFX"
-
-[node name="Charge1" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource("11_ebbut")
-bus = &"SFX"
-
-[node name="Charge2" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource("15_1na4e")
-bus = &"SFX"
-
-[node name="DeathSound" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource("15_e1wn3")
-volume_db = -16.0
-bus = &"SFX"
 
 [node name="CeilingCheck" type="RayCast2D" parent="."]
 visible = false

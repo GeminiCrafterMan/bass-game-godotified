@@ -224,7 +224,7 @@ func _physics_process(delta: float) -> void:
 
 	if GameState.old_weapon != GameState.current_weapon:
 		GameState.onscreen_sp_bullets = 0
-		$Audio/SwitchSound.play()
+		SoundManager.play("player", "switch")
 		GameState.old_weapon = GameState.current_weapon
 		sprite.material.set_shader_parameter("palette", weapon_palette[GameState.current_weapon])
 
@@ -232,7 +232,7 @@ func _physics_process(delta: float) -> void:
 		if (currentState != STATES.TELEPORT and currentState != STATES.DEAD):
 			GameState.current_weapon = GameState.WEAPONS.BUSTER
 			if GameState.old_weapon != GameState.current_weapon:
-				$Audio/SwitchSound.play()
+				SoundManager.play("player", "switch")
 				GameState.onscreen_sp_bullets = 0
 			sprite.material.set_shader_parameter("palette", weapon_palette[GameState.current_weapon])
 
@@ -353,11 +353,12 @@ func state_teleport(_direction: Vector2, _delta: float) -> void:
 	position.y = move_toward(position.y, targetpos, 10)
 	#exit teleport
 	if position.y >= targetpos:
+		if anim.get_current_animation() == "Teleport":
+			SoundManager.play("player", "warp") # G: Sweet, sweet bliss. One teleport sound, as God intended. (I hate this.)
 		if anim.get_current_animation() != "Teleport In":
 			anim.play("Teleport In")
 			velocity.y = 0
 			$MainHitbox.set_disabled(false)
-			$Audio/WarpInSound.play()
 			await anim.animation_finished
 			swapState = STATES.IDLE
 			teleported.emit()
@@ -445,7 +446,7 @@ func state_walk(_direction: Vector2, _delta: float) -> void:
 func state_slide(_direction: Vector2, _delta: float) -> void:
 	if isFirstFrameOfState:
 		slide_timer.start()
-		$Audio/SlideSound.play()
+		SoundManager.play("player", "slide")
 		if anim.get_current_animation() != "Slide":
 			anim.stop()
 			anim.play("Slide")
@@ -505,7 +506,7 @@ func state_jump(_direction: Vector2, _delta: float) -> void:
 			if attack_timer.is_stopped():
 				anim.stop()
 				anim.play("Jump")
-			$Audio/JumpSound.play()
+			SoundManager.play("player", "jump")
 	else:
 		if attack_timer.is_stopped():
 			if StepTime < 7:
@@ -537,7 +538,7 @@ func state_jump(_direction: Vector2, _delta: float) -> void:
 		ice_jump_move(_direction, _delta)
 
 	if is_on_floor() and !isFirstFrameOfState:
-		$Audio/LandSound.play() #G: ends up playing when you jump, too...?
+		SoundManager.play("player", "land")
 		swapState = STATES.IDLE
 		if on_ice == false:
 			ice_jump = false
@@ -589,7 +590,7 @@ func state_hurt(_direction: Vector2, _delta: float) -> void:
 		sweat.play("active")
 		sweat.set_frame_and_progress(0, 0)
 		if GameState.current_hp > 0:
-			$Audio/HurtSound.play()
+			SoundManager.play("player", "hurt")
 		if anim.get_current_animation() != "Hurt":
 			anim.stop()
 			anim.play("Hurt")
@@ -610,13 +611,11 @@ func state_dead(_direction: Vector2, _delta: float) -> void:
 		$MainHitbox.set_disabled(true)
 		$SlideHitbox.set_disabled(true)
 		state_timer.start(5.00)
-		anim.play("Hurt")
+		anim.play("Dead")
 		velocity.y = 0
 		velocity.x = 0
 	if pain_timer.is_stopped():
-		$Audio/HurtSound.stop()
-		$Audio/DeathSound.play()
-		anim.stop()
+		SoundManager.play("player", "death")
 		sprite.scale.x = 0
 		sprite.visible = false
 		projectile = preload("res://scenes/objects/explosion_player.tscn").instantiate()
@@ -1089,13 +1088,14 @@ func weapon_reaper():
 		if ScytheCharge < 78:
 			ScytheCharge += 1
 			if ScytheCharge == 26:
-				$Audio/Charge1.play()
+				SoundManager.play("player", "charge1")
 			if ScytheCharge == 76:
-				$Audio/Charge2.play()
+				SoundManager.play("player", "charge2")
 		else:
 			ScytheCharge = 77
 	else:
 		Charge = 0
+		SoundManager.instance_poly("player", "charge1").release()
 		return
 
 
@@ -1211,7 +1211,7 @@ func _DamageAndInvincible():
 			DmgQueue = 0
 			swapState = STATES.HURT
 			if GameState.current_hp <= 0:
-					swapState = STATES.DEAD
+				swapState = STATES.DEAD
 			invul_timer.start(1)
 			pain_timer.start(0.55)
 

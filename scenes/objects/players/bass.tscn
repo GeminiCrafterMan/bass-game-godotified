@@ -1,21 +1,14 @@
-[gd_scene load_steps=64 format=3 uid="uid://bsy7vba3t8awq"]
+[gd_scene load_steps=60 format=3 uid="uid://bsy7vba3t8awq"]
 
 [ext_resource type="Script" path="res://scenes/objects/players/bass.gd" id="1_lug7r"]
 [ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="2_m015p"]
 [ext_resource type="Texture2D" uid="uid://c352q0axtprmr" path="res://sprites/players/bass/bass.png" id="3_gjpaj"]
-[ext_resource type="AudioStream" uid="uid://d2oevy2xek073" path="res://sounds/jump.wav" id="3_jevqg"]
-[ext_resource type="AudioStream" uid="uid://cgaetckoiu15m" path="res://sounds/land.wav" id="4_66xts"]
 [ext_resource type="Texture2D" uid="uid://bot48w7086agv" path="res://sprites/players/HurtStar.png" id="4_pn11x"]
-[ext_resource type="AudioStream" uid="uid://h87d8b65n30n" path="res://sounds/slide.wav" id="5_ectoy"]
 [ext_resource type="Texture2D" uid="uid://8mdvvlmmrxfn" path="res://sprites/players/HurtSweat.png" id="5_sgfjj"]
-[ext_resource type="AudioStream" uid="uid://ds4m68uui1avq" path="res://sounds/switch.wav" id="7_e2j2h"]
+[ext_resource type="Script" path="res://addons/resonate/sound_manager/sound_bank.gd" id="8_tjlhw"]
 [ext_resource type="AudioStream" uid="uid://bgfwytu8kifqv" path="res://sounds/blastjump.wav" id="8_xq33u"]
 [ext_resource type="AudioStream" uid="uid://pk86bd6damih" path="res://sounds/start_bass.wav" id="9_e7if1"]
-[ext_resource type="AudioStream" uid="uid://dr1p57c1kr6na" path="res://sounds/warp.wav" id="10_kmnn1"]
-[ext_resource type="AudioStream" uid="uid://cojuek45oo3hj" path="res://sounds/playerhurt.wav" id="11_7w2w7"]
-[ext_resource type="AudioStream" uid="uid://dtctuhq14tsqk" path="res://sounds/charge1.wav" id="11_gdffj"]
-[ext_resource type="AudioStream" uid="uid://ctn1jvbasggdq" path="res://sounds/charge2.wav" id="12_om6tc"]
-[ext_resource type="AudioStream" uid="uid://dix6rlhdr84oa" path="res://sounds/mega_death.wav" id="14_72lkg"]
+[ext_resource type="Script" path="res://addons/resonate/sound_manager/sound_event_resource.gd" id="9_fd281"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qymoq"]
 shader = ExtResource("2_m015p")
@@ -595,9 +588,27 @@ tracks/0/keys = {
 "values": [10, 11, 12, 13, 14, 15]
 }
 
+[sub_resource type="Animation" id="Animation_uc8dv"]
+resource_name = "Dead"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [26]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_knm54"]
 _data = {
 "Dash": SubResource("Animation_rlpjp"),
+"Dead": SubResource("Animation_uc8dv"),
 "Fall": SubResource("Animation_ibabb"),
 "FinShredder": SubResource("Animation_govqx"),
 "Hurt": SubResource("Animation_edvn7"),
@@ -698,6 +709,22 @@ size = Vector2(16, 14)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lrnae"]
 
+[sub_resource type="Resource" id="Resource_0aldu"]
+script = ExtResource("9_fd281")
+name = "start"
+bus = ""
+volume = 0.0
+pitch = 1.0
+streams = Array[AudioStream]([ExtResource("9_e7if1")])
+
+[sub_resource type="Resource" id="Resource_5g5pw"]
+script = ExtResource("9_fd281")
+name = "blast_jump"
+bus = ""
+volume = 0.0
+pitch = 1.0
+streams = Array[AudioStream]([ExtResource("8_xq33u")])
+
 [node name="Bass" type="CharacterBody2D" groups=["player"]]
 material = SubResource("ShaderMaterial_qymoq")
 collision_layer = 2
@@ -715,6 +742,7 @@ frame = 25
 libraries = {
 "": SubResource("AnimationLibrary_knm54")
 }
+autoplay = "Teleport"
 
 [node name="FX" type="Node2D" parent="."]
 position = Vector2(0, 2)
@@ -765,54 +793,6 @@ autostart = true
 wait_time = 0.4
 one_shot = true
 
-[node name="Audio" type="Node" parent="."]
-
-[node name="JumpSound" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource("3_jevqg")
-bus = &"SFX"
-
-[node name="LandSound" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource("4_66xts")
-bus = &"SFX"
-
-[node name="DashSound" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource("5_ectoy")
-bus = &"SFX"
-
-[node name="SwitchSound" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource("7_e2j2h")
-bus = &"SFX"
-
-[node name="WarpInSound" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource("10_kmnn1")
-volume_db = -8.0
-bus = &"SFX"
-
-[node name="HurtSound" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource("11_7w2w7")
-bus = &"SFX"
-
-[node name="Charge1" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource("11_gdffj")
-bus = &"SFX"
-
-[node name="Charge2" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource("12_om6tc")
-bus = &"SFX"
-
-[node name="DeathSound" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource("14_72lkg")
-volume_db = -16.0
-bus = &"SFX"
-
-[node name="StartSound" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource("9_e7if1")
-bus = &"SFX"
-
-[node name="BJumpSound" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource("8_xq33u")
-bus = &"SFX"
-
 [node name="CeilingCheck" type="RayCast2D" parent="."]
 visible = false
 position = Vector2(0, 12)
@@ -833,3 +813,9 @@ position = Vector2(0, -13)
 shape = SubResource("RectangleShape2D_lrnae")
 target_position = Vector2(0, 0)
 max_results = 1
+
+[node name="SoundBank" type="Node" parent="."]
+script = ExtResource("8_tjlhw")
+label = "bass"
+bus = "Sound"
+events = Array[ExtResource("9_fd281")]([SubResource("Resource_0aldu"), SubResource("Resource_5g5pw")])
