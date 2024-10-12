@@ -48,6 +48,8 @@ var onscreen_sp_bullets : int
 var playerposx
 var playerposy
 
+var tellies : int
+
 
 var current_weapon : int
 var old_weapon : int
