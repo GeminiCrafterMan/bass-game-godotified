@@ -2,8 +2,10 @@ extends CharacterBody2D
 
 const W_Type = 7	# This is Fin Shredder. G: Um, ackshuwally, it's Pharaoh Wave...
 
-func _ready():
-	$SpawnSound.play()
+# Okay, so. I'm just going to deal with *functionality* if I keep making these weapons. No sounds until Resonate is fully functioning in the base game.
+
+#func _ready():
+#	$SpawnSound.play()
 		
 func _physics_process(_delta):
 	move_and_slide()

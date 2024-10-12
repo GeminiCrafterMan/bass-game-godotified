@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://8r6wj4eattk5"
-path="res://.godot/imported/cycle.png-71f11f36dbb7b2834abb0052eeb4d3ca.ctex"
+uid="uid://edbqmmirmmjl"
+path="res://.godot/imported/joetestcycle.png-b8cc3fa96d819c4526cd6e58b1e0aa6e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/tilesets/cycle.png"
-dest_files=["res://.godot/imported/cycle.png-71f11f36dbb7b2834abb0052eeb4d3ca.ctex"]
+source_file="res://sprites/enemies/joetestcycle.png"
+dest_files=["res://.godot/imported/joetestcycle.png-b8cc3fa96d819c4526cd6e58b1e0aa6e.ctex"]
 
 [params]
 

@@ -33,32 +33,23 @@ var _style : int = 0
 ## INTERVAL 2: STARTS 120 ENDS 225
 ## INTERVAL 3: STARTS 180 ENDS 45
 @export_range(0,3) var interval : int
-var timer : int = 0
+
+@onready var timer = $Timer
+
+var state : bool = false # Off (in)
 
 func _ready():
+	timer.start(interval)
 	if !static_audio_player:
 		static_audio_player = $YokuSound
 	$Sprite2D.texture = load(styles[_style])
 
 func _physics_process(_delta):
-	if timer == interval * 60:
+	if timer.is_stopped(): # interval * 60
 		if not Engine.is_editor_hint():
 			var players = get_tree().get_nodes_in_group("player")
 			if static_audio_player && players.size() >= 1:
 				if position.distance_to(players[0].position) < 216:
 					static_audio_player.play()
-		$Sprite2D.frame = 1
-		$Sprite2D.visible = true
-		$Shape.set_disabled(false)
-	
-	if timer == interval * 60 + 5:
-		$Sprite2D.frame = 0
-	
-	if timer == interval * 60 + 100 || interval == 3 && timer == 40:
-		$Sprite2D.frame = 1
-		
-	if timer == interval * 60 + 105 || interval == 3 && timer == 45:
-		$Sprite2D.visible = false
-		$Shape.set_disabled(true)
-	
-	timer = (timer + 1) % 240 ## advance the timer per tick and wrap at 240
+		$AnimationPlayer.play("default")
+		timer.start(4)

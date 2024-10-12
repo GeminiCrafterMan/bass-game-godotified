@@ -5,8 +5,6 @@ class_name Sniper_Joe
 var timer : int
 var attacks : int
 
-
-
 func _ready():
 	Atk_Dmg = 4
 	Cur_HP = 8
@@ -66,6 +64,12 @@ func _process(_delta):
 	else:
 		$Sprite.visible = true
 		
+	if $Sprite.animation == "Idle":
+		if (GameState.player != null): # Null check!
+			if get_node(GameState.player).position.x > position.x:
+				scale.x = -1
+			else:
+				scale.x = 1
 	
 	timer = timer -1
 	if timer > 300:
@@ -91,9 +95,9 @@ func _process(_delta):
 		
 		projectile = preload("res://scenes/objects/enemies/enemy_bullet1.tscn").instantiate()
 		get_parent().add_child(projectile)
-		projectile.position.x = position.x - 8
+		projectile.position.x = position.x - (scale.x * 8)
 		projectile.position.y = position.y - 6
-		projectile.velocity.x = -230
+		projectile.velocity.x = scale.x * -230
 		attacks = attacks - 1
 		timer = 24
 		if attacks > 0:

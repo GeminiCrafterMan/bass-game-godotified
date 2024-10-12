@@ -68,7 +68,7 @@ func kill():
 func reflect():
 	$ReflectSound.play()
 	velocity.x = -velocity.x
-	velocity.y = -velocity.y
+	velocity.y = -180
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	GameState.onscreen_sp_bullets = 0

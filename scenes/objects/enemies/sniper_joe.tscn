@@ -1,7 +1,16 @@
-[gd_scene load_steps=17 format=3 uid="uid://dmulyeg8hg6yt"]
+[gd_scene load_steps=20 format=3 uid="uid://dmulyeg8hg6yt"]
 
 [ext_resource type="Script" path="res://scenes/objects/enemies/sniper_joe.gd" id="1_ds0gt"]
 [ext_resource type="Texture2D" uid="uid://daefccg61j7bv" path="res://sprites/enemies/sniper_joe.png" id="1_vqtgt"]
+[ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="2_ku5m8"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gtk0d"]
+shader = ExtResource("2_ku5m8")
+shader_parameter/skip_first_row = true
+shader_parameter/use_palette_alpha = false
+shader_parameter/fps = 6.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3u8v0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lwhwx"]
 atlas = ExtResource("1_vqtgt")
@@ -117,14 +126,16 @@ animations = [{
 size = Vector2(13, 24)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wp5vq"]
-size = Vector2(21, 27)
+size = Vector2(21, 28)
 
 [node name="Sniper Joe" type="CharacterBody2D"]
+material = SubResource("ShaderMaterial_gtk0d")
 collision_layer = 0
 collision_mask = 3
 script = ExtResource("1_ds0gt")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_3u8v0")
 position = Vector2(0, -3)
 sprite_frames = SubResource("SpriteFrames_62nvj")
 animation = &"Idle"
@@ -143,7 +154,7 @@ collision_layer = 4
 collision_mask = 8
 
 [node name="MainHitbox" type="CollisionShape2D" parent="hitable"]
-position = Vector2(6.5, -5.5)
+position = Vector2(6.5, -6)
 shape = SubResource("RectangleShape2D_wp5vq")
 
 [node name="hurt" type="Area2D" parent="."]
@@ -151,7 +162,7 @@ collision_layer = 4
 collision_mask = 2
 
 [node name="Hurtbox" type="CollisionShape2D" parent="hurt"]
-position = Vector2(2, -2)
+position = Vector2(2, -6)
 shape = SubResource("RectangleShape2D_wp5vq")
 debug_color = Color(1, 0.00392157, 0.0705882, 0.419608)
 

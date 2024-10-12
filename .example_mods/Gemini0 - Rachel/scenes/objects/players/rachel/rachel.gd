@@ -28,6 +28,11 @@ func _init() -> void:
 		preload("res://sprites/players/weapons/ScytheCharge1.png")
 	]
 
+	projectile_scenes = [
+		preload("res://scenes/objects/players/weapons/copy_robot/buster_small.tscn"),
+		preload("res://scenes/objects/players/rachel/weapons/balloon_adaptor.tscn")
+	]
+
 	weapon_scenes = [
 		preload("res://scenes/objects/players/rachel/weapons/pharaoh_wave.tscn")
 	]
@@ -164,7 +169,17 @@ func weapon_wire():
 ## Uses 2 WE, and deals no damage.
 ## Creates a balloon platform in front of you that slowly rises up and squishes when you stand on it.
 func weapon_balloon():
-	return
+	if Input.is_action_just_pressed("shoot") && GameState.weapon_energy[WEAPONS.BALLOON] >= 2 && GameState.onscreen_sp_bullets < 3:
+		anim.seek(0)
+		GameState.weapon_energy[WEAPONS.BALLOON] -= 2
+		shot_type = 2
+		attack_timer.start(0.3)
+		GameState.onscreen_sp_bullets += 1
+		projectile = projectile_scenes[1].instantiate()
+		get_parent().add_child(projectile)
+
+		projectile.position.y = position.y
+		projectile.position.x = position.x + sprite.scale.x * 30
 
 ## Magnet Beam
 ## Uses 2 WE, no matter how long the platform is, and deals no damage.

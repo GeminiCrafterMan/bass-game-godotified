@@ -243,7 +243,7 @@ material = SubResource("ShaderMaterial_3l2vc")
 sprite_frames = SubResource("SpriteFrames_pfpbr")
 animation = &"SmHP"
 autoplay = "SmHP"
-frame_progress = 0.73792
+frame_progress = 0.57977
 
 [node name="Touch" type="Area2D" parent="."]
 collision_layer = 4

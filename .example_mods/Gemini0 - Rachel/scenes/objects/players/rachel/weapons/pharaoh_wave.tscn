@@ -1,11 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://bgpq81upok6bf"]
+[gd_scene load_steps=10 format=3 uid="uid://bgpq81upok6bf"]
 
 [ext_resource type="Script" path="res://scenes/objects/players/rachel/weapons/pharaoh_wave.gd" id="1_2ypfb"]
 [ext_resource type="Texture2D" uid="uid://biw5istgon604" path="res://sprites/players/rachel/palettes/Pharaoh Wave.png" id="2_n51km"]
 [ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="2_xvq3c"]
 [ext_resource type="Texture2D" uid="uid://dd1mllalt7a6v" path="res://sprites/players/rachel/weapons/Pharaoh Wave.png" id="3_rpui7"]
-[ext_resource type="AudioStream" uid="uid://bu17jfenhhtt8" path="res://sounds/explode.wav" id="4_db5so"]
-[ext_resource type="AudioStream" uid="uid://cs2dmn3ahpbea" path="res://sounds/pop.wav" id="6_ynx38"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ygio2"]
 shader = ExtResource("2_xvq3c")
@@ -56,11 +54,5 @@ scale = Vector2(0.8, 1.6)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(0.475, 1)
 shape = SubResource("RectangleShape2D_0fvlc")
-
-[node name="HitSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("6_ynx38")
-
-[node name="SpawnSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_db5so")
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

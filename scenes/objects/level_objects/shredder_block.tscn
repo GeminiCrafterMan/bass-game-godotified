@@ -184,10 +184,8 @@ style = 1
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(8, 8)
 sprite_frames = SubResource("SpriteFrames_o6h4x")
-animation = &"Explode"
+animation = &"Blaze"
 autoplay = "Test"
-frame = 7
-frame_progress = 1.0
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 position = Vector2(8, 8)

@@ -114,6 +114,10 @@ texture = ExtResource("5_1d45g")
 hframes = 29
 frame = 28
 
+[node name="RefillTimer" type="Timer" parent="Bars"]
+wait_time = 0.05
+one_shot = true
+
 [node name="Module Tester" parent="." instance=ExtResource("1_kxric")]
 
 [node name="READY" type="AnimatedSprite2D" parent="."]
@@ -122,6 +126,6 @@ sprite_frames = SubResource("SpriteFrames_tirtj")
 animation = &"SCENE"
 autoplay = "READY"
 
-[node name="timer" type="Timer" parent="."]
+[node name="StartTimer" type="Timer" parent="."]
 wait_time = 10.0
 autostart = true

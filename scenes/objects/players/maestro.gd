@@ -244,7 +244,7 @@ func _physics_process(delta: float) -> void:
 	if velocity.y > FAST_FALL:
 		velocity.y = FAST_FALL
 
-	if (currentState != STATES.SLIDE) and (currentState != STATES.HURT) and (currentState != STATES.TELEPORT):
+	if (currentState != STATES.SLIDE) and (currentState != STATES.HURT) and (currentState != STATES.DEAD) and (currentState != STATES.TELEPORT):
 		$MainHitbox.set_disabled(false)
 		$SlideHitbox.set_disabled(true)
 
@@ -608,15 +608,15 @@ func state_hurt(_direction: Vector2, _delta: float) -> void:
 ## Death state
 func state_dead(_direction: Vector2, _delta: float) -> void:
 	if isFirstFrameOfState:
-		$MainHitbox.set_disabled(true)
-		$SlideHitbox.set_disabled(true)
+		# G: queue_free-ing these because otherwise stuff like Tellies can *double* kill you.
+		$MainHitbox.queue_free()
+		$SlideHitbox.queue_free()
 		state_timer.start(5.00)
 		anim.play("Dead")
 		velocity.y = 0
 		velocity.x = 0
 	if pain_timer.is_stopped():
 		SoundManager.play("player", "death")
-		sprite.scale.x = 0
 		sprite.visible = false
 		projectile = preload("res://scenes/objects/explosion_player.tscn").instantiate()
 		get_parent().add_child(projectile)

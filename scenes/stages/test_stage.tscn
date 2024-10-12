@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=4 uid="uid://by07rq184shwd"]
+[gd_scene load_steps=30 format=4 uid="uid://by07rq184shwd"]
 
 [ext_resource type="Script" path="res://scenes/stages/stage.gd" id="1_ac8st"]
 [ext_resource type="TileSet" uid="uid://bglohi0dt4uvq" path="res://tilesets/test_stage.tres" id="2_cu0lw"]
@@ -8,9 +8,12 @@
 [ext_resource type="AudioStream" uid="uid://djxcyatg2dd7s" path="res://music/Test Stage.mp3" id="7_lu0fe"]
 [ext_resource type="PackedScene" uid="uid://dmulyeg8hg6yt" path="res://scenes/objects/enemies/sniper_joe.tscn" id="8_ffb0a"]
 [ext_resource type="PackedScene" uid="uid://ba1usu2a5isjc" path="res://scenes/objects/level_objects/breakable_block.tscn" id="8_ugwe1"]
+[ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="9_7wv41"]
 [ext_resource type="PackedScene" uid="uid://bingbkdyjdsbs" path="res://scenes/objects/players/start_position.tscn" id="10_4y8fd"]
+[ext_resource type="Texture2D" uid="uid://edbqmmirmmjl" path="res://sprites/enemies/joetestcycle.png" id="10_27246"]
 [ext_resource type="PackedScene" uid="uid://cwqbm80i7pv6x" path="res://scenes/objects/level_objects/ladder_hitbox.tscn" id="11_n5yro"]
 [ext_resource type="PackedScene" uid="uid://mi0hw7tknuco" path="res://scenes/objects/level_objects/spike.tscn" id="12_1njev"]
+[ext_resource type="PackedScene" uid="uid://u68yemonosg8" path="res://scenes/objects/level_objects/button.tscn" id="13_rn21y"]
 [ext_resource type="PackedScene" uid="uid://pqu0lvkmbufk" path="res://scenes/objects/enemies/telly_hole.tscn" id="14_le30n"]
 [ext_resource type="PackedScene" uid="uid://b8vqvqer5c6o3" path="res://scenes/objects/enemies/commando_joe.tscn" id="14_q1mcp"]
 [ext_resource type="PackedScene" uid="uid://bobtsvomowe28" path="res://scenes/objects/items/pickup.tscn" id="15_bvxqh"]
@@ -44,6 +47,13 @@ normal = Vector2(1, 0)
 normal = Vector2(-1, 0)
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_yu73q"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rpvm6"]
+shader = ExtResource("9_7wv41")
+shader_parameter/skip_first_row = true
+shader_parameter/use_palette_alpha = false
+shader_parameter/fps = 6.0
+shader_parameter/palette = ExtResource("10_27246")
 
 [node name="TestStage" type="Node2D"]
 position = Vector2(256, 176)
@@ -172,9 +182,6 @@ position = Vector2(960, 376)
 [node name="Jumbro" parent="Level Objects/Enemies" instance=ExtResource("3_8qce2")]
 position = Vector2(545, 296)
 
-[node name="Sniper Joe" parent="Level Objects/Enemies" instance=ExtResource("8_ffb0a")]
-position = Vector2(904, 280)
-
 [node name="Jumbro2" parent="Level Objects/Enemies" instance=ExtResource("3_8qce2")]
 position = Vector2(676, 296)
 
@@ -186,6 +193,10 @@ position = Vector2(543, 231)
 
 [node name="Commando Joe" parent="Level Objects/Enemies" instance=ExtResource("14_q1mcp")]
 position = Vector2(517, 40)
+
+[node name="Sniper Joe" parent="Level Objects/Enemies" instance=ExtResource("8_ffb0a")]
+material = SubResource("ShaderMaterial_rpvm6")
+position = Vector2(904, 280)
 
 [node name="Breakable Blocks" type="Node2D" parent="Level Objects"]
 
@@ -355,6 +366,9 @@ position = Vector2(88, 280)
 item_type = 4
 item_size = 1
 dropped = false
+
+[node name="Button" parent="Level Objects" instance=ExtResource("13_rn21y")]
+position = Vector2(440, 296)
 
 [node name="StartPosition" parent="." instance=ExtResource("10_4y8fd")]
 position = Vector2(320, 304)

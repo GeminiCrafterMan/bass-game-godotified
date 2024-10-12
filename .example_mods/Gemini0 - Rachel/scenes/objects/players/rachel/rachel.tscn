@@ -1,20 +1,11 @@
-[gd_scene load_steps=52 format=3 uid="uid://cmprdt8hpb1ak"]
+[gd_scene load_steps=43 format=3 uid="uid://cmprdt8hpb1ak"]
 
 [ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="1_o4mto"]
 [ext_resource type="Texture2D" uid="uid://coda44lape3o6" path="res://sprites/players/rachel/palettes/Rachel Buster.png" id="2_nxsrt"]
 [ext_resource type="Script" path="res://scenes/objects/players/rachel/rachel.gd" id="3_6nice"]
 [ext_resource type="Texture2D" uid="uid://cei1vcjb3eqo7" path="res://sprites/players/rachel/rachel.png" id="4_ithhk"]
-[ext_resource type="Texture2D" uid="uid://bot48w7086agv" path="res://sprites/players/HurtStar.png" id="5_c2wxp"]
-[ext_resource type="AudioStream" uid="uid://d2oevy2xek073" path="res://sounds/jump.wav" id="6_nl1sh"]
+[ext_resource type="Texture2D" uid="uid://bot48w7086agv" path="res://sprites/players/HurtStar.png" id="5_6rbj7"]
 [ext_resource type="Texture2D" uid="uid://8mdvvlmmrxfn" path="res://sprites/players/HurtSweat.png" id="6_vmmg0"]
-[ext_resource type="AudioStream" uid="uid://cgaetckoiu15m" path="res://sounds/land.wav" id="7_3e333"]
-[ext_resource type="AudioStream" uid="uid://h87d8b65n30n" path="res://sounds/slide.wav" id="8_72usl"]
-[ext_resource type="AudioStream" uid="uid://ds4m68uui1avq" path="res://sounds/switch.wav" id="9_88qh4"]
-[ext_resource type="AudioStream" uid="uid://dr1p57c1kr6na" path="res://sounds/warp.wav" id="10_1rgf7"]
-[ext_resource type="AudioStream" uid="uid://cojuek45oo3hj" path="res://sounds/playerhurt.wav" id="11_75je6"]
-[ext_resource type="AudioStream" uid="uid://dtctuhq14tsqk" path="res://sounds/charge1.wav" id="12_c6wk1"]
-[ext_resource type="AudioStream" uid="uid://ctn1jvbasggdq" path="res://sounds/charge2.wav" id="13_s0em8"]
-[ext_resource type="AudioStream" uid="uid://dix6rlhdr84oa" path="res://sounds/mega_death.wav" id="14_lobj8"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qymoq"]
 shader = ExtResource("1_o4mto")
@@ -428,8 +419,8 @@ _data = {
 "Walk-Shoot": SubResource("Animation_jomt1")
 }
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_q8rtf"]
-atlas = ExtResource("5_c2wxp")
+[sub_resource type="AtlasTexture" id="AtlasTexture_eq4tl"]
+atlas = ExtResource("5_6rbj7")
 region = Rect2(0, 0, 24, 24)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_7po6x"]
@@ -439,7 +430,7 @@ animations = [{
 "texture": null
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_q8rtf")
+"texture": SubResource("AtlasTexture_eq4tl")
 }],
 "loop": true,
 "name": &"new_animation",
@@ -558,37 +549,6 @@ one_shot = true
 [node name="FireDelay" type="Timer" parent="."]
 wait_time = 0.4
 one_shot = true
-
-[node name="Audio" type="Node" parent="."]
-
-[node name="JumpSound" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource("6_nl1sh")
-
-[node name="LandSound" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource("7_3e333")
-
-[node name="SlideSound" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource("8_72usl")
-
-[node name="SwitchSound" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource("9_88qh4")
-
-[node name="WarpInSound" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource("10_1rgf7")
-volume_db = -8.0
-
-[node name="HurtSound" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource("11_75je6")
-
-[node name="Charge1" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource("12_c6wk1")
-
-[node name="Charge2" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource("13_s0em8")
-
-[node name="DeathSound" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource("14_lobj8")
-volume_db = -16.0
 
 [node name="CeilingCheck" type="RayCast2D" parent="."]
 visible = false

@@ -3,9 +3,8 @@
 [ext_resource type="Texture2D" uid="uid://by2d3btuav4sr" path="res://sprites/enemies/tellyspawner.png" id="1_4s5s2"]
 [ext_resource type="Script" path="res://scenes/objects/enemies/telly_hole.gd" id="1_geudw"]
 
-[node name="Hole" type="CharacterBody2D"]
-collision_layer = 0
-collision_mask = 0
+[node name="Telly Hole" type="Sprite2D"]
+texture = ExtResource("1_4s5s2")
 script = ExtResource("1_geudw")
 
 [node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
@@ -14,6 +13,3 @@ scale = Vector2(0.8, 0.85)
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
 autostart = true
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_4s5s2")
