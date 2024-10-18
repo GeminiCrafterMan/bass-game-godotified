@@ -13,7 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://edbqmmirmmjl" path="res://sprites/enemies/joetestcycle.png" id="10_27246"]
 [ext_resource type="PackedScene" uid="uid://cwqbm80i7pv6x" path="res://scenes/objects/level_objects/ladder_hitbox.tscn" id="11_n5yro"]
 [ext_resource type="PackedScene" uid="uid://mi0hw7tknuco" path="res://scenes/objects/level_objects/spike.tscn" id="12_1njev"]
-[ext_resource type="PackedScene" uid="uid://u68yemonosg8" path="res://scenes/objects/level_objects/button.tscn" id="13_rn21y"]
+[ext_resource type="PackedScene" path="res://scenes/objects/level_objects/button.tscn" id="13_rn21y"]
 [ext_resource type="PackedScene" uid="uid://pqu0lvkmbufk" path="res://scenes/objects/enemies/telly_hole.tscn" id="14_le30n"]
 [ext_resource type="PackedScene" uid="uid://b8vqvqer5c6o3" path="res://scenes/objects/enemies/commando_joe.tscn" id="14_q1mcp"]
 [ext_resource type="PackedScene" uid="uid://bobtsvomowe28" path="res://scenes/objects/items/pickup.tscn" id="15_bvxqh"]

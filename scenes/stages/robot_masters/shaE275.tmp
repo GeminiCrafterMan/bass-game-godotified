@@ -237,7 +237,6 @@ position = Vector2(648, 120)
 
 [node name="Item" parent="Items" instance=ExtResource("6_wepat")]
 position = Vector2(0, 4)
-dropped = false
 
 [node name="ShotMan" parent="." instance=ExtResource("7_dkthg")]
 position = Vector2(255, 100)
