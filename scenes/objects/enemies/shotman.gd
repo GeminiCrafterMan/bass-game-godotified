@@ -108,7 +108,7 @@ func _process(_delta):
 		get_parent().add_child(projectile)
 		projectile.position.x = position.x - (scale.x * 15)
 		projectile.position.y = position.y - 19
-		projectile.velocity.x = scale.x * -105
+		projectile.velocity.x = scale.x * -85
 		projectile.velocity.y = -370
 		attacks -= 1
 	
