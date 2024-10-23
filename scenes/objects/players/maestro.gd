@@ -617,7 +617,7 @@ func state_dead(_direction: Vector2, _delta: float) -> void:
 		velocity.x = 0
 	if pain_timer.is_stopped():
 		SoundManager.play("player", "death")
-		sprite.visible = false
+		scale = Vector2.ZERO
 		projectile = preload("res://scenes/objects/explosion_player.tscn").instantiate()
 		get_parent().add_child(projectile)
 		projectile.position.x = position.x
@@ -1003,6 +1003,7 @@ func weapon_guerilla():
 func weapon_reaper():
 	if Input.is_action_just_released("shoot"):
 		if (currentState != STATES.SLIDE) and (currentState != STATES.HURT) and GameState.onscreen_sp_bullets < 2 and GameState.weapon_energy[GameState.WEAPONS.REAPER] > 0:
+			anim.seek(0)
 			shot_type = 2
 			attack_timer.start(0.3)
 			if ScytheCharge < 25: #Uncharged. Throws 1 boomerang with an alternating curve

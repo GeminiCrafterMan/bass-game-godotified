@@ -37,7 +37,7 @@ func _ready():
 		0	# Whatever's next...
 ]
 
-func _process(_delta):
+func _physics_process(_delta):
 	if $Timer.is_stopped():
 		if stun < 1:
 			position.x += direction * 1

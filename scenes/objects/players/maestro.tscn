@@ -555,7 +555,10 @@ one_shot = true
 [node name="CeilingCheck" type="RayCast2D" parent="."]
 visible = false
 position = Vector2(0, 12)
-target_position = Vector2(0, -12)
+target_position = Vector2(0, -13)
+collision_mask = 17
+hit_from_inside = true
+collide_with_areas = true
 
 [node name="LadderCheck" type="ShapeCast2D" parent="."]
 visible = false

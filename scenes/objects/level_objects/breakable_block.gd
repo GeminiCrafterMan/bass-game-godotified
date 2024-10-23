@@ -39,10 +39,8 @@ var Dmg_Vals = [
 		0	# Whatever's next...
 ]
 
-var gravity = 1400
-
 var _style : int = 0
-## Yoku Block sprite set to display
+## Breakable Block sprite set to display
 @export var style : int :
 	get:
 		return _style
