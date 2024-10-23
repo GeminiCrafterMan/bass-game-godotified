@@ -1,9 +1,10 @@
-[gd_scene load_steps=18 format=3 uid="uid://wnfydbxtfjs6"]
+[gd_scene load_steps=19 format=3 uid="uid://wnfydbxtfjs6"]
 
 [ext_resource type="Script" path="res://scenes/objects/players/weapons/copy_robot/cr_fin_shredder.gd" id="1_bs2ki"]
 [ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="2_8xx7m"]
 [ext_resource type="Texture2D" uid="uid://bmfbbubre4nsu" path="res://sprites/players/weapons/Shark1.png" id="3_ofkqh"]
 [ext_resource type="AudioStream" uid="uid://cs2dmn3ahpbea" path="res://sounds/pop.wav" id="4_f802m"]
+[ext_resource type="Texture2D" uid="uid://lva1q4e4vnnq" path="res://sprites/players/weapons/Shark2.png" id="4_vf21h"]
 [ext_resource type="AudioStream" uid="uid://bu17jfenhhtt8" path="res://sounds/explode.wav" id="5_nptya"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ygio2"]
@@ -36,17 +37,17 @@ region = Rect2(0, 228, 38, 38)
 atlas = ExtResource("3_ofkqh")
 region = Rect2(0, 266, 38, 38)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_5yube"]
-atlas = ExtResource("3_ofkqh")
-region = Rect2(0, 76, 38, 38)
+[sub_resource type="AtlasTexture" id="AtlasTexture_i6df2"]
+atlas = ExtResource("4_vf21h")
+region = Rect2(0, 0, 42, 30)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_rrn17"]
-atlas = ExtResource("3_ofkqh")
-region = Rect2(0, 114, 38, 38)
+[sub_resource type="AtlasTexture" id="AtlasTexture_noboh"]
+atlas = ExtResource("4_vf21h")
+region = Rect2(0, 30, 42, 30)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_nq5t1"]
-atlas = ExtResource("3_ofkqh")
-region = Rect2(0, 152, 38, 38)
+[sub_resource type="AtlasTexture" id="AtlasTexture_7v6jb"]
+atlas = ExtResource("4_vf21h")
+region = Rect2(0, 60, 42, 30)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_tmmfq"]
 animations = [{
@@ -86,16 +87,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_5yube")
+"texture": SubResource("AtlasTexture_i6df2")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_rrn17")
+"texture": SubResource("AtlasTexture_noboh")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_nq5t1")
+"texture": SubResource("AtlasTexture_7v6jb")
 }],
 "loop": true,
-"name": &"Bass-loop",
+"name": &"Copy-loop",
 "speed": 15.0
 }]
 
@@ -111,8 +112,9 @@ material = SubResource("ShaderMaterial_ygio2")
 position = Vector2(-0.178566, 0)
 scale = Vector2(1.01948, 1)
 sprite_frames = SubResource("SpriteFrames_tmmfq")
-animation = &"Bass"
+animation = &"Copy-loop"
 autoplay = "Bass"
+frame_progress = 0.73923
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(-1.13687e-13, 2)

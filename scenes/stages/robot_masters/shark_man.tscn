@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=4 uid="uid://cs8f1cfciw7mk"]
+[gd_scene load_steps=19 format=4 uid="uid://cs8f1cfciw7mk"]
 
 [ext_resource type="Script" path="res://scenes/stages/stage.gd" id="1_kfbs7"]
 [ext_resource type="TileSet" uid="uid://c853gfhwokgru" path="res://tilesets/shark.tres" id="2_nfhkc"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://bingbkdyjdsbs" path="res://scenes/objects/players/start_position.tscn" id="5_rk30x"]
 [ext_resource type="PackedScene" uid="uid://bobtsvomowe28" path="res://scenes/objects/items/pickup.tscn" id="6_wepat"]
 [ext_resource type="PackedScene" uid="uid://da1cskv133mma" path="res://scenes/objects/enemies/shotman.tscn" id="7_dkthg"]
+[ext_resource type="PackedScene" uid="uid://bygcs4m5638w6" path="res://scenes/objects/enemies/gabyoall.tscn" id="9_js2xp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l3773"]
 size = Vector2(2231.5, 2.5)
@@ -327,6 +328,12 @@ bus = &"Music"
 
 [node name="Enemies" type="Node2D" parent="Level Objects"]
 
+[node name="ShotMan" parent="Level Objects/Enemies" instance=ExtResource("7_dkthg")]
+position = Vector2(240, 100)
+
+[node name="Gabyoall" parent="Level Objects/Enemies" instance=ExtResource("9_js2xp")]
+position = Vector2(408, 187)
+
 [node name="StartPosition" parent="." instance=ExtResource("5_rk30x")]
 position = Vector2(86, 144)
 
@@ -351,9 +358,6 @@ position = Vector2(648, 120)
 [node name="Item" parent="Items" instance=ExtResource("6_wepat")]
 position = Vector2(0, 4)
 dropped = false
-
-[node name="ShotMan" parent="." instance=ExtResource("7_dkthg")]
-position = Vector2(240, 100)
 
 [connection signal="body_entered" from="Background/Water/SplashZone" to="." method="_on_splash_zone_body_entered"]
 [connection signal="body_entered" from="Water" to="." method="_on_water_body_entered"]
