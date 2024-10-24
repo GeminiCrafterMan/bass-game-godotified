@@ -34,6 +34,8 @@ func _ready():
 		1,	#20 Blast jump
 		1,	#21 Paper Cut slice
 		1,	#22 Charged Boomer Scythe
+		2,	#23 CR Fin Shredder
+		2,	#24 CR Double Fin Shredder
 		0	# Whatever's next...
 ]
 
@@ -41,7 +43,12 @@ func _physics_process(_delta):
 	if $Timer.is_stopped():
 		if stun < 1:
 			position.x += direction * 1
+			if $Sprite.animation != "Slow" or !$Sprite.is_playing():
+				$Sprite.play("Slow")
 		else:
+			if $Sprite.animation != "Slow":
+				$Sprite.play("Slow")
+			$Sprite.stop()
 			if !$LeftFloorCheck.is_colliding() && !$RightFloorCheck.is_colliding():
 				position.y += 3
 		stun -= 1
@@ -50,6 +57,9 @@ func _physics_process(_delta):
 			$Timer.start(0.002)
 			if stun < 1:
 				position.x += direction * 2
+				if $Sprite.animation != "Fast" or !$Sprite.is_playing():
+					$Sprite.play("Fast")
+					$Sprite.set_frame_and_progress(0,0)
 		else:
 			if stun > 1:
 				$Timer.start(0.01)
@@ -69,7 +79,7 @@ func _physics_process(_delta):
 		direction = 1
 		
 	if !$LeftFloorCheck.is_colliding() && !$RightFloorCheck.is_colliding():
-		stun = 5
+		stun = 35
 	
 	if Cur_HP <= 0:
 		projectile = preload("res://scenes/objects/explosion_1.tscn").instantiate()
@@ -97,7 +107,7 @@ func _on_hitable_body_entered(weapon): # needs to be redefined because damage va
 		
 		if Dmg_Vals[weapon.W_Type] == 1:
 			weapon.reflect()
-			stun = 40
+			stun = 150
 		
 		if Dmg_Vals[weapon.W_Type] == 2:
 			weapon.kill()

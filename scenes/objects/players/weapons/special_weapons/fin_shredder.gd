@@ -59,4 +59,4 @@ func kill():
 	pass
 
 func reflect():
-	pass	# not reflectable
+	destroy()

@@ -26,6 +26,8 @@ var Dmg_Vals = [
 		3,	#20 Blast jump
 		4,	#21 Paper Cut slice
 		5,	#22 Charged Boomer Scythe
+		4,	#23 CR Fin Shredder
+		9,	#24 CR Double Fin Shredder
 		0	# Whatever's next...
 ]
 var Atk_Dmg = 4

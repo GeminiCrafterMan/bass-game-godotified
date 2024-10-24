@@ -56,7 +56,7 @@ func _ready():
 	$AnimatedSprite2D.play(styles[style])
 
 func _on_hitable_body_entered(weapon):
-	if weapon.W_Type == 7:
+	if weapon.W_Type == 7 or weapon.W_Type == 23 or weapon.W_Type == 24:
 		$Collision.queue_free()
 		$hitable.queue_free()
 		$AnimatedSprite2D.play("Explode")

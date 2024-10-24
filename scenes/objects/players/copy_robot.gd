@@ -101,6 +101,10 @@ func weapon_buster(): # G: Copy Robot *can* charge his buster, but Maestro and B
 		return
 		
 func weapon_shark():
+	
+	
+	
+	
 	if Input.is_action_just_pressed("shoot") && (currentState != STATES.SLIDE) and (currentState != STATES.HURT) && is_on_floor() && GameState.weapon_energy[4] >= 5:
 		GameState.weapon_energy[4] -= 3
 		anim.seek(0)
@@ -114,6 +118,8 @@ func weapon_shark():
 		projectile.velocity.x = sprite.scale.x * 65
 		projectile.scale.x = sprite.scale.x
 		return
+		
+	
 
 func _on_teleported() -> void: # Reconnect this to play the sound.
 # G: So, occasionally, this will (for some reason) fire a second time
