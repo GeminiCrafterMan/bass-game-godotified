@@ -1,15 +1,17 @@
 extends CharacterBody2D
 
-const W_Type = 7	# This is Fin Shredder.
+var W_Type = 7	# This is Fin Shredder.
 var dying : bool
 
 func _ready():
 	$SpawnSound.play()
-	$AnimatedSprite2D.play("Bass")
-#	if !GameState.character_selected == 0:
-#		$AnimatedSprite2D.play("Copy")
-#	else:
-#		$AnimatedSprite2D.play("Bass")
+	if GameState.character_selected == 2:
+		$AnimatedSprite2D.play("Copy")
+		W_Type = 23 #CR's damage values
+		$BassHitbox.queue_free()
+	else:
+		$AnimatedSprite2D.play("Bass")
+		$CopyHitbox.queue_free()
 	velocity.y = 2
 		
 		
@@ -22,9 +24,13 @@ func _physics_process(_delta):
 	if GameState.current_weapon != GameState.WEAPONS.SHARK:
 		queue_free()
 	
-	if ($AnimatedSprite2D.animation == "Bass") and ($AnimatedSprite2D.get_frame() == 3) and (is_on_floor()):
-		velocity.x = velocity.x * 4
-		$AnimatedSprite2D.play("Bass-loop")
+	if (($AnimatedSprite2D.animation == "Bass") or ($AnimatedSprite2D.animation == "Copy")) and ($AnimatedSprite2D.get_frame() == 3) and (is_on_floor()):
+		if !GameState.character_selected == 2:
+			velocity.x = velocity.x * 4
+			$AnimatedSprite2D.play("Bass-loop")
+		else:
+			velocity.x = velocity.x * 300
+			$AnimatedSprite2D.play("Copy-loop")
 	
 	if dying == true:
 		if ($AnimatedSprite2D.get_frame() == 0):
@@ -46,17 +52,16 @@ func _on_visible_on_screen_notifier_2d_screen_exited():
 func destroy():
 	$HitSound.play()
 	velocity.y = 0
-	$AnimatedSprite2D.play("Bass-hit")
-#	if !GameState.character_selected == 0:
-#		$AnimatedSprite2D.play("Copy-hit")
-#	else:
-#		$AnimatedSprite2D.play("Bass-hit")
+	if GameState.character_selected == 2:
+		$AnimatedSprite2D.play("Copy-hit")
+	else:
+		$AnimatedSprite2D.play("Bass-hit")
 	dying = true
 	
 	
 
 func kill():
-	pass
+	$HitSound.play()
 
 func reflect():
-	destroy()
+	pass

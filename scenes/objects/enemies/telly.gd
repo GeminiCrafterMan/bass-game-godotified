@@ -32,6 +32,8 @@ func _ready():
 		3,	#20 Blast jump
 		4,	#21 Paper Cut slice
 		5,	#22 Charged Boomer Scythe
+		5,	#23 CR Shredder
+		5,	#24 CR Shredder 2
 		0	# Whatever's next...
 ]
 

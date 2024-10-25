@@ -1,8 +1,9 @@
-[gd_scene load_steps=18 format=3 uid="uid://bgpq81upok6bf"]
+[gd_scene load_steps=30 format=3 uid="uid://bgpq81upok6bf"]
 
 [ext_resource type="Script" path="res://scenes/objects/players/weapons/special_weapons/fin_shredder.gd" id="1_nr124"]
 [ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="2_xvq3c"]
 [ext_resource type="Texture2D" uid="uid://bmfbbubre4nsu" path="res://sprites/players/weapons/Shark1.png" id="3_w5x32"]
+[ext_resource type="Texture2D" uid="uid://lva1q4e4vnnq" path="res://sprites/players/weapons/Shark2.png" id="4_70rwx"]
 [ext_resource type="AudioStream" uid="uid://bu17jfenhhtt8" path="res://sounds/explode.wav" id="4_db5so"]
 [ext_resource type="AudioStream" uid="uid://cs2dmn3ahpbea" path="res://sounds/pop.wav" id="6_ynx38"]
 
@@ -47,6 +48,46 @@ region = Rect2(0, 114, 38, 38)
 [sub_resource type="AtlasTexture" id="AtlasTexture_nq5t1"]
 atlas = ExtResource("3_w5x32")
 region = Rect2(0, 152, 38, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cbvx7"]
+atlas = ExtResource("4_70rwx")
+region = Rect2(42, 0, 42, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t4n6c"]
+atlas = ExtResource("4_70rwx")
+region = Rect2(42, 38, 42, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_no8il"]
+atlas = ExtResource("4_70rwx")
+region = Rect2(42, 76, 42, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lj63x"]
+atlas = ExtResource("4_70rwx")
+region = Rect2(0, 114, 42, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xoesp"]
+atlas = ExtResource("4_70rwx")
+region = Rect2(0, 152, 42, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u5p8u"]
+atlas = ExtResource("4_70rwx")
+region = Rect2(0, 190, 42, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dpmeo"]
+atlas = ExtResource("4_70rwx")
+region = Rect2(0, 228, 42, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1swnu"]
+atlas = ExtResource("4_70rwx")
+region = Rect2(0, 0, 42, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_igm53"]
+atlas = ExtResource("4_70rwx")
+region = Rect2(0, 38, 42, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j7j34"]
+atlas = ExtResource("4_70rwx")
+region = Rect2(0, 76, 42, 38)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_tmmfq"]
 animations = [{
@@ -97,10 +138,61 @@ animations = [{
 "loop": true,
 "name": &"Bass-loop",
 "speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cbvx7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t4n6c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_no8il")
+}],
+"loop": true,
+"name": &"Copy",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lj63x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xoesp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u5p8u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dpmeo")
+}],
+"loop": true,
+"name": &"Copy-hit",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1swnu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_igm53")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j7j34")
+}],
+"loop": true,
+"name": &"Copy-loop",
+"speed": 15.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0fvlc"]
-size = Vector2(32, 30.5)
+size = Vector2(21.053, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kfuof"]
+size = Vector2(42.1053, 27)
 
 [node name="Fin Shredder" type="CharacterBody2D"]
 collision_layer = 8
@@ -111,17 +203,24 @@ material = SubResource("ShaderMaterial_ygio2")
 position = Vector2(-0.178566, 0)
 scale = Vector2(1.01948, 1)
 sprite_frames = SubResource("SpriteFrames_tmmfq")
-animation = &"Bass"
+animation = &"Copy"
 autoplay = "Bass"
+frame_progress = 0.162778
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(-1.13687e-13, 2)
 scale = Vector2(2, 1.7)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 3.75)
+[node name="BassHitbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4)
 scale = Vector2(0.475, 1)
 shape = SubResource("RectangleShape2D_0fvlc")
+
+[node name="CopyHitbox" type="CollisionShape2D" parent="."]
+position = Vector2(2.98023e-08, 5.5)
+scale = Vector2(0.475, 1)
+shape = SubResource("RectangleShape2D_kfuof")
+debug_color = Color(0.172549, 0.00392157, 1, 0.419608)
 
 [node name="HitSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_ynx38")

@@ -388,6 +388,8 @@ func state_idle(_direction: Vector2, _delta: float) -> void:
 				anim.play("Idle-Shield")
 			4: # Fin Shredder
 				anim.play("FinShredder")
+			5: # Shredder2
+				anim.play("DoubleFinShredder")
 			_: # Everything else
 				anim.play("Idle-Shoot")
 	if Input.is_action_pressed("move_down") and Input.is_action_just_pressed("jump"):
@@ -527,6 +529,8 @@ func state_jump(_direction: Vector2, _delta: float) -> void:
 				anim.play("Jump-Shield")
 			4: # Shredder
 				anim.play("FinShredder")
+			5: # Shredder2
+				anim.play("DoubleFinShredder")
 			_: # Everything else
 				anim.play("Jump-Shoot")
 

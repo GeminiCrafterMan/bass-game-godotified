@@ -1,10 +1,9 @@
-[gd_scene load_steps=20 format=3 uid="uid://wnfydbxtfjs6"]
+[gd_scene load_steps=15 format=3 uid="uid://wnfydbxtfjs6"]
 
 [ext_resource type="Script" path="res://scenes/objects/players/weapons/copy_robot/cr_fin_shredder.gd" id="1_bs2ki"]
 [ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="2_8xx7m"]
-[ext_resource type="Texture2D" uid="uid://bmfbbubre4nsu" path="res://sprites/players/weapons/Shark1.png" id="3_ofkqh"]
+[ext_resource type="Texture2D" uid="uid://birsolsp1t1mb" path="res://sprites/players/weapons/Shark3.png" id="3_3tcdh"]
 [ext_resource type="AudioStream" uid="uid://cs2dmn3ahpbea" path="res://sounds/pop.wav" id="4_f802m"]
-[ext_resource type="Texture2D" uid="uid://lva1q4e4vnnq" path="res://sprites/players/weapons/Shark2.png" id="4_vf21h"]
 [ext_resource type="AudioStream" uid="uid://bu17jfenhhtt8" path="res://sounds/explode.wav" id="5_nptya"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ygio2"]
@@ -13,77 +12,55 @@ shader_parameter/skip_first_row = true
 shader_parameter/use_palette_alpha = false
 shader_parameter/fps = 6.0
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_g3ewl"]
-atlas = ExtResource("3_ofkqh")
-region = Rect2(0, 0, 38, 38)
+[sub_resource type="AtlasTexture" id="AtlasTexture_kfbb4"]
+atlas = ExtResource("3_3tcdh")
+region = Rect2(0, 0, 45, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_s3yrw"]
-atlas = ExtResource("3_ofkqh")
-region = Rect2(0, 38, 38, 38)
+[sub_resource type="AtlasTexture" id="AtlasTexture_yv5iu"]
+atlas = ExtResource("3_3tcdh")
+region = Rect2(45, 0, 45, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_7y71r"]
-atlas = ExtResource("3_ofkqh")
-region = Rect2(0, 190, 38, 38)
+[sub_resource type="AtlasTexture" id="AtlasTexture_wglv5"]
+atlas = ExtResource("3_3tcdh")
+region = Rect2(0, 0, 45, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_b00en"]
-atlas = ExtResource("4_vf21h")
-region = Rect2(0, 0, 42, 30)
+[sub_resource type="AtlasTexture" id="AtlasTexture_djftb"]
+atlas = ExtResource("3_3tcdh")
+region = Rect2(45, 0, 45, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_y348a"]
-atlas = ExtResource("4_vf21h")
-region = Rect2(0, 90, 42, 30)
+[sub_resource type="AtlasTexture" id="AtlasTexture_g8ewc"]
+atlas = ExtResource("3_3tcdh")
+region = Rect2(0, 0, 45, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_2rrhy"]
-atlas = ExtResource("4_vf21h")
-region = Rect2(0, 120, 42, 30)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_foa30"]
-atlas = ExtResource("4_vf21h")
-region = Rect2(0, 150, 42, 30)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_i6df2"]
-atlas = ExtResource("4_vf21h")
-region = Rect2(0, 0, 42, 30)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_noboh"]
-atlas = ExtResource("4_vf21h")
-region = Rect2(0, 30, 42, 30)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7v6jb"]
-atlas = ExtResource("4_vf21h")
-region = Rect2(0, 60, 42, 30)
+[sub_resource type="AtlasTexture" id="AtlasTexture_telti"]
+atlas = ExtResource("3_3tcdh")
+region = Rect2(45, 0, 45, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_tmmfq"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_g3ewl")
+"texture": SubResource("AtlasTexture_kfbb4")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_s3yrw")
+"texture": SubResource("AtlasTexture_yv5iu")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_7y71r")
+"texture": SubResource("AtlasTexture_kfbb4")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_7y71r")
+"texture": SubResource("AtlasTexture_yv5iu")
 }],
-"loop": false,
+"loop": true,
 "name": &"Copy",
-"speed": 8.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_b00en")
+"texture": SubResource("AtlasTexture_wglv5")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_y348a")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_2rrhy")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_foa30")
+"texture": SubResource("AtlasTexture_djftb")
 }],
 "loop": false,
 "name": &"Copy-hit",
@@ -91,44 +68,51 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_i6df2")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_noboh")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7v6jb")
+"texture": SubResource("AtlasTexture_g8ewc")
 }],
 "loop": true,
 "name": &"Copy-loop",
 "speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_telti")
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_telti")
+}],
+"loop": true,
+"name": &"Generate",
+"speed": 8.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0fvlc"]
-size = Vector2(32, 30.5)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l7rpa"]
+size = Vector2(43.5671, 44)
 
-[node name="Fin Shredder" type="CharacterBody2D"]
+[node name="Double Fin Shredder" type="CharacterBody2D"]
 collision_layer = 8
+collision_mask = 0
+floor_block_on_wall = false
 script = ExtResource("1_bs2ki")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_ygio2")
-position = Vector2(-0.178566, 0)
+position = Vector2(0, -17)
 scale = Vector2(1.01948, 1)
 sprite_frames = SubResource("SpriteFrames_tmmfq")
-animation = &"Copy-hit"
-autoplay = "Copy"
-frame = 3
-frame_progress = 1.0
+animation = &"Copy"
+autoplay = "Generate"
+frame_progress = 0.560952
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(-1.13687e-13, 2)
 scale = Vector2(2, 1.7)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 3.75)
-scale = Vector2(0.475, 1)
-shape = SubResource("RectangleShape2D_0fvlc")
 
 [node name="HitSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_f802m")
@@ -137,5 +121,10 @@ bus = &"SFX"
 [node name="SpawnSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_nptya")
 bus = &"SFX"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -7)
+scale = Vector2(0.484253, 1)
+shape = SubResource("RectangleShape2D_l7rpa")
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

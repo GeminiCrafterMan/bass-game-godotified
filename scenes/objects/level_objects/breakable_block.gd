@@ -53,7 +53,7 @@ func _ready():
 	$AnimatedSprite2D.play(styles[style])
 
 func _on_hitable_body_entered(weapon):
-	if weapon.W_Type == 3 or weapon.W_Type == 7 or weapon.W_Type == 13:
+	if weapon.W_Type == 3 or weapon.W_Type == 7 or weapon.W_Type == 13 or weapon.W_Type == 23 or weapon.W_Type == 24:
 		weapon.kill()
 	else:
 		weapon.destroy()

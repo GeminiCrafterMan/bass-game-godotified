@@ -1,12 +1,15 @@
 extends CharacterBody2D
 
-const W_Type = 23	# This is CR's Fin Shredder.
+const W_Type = 24	# This is CR's Double Fin Shredder!!
 var dying : bool
+var spins : int
+var detectpos
 
 func _ready():
 	$SpawnSound.play()
-	$AnimatedSprite2D.play("Copy")
-	velocity.y = 2
+	$AnimatedSprite2D.play("Generate")
+	velocity.y = 0
+	detectpos = GameState.playerposy
 		
 		
 func _physics_process(_delta):
@@ -18,7 +21,20 @@ func _physics_process(_delta):
 	if GameState.current_weapon != GameState.WEAPONS.SHARK:
 		queue_free()
 	
-	if ($AnimatedSprite2D.animation == "Copy") and ($AnimatedSprite2D.get_frame() == 3) and (is_on_floor()):
+	if ($AnimatedSprite2D.animation == "Generate") and ($AnimatedSprite2D.get_frame() == 3):
+		spins += 1
+		velocity.x = velocity.x * 1.5
+		if spins > 3:
+			if detectpos == GameState.playerposy:
+				velocity.x = velocity.x * 74
+				$SpawnSound.play()
+				$AnimatedSprite2D.play("Copy")
+				GameState.weapon_energy[GameState.WEAPONS.SHARK] -= 2
+		if spins == 10:
+			queue_free()
+		
+	
+	if ($AnimatedSprite2D.animation == "Copy") and ($AnimatedSprite2D.get_frame() == 3):
 		velocity.x = velocity.x * 4
 		$AnimatedSprite2D.play("Copy-loop")
 	
@@ -26,15 +42,17 @@ func _physics_process(_delta):
 		if ($AnimatedSprite2D.get_frame() == 0):
 			velocity.x = velocity.x * 0.7
 		velocity.x = velocity.x * 0.8
-		if ($AnimatedSprite2D.get_frame() == 3):
+		if ($AnimatedSprite2D.get_frame() == 1):
+			GameState.onscreen_sp_bullets = 0
 			queue_free()
 	
 	
-	if !is_on_floor() or velocity.x == 0:
+	if velocity.x == 0:
 		destroy()
 	
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
+	GameState.onscreen_sp_bullets = 0
 	queue_free()
 
 func destroy():
@@ -49,4 +67,4 @@ func kill():
 	pass
 
 func reflect():
-	destroy()
+	pass
