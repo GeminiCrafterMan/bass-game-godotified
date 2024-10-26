@@ -109,15 +109,27 @@ func _physics_process(_delta):
 		
 	position.x = dist + baseposx + cos(theta*0.09)*radius
 	position.y = baseposy + sin(theta*0.09)*radius
+	
+	if ($MainSprite.animation == "Bass" or $MainSprite.animation == "Copy" and radius == 25):
+		if GameState.character_selected == 2:
+			$MainSprite.play("Copy-Move")
+		else:
+			$MainSprite.play("Bass-Move")
 		
-	if ($MainSprite.animation == "Bass" or $MainSprite.animation == "Copy") and ($MainSprite.get_frame() > 0):
-		trail = trailscn.instantiate()
-		get_parent().add_child(trail)
-		trail.position = position
-		if $MainSprite.get_frame() == 1:
-			trail.set_frame_and_progress(1,0)
-	
-	
+	if ($MainSprite.animation == "Bass-Move" or $MainSprite.animation == "Copy-Move"):
+		if (durability > 2):
+			trail = trailscn.instantiate()
+			get_parent().add_child(trail)
+			trail.position = position
+			trail.set_frame_and_progress(6-durability,0)
+		
+		if durability < 3:
+			$MainSprite.set_frame_and_progress(2,0)
+		elif durability < 5:
+			$MainSprite.set_frame_and_progress(1,0)
+		else:
+			$MainSprite.set_frame_and_progress(0,0)
+			
 	#20*cos(pitch), 0, 8*sin(-pitch)
 	
 	if move_and_slide() == true:
@@ -134,7 +146,6 @@ func destroy():
 		
 		if durability > 0:
 			$CollisionShape2D.set_deferred("disabled", true)
-			durability = durability - 2
 			invul = 5
 
 func kill():

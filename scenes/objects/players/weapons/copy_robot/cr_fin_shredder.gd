@@ -34,7 +34,7 @@ func _physics_process(_delta):
 			queue_free()
 		
 	
-	if ($AnimatedSprite2D.animation == "Copy") and ($AnimatedSprite2D.get_frame() == 3):
+	if ($AnimatedSprite2D.animation == "Copy") and ($AnimatedSprite2D.get_frame() == 4):
 		velocity.x = velocity.x * 4
 		$AnimatedSprite2D.play("Copy-loop")
 	

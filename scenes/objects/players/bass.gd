@@ -8,7 +8,8 @@ class_name BassPlayer
 # Variables
 var buster_speed = 300
 var blast_jumped = false
-
+var dashing = false
+var dashdir = 0
 func _init() -> void:
 	weapon_palette = [
 		preload("res://sprites/players/bass/palettes/Bass Buster.png"),
@@ -62,6 +63,7 @@ func _ready() -> void:
 # ===============
 ## Idle state
 func state_idle(_direction: Vector2, _delta: float) -> void:
+	dashing = false
 	blast_jumped = false # Extra safeguard
 	#play animation
 	if attack_timer.is_stopped():
@@ -162,6 +164,11 @@ func state_walk(_direction: Vector2, _delta: float) -> void:
 ## Slide state -- but here, it's actually a dash!
 func state_slide(_direction: Vector2, _delta: float) -> void:
 	if isFirstFrameOfState:
+		dashing = true
+		if velocity.x > 0:
+			dashdir = 1
+		if velocity.x < 0:
+			dashdir = -1
 		slide_timer.start()
 		SoundManager.play("player", "slide") #	 G: I know, I know, but it's the same sound.
 		if GameState.modules_enabled[GameState.WEAPONS.SMOG] == true:
@@ -202,7 +209,10 @@ func state_slide(_direction: Vector2, _delta: float) -> void:
 ## Jump state
 func state_jump(_direction: Vector2, _delta: float) -> void:
 	if Input.is_action_pressed("move_up") and Input.is_action_just_pressed("jump") and GameState.modules_enabled[GameState.WEAPONS.BLAZE] and blast_jumped == false and isFirstFrameOfState == false:
-		module_blaze() # Blast Jump
+		module_blaze()
+		anim.stop()
+		StepTime = 0
+		anim.play("Jump")
 	#setup needed on first frame of new state
 	if isFirstFrameOfState:
 		velocity.y = JUMP_VELOCITY
@@ -215,7 +225,7 @@ func state_jump(_direction: Vector2, _delta: float) -> void:
 		if (JumpHeight < JUMP_HEIGHT and Input.is_action_pressed("jump")):
 			velocity.y = JUMP_VELOCITY
 			JumpHeight += 1
-		if (JumpHeight == JUMP_HEIGHT):
+		if (JumpHeight == JUMP_HEIGHT or (dashing == true and JumpHeight == JUMP_HEIGHT - 10 and in_water== true)):
 			JumpHeight = 80
 			velocity.y = PEAK_VELOCITY
 		if (Input.is_action_just_released("jump")):
@@ -259,10 +269,13 @@ func state_jump(_direction: Vector2, _delta: float) -> void:
 
 	#behavior of state
 	#movement in state
-	if ice_jump == false and slide_timer.is_stopped() == true:
+	
+	if ice_jump == false and dashing == false:
 		default_movement(_direction, _delta)
-	else:
+	elif ice_jump == true:
 		ice_jump_move(_direction, _delta)
+	elif dashing == true:
+		dash_jump(_direction, _delta)
 
 	if is_on_floor() and !isFirstFrameOfState:
 		SoundManager.play("player", "land")
@@ -416,6 +429,17 @@ func module_smog() -> void:
 	#Changes Collision
 	$MainHitbox.set_disabled(true)
 	$SlideHitbox.set_disabled(false)
+
+func dash_jump(direction, delta):
+	if direction.x:
+		sprite.scale.x = sign(direction.x)
+		if direction.x == dashdir:
+			velocity.x = sprite.scale.x * 175
+		else:
+			velocity.x = sprite.scale.x * MAXSPEED * 0.75
+	else:
+		velocity.x = 0
+
 
 func _on_teleported() -> void: # Reconnect this to play the sound.
 # G: So, occasionally, this will (for some reason) fire a second time

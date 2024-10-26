@@ -113,6 +113,12 @@ func _on_hitable_body_entered(weapon): # needs to be redefined because damage va
 			weapon.kill()
 			Cur_HP = 0
 			
+	if weapon.is_in_group("scorch"):
+		if GameState.character_selected != 2:
+			weapon.durability -= 3
+		else:
+			weapon.durability -= 3
+			
 
 func _on_hurt_body_entered(body):
 	body.DmgQueue = Atk_Dmg

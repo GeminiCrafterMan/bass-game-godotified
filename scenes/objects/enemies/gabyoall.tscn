@@ -104,7 +104,7 @@ position = Vector2(0, -6)
 sprite_frames = SubResource("SpriteFrames_62nvj")
 animation = &"Fast"
 autoplay = "Slow"
-frame_progress = 0.71636
+frame_progress = 0.0982196
 
 [node name="hitable" type="Area2D" parent="."]
 collision_layer = 4

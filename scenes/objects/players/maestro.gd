@@ -145,11 +145,12 @@ func _ready():
 
 
 func _physics_process(delta: float) -> void:
-
+	
 	progress = anim.get_current_animation_position()
 
 	GameState.playerposx = position.x
 	GameState.playerposy = position.y
+	GameState.playerstate = currentState
 
 	if GameState.onscreen_sp_bullets < 0:
 		GameState.onscreen_sp_bullets = 0
@@ -421,6 +422,8 @@ func state_walk(_direction: Vector2, _delta: float) -> void:
 				anim.play("Idle-Shield")
 			4: # Shredder
 				anim.play("FinShredder")
+			5: # Shredder2
+				anim.play("DoubleFinShredder")
 			_: # Everything else
 				anim.play("Walk-Shoot")
 				anim.seek(progress)
@@ -528,9 +531,9 @@ func state_jump(_direction: Vector2, _delta: float) -> void:
 			3: # Shield
 				anim.play("Jump-Shield")
 			4: # Shredder
-				anim.play("FinShredder")
+				anim.play("Jump-Throw")
 			5: # Shredder2
-				anim.play("DoubleFinShredder")
+				anim.play("Jump-Throw")
 			_: # Everything else
 				anim.play("Jump-Shoot")
 

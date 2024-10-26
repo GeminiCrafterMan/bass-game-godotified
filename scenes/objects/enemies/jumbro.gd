@@ -47,6 +47,11 @@ func _on_hitable_body_entered(weapon): # needs to be redefined because damage va
 		if Dmg_Vals[weapon.W_Type] == 0:
 				weapon.reflect()
 		else:
+			if weapon.is_in_group("scorch"):
+				if GameState.character_selected != 2:
+					weapon.durability -= 1
+				else:
+					weapon.durability -= 2
 			Cur_HP -= Dmg_Vals[weapon.W_Type]
 			Cur_Inv = 2
 			if Cur_HP <= 0 or weapon.W_Type == 7 or weapon.W_Type == 11 or weapon.W_Type == 22 or weapon.W_Type == 23 or weapon.W_Type == 24:

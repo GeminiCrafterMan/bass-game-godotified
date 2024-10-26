@@ -205,7 +205,7 @@ scale = Vector2(1.01948, 1)
 sprite_frames = SubResource("SpriteFrames_tmmfq")
 animation = &"Copy"
 autoplay = "Bass"
-frame_progress = 0.162778
+frame_progress = 0.459108
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(-1.13687e-13, 2)

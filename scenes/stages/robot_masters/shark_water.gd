@@ -4,10 +4,13 @@ var timer : int
 var freq = 0.025
 var amplitude = 0.2
 var v = Vector2(0, 25)
+var level
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	GameState.playerposy = 0
+	level = position.y
+	$CanvasLayer/Shade2.position.y = level + 304
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -19,3 +22,14 @@ func _process(delta):
 	v.y = (cos(timer * freq) * amplitude)
 
 	position.y += v.y
+	
+	level = position.y
+	
+	
+	
+	if GameState.playerposy >= 280:
+		$CanvasLayer/Shade2.position.y = 0
+	elif GameState.playerstate != 1:
+		$CanvasLayer/Shade2.position.y = level + 304 - GameState.playerposy
+	else:
+		$CanvasLayer/Shade2.position.y = level + 160

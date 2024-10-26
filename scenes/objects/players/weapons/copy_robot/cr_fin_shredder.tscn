@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://wnfydbxtfjs6"]
+[gd_scene load_steps=22 format=3 uid="uid://wnfydbxtfjs6"]
 
 [ext_resource type="Script" path="res://scenes/objects/players/weapons/copy_robot/cr_fin_shredder.gd" id="1_bs2ki"]
 [ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="2_8xx7m"]
@@ -12,13 +12,21 @@ shader_parameter/skip_first_row = true
 shader_parameter/use_palette_alpha = false
 shader_parameter/fps = 6.0
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_kfbb4"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_iugk7"]
 atlas = ExtResource("3_3tcdh")
-region = Rect2(0, 0, 45, 64)
+region = Rect2(90, 0, 45, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_yv5iu"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_3jmn2"]
 atlas = ExtResource("3_3tcdh")
-region = Rect2(45, 0, 45, 64)
+region = Rect2(90, 64, 45, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r4edh"]
+atlas = ExtResource("3_3tcdh")
+region = Rect2(90, 128, 45, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r0avb"]
+atlas = ExtResource("3_3tcdh")
+region = Rect2(90, 192, 45, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wglv5"]
 atlas = ExtResource("3_3tcdh")
@@ -28,32 +36,55 @@ region = Rect2(0, 0, 45, 64)
 atlas = ExtResource("3_3tcdh")
 region = Rect2(45, 0, 45, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_g8ewc"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ocm6"]
 atlas = ExtResource("3_3tcdh")
 region = Rect2(0, 0, 45, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_telti"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_1pt04"]
+atlas = ExtResource("3_3tcdh")
+region = Rect2(0, 64, 45, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mwpk6"]
+atlas = ExtResource("3_3tcdh")
+region = Rect2(0, 128, 45, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ivim"]
+atlas = ExtResource("3_3tcdh")
+region = Rect2(0, 192, 45, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dw1m4"]
 atlas = ExtResource("3_3tcdh")
 region = Rect2(45, 0, 45, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n8nqv"]
+atlas = ExtResource("3_3tcdh")
+region = Rect2(45, 64, 45, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_86ohn"]
+atlas = ExtResource("3_3tcdh")
+region = Rect2(45, 128, 45, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_tmmfq"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_kfbb4")
+"texture": SubResource("AtlasTexture_iugk7")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_yv5iu")
+"texture": SubResource("AtlasTexture_3jmn2")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_kfbb4")
+"texture": SubResource("AtlasTexture_r4edh")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_yv5iu")
+"texture": SubResource("AtlasTexture_r0avb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r0avb")
 }],
 "loop": true,
 "name": &"Copy",
-"speed": 5.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -68,7 +99,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_g8ewc")
+"texture": SubResource("AtlasTexture_1ocm6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1pt04")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mwpk6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3ivim")
 }],
 "loop": true,
 "name": &"Copy-loop",
@@ -76,20 +116,17 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_telti")
+"texture": SubResource("AtlasTexture_dw1m4")
 }, {
 "duration": 1.0,
-"texture": null
+"texture": SubResource("AtlasTexture_n8nqv")
 }, {
 "duration": 1.0,
-"texture": null
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_telti")
+"texture": SubResource("AtlasTexture_86ohn")
 }],
 "loop": true,
 "name": &"Generate",
-"speed": 8.0
+"speed": 15.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l7rpa"]
@@ -106,9 +143,8 @@ material = SubResource("ShaderMaterial_ygio2")
 position = Vector2(0, -17)
 scale = Vector2(1.01948, 1)
 sprite_frames = SubResource("SpriteFrames_tmmfq")
-animation = &"Copy"
+animation = &"Copy-loop"
 autoplay = "Generate"
-frame_progress = 0.560952
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(-1.13687e-13, 2)

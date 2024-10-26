@@ -47,6 +47,7 @@ var onscreen_sp_bullets : int
 
 var playerposx
 var playerposy
+var playerstate
 
 var tellies : int
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://biy1mk3b78gh"]
+[gd_scene load_steps=28 format=3 uid="uid://biy1mk3b78gh"]
 
 [ext_resource type="Script" path="res://scenes/objects/players/weapons/special_weapons/scorch_barrier.gd" id="1_emmpe"]
 [ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="2_ca07l"]
@@ -27,6 +27,18 @@ region = Rect2(20, 0, 20, 20)
 atlas = ExtResource("2_e0r6x")
 region = Rect2(0, 0, 20, 20)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_81xt0"]
+atlas = ExtResource("2_e0r6x")
+region = Rect2(0, 0, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d7eyt"]
+atlas = ExtResource("2_e0r6x")
+region = Rect2(20, 0, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_240s1"]
+atlas = ExtResource("2_e0r6x")
+region = Rect2(40, 0, 20, 20)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_cvpth"]
 atlas = ExtResource("3_88uls")
 region = Rect2(48, 0, 24, 24)
@@ -38,6 +50,18 @@ region = Rect2(24, 0, 24, 24)
 [sub_resource type="AtlasTexture" id="AtlasTexture_p4uct"]
 atlas = ExtResource("3_88uls")
 region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q4cce"]
+atlas = ExtResource("3_88uls")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1qn0j"]
+atlas = ExtResource("3_88uls")
+region = Rect2(24, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7mm1n"]
+atlas = ExtResource("3_88uls")
+region = Rect2(48, 0, 24, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lvi4w"]
 atlas = ExtResource("4_3y8vu")
@@ -76,6 +100,20 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_81xt0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d7eyt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_240s1")
+}],
+"loop": true,
+"name": &"Bass-Move",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_cvpth")
 }, {
 "duration": 1.0,
@@ -90,6 +128,20 @@ animations = [{
 "loop": false,
 "name": &"Copy",
 "speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q4cce")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1qn0j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7mm1n")
+}],
+"loop": true,
+"name": &"Copy-Move",
+"speed": 0.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -127,12 +179,12 @@ material = SubResource("ShaderMaterial_fyvtn")
 position = Vector2(-0.25, 0)
 scale = Vector2(1.02381, 1)
 sprite_frames = SubResource("SpriteFrames_tmmfq")
-animation = &"Bass"
+animation = &"Copy-Move"
 autoplay = "Bass"
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." groups=["scorch"]]
-position = Vector2(1.26362e-05, 0.499992)
-scale = Vector2(19.3, 18.15)
+position = Vector2(-2.86102e-06, 0.499992)
+scale = Vector2(4, 18.15)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["scorch"]]
 scale = Vector2(1.75, 1.75)
