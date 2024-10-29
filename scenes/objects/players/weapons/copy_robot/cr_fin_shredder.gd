@@ -21,7 +21,7 @@ func _physics_process(_delta):
 	if GameState.current_weapon != GameState.WEAPONS.SHARK:
 		queue_free()
 	
-	if ($AnimatedSprite2D.animation == "Generate") and ($AnimatedSprite2D.get_frame() == 3):
+	if ($AnimatedSprite2D.animation == "Generate") and ($AnimatedSprite2D.get_frame() == 2):
 		spins += 1
 		velocity.x = velocity.x * 1.5
 		if spins > 3:

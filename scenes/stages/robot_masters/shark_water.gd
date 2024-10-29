@@ -29,7 +29,9 @@ func _process(delta):
 	
 	if GameState.playerposy >= 280:
 		$CanvasLayer/Shade2.position.y = 0
+		$CanvasLayer/Shade2.color.a = 2
 	elif GameState.playerstate != 1:
 		$CanvasLayer/Shade2.position.y = level + 304 - GameState.playerposy
+		$CanvasLayer/Shade2.color.a = 94
 	else:
 		$CanvasLayer/Shade2.position.y = level + 160

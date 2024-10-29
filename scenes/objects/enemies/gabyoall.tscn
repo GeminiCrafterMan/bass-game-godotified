@@ -133,6 +133,7 @@ position = Vector2(0, -3)
 scale = Vector2(1.55, 1.5)
 
 [node name="Timer" type="Timer" parent="."]
+wait_time = 0.001
 one_shot = true
 autostart = true
 
