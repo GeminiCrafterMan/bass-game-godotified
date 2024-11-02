@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=4 uid="uid://dko1ldfifobnn"]
+[gd_scene load_steps=10 format=4 uid="uid://dko1ldfifobnn"]
 
 [ext_resource type="Script" path="res://scenes/stages/stage.gd" id="1_vyele"]
 [ext_resource type="AudioStream" uid="uid://6eg00db4lry5" path="res://music/Guerrilla Stage.mp3" id="4_6r0jx"]
 [ext_resource type="PackedScene" uid="uid://b8vqvqer5c6o3" path="res://scenes/objects/enemies/commando_joe.tscn" id="5_vldis"]
 [ext_resource type="PackedScene" uid="uid://bingbkdyjdsbs" path="res://scenes/objects/players/start_position.tscn" id="6_211mx"]
+[ext_resource type="TileSet" uid="uid://di2ls6ayshosr" path="res://tilesets/layout.tres" id="6_l04i1"]
 [ext_resource type="TileSet" uid="uid://bdqyt5eh73er6" path="res://tilesets/guerilla.tres" id="7_3buwc"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_pch6m"]
@@ -119,6 +120,18 @@ gravity = 400.0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SplashZone"]
 position = Vector2(838.5, 296.5)
 shape = SubResource("RectangleShape2D_fa34e")
+
+[node name="LayoutMap" type="Node2D" parent="."]
+
+[node name="Layout" type="TileMapLayer" parent="LayoutMap"]
+scale = Vector2(24, 14)
+tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAJAPz/AAAAAAAAAAAOAP3/AAAAAAAAAAAQAAAAAAAAAAAAAAATAAAAAAAAAAAAAAAWAAAAAAAAAAAAAAAHAPv/AAAAAAAAAAAHAPr/AAAAAAAAAAAPAPz/AAAAAAAAAAAPAP3/AAAAAAAAAAAIAPz/AAAAAAAAAAAIAAEAAAAAAAAAAAAJAAIAAAAAAAAAAAAKAAIAAAAAAAAAAAALAAIAAAAAAAAAAAAMAAIAAAAAAAAAAAANAAIAAAAAAAAAAAAIAAIAAAAAAAAAAAAOAAEAAAAAAAAAAAAOAAIAAAAAAAAAAAALAPv/AAAAAAAAAAAOAPn/AAAAAAAAAAAJAPr/AAAAAAAAAAANAPv/AAAAAAAAAAAXAAAAAAAAAAAAAAA=")
+tile_set = ExtResource("6_l04i1")
+
+[node name="Layout2" type="TileMapLayer" parent="LayoutMap"]
+scale = Vector2(24, 14)
+tile_map_data = PackedByteArray("AAAAAAAAAAADAAQAAAAXAAAAAAAAAAQAAAAWAAAAAAABAAQAAAALAAEAAAACAAQAAAA=")
+tile_set = ExtResource("6_l04i1")
 
 [connection signal="body_entered" from="Water" to="." method="_on_water_body_entered"]
 [connection signal="body_exited" from="Water" to="." method="_on_water_body_exited"]

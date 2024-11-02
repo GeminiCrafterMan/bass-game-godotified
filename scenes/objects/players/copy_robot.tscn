@@ -40,6 +40,21 @@ tracks/0/keys = {
 "values": [30]
 }
 
+[sub_resource type="Animation" id="Animation_7rapa"]
+resource_name = "DoubleFinShredder"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.233333, 0.3, 0.366666, 0.433333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [42, 43, 44, 54, 55, 56, 57]
+}
+
 [sub_resource type="Animation" id="Animation_q4ygw"]
 length = 0.166667
 loop_mode = 1
@@ -411,21 +426,6 @@ tracks/0/keys = {
 "values": [14, 15, 16, 17, 18, 19]
 }
 
-[sub_resource type="Animation" id="Animation_7rapa"]
-resource_name = "DoubleFinShredder"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.05, 0.1, 0.233333, 0.3, 0.366666, 0.433333),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [42, 43, 44, 54, 55, 56, 57]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_mvjlo"]
 _data = {
 "Dead": SubResource("Animation_p42vu"),
@@ -528,7 +528,7 @@ volume = 0.0
 pitch = 1.0
 streams = Array[AudioStream]([ExtResource("9_xhkjd")])
 
-[node name="Copy Robot" type="CharacterBody2D" groups=["player"]]
+[node name="Copy Robot" type="CharacterBody2D" groups=["player", "splash"]]
 material = SubResource("ShaderMaterial_qymoq")
 collision_layer = 2
 collision_mask = 17

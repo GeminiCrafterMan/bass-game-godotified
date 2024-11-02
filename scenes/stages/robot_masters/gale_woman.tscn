@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=4 uid="uid://cjnw7w724yfff"]
+[gd_scene load_steps=6 format=4 uid="uid://cjnw7w724yfff"]
 
 [ext_resource type="Script" path="res://scenes/stages/stage.gd" id="1_jhd4h"]
 [ext_resource type="TileSet" uid="uid://cdpb0nep4t1x8" path="res://tilesets/gale.tres" id="2_d6oeb"]
 [ext_resource type="AudioStream" uid="uid://cvc3u3vsgfwx3" path="res://music/Gale Stage.mp3" id="4_f0hss"]
 [ext_resource type="PackedScene" uid="uid://bingbkdyjdsbs" path="res://scenes/objects/players/start_position.tscn" id="5_6e181"]
+[ext_resource type="TileSet" uid="uid://di2ls6ayshosr" path="res://tilesets/layout.tres" id="5_muxqw"]
 
 [node name="Gale Woman" type="Node2D"]
 script = ExtResource("1_jhd4h")
@@ -41,3 +42,15 @@ bus = &"Music"
 
 [node name="StartPosition" parent="." instance=ExtResource("5_6e181")]
 position = Vector2(64, 176)
+
+[node name="LayoutMap" type="Node2D" parent="."]
+
+[node name="Layout" type="TileMapLayer" parent="LayoutMap"]
+scale = Vector2(24, 14)
+tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAAAAP//AAAAAAAAAAAAAP7/AAAAAAAAAAABAP7/AAABAAAAAAACAP7/AAACAAAAAAADAP7/AAADAAAAAAAEAP7/AAAAAAMAAAAEAPz/AAAAAAEAAAAEAP3/AAAAAAIAAAADAPz/AAADAAAAAAACAPz/AAABAAAAAAABAPr/AAAAAAEAAAABAPv/AAAAAAIAAAABAPz/AAAAAAMAAAACAPr/AAABAAAAAAADAPr/AAADAAAAAAAEAPr/AAAAAAAAAAAFAPj/AAAAAAEAAAAFAPn/AAAAAAIAAAAFAPr/AAAAAAMAAAAGAPj/AAABAAAAAAAHAPj/AAACAAAAAAAIAPj/AAADAAAAAAAGAPb/AAABAAAAAAAHAPb/AAACAAAAAAAIAPb/AAADAAAAAAAJAPb/AAAAAAEAAAAJAPf/AAAAAAIAAAAJAPj/AAAAAAMAAAAFAPT/AAAAAAEAAAAFAPX/AAAAAAIAAAAFAPb/AAAAAAMAAAAGAPT/AAABAAAAAAAHAPT/AAACAAAAAAAIAPT/AAACAAAAAAAJAPT/AAACAAAAAAAKAPT/AAADAAAAAAALAPT/AAAAAAAAAAAMAPT/AAAAAAAAAAA=")
+tile_set = ExtResource("5_muxqw")
+
+[node name="Layout2" type="TileMapLayer" parent="LayoutMap"]
+scale = Vector2(24, 14)
+tile_map_data = PackedByteArray("AAAAAAAAAAADAAQAAAAFAPr/AAABAAQAAAAEAPr/AAAAAAQAAAAMAPT/AAAAAAQAAAALAPT/AAABAAQAAAA=")
+tile_set = ExtResource("5_muxqw")

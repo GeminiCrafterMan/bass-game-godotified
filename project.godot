@@ -63,6 +63,7 @@ ladder="how to tell if ladder is there"
 player=""
 scorch=""
 boomerang=""
+splash=""
 
 [gui]
 

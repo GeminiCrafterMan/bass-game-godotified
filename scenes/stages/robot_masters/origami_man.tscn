@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=4 uid="uid://ido5yfmbgfpr"]
+[gd_scene load_steps=6 format=4 uid="uid://ido5yfmbgfpr"]
 
 [ext_resource type="Script" path="res://scenes/stages/stage.gd" id="1_ars04"]
 [ext_resource type="TileSet" uid="uid://bglohi0dt4uvq" path="res://tilesets/test_stage.tres" id="3_5wrhc"]
 [ext_resource type="AudioStream" uid="uid://cdbs7vh1x6kx" path="res://music/Origami Stage.mp3" id="4_othwr"]
+[ext_resource type="TileSet" uid="uid://di2ls6ayshosr" path="res://tilesets/layout.tres" id="5_ebi54"]
 [ext_resource type="PackedScene" uid="uid://bingbkdyjdsbs" path="res://scenes/objects/players/start_position.tscn" id="5_kjluu"]
 
 [node name="Origami Man" type="Node2D"]
@@ -41,3 +42,15 @@ bus = &"Music"
 
 [node name="StartPosition" parent="." instance=ExtResource("5_kjluu")]
 position = Vector2(128, 144)
+
+[node name="LayoutMap" type="Node2D" parent="."]
+
+[node name="Layout" type="TileMapLayer" parent="LayoutMap"]
+scale = Vector2(24, 14)
+tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAA=")
+tile_set = ExtResource("5_ebi54")
+
+[node name="Layout2" type="TileMapLayer" parent="LayoutMap"]
+scale = Vector2(24, 14)
+tile_map_data = PackedByteArray("AAAAAAAAAAADAAQAAAA=")
+tile_set = ExtResource("5_ebi54")
