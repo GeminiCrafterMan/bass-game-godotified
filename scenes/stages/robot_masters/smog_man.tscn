@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=4 uid="uid://7n5e5bi74b7t"]
+[gd_scene load_steps=7 format=4 uid="uid://7n5e5bi74b7t"]
 
 [ext_resource type="Script" path="res://scenes/stages/stage.gd" id="1_ftdj2"]
 [ext_resource type="TileSet" uid="uid://bglohi0dt4uvq" path="res://tilesets/test_stage.tres" id="2_2mtjm"]
 [ext_resource type="AudioStream" uid="uid://dl6htgsqlehwg" path="res://music/Smog Stage.mp3" id="4_k636r"]
 [ext_resource type="PackedScene" uid="uid://blmlnutul2hyu" path="res://scenes/objects/level_objects/yoku_block.tscn" id="4_w5jdc"]
+[ext_resource type="TileSet" uid="uid://di2ls6ayshosr" path="res://tilesets/layout.tres" id="6_7fnf5"]
 [ext_resource type="PackedScene" uid="uid://bingbkdyjdsbs" path="res://scenes/objects/players/start_position.tscn" id="6_73uof"]
 
 [node name="Smog Man" type="Node2D"]
@@ -165,3 +166,15 @@ interval = 2
 
 [node name="StartPosition" parent="." instance=ExtResource("6_73uof")]
 position = Vector2(128, 128)
+
+[node name="LayoutMap" type="Node2D" parent="."]
+
+[node name="Layout" type="TileMapLayer" parent="LayoutMap"]
+scale = Vector2(24, 14)
+tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAA=")
+tile_set = ExtResource("6_7fnf5")
+
+[node name="Layout2" type="TileMapLayer" parent="LayoutMap"]
+scale = Vector2(24, 14)
+tile_map_data = PackedByteArray("AAAAAAAAAAADAAQAAAA=")
+tile_set = ExtResource("6_7fnf5")

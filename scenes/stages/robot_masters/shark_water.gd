@@ -1,8 +1,8 @@
 extends Node2D
 
 var timer : int
-var freq = 0.025
-var amplitude = 0.2
+var freq = 0.02
+var amplitude = 0.195
 var v = Vector2(0, 25)
 var level
 
@@ -14,7 +14,7 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _physics_process(delta):
 	
 	if $Timer.is_stopped():
 		timer += 1
@@ -26,6 +26,7 @@ func _process(delta):
 	level = position.y
 	
 	
+func _process(delta):
 	
 	if GameState.playerposy >= 280:
 		$CanvasLayer/Shade2.position.y = 0
