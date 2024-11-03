@@ -11,7 +11,7 @@
 [ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="9_7wv41"]
 [ext_resource type="PackedScene" uid="uid://bingbkdyjdsbs" path="res://scenes/objects/players/start_position.tscn" id="10_4y8fd"]
 [ext_resource type="Texture2D" uid="uid://edbqmmirmmjl" path="res://sprites/enemies/joetestcycle.png" id="10_27246"]
-[ext_resource type="PackedScene" uid="uid://dbe5k0gifos3i" path="res://scenes/objects/enemies/fire_telly.tscn" id="11_axrym"]
+[ext_resource type="PackedScene" path="res://scenes/objects/enemies/fire_telly.tscn" id="11_axrym"]
 [ext_resource type="PackedScene" uid="uid://cwqbm80i7pv6x" path="res://scenes/objects/level_objects/ladder_hitbox.tscn" id="11_n5yro"]
 [ext_resource type="PackedScene" uid="uid://mi0hw7tknuco" path="res://scenes/objects/level_objects/spike.tscn" id="12_1njev"]
 [ext_resource type="PackedScene" uid="uid://u68yemonosg8" path="res://scenes/objects/level_objects/button.tscn" id="13_rn21y"]

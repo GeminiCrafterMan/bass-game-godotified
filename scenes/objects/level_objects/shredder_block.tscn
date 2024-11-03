@@ -186,6 +186,7 @@ position = Vector2(8, 8)
 sprite_frames = SubResource("SpriteFrames_o6h4x")
 animation = &"Blaze"
 autoplay = "Test"
+frame_progress = 0.452431
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 position = Vector2(8, 8)

@@ -39,7 +39,10 @@ func _process(delta):
 		$CanvasLayer/Shade3.position.y = 0
 		
 	else:
-		$CanvasLayer/Shade2.position.y = level + 301 - GameState.camposy
+		if GameState.camposy < 110:	
+			$CanvasLayer/Shade2.position.y = level + 189
+		else:
+			$CanvasLayer/Shade2.position.y = level + 301 - GameState.camposy
 		$CanvasLayer/Shade2.visible = true
 		$CanvasLayer/Shade3.visible = false
 		
