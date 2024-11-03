@@ -57,9 +57,9 @@ allow_search = false
 auto_height = true
 item_count = 4
 item_0/text = "MAESTRO"
-item_1/text = "BASS (!)"
-item_2/text = "COPY ROBOT (!)"
-item_3/text = "MEGAMAN (!)"
+item_1/text = "BASS"
+item_2/text = "COPY ROBOT"
+item_3/text = "MEGAMAN (not implemented)"
 
 [node name="StartButton" type="Button" parent="CenterContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2

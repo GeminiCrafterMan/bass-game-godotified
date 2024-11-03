@@ -37,6 +37,16 @@ var FAST_FALL : int
 #consts
 const MAXSPEED = 100.0
 const RUNSPEED = 70.0
+const EXPLOSION_SPEEDS : Array[Vector2] = [ #G: Hey look, I can actually pretty much just copy what I had for the Genesis version...
+# G (but from the Genesis): okay this kind of makes no sense but it also works to help visualize the orbs
+								Vector2(0, -150),
+		Vector2(-100, -100),						Vector2(100, -100),
+								Vector2(0, -50),
+	Vector2(-150, 0),	Vector2(-50, 0),	Vector2(50, 0),	Vector2(150, 0),
+								Vector2(0, 50),
+		Vector2(-100, 100),							Vector2(100, 100),
+								Vector2(0, 150)
+]
 
 #Wepon consts
 const ORIGAMI_SPEED = 350
@@ -625,13 +635,12 @@ func state_dead(_direction: Vector2, _delta: float) -> void:
 	if pain_timer.is_stopped():
 		SoundManager.play("player", "death")
 		scale = Vector2.ZERO
-		projectile = preload("res://scenes/objects/explosion_player.tscn").instantiate()
-		get_parent().add_child(projectile)
-		projectile.position.x = position.x
-		projectile.position.y = position.y
-		projectile.velocity.x = -200
-		velocity.x = 0
-		velocity.y = 0
+		for i in 12:
+			projectile = preload("res://scenes/objects/explosion_player.tscn").instantiate()
+			get_parent().add_child(projectile)
+			projectile.position.x = position.x
+			projectile.position.y = position.y
+			projectile.velocity = EXPLOSION_SPEEDS[i]
 		pain_timer.start(2550)
 	if state_timer.is_stopped():
 		sprite.visible = false

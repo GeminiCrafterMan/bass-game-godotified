@@ -1,6 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://7e34qk3e58mx"]
+[gd_scene load_steps=9 format=3 uid="uid://7e34qk3e58mx"]
 
 [ext_resource type="Texture2D" uid="uid://dgiwcwe0dt077" path="res://sprites/explosion.png" id="1_5gobd"]
+
+[sub_resource type="GDScript" id="GDScript_0jxnm"]
+script/source = "extends CharacterBody2D
+
+func _physics_process(delta: float) -> void:
+	move_and_slide()
+"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8mdi0"]
 atlas = ExtResource("1_5gobd")
@@ -52,6 +59,7 @@ collision_layer = 0
 collision_mask = 0
 motion_mode = 1
 wall_min_slide_angle = 0.0
+script = SubResource("GDScript_0jxnm")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_vlx1u")

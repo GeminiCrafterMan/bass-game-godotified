@@ -1,8 +1,7 @@
-[gd_scene load_steps=15 format=3 uid="uid://c22u5slgddh8h"]
+[gd_scene load_steps=11 format=3 uid="uid://c22u5slgddh8h"]
 
 [ext_resource type="Script" path="res://scenes/objects/players/weapons/special_weapons/wild_gale_visuals.gd" id="1_epy8d"]
 [ext_resource type="Texture2D" uid="uid://cbq8sh7rtu3jy" path="res://sprites/players/weapons/Gale.png" id="2_w1vhe"]
-[ext_resource type="Texture2D" uid="uid://b3tdngoiitsne" path="res://sprites/players/copy_robot/weapons/OrigamiNew.png" id="3_v2lxx"]
 [ext_resource type="Texture2D" uid="uid://b0wmbfr68jjcj" path="res://sprites/players/copy_robot/weapons/BusterSmall.png" id="4_c52wd"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4pk5p"]
@@ -15,18 +14,6 @@ region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fbp86"]
 atlas = ExtResource("2_w1vhe")
-region = Rect2(32, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0w4nt"]
-atlas = ExtResource("3_v2lxx")
-region = Rect2(16, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ydymq"]
-atlas = ExtResource("3_v2lxx")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_nm3yv"]
-atlas = ExtResource("3_v2lxx")
 region = Rect2(32, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e08mh"]
@@ -62,23 +49,6 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0w4nt")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ydymq")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_nm3yv")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ydymq")
-}],
-"loop": true,
-"name": &"Copy",
-"speed": 30.0
-}, {
-"frames": [{
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_e08mh")
 }, {
 "duration": 1.0,
@@ -99,5 +69,5 @@ script = ExtResource("1_epy8d")
 position = Vector2(192, 104)
 scale = Vector2(1.02381, 1)
 sprite_frames = SubResource("SpriteFrames_as2yl")
-animation = &"Bass"
+animation = &"hit"
 autoplay = "Bass"

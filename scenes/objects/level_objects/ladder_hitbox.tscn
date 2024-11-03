@@ -1,7 +1,7 @@
 [gd_scene load_steps=2 format=3 uid="uid://cwqbm80i7pv6x"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_miopk"]
-size = Vector2(10, 20)
+size = Vector2(16, 16)
 
 [node name="LadderHitbox" type="Area2D" groups=["ladder"]]
 monitoring = false

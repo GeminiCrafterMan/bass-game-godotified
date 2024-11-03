@@ -1,0 +1,97 @@
+[gd_scene load_steps=12 format=3 uid="uid://dbe5k0gifos3i"]
+
+[ext_resource type="Script" path="res://scenes/objects/enemies/fire_telly.gd" id="1_tkaau"]
+[ext_resource type="Texture2D" uid="uid://bky886bw7f0vy" path="res://sprites/enemies/fire_telly.png" id="2_smp37"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jibew"]
+atlas = ExtResource("2_smp37")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gabbi"]
+atlas = ExtResource("2_smp37")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ds2c4"]
+atlas = ExtResource("2_smp37")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a5i3x"]
+atlas = ExtResource("2_smp37")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ngqea"]
+atlas = ExtResource("2_smp37")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m3dke"]
+atlas = ExtResource("2_smp37")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vxmxb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jibew")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gabbi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ds2c4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a5i3x")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ngqea")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m3dke")
+}],
+"loop": false,
+"name": &"drop",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ynicy"]
+size = Vector2(15, 21.875)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n4pww"]
+size = Vector2(15.5, 22.25)
+
+[node name="Fire Telly" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_tkaau")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_vxmxb")
+autoplay = "default"
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ynicy")
+debug_color = Color(0, 1, 0.0705882, 0.419608)
+
+[node name="hitable" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 8
+
+[node name="MainHitbox" type="CollisionShape2D" parent="hitable"]
+shape = SubResource("RectangleShape2D_ynicy")
+
+[node name="hurt" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hurt"]
+position = Vector2(0.25, -0.125)
+shape = SubResource("RectangleShape2D_n4pww")
+debug_color = Color(1, 0, 0, 0.623529)
+
+[connection signal="body_entered" from="hitable" to="." method="_on_hitable_body_entered"]
+[connection signal="body_entered" from="hurt" to="." method="_on_hurt_body_entered"]
