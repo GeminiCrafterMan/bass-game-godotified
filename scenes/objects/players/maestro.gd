@@ -799,6 +799,8 @@ func handle_weapons():
 			weapon_punk()
 		GameState.WEAPONS.BALLADE:
 			weapon_ballade()
+		GameState.WEAPONS.QUINT:
+			weapon_quint() # Copy Robot only, because I don't wanna mess with Maestro and Sakugarne...
 		_:
 			return
 
@@ -1201,6 +1203,8 @@ func weapon_ballade():
 			projectile.velocity.x = sprite.scale.x * CRACKER_SPEED * 0.5
 			return
 
+func weapon_quint():
+	return
 
 func _DamageAndInvincible():
 

@@ -2,11 +2,11 @@ extends MaestroPlayer
 
 class_name CopyRobotPlayer
 
+# Variables
 var sharkcharge : int
+var pogo : bool = false
 
 func _init() -> void:
-	
-	
 	projectile_scenes = [
 		preload("res://scenes/objects/players/weapons/copy_robot/buster_small.tscn"),
 		preload("res://scenes/objects/players/weapons/copy_robot/buster_medium.tscn"),
@@ -15,8 +15,8 @@ func _init() -> void:
 		preload("res://scenes/objects/players/weapons/copy_robot/ballade_cracker.tscn"),
 		preload("res://scenes/objects/players/weapons/copy_robot/screw_crusher.tscn"),
 		preload("res://scenes/objects/players/weapons/copy_robot/arrow.tscn"),
-		preload("res://scenes/objects/players/weapons/copy_robot/cr_fin_shredder.tscn")
-	
+		preload("res://scenes/objects/players/weapons/copy_robot/cr_fin_shredder.tscn"),
+		preload("res://scenes/objects/players/weapons/copy_robot/sakugarne.tscn")
 	]
 
 	weapon_palette = [
@@ -185,7 +185,16 @@ func weapon_shark():
 		SoundManager.instance_poly("player", "charge1").release()
 		return
 		
-	
+func weapon_quint():
+	if Input.is_action_just_pressed("shoot") and GameState.onscreen_sp_bullets < 1 and GameState.weapon_energy[GameState.WEAPONS.QUINT] > 1:
+		GameState.onscreen_sp_bullets += 1
+		projectile = projectile_scenes[8].instantiate()
+		get_parent().add_child(projectile)
+		projectile.position.x = position.x + (sprite.scale.x * 18)
+		projectile.position.y = position.y - 40
+		projectile.scale.x = sprite.scale.x
+		return
+	return
 	
 func scythe_charge_palette():
 	if ScytheCharge > 0:
@@ -239,6 +248,85 @@ func scythe_charge_palette():
 			sprite.material.set_shader_parameter("palette",weapon_palette[GameState.current_weapon])
 			Flash_Timer += 1
 
+func mount_sakugarne() -> void:
+	SoundManager.play("copy_robot", "start") # why replace the teleport stuff for a single extra sound?
+	pogo = true
+	$SakugarneArea.process_mode = Node.PROCESS_MODE_INHERIT
+	$SakugarneArea/Timer.start()
+
+# Modified states for Sakugarne
+## Idle state
+func state_idle(_direction: Vector2, _delta: float) -> void:
+	if pogo == true:
+		swapState = STATES.JUMP
+	else:
+		super.state_idle(_direction, _delta)
+## Walk state
+func state_walk(_direction: Vector2, _delta: float) -> void:
+	if pogo == true:
+		swapState = STATES.JUMP
+	else:
+		super.state_walk(_direction, _delta)
+
+## Jump state
+func state_jump(_direction: Vector2, _delta: float) -> void:
+	if pogo == true:
+		state_pogo(_direction, _delta)
+	else:
+		super.state_jump(_direction, _delta)
+
+func state_pogo(_direction: Vector2, _delta: float) -> void:
+	if Input.is_action_just_pressed("switch_left") or Input.is_action_just_pressed("switch_right") or GameState.weapon_energy[GameState.WEAPONS.QUINT] < 1:
+		disable_pogo()
+	#setup needed on first frame of new state
+	if isFirstFrameOfState:
+		if Input.is_action_pressed("jump"):
+			velocity.y = JUMP_VELOCITY*1.5
+			anim.play("Saku-High")
+			SoundManager.play("player", "jump")
+		else:
+			velocity.y = JUMP_VELOCITY
+			anim.play("Saku-Low")
+			SoundManager.play("player", "jump")
+	#set animation based on falling for rising
+	if velocity.y < 0 && JumpHeight != 80:
+		if (JumpHeight < JUMP_HEIGHT):
+			if Input.is_action_pressed("jump"):
+				velocity.y = JUMP_VELOCITY*1.5
+			else:
+				velocity.y = JUMP_VELOCITY
+			JumpHeight += 1
+		if (JumpHeight == JUMP_HEIGHT):
+			JumpHeight = 80
+			velocity.y = PEAK_VELOCITY
+
+	#movement in state
+	default_movement(_direction, _delta)
+
+	if $SakugarneArea.thing != null and !isFirstFrameOfState:
+		if $SakugarneArea.thing.has_method("_on_hitable_body_entered"):
+			var W_Type = 18 # Sakugarne physical hit
+			$SakugarneArea.thing._on_hitable_body_entered(self)
+		$SakugarneArea.thing = null
+		swapState = STATES.JUMP
+		ice_jump = false
+
+## Hurt state
+func state_hurt(_direction: Vector2, _delta: float) -> void:
+	disable_pogo()
+	super.state_hurt(_direction, _delta)
+
+## Death state
+func state_dead(_direction: Vector2, _delta: float) -> void:
+	disable_pogo()
+	super.state_dead(_direction, _delta)
+
+## Disable Sakugarne
+func disable_pogo():
+	pogo = false
+	$SakugarneArea.process_mode = Node.PROCESS_MODE_DISABLED
+	$SakugarneArea/Timer.stop()
+	anim.play("RESET")
 
 func _on_teleported() -> void: # Reconnect this to play the sound.
 # G: So, occasionally, this will (for some reason) fire a second time

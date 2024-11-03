@@ -1,0 +1,149 @@
+[gd_scene load_steps=11 format=3 uid="uid://24fx4bikiwj8"]
+
+[ext_resource type="Script" path="res://scenes/objects/players/weapons/copy_robot/sakugarne.gd" id="1_55noj"]
+[ext_resource type="Texture2D" uid="uid://u24aydstm7qq" path="res://sprites/players/copy_robot/weapons/Sakugarne.png" id="2_wtqcc"]
+
+[sub_resource type="Animation" id="Animation_qfu3k"]
+resource_name = "Fall"
+length = 0.166667
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+
+[sub_resource type="Animation" id="Animation_qwslq"]
+resource_name = "Jump"
+length = 0.166667
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [7]
+}
+
+[sub_resource type="Animation" id="Animation_7nw1r"]
+resource_name = "RESET"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_bejwg"]
+resource_name = "Teleport"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_i1xtp"]
+resource_name = "Teleport In"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 4, 5, 7, 6]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kdpa2"]
+_data = {
+"Fall": SubResource("Animation_qfu3k"),
+"Jump": SubResource("Animation_qwslq"),
+"RESET": SubResource("Animation_7nw1r"),
+"Teleport": SubResource("Animation_bejwg"),
+"Teleport In": SubResource("Animation_i1xtp")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p6uyj"]
+size = Vector2(20, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1rgjr"]
+size = Vector2(12, 32)
+
+[node name="Sakugarne" type="CharacterBody2D"]
+collision_layer = 0
+script = ExtResource("1_55noj")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_wtqcc")
+hframes = 8
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_kdpa2")
+}
+autoplay = "Teleport"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_p6uyj")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_1rgjr")
+debug_color = Color(0.964948, 2.88785e-07, 0.48968, 0.42)
+
+[node name="GroundRay" type="RayCast2D" parent="."]
+position = Vector2(0, 15)
+target_position = Vector2(0, 2)
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(2.38419e-06, 4.76837e-07)
+scale = Vector2(2.4, 2.4)
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
