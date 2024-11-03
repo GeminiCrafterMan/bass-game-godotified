@@ -51,6 +51,10 @@ func process_camera():
 			else:
 				$Camera2D.position = $StartPosition.position
 	
+	GameState.camposx = $Camera2D.position.x
+	GameState.camposy = $Camera2D.position.y
+	
+	
 func process_refills():
 	if (player != null): # Null check!
 		if (GameState.ammoamt):

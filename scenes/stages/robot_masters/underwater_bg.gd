@@ -8,6 +8,5 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if GameState.player != null:
-		if GameState.playerposy >= 250:
-			$ColorRect.color.a -= 0.05
+	if GameState.camposy >= 280:
+		$ColorRect.color.a -= 0.05

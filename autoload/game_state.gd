@@ -49,6 +49,9 @@ var playerposx
 var playerposy
 var playerstate
 
+var camposx
+var camposy
+
 var tellies : int
 
 

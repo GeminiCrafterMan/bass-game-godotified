@@ -6,7 +6,7 @@
 size = Vector2(16, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_euuk7"]
-size = Vector2(13, 13)
+size = Vector2(16, 16)
 
 [node name="Spike" type="StaticBody2D"]
 collision_layer = 32
