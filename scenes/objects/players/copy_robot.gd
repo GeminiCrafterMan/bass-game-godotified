@@ -306,7 +306,7 @@ func state_pogo(_direction: Vector2, _delta: float) -> void:
 	if $SakugarneArea.thing != null and !isFirstFrameOfState:
 		if $SakugarneArea.thing.has_method("_on_hitable_body_entered"):
 			var W_Type = 18 # Sakugarne physical hit
-			$SakugarneArea.thing._on_hitable_body_entered(self)
+			$SakugarneArea.thing._on_hitable_body_entered($SakugarneArea)
 		$SakugarneArea.thing = null
 		swapState = STATES.JUMP
 		ice_jump = false

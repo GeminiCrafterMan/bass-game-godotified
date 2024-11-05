@@ -403,7 +403,7 @@ func state_idle(_direction: Vector2, _delta: float) -> void:
 				anim.play("DoubleFinShredder")
 			_: # Everything else
 				anim.play("Idle-Shoot")
-	if Input.is_action_pressed("move_down") and Input.is_action_just_pressed("jump"):
+	if (Input.is_action_pressed("move_down") and Input.is_action_just_pressed("jump")) or (Input.is_action_just_pressed("dash")):
 		swapState = STATES.SLIDE
 
 	#movement of this state
@@ -416,7 +416,7 @@ func state_idle(_direction: Vector2, _delta: float) -> void:
 func state_walk(_direction: Vector2, _delta: float) -> void:
 	#there is no step state anymore, the walk just kinda winds-up now
 	#the code to do this is silly but not dirty :3 -lynn
-	if Input.is_action_pressed("move_down") and Input.is_action_just_pressed("jump"):
+	if (Input.is_action_pressed("move_down") and Input.is_action_just_pressed("jump")) or (Input.is_action_just_pressed("dash")):
 		swapState = STATES.SLIDE
 
 	if !attack_timer.is_stopped():
