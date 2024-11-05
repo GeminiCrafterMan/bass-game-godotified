@@ -237,7 +237,7 @@ func _physics_process(delta: float) -> void:
 		GameState.onscreen_sp_bullets = 0
 		SoundManager.play("player", "switch")
 		GameState.old_weapon = GameState.current_weapon
-		sprite.material.set_shader_parameter("palette", weapon_palette[GameState.current_weapon])
+		set_current_weapon_palette()
 
 	if  (Input.is_action_just_pressed("switch_left") && Input.is_action_pressed("switch_right")) or (Input.is_action_pressed("switch_left") && Input.is_action_just_pressed("switch_right")):
 		if (currentState != STATES.TELEPORT and currentState != STATES.DEAD):
@@ -245,7 +245,7 @@ func _physics_process(delta: float) -> void:
 			if GameState.old_weapon != GameState.current_weapon:
 				SoundManager.play("player", "switch")
 				GameState.onscreen_sp_bullets = 0
-			sprite.material.set_shader_parameter("palette", weapon_palette[GameState.current_weapon])
+			set_current_weapon_palette()
 
 
 
@@ -291,7 +291,8 @@ func _physics_process(delta: float) -> void:
 							if !(is_on_floor() and Input.is_action_pressed("move_down")):
 								global_position.x = ladder_check.get_collider(i).global_position.x
 								currentState = STATES.LADDER
-								print("Ladder'd")
+								# G: shut the FUCK UP x2
+								#print("Ladder'd")
 								swapState = STATES.NONE
 								isFirstFrameOfState = false
 							else:
@@ -342,7 +343,8 @@ func _physics_process(delta: float) -> void:
 		#single frame on input lag, it just immedatley changes state within the current cycle
 		#-lynn
 		if swapState != STATES.NONE:
-			print("changed state to: " + str(swapState))
+			# G: shut the FUCK UP
+			#print("changed state to: " + str(swapState))
 			currentState = swapState
 			swapState = STATES.NONE
 			isFirstFrameOfState = true
@@ -360,19 +362,7 @@ func _physics_process(delta: float) -> void:
 # ===============
 ## Teleport state
 func state_teleport(_direction: Vector2, _delta: float) -> void:
-	$MainHitbox.set_disabled(true)
-	position.y = move_toward(position.y, targetpos, 10)
-	#exit teleport
-	if position.y >= targetpos:
-		if anim.get_current_animation() == "Teleport":
-			SoundManager.play("player", "warp") # G: Sweet, sweet bliss. One teleport sound, as God intended. (I hate this.)
-		if anim.get_current_animation() != "Teleport In":
-			anim.play("Teleport In")
-			velocity.y = 0
-			$MainHitbox.set_disabled(false)
-			await anim.animation_finished
-			swapState = STATES.IDLE
-			teleported.emit()
+	teleport()
 
 ## Idle state
 func state_idle(_direction: Vector2, _delta: float) -> void:
@@ -626,8 +616,8 @@ func state_hurt(_direction: Vector2, _delta: float) -> void:
 func state_dead(_direction: Vector2, _delta: float) -> void:
 	if isFirstFrameOfState:
 		# G: queue_free-ing these because otherwise stuff like Tellies can *double* kill you.
-		$MainHitbox.queue_free()
-		$SlideHitbox.queue_free()
+		$MainHitbox.set_disabled(true)
+		$SlideHitbox.set_disabled(true)
 		state_timer.start(5.00)
 		anim.play("Dead")
 		velocity.y = 0
@@ -715,13 +705,13 @@ func ice_jump_move(direction, delta):
 
 func do_charge_palette():
 	if Charge == 0 or Charge < 37: # no charge
-		sprite.material.set_shader_parameter("palette",weapon_palette[GameState.current_weapon])
+		set_current_weapon_palette()
 	elif Charge >= 37 && Charge < 65: # just started charging
 		if Flash_Timer == 2 || Flash_Timer == 3:
 			sprite.material.set_shader_parameter("palette",weapon_palette[17])
 			Flash_Timer += 1
 		else:
-			sprite.material.set_shader_parameter("palette",weapon_palette[GameState.current_weapon])
+			set_current_weapon_palette()
 			Flash_Timer += 1
 		if Flash_Timer == 3:
 			Flash_Timer = 0
@@ -730,14 +720,14 @@ func do_charge_palette():
 			sprite.material.set_shader_parameter("palette",weapon_palette[17])
 			Flash_Timer = 0
 		else:
-			sprite.material.set_shader_parameter("palette",weapon_palette[GameState.current_weapon])
+			set_current_weapon_palette()
 			Flash_Timer = 1
 	elif Charge >= 92:
 		if Flash_Timer == 1:
 			sprite.material.set_shader_parameter("palette",weapon_palette[18])
 			Flash_Timer = 0
 		else:
-			sprite.material.set_shader_parameter("palette",weapon_palette[GameState.current_weapon])
+			set_current_weapon_palette()
 			Flash_Timer = 1
 
 func scythe_charge_palette():
@@ -750,7 +740,7 @@ func scythe_charge_palette():
 			sprite.material.set_shader_parameter("palette",weapon_palette[19])
 			Flash_Timer = 0
 		else:
-			sprite.material.set_shader_parameter("palette",weapon_palette[GameState.current_weapon])
+			set_current_weapon_palette()
 			Flash_Timer += 1
 
 
@@ -759,7 +749,7 @@ func scythe_charge_palette():
 			sprite.material.set_shader_parameter("palette",weapon_palette[20])
 			Flash_Timer = 0
 		else:
-			sprite.material.set_shader_parameter("palette",weapon_palette[GameState.current_weapon])
+			set_current_weapon_palette()
 			Flash_Timer += 1
 
 
@@ -825,37 +815,38 @@ func weapon_blaze():
 	if Input.is_action_just_pressed("shoot"):
 
 		var space : int = 18
-		if shield == null && shield2 == null && shield3 == null && shield4 == null && GameState.weapon_energy[GameState.WEAPONS.BLAZE] >= 1 && GameState.onscreen_sp_bullets == 0:
+		if shield == null && shield2 == null && shield3 == null && shield4 == null && (GameState.weapon_energy[GameState.WEAPONS.BLAZE] >= 1 or GameState.infinite_ammo == true) && GameState.onscreen_sp_bullets == 0:
 
 			shot_type = 3
 			anim.seek(0)
 			attack_timer.start(0.5)
 			
-			if GameState.weapon_energy[GameState.WEAPONS.BLAZE] >= 1:
+			if GameState.weapon_energy[GameState.WEAPONS.BLAZE] >= 1 or GameState.infinite_ammo == true:
 				GameState.onscreen_sp_bullets += 1
 				shield = weapon_scenes[2].instantiate()
 				get_parent().add_child(shield)
 				shield.theta = 0*space
 
-			if GameState.weapon_energy[GameState.WEAPONS.BLAZE] >= 3:
+			if GameState.weapon_energy[GameState.WEAPONS.BLAZE] >= 3 or GameState.infinite_ammo == true:
 				GameState.onscreen_sp_bullets += 1
 				shield2 = weapon_scenes[2].instantiate()
 				get_parent().add_child(shield2)
 				shield2.theta = 1*space
 
-			if GameState.weapon_energy[GameState.WEAPONS.BLAZE] >= 2:
+			if GameState.weapon_energy[GameState.WEAPONS.BLAZE] >= 2 or GameState.infinite_ammo == true:
 				GameState.onscreen_sp_bullets += 1
 				shield3 = weapon_scenes[2].instantiate()
 				get_parent().add_child(shield3)
 				shield3.theta = 2*space
 
-			if GameState.weapon_energy[GameState.WEAPONS.BLAZE] >= 4:
+			if GameState.weapon_energy[GameState.WEAPONS.BLAZE] >= 4 or GameState.infinite_ammo == true:
 				GameState.onscreen_sp_bullets += 1
 				shield4 = weapon_scenes[2].instantiate()
 				get_parent().add_child(shield4)
 				shield4.theta = 3*space
-
-			GameState.weapon_energy[GameState.WEAPONS.BLAZE] -= 4
+				
+			if GameState.infinite_ammo == false:
+				GameState.weapon_energy[GameState.WEAPONS.BLAZE] -= 4
 
 		else:
 			if shield or shield2 or shield3 or shield4:
@@ -900,9 +891,10 @@ func weapon_smog():
 		return
 
 func weapon_shark():
-	if Input.is_action_just_pressed("shoot") && (currentState != STATES.SLIDE) and (currentState != STATES.HURT) && is_on_floor() && GameState.weapon_energy[GameState.WEAPONS.SHARK] >= 5:
-		if GameState.onscreen_sp_bullets < 2:
-			GameState.weapon_energy[GameState.WEAPONS.SHARK] -= 5
+	if Input.is_action_just_pressed("shoot") && (currentState != STATES.SLIDE) and (currentState != STATES.HURT) && is_on_floor() && (GameState.weapon_energy[GameState.WEAPONS.SHARK] >= 5 or GameState.infinite_ammo == true):
+		if GameState.onscreen_sp_bullets < 1:
+			if GameState.infinite_ammo == false:
+				GameState.weapon_energy[GameState.WEAPONS.SHARK] -= 5
 			anim.seek(0)
 			shot_type = 4
 			attack_timer.start(0.51)
@@ -917,8 +909,9 @@ func weapon_shark():
 			return
 
 func weapon_origami():
-	if Input.is_action_just_pressed("shoot") && GameState.weapon_energy[GameState.WEAPONS.ORIGAMI] >= 1 && GameState.onscreen_sp_bullets < 4:
-		GameState.weapon_energy[GameState.WEAPONS.ORIGAMI] -= 1
+	if Input.is_action_just_pressed("shoot") && (GameState.weapon_energy[GameState.WEAPONS.ORIGAMI] >= 1 or GameState.infinite_ammo == true) && GameState.onscreen_sp_bullets < 4:
+		if GameState.infinite_ammo == false:
+			GameState.weapon_energy[GameState.WEAPONS.ORIGAMI] -= 1
 		anim.seek(0)
 		shot_type = 2
 		attack_timer.start(0.3)
@@ -1002,8 +995,9 @@ func weapon_origami():
 		return
 
 func weapon_guerilla():
-	if Input.is_action_just_pressed("shoot") && GameState.weapon_energy[GameState.WEAPONS.GUERRILLA] >= 2 && GameState.onscreen_sp_bullets <= 2:
-		GameState.weapon_energy[GameState.WEAPONS.GUERRILLA] -= 2
+	if Input.is_action_just_pressed("shoot") && (GameState.weapon_energy[GameState.WEAPONS.GUERRILLA] >= 2 or GameState.infinite_ammo == true) && GameState.onscreen_sp_bullets <= 2:
+		if GameState.infinite_ammo == false:
+			GameState.weapon_energy[GameState.WEAPONS.GUERRILLA] -= 2
 		anim.seek(0)
 		shot_type = 1
 		attack_timer.start(0.3)
@@ -1020,7 +1014,7 @@ func weapon_guerilla():
 
 func weapon_reaper():
 	if Input.is_action_just_released("shoot"):
-		if (currentState != STATES.SLIDE) and (currentState != STATES.HURT) and GameState.onscreen_sp_bullets < 2 and GameState.weapon_energy[GameState.WEAPONS.REAPER] > 0:
+		if (currentState != STATES.SLIDE) and (currentState != STATES.HURT) and GameState.onscreen_sp_bullets < 2 and (GameState.weapon_energy[GameState.WEAPONS.REAPER] > 0 or GameState.infinite_ammo == true):
 			anim.seek(0)
 			shot_type = 2
 			attack_timer.start(0.3)
@@ -1045,11 +1039,12 @@ func weapon_reaper():
 					else:
 						projectile.direction = 1
 
-
-				GameState.weapon_energy[GameState.WEAPONS.REAPER] -= 1
+				if GameState.infinite_ammo == false:
+					GameState.weapon_energy[GameState.WEAPONS.REAPER] -= 1
 
 			if ScytheCharge >= 25 and ScytheCharge < 75:  #Mid charge. Throws 2 shots that curve back in opposite ways
-				GameState.weapon_energy[GameState.WEAPONS.REAPER] -= 2
+				if GameState.infinite_ammo == false:
+					GameState.weapon_energy[GameState.WEAPONS.REAPER] -= 2
 				GameState.onscreen_sp_bullets += 2
 
 				projectile = weapon_scenes[5].instantiate()
@@ -1071,7 +1066,8 @@ func weapon_reaper():
 				projectile.direction = 1
 
 			if ScytheCharge >= 75: #Full charge. Throws 2 shots that run to the top and bottom of the screen and return.
-				GameState.weapon_energy[GameState.WEAPONS.REAPER] -= 4
+				if GameState.infinite_ammo == false:
+					GameState.weapon_energy[GameState.WEAPONS.REAPER] -= 4
 				GameState.onscreen_sp_bullets += 2
 				
 				projectile = weapon_scenes[6].instantiate()
@@ -1103,25 +1099,23 @@ func weapon_reaper():
 	if ScytheCharge >= 75 && GameState.weapon_energy[GameState.WEAPONS.REAPER] < 4:
 		ScytheCharge = 26
 
-	if Input.is_action_pressed("shoot") && GameState.weapon_energy[GameState.WEAPONS.REAPER] > 0:
+	if Input.is_action_pressed("shoot") && (GameState.weapon_energy[GameState.WEAPONS.REAPER] > 0 or GameState.infinite_ammo == true):
 		if ScytheCharge < 78:
 			ScytheCharge += 1
-			if ScytheCharge == 26:
-				SoundManager.play("player", "charge1")
-			if ScytheCharge == 76:
-				SoundManager.play("player", "charge2")
+			if ScytheCharge == 13:
+				SoundManager.play("player", "charge")
 		else:
 			ScytheCharge = 77
 	else:
 		Charge = 0
-		SoundManager.instance_poly("player", "charge1").release()
+		SoundManager.instance_poly("player", "charge").release()
 		return
 
 
 
 
 func weapon_carry():
-	if Input.is_action_just_pressed("shoot") && GameState.weapon_energy[GameState.WEAPONS.CARRY] >= 3 && GameState.onscreen_sp_bullets < 3:
+	if Input.is_action_just_pressed("shoot") && (GameState.weapon_energy[GameState.WEAPONS.CARRY] >= 3 or GameState.infinite_ammo == true) && GameState.onscreen_sp_bullets < 3:
 		anim.seek(0)
 		shot_type = 2
 		attack_timer.start(0.3)
@@ -1138,8 +1132,9 @@ func weapon_carry():
 			projectile.position.x = position.x
 
 func weapon_arrow():
-	if Input.is_action_just_pressed("shoot") && GameState.weapon_energy[GameState.WEAPONS.ARROW] >= 4 && GameState.onscreen_sp_bullets == 0:
-		GameState.weapon_energy[GameState.WEAPONS.ARROW] -= 4
+	if Input.is_action_just_pressed("shoot") && (GameState.weapon_energy[GameState.WEAPONS.ARROW] >= 4 or GameState.infinite_ammo == true) && GameState.onscreen_sp_bullets == 0:
+		if GameState.infinite_ammo == false:
+			GameState.weapon_energy[GameState.WEAPONS.ARROW] -= 4
 		anim.seek(0)
 		shot_type = 1
 		attack_timer.start(0.3)
@@ -1155,8 +1150,9 @@ func weapon_arrow():
 
 
 func weapon_punk():
-	if Input.is_action_just_pressed("shoot") && GameState.weapon_energy[GameState.WEAPONS.PUNK] >= 1 && GameState.onscreen_sp_bullets < 4:
-		GameState.weapon_energy[GameState.WEAPONS.PUNK] -= 1
+	if Input.is_action_just_pressed("shoot") && (GameState.weapon_energy[GameState.WEAPONS.PUNK] >= 1 or GameState.infinite_ammo == true) && GameState.onscreen_sp_bullets < 4:
+		if GameState.infinite_ammo == false:
+			GameState.weapon_energy[GameState.WEAPONS.PUNK] -= 1
 		anim.seek(0)
 		shot_type = 2
 		attack_timer.start(0.3)
@@ -1174,8 +1170,9 @@ func weapon_punk():
 
 
 func weapon_ballade():
-	if Input.is_action_just_pressed("shoot") && GameState.weapon_energy[GameState.WEAPONS.BALLADE] >= 3 && GameState.onscreen_sp_bullets == 0:
-		GameState.weapon_energy[GameState.WEAPONS.BALLADE] -= 3
+	if Input.is_action_just_pressed("shoot") && (GameState.weapon_energy[GameState.WEAPONS.BALLADE] >= 3 or GameState.infinite_ammo == true) && GameState.onscreen_sp_bullets == 0:
+		if GameState.infinite_ammo == false:
+			GameState.weapon_energy[GameState.WEAPONS.BALLADE] -= 3
 		anim.seek(0)
 
 		shot_type = 2
@@ -1241,3 +1238,21 @@ func reset(everything: bool) -> void:
 	GameState.current_weapon = GameState.WEAPONS.BUSTER # Reset current weapon
 	if everything == true:
 		GameState.refill_ammo()
+
+func teleport() -> void:
+	$MainHitbox.set_disabled(true)
+	position.y = move_toward(position.y, targetpos, 10)
+	#exit teleport
+	if position.y >= targetpos:
+		if anim.get_current_animation() == "Teleport":
+			SoundManager.play("player", "warp") # G: Sweet, sweet bliss. One teleport sound, as God intended. (I hate this.)
+		if anim.get_current_animation() != "Teleport In":
+			anim.play("Teleport In")
+			velocity.y = 0
+			$MainHitbox.set_disabled(false)
+			await anim.animation_finished
+			swapState = STATES.IDLE
+			teleported.emit()
+
+func set_current_weapon_palette() -> void:
+	sprite.material.set_shader_parameter("palette", weapon_palette[GameState.current_weapon])

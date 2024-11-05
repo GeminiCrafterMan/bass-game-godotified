@@ -1,19 +1,31 @@
 [gd_scene load_steps=21 format=3 uid="uid://bdurhvklic0ac"]
 
-[ext_resource type="Script" path="res://scenes/hud.gd" id="1_gwyxg"]
 [ext_resource type="PackedScene" uid="uid://b0opfnom6gmbo" path="res://scenes/module_tester.tscn" id="1_kxric"]
 [ext_resource type="Theme" uid="uid://c1bun7kn776g1" path="res://themes/ui_theme.tres" id="2_15wwj"]
-[ext_resource type="Script" path="res://scenes/hud-life_counter.gd" id="2_iey88"]
 [ext_resource type="Texture2D" uid="uid://bgqo6j6piqevr" path="res://sprites/players/maestro/palettes/Maestro Buster.png" id="4_2rvml"]
 [ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="4_7y70l"]
 [ext_resource type="Texture2D" uid="uid://s746ncdpglrq" path="res://sprites/hud/weapon_bar.png" id="5_1d45g"]
 [ext_resource type="Texture2D" uid="uid://culj6yyxpqgs1" path="res://sprites/players/bass/palettes/Bass Buster.png" id="5_nk4r6"]
 [ext_resource type="Texture2D" uid="uid://cuvb46u27vp7v" path="res://sprites/players/maestro/life.png" id="6_7hqwc"]
-[ext_resource type="Script" path="res://scenes/hud-bars.gd" id="6_83krn"]
 [ext_resource type="Texture2D" uid="uid://dj8dbh1vderdl" path="res://sprites/hud/health_bar.png" id="6_dn5r5"]
 [ext_resource type="Texture2D" uid="uid://d1opwguwnxvwa" path="res://sprites/hud/boss_bar.png" id="8_0v72v"]
 [ext_resource type="Texture2D" uid="uid://bbn3fnovvleio" path="res://sprites/hud/ready.png" id="11_7y6ti"]
 [ext_resource type="Texture2D" uid="uid://fqh6tglw6ad7" path="res://sprites/hud/ready_scene.png" id="14_ndc36"]
+
+[sub_resource type="GDScript" id="GDScript_lduve"]
+resource_name = "Life Counter"
+script/source = "extends Node
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void: # Make this use some other method so mod characters can use their own life icons.
+	$Sprite2D.texture = load(GameState.lifeIcons[GameState.character_selected])
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta: float) -> void:
+	$Text.text = \"x%02d\" % GameState.player_lives
+	if GameState.player != null:
+		$Sprite2D.material.set_shader_parameter(\"palette\", get_node(GameState.player).get_node(\"Sprite2D\").material.get_shader_parameter(\"palette\"))
+"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fqfbl"]
 shader = ExtResource("4_7y70l")
@@ -21,6 +33,56 @@ shader_parameter/skip_first_row = true
 shader_parameter/use_palette_alpha = false
 shader_parameter/fps = 6.0
 shader_parameter/palette = ExtResource("4_2rvml")
+
+[sub_resource type="GDScript" id="GDScript_lbnry"]
+resource_name = "Bars"
+script/source = "extends Node
+
+@onready var refill_timer = $RefillTimer
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta: float) -> void:
+	process_refills()
+	# Weapon bar
+	if GameState.max_weapon_energy[GameState.current_weapon] == 0:
+		$WeaponBar.visible = false
+	else:
+		$WeaponBar.visible = true
+		if GameState.infinite_ammo == false:
+			if GameState.weapon_energy[GameState.current_weapon] < 0:
+				GameState.weapon_energy[GameState.current_weapon] = 0
+			$WeaponBar.frame = GameState.weapon_energy[GameState.current_weapon]
+		else:
+			$WeaponBar.frame = 29 # Infinity
+	if GameState.player != null:
+		$HealthBar.material.set_shader_parameter(\"palette\", get_node(GameState.player).get_node(\"Sprite2D\").material.get_shader_parameter(\"palette\"))
+		$WeaponBar.material.set_shader_parameter(\"palette\", get_node(GameState.player).get_node(\"Sprite2D\").material.get_shader_parameter(\"palette\"))
+		
+	# Health bar
+	$HealthBar.frame = GameState.current_hp
+
+func process_refills():
+	if (GameState.player != null): # Null check!
+		if (GameState.ammoamt):
+			if refill_timer.is_stopped():
+				if GameState.weapon_energy[GameState.current_weapon] < GameState.max_weapon_energy[GameState.current_weapon]:
+					refill_timer.start()
+					GameState.weapon_energy[GameState.current_weapon] += 1
+					GameState.ammoamt -= 1
+					SoundManager.play(\"generic\", \"bar_fill\")
+				else:
+					GameState.ammoamt = 0
+			
+		if (GameState.healamt):
+			if refill_timer.is_stopped():
+				if GameState.current_hp < GameState.max_hp:
+					refill_timer.start()
+					GameState.current_hp += 1
+					GameState.healamt -= 1
+					SoundManager.play(\"generic\", \"bar_fill\")
+				else:
+					GameState.healamt = 0
+"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_w86cq"]
 shader = ExtResource("4_7y70l")
@@ -48,32 +110,106 @@ region = Rect2(0, 0, 48, 16)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_6b278")
 }, {
 "duration": 1.0,
 "texture": null
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6b278")
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6b278")
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6b278")
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6b278")
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6b278")
 }],
 "loop": false,
 "name": &"READY",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
+"duration": 1.0,
+"texture": null
+}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_aguk0")
 }, {
 "duration": 1.0,
 "texture": null
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aguk0")
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aguk0")
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aguk0")
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aguk0")
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aguk0")
 }],
 "loop": false,
 "name": &"SCENE",
-"speed": 5.0
+"speed": 10.0
 }]
 
+[sub_resource type="GDScript" id="GDScript_ntikk"]
+resource_name = "Ready"
+script/source = "extends AnimatedSprite2D
+
+func _do_ready_thing() -> void:
+	if GameState.character_selected == 2: # Copy Robot
+		stop()
+		print(\"copy\")
+		play(\"SCENE\")
+	else:
+		play(\"READY\")
+	await animation_finished
+	queue_free()
+"
+
 [node name="HUD" type="CanvasLayer"]
-script = ExtResource("1_gwyxg")
 
 [node name="Life Counter" type="Node" parent="."]
-script = ExtResource("2_iey88")
+script = SubResource("GDScript_lduve")
 
 [node name="Text" type="RichTextLabel" parent="Life Counter"]
 offset_left = 24.0
@@ -91,7 +227,7 @@ hframes = 2
 frame = 1
 
 [node name="Bars" type="Node" parent="."]
-script = ExtResource("6_83krn")
+script = SubResource("GDScript_lbnry")
 
 [node name="Boss Bar" type="Sprite2D" parent="Bars"]
 visible = false
@@ -111,7 +247,7 @@ z_index = -1
 material = SubResource("ShaderMaterial_o6d4v")
 position = Vector2(12, 64)
 texture = ExtResource("5_1d45g")
-hframes = 29
+hframes = 30
 frame = 28
 
 [node name="RefillTimer" type="Timer" parent="Bars"]
@@ -124,8 +260,9 @@ one_shot = true
 position = Vector2(192, 108)
 sprite_frames = SubResource("SpriteFrames_tirtj")
 animation = &"SCENE"
-autoplay = "READY"
+script = SubResource("GDScript_ntikk")
 
 [node name="StartTimer" type="Timer" parent="."]
-wait_time = 10.0
+wait_time = 0.75
+one_shot = true
 autostart = true

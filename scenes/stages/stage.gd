@@ -14,6 +14,8 @@ func _ready():
 	$Camera2D.position = $StartPosition.position
 	await Fade.fade_in().finished
 	$Music.play()
+	$HUD/READY._do_ready_thing()
+	await $HUD/READY.animation_finished
 	var player_scene : PackedScene = load(
 		GameState.characters[
 			GameState.character_selected
@@ -21,11 +23,15 @@ func _ready():
 	)
 	player = player_scene.instantiate()
 	add_child(player)
-	player.position.x = $StartPosition.position.x
-	player.position.y = $StartPosition.position.y - 230
-	player.targetpos = $StartPosition.position.y
-	await player.teleported
-	
+	if player.has_method("teleport"):
+		player.position.x = $StartPosition.position.x
+		player.position.y = $StartPosition.position.y - 230
+		player.targetpos = $StartPosition.position.y
+		await player.teleported
+	else:
+		player.position = $StartPosition.position
+	if player.has_method("play_start_sound"): # G: Finally, a foolproof method to do this...
+		player.play_start_sound()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):

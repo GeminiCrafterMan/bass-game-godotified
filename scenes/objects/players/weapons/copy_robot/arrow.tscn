@@ -132,4 +132,8 @@ bus = &"SFX"
 position = Vector2(1.66893e-06, 4.17233e-07)
 scale = Vector2(1.6, 0.8)
 
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -9,7 +9,7 @@ var flashtimer : int
 func _ready():
 	$SpawnSound.play()
 
-func _process(_delta):
+func _physics_process(_delta):
 	if GameState.player != null:
 			$AnimatedSprite2D.material.set_shader_parameter("palette", get_node(GameState.player).get_node("Sprite2D").material.get_shader_parameter("palette"))
 
@@ -23,6 +23,7 @@ func _process(_delta):
 	
 	if move_and_slide() == true && $AnimatedSprite2D.animation == "move":
 		$AnimatedSprite2D.play("stick")
+		$Timer.queue_free()
 		timer = 0
 		velocity.x = 0
 		
@@ -30,6 +31,7 @@ func _process(_delta):
 	if $AnimatedSprite2D.animation != "stick":
 		if timer == 100:
 			$AnimatedSprite2D.animation = "move"
+			$Timer.start()
 			if velocity.x < 0:	# find a way to fix this for shooting left?
 				velocity.x = -50
 			else:
@@ -73,3 +75,9 @@ func reflect():
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	GameState.onscreen_sp_bullets = 0
 	queue_free()
+
+
+func _on_timer_timeout() -> void:
+	if GameState.infinite_ammo == false:
+		GameState.weapon_energy[GameState.WEAPONS.ARROW] -= 1
+	$Timer.start()

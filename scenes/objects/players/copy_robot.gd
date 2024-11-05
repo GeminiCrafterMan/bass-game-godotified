@@ -110,9 +110,7 @@ func weapon_buster(): # G: Copy Robot *can* charge his buster, but Maestro and B
 		if Charge < 110:
 			Charge += 1
 			if Charge == 32:
-				SoundManager.play("player", "charge1")
-			if Charge == 105:
-				SoundManager.play("player", "charge2")
+				SoundManager.play("player", "charge")
 		else:
 			Charge = 105
 	else:
@@ -121,7 +119,7 @@ func weapon_buster(): # G: Copy Robot *can* charge his buster, but Maestro and B
 		
 func weapon_shark():
 	if Input.is_action_just_released("shoot"):
-		if (currentState != STATES.SLIDE) and (currentState != STATES.HURT) and GameState.onscreen_sp_bullets < 1 and GameState.weapon_energy[GameState.WEAPONS.SHARK] > 3:
+		if (currentState != STATES.SLIDE) and (currentState != STATES.HURT) and GameState.onscreen_sp_bullets < 1 and (GameState.weapon_energy[GameState.WEAPONS.SHARK] > 3 or GameState.infinite_ammo == true):
 			if sharkcharge < 25: #Uncharged. Single Fin Shredder
 
 				anim.seek(0)
@@ -146,10 +144,12 @@ func weapon_shark():
 					projectile.velocity.x = sprite.scale.x * 1
 				projectile.scale.x = sprite.scale.x
 				
-				GameState.weapon_energy[GameState.WEAPONS.SHARK] -= 3
+				if GameState.infinite_ammo == false:
+					GameState.weapon_energy[GameState.WEAPONS.SHARK] -= 3
 
 			if sharkcharge > 25: #Charged. Double Fin Shredder!
-				GameState.weapon_energy[GameState.WEAPONS.SHARK] -= 4
+				if GameState.infinite_ammo == false:
+					GameState.weapon_energy[GameState.WEAPONS.SHARK] -= 4
 				GameState.onscreen_sp_bullets += 1
 
 				anim.seek(0)
@@ -173,7 +173,7 @@ func weapon_shark():
 	if sharkcharge >= 25 && GameState.weapon_energy[GameState.WEAPONS.SHARK] < 6:
 		sharkcharge = 2
 
-	if Input.is_action_pressed("shoot") && GameState.weapon_energy[GameState.WEAPONS.SHARK] > 0:
+	if Input.is_action_pressed("shoot") && (GameState.weapon_energy[GameState.WEAPONS.SHARK] > 0 or GameState.infinite_ammo == true):
 		if sharkcharge < 78:
 			sharkcharge += 1
 			if sharkcharge == 26:
@@ -186,7 +186,7 @@ func weapon_shark():
 		return
 		
 func weapon_quint():
-	if Input.is_action_just_pressed("shoot") and GameState.onscreen_sp_bullets < 1 and GameState.weapon_energy[GameState.WEAPONS.QUINT] > 1:
+	if Input.is_action_just_pressed("shoot") and GameState.onscreen_sp_bullets < 1 and (GameState.weapon_energy[GameState.WEAPONS.QUINT] > 1 or GameState.infinite_ammo == true):
 		GameState.onscreen_sp_bullets += 1
 		projectile = projectile_scenes[8].instantiate()
 		get_parent().add_child(projectile)
@@ -206,7 +206,7 @@ func scythe_charge_palette():
 			sprite.material.set_shader_parameter("palette",weapon_palette[19])
 			Flash_Timer = 0
 		else:
-			sprite.material.set_shader_parameter("palette",weapon_palette[GameState.current_weapon])
+			set_current_weapon_palette()
 			Flash_Timer += 1
 
 
@@ -215,7 +215,7 @@ func scythe_charge_palette():
 			sprite.material.set_shader_parameter("palette",weapon_palette[20])
 			Flash_Timer = 0
 		else:
-			sprite.material.set_shader_parameter("palette",weapon_palette[GameState.current_weapon])
+			set_current_weapon_palette()
 			Flash_Timer += 1
 
 
@@ -236,7 +236,7 @@ func scythe_charge_palette():
 			sprite.material.set_shader_parameter("palette",weapon_palette[21])
 			Flash_Timer = 0
 		else:
-			sprite.material.set_shader_parameter("palette",weapon_palette[GameState.current_weapon])
+			set_current_weapon_palette()
 			Flash_Timer += 1
 
 
@@ -245,7 +245,7 @@ func scythe_charge_palette():
 			sprite.material.set_shader_parameter("palette",weapon_palette[22])
 			Flash_Timer = 0
 		else:
-			sprite.material.set_shader_parameter("palette",weapon_palette[GameState.current_weapon])
+			set_current_weapon_palette()
 			Flash_Timer += 1
 
 func mount_sakugarne() -> void:
@@ -328,11 +328,5 @@ func disable_pogo():
 	$SakugarneArea/Timer.stop()
 	anim.play("RESET")
 
-func _on_teleported() -> void: # Reconnect this to play the sound.
-# G: So, occasionally, this will (for some reason) fire a second time
-# after some time and returning to the Idle state. Only happens once
-# per life, with no apparent cause -- the player doesn't return to the
-# Teleport state, so they shouldn't be emitting the "teleported" signal
-# a second time... Do we REALLY have to have a bool for this too???
-# Isn't that what signals are for!? Happens with Bass, too.
-	SoundManager.play("copy_robot", "start") # why replace the teleport stuff for a single extra sound?
+func play_start_sound() -> void:
+	SoundManager.play("copy_robot", "start")

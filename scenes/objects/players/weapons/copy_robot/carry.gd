@@ -15,7 +15,8 @@ func _process(_delta):
 		timer += 1
 		Interval.start(0.8)
 		if timer > 0:
-			GameState.weapon_energy[GameState.WEAPONS.CARRY] -= 1
+			if GameState.infinite_ammo == false:
+				GameState.weapon_energy[GameState.WEAPONS.CARRY] -= 1
 	
 	if GameState.player != null:
 		$AnimatedSprite2D.material.set_shader_parameter("palette", get_node(GameState.player).get_node("Sprite2D").material.get_shader_parameter("palette"))

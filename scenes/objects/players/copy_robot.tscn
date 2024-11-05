@@ -647,7 +647,8 @@ func _on_body_entered(body: Node2D) -> void:
 	thing = body
 
 func _on_timer_timeout() -> void:
-	GameState.weapon_energy[GameState.WEAPONS.QUINT] -= 1
+	if GameState.infinite_ammo == false:
+		GameState.weapon_energy[GameState.WEAPONS.QUINT] -= 1
 	$Timer.start()
 
 func destroy() -> void:

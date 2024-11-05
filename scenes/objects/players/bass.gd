@@ -326,46 +326,48 @@ func state_ladder(_direction: Vector2, _delta: float) -> void:
 # WEAPON FUNCTIONS
 # ================
 func weapon_buster():
-	if !attack_timer.is_stopped():
-		if shot_type == 1:
-			no_grounded_movement = true
-	else:
-		no_grounded_movement = false
-	if (GameState.current_weapon == GameState.WEAPONS.BUSTER and Input.is_action_pressed("shoot")) or Input.is_action_pressed("buster"):
-		if Input.is_action_pressed("move_left"):
-			sprite.scale.x = -1
-		if Input.is_action_pressed("move_right"):
-			sprite.scale.x = 1
-		
-		if rapid_timer.is_stopped() and GameState.onscreen_bullets < 4:
-			rapid_timer.start(0.10)
-			shot_type = 1
-			GameState.onscreen_bullets += 1
-			attack_timer.start(0.4)
-			projectile = projectile_scenes[0].instantiate()
-			get_parent().add_child(projectile)
-			projectile.position.x = position.x + sprite.scale.x * 5
-			projectile.position.y = position.y + 5
-			projectile.scale.x = sprite.scale.x
-			# inputs
-			if Input.is_action_pressed("move_up"):
-				if Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right"):
+	if (currentState != STATES.SLIDE) and (currentState != STATES.HURT):
+		if !attack_timer.is_stopped():
+			if shot_type == 1:
+				no_grounded_movement = true
+		else:
+			no_grounded_movement = false
+		if (GameState.current_weapon == GameState.WEAPONS.BUSTER and Input.is_action_pressed("shoot")) or Input.is_action_pressed("buster"):
+			if Input.is_action_pressed("move_left"):
+				sprite.scale.x = -1
+			if Input.is_action_pressed("move_right"):
+				sprite.scale.x = 1
+			
+			if rapid_timer.is_stopped() and GameState.onscreen_bullets < 4:
+				rapid_timer.start(0.10)
+				shot_type = 1
+				GameState.onscreen_bullets += 1
+				attack_timer.start(0.4)
+				projectile = projectile_scenes[0].instantiate()
+				get_parent().add_child(projectile)
+				projectile.position.x = position.x + sprite.scale.x * 5
+				projectile.position.y = position.y + 5
+				projectile.scale.x = sprite.scale.x
+				# inputs
+				if Input.is_action_pressed("move_up"):
+					if Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right"):
+						projectile.velocity.x = sign(sprite.scale.x) * (buster_speed * 0.5)
+						projectile.velocity.y = -(buster_speed * 0.5)
+					else:
+						projectile.velocity.y = -buster_speed
+				elif Input.is_action_pressed("move_down"):
 					projectile.velocity.x = sign(sprite.scale.x) * (buster_speed * 0.5)
-					projectile.velocity.y = -(buster_speed * 0.5)
+					projectile.velocity.y = (buster_speed * 0.5)
 				else:
-					projectile.velocity.y = -buster_speed
-			elif Input.is_action_pressed("move_down"):
-				projectile.velocity.x = sign(sprite.scale.x) * (buster_speed * 0.5)
-				projectile.velocity.y = (buster_speed * 0.5)
-			else:
-				projectile.velocity.x = sign(sprite.scale.x) * buster_speed
-				
-#		is_dashing = false
-		return
+					projectile.velocity.x = sign(sprite.scale.x) * buster_speed
+					
+	#		is_dashing = false
+			return
 
 func weapon_origami():
-	if Input.is_action_just_pressed("shoot") and GameState.weapon_energy[GameState.WEAPONS.ORIGAMI] >= 1 and GameState.onscreen_sp_bullets < 4:
-		GameState.weapon_energy[GameState.WEAPONS.ORIGAMI] -= 1
+	if Input.is_action_just_pressed("shoot") and (GameState.weapon_energy[GameState.WEAPONS.ORIGAMI] >= 1 or GameState.infinite_ammo == true) and GameState.onscreen_sp_bullets < 4:
+		if GameState.infinite_ammo == false:
+			GameState.weapon_energy[GameState.WEAPONS.ORIGAMI] -= 1
 		anim.seek(0)
 		shot_type = 2
 		attack_timer.start(0.3)
@@ -441,11 +443,5 @@ func dash_jump(direction, delta):
 		velocity.x = 0
 
 
-func _on_teleported() -> void: # Reconnect this to play the sound.
-# G: So, occasionally, this will (for some reason) fire a second time
-# after some time and returning to the Idle state. Only happens once
-# per life, with no apparent cause -- the player doesn't return to the
-# Teleport state, so they shouldn't be emitting the "teleported" signal
-# a second time... Do we REALLY have to have a bool for this too???
-# Isn't that what signals are for!? Happens with Copy Robot, too.
-	SoundManager.play("bass", "start") # why replace the teleport stuff for a single extra sound?
+func play_start_sound() -> void:
+	SoundManager.play("bass", "start")

@@ -14,7 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://cwqbm80i7pv6x" path="res://scenes/objects/level_objects/ladder_hitbox.tscn" id="12_dvjnm"]
 [ext_resource type="PackedScene" uid="uid://mi0hw7tknuco" path="res://scenes/objects/level_objects/spike.tscn" id="13_mhne0"]
 [ext_resource type="PackedScene" uid="uid://bobtsvomowe28" path="res://scenes/objects/items/pickup.tscn" id="14_fvnnc"]
-[ext_resource type="PackedScene" path="res://scenes/objects/level_objects/button.tscn" id="15_53pwf"]
+[ext_resource type="PackedScene" uid="uid://u68yemonosg8" path="res://scenes/objects/level_objects/button.tscn" id="15_53pwf"]
 [ext_resource type="PackedScene" uid="uid://bygcs4m5638w6" path="res://scenes/objects/enemies/gabyoall.tscn" id="16_8sqdo"]
 [ext_resource type="PackedScene" uid="uid://bingbkdyjdsbs" path="res://scenes/objects/players/start_position.tscn" id="17_qn4li"]
 [ext_resource type="PackedScene" uid="uid://pqu0lvkmbufk" path="res://scenes/objects/enemies/telly_hole.tscn" id="18_bewhl"]

@@ -93,6 +93,7 @@ var PROGRESSDICT = {
 	"HaveProtoKey4": false
 }
 
+var infinite_ammo : bool = false
 var weapon_energy : Array = [
 	0,	# Buster
 	28,	# Scorch Barrier
@@ -179,7 +180,6 @@ func refill_health() -> void:
 	
 func refill_ammo() -> void:
 	for n in weapon_energy.size():
-	# I hate this. So much.
 		weapon_energy[n] = max_weapon_energy[n] # Reset WE
 
 func _ready() -> void:

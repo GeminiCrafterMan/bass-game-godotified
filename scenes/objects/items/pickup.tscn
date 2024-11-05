@@ -229,8 +229,8 @@ size = Vector2(8, 8)
 
 [node name="Item" type="CharacterBody2D"]
 collision_layer = 64
-collision_mask = 3
 script = ExtResource("1_6kmgf")
+has_gravity = null
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 visible = false
@@ -243,7 +243,7 @@ material = SubResource("ShaderMaterial_3l2vc")
 sprite_frames = SubResource("SpriteFrames_pfpbr")
 animation = &"SmHP"
 autoplay = "SmHP"
-frame_progress = 0.57977
+frame_progress = 0.886761
 
 [node name="Touch" type="Area2D" parent="."]
 collision_layer = 4

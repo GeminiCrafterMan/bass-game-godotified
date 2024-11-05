@@ -37,4 +37,8 @@ func _unhandled_input(event):
 						DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 					_:
 						DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
-			#KEY_F12:
+			KEY_F12: # Toggle infinite ammo
+				if GameState.infinite_ammo == false:
+					GameState.infinite_ammo = true
+				else:
+					GameState.infinite_ammo = false
