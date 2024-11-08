@@ -121,16 +121,16 @@ func process_camera():
 					
 					
 					if (player.position.y > (216*GameState.scrollY1) + 108 + voffset):
-						if (player.position.y > $Camera2D.position.y):
-							$Camera2D.position.y += 1
+						if (player.position.y > $Camera2D.position.y) and player.velocity.y == 0:
+							$Camera2D.position.y += 3
 						
 						if (player.position.y > $Camera2D.position.y + 20 ):
 							$Camera2D.position.y = player.position.y - 20
 					
 					
 					if (player.position.y < (216*GameState.scrollY2) - 108 + voffset):
-						if (player.position.y < $Camera2D.position.y):
-							$Camera2D.position.y -= 1
+						if (player.position.y < $Camera2D.position.y) and player.velocity.y == 0:
+							$Camera2D.position.y -= 3
 							
 						if (player.position.y < $Camera2D.position.y - 20 ):
 							$Camera2D.position.y = player.position.y + 20
