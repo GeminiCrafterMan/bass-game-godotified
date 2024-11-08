@@ -49,8 +49,24 @@ var playerposx
 var playerposy
 var playerstate
 
+#Camera Variables
 var camposx
 var camposy
+var screenmode
+
+var scrollX1
+var scrollX2
+var scrollY1
+var scrollY2
+
+var dest_X
+var dest_Y
+
+var screentransiton : int
+var transdir : int
+
+var checkpoint
+
 
 var tellies : int
 

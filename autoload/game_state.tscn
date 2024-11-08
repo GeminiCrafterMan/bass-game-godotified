@@ -205,3 +205,5 @@ script = ExtResource("4_xeyqw")
 label = "player"
 bus = "Sound"
 events = Array[ExtResource("5_smetb")]([SubResource("Resource_esc75"), SubResource("Resource_ftt4s"), SubResource("Resource_d8o2y"), SubResource("Resource_ssl5j"), SubResource("Resource_5giha"), SubResource("Resource_67msd"), SubResource("Resource_u7f0v"), SubResource("Resource_4yx0t")])
+
+[node name="Transiton" type="Timer" parent="."]

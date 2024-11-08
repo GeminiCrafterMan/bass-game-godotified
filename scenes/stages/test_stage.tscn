@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=4 uid="uid://by07rq184shwd"]
+[gd_scene load_steps=33 format=4 uid="uid://by07rq184shwd"]
 
 [ext_resource type="Script" path="res://scenes/stages/stage.gd" id="1_ac8st"]
 [ext_resource type="TileSet" uid="uid://bglohi0dt4uvq" path="res://tilesets/test_stage.tres" id="2_cu0lw"]
@@ -20,6 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://bobtsvomowe28" path="res://scenes/objects/items/pickup.tscn" id="15_bvxqh"]
 [ext_resource type="PackedScene" uid="uid://cpke1tk508w3w" path="res://scenes/objects/level_objects/shredder_block.tscn" id="15_jodyc"]
 [ext_resource type="PackedScene" uid="uid://bygcs4m5638w6" path="res://scenes/objects/enemies/gabyoall.tscn" id="19_6557c"]
+[ext_resource type="PackedScene" uid="uid://de6y2454v43to" path="res://scenes/objects/level_objects/screentrigger.tscn" id="21_55y2w"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d8swr"]
 size = Vector2(2233, 873)
@@ -60,6 +61,10 @@ shader_parameter/palette = ExtResource("10_27246")
 [node name="TestStage" type="Node2D"]
 position = Vector2(256, 176)
 script = ExtResource("1_ac8st")
+C1scrollX1 = -500
+C1scrollX2 = 500
+C1scrollY1 = -500
+C1scrollY2 = 501
 
 [node name="Camera2D" type="Camera2D" parent="."]
 limit_left = -1600
@@ -336,77 +341,83 @@ scale = Vector2(2, 8)
 [node name="Spike" parent="Level Objects/Spikes" instance=ExtResource("12_1njev")]
 position = Vector2(352, 584)
 scale = Vector2(14, 1)
-damage = 56
 
 [node name="Spike2" parent="Level Objects/Spikes" instance=ExtResource("12_1njev")]
 position = Vector2(768, 968)
 scale = Vector2(96, 1)
-damage = 56
 
 [node name="Spike3" parent="Level Objects/Spikes" instance=ExtResource("12_1njev")]
 position = Vector2(1296, 504)
 scale = Vector2(6, 1)
-damage = 56
 
 [node name="Spike4" parent="Level Objects/Spikes" instance=ExtResource("12_1njev")]
 position = Vector2(1488, 504)
 scale = Vector2(6, 1)
-damage = 56
 
 [node name="Items" type="Node2D" parent="Level Objects"]
 
 [node name="Item" parent="Level Objects/Items" instance=ExtResource("15_bvxqh")]
 position = Vector2(24, 328)
 dropped = false
+has_gravity = false
 
 [node name="Item2" parent="Level Objects/Items" instance=ExtResource("15_bvxqh")]
 position = Vector2(40, 328)
 item_size = 1
 dropped = false
+has_gravity = false
 
 [node name="Item3" parent="Level Objects/Items" instance=ExtResource("15_bvxqh")]
 position = Vector2(56, 328)
 item_type = 1
 dropped = false
+has_gravity = false
 
 [node name="Item4" parent="Level Objects/Items" instance=ExtResource("15_bvxqh")]
 position = Vector2(72, 328)
 item_type = 1
 item_size = 1
 dropped = false
+has_gravity = false
 
 [node name="Item5" parent="Level Objects/Items" instance=ExtResource("15_bvxqh")]
 position = Vector2(88, 328)
 item_type = 2
 dropped = false
+has_gravity = false
 
 [node name="Item6" parent="Level Objects/Items" instance=ExtResource("15_bvxqh")]
 position = Vector2(104, 328)
 item_type = 2
 item_size = 1
 dropped = false
+has_gravity = false
 
 [node name="Item7" parent="Level Objects/Items" instance=ExtResource("15_bvxqh")]
 position = Vector2(40, 280)
 item_type = 3
 dropped = false
+has_gravity = false
 
 [node name="Item8" parent="Level Objects/Items" instance=ExtResource("15_bvxqh")]
 position = Vector2(56, 280)
 item_type = 3
 item_size = 1
 dropped = false
+has_gravity = false
 
 [node name="Item9" parent="Level Objects/Items" instance=ExtResource("15_bvxqh")]
 position = Vector2(72, 280)
 item_type = 4
 dropped = false
+has_gravity = false
 
 [node name="Item10" parent="Level Objects/Items" instance=ExtResource("15_bvxqh")]
 position = Vector2(88, 280)
 item_type = 4
 item_size = 1
 dropped = false
+has_gravity = false
 
 [node name="Button" parent="Level Objects" instance=ExtResource("13_rn21y")]
 position = Vector2(440, 296)
@@ -436,6 +447,13 @@ position = Vector2(197, 459)
 
 [node name="Gabyoall2" parent="." instance=ExtResource("19_6557c")]
 position = Vector2(505, 459)
+
+[node name="Screen Trigger" parent="." instance=ExtResource("21_55y2w")]
+position = Vector2(321, 306)
+scrollX1 = -5000
+scrollX2 = 5000
+scrollY1 = -500
+scrollY2 = 500
 
 [connection signal="body_entered" from="Water" to="." method="_on_water_body_entered"]
 [connection signal="body_exited" from="Water" to="." method="_on_water_body_exited"]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=4 uid="uid://7n5e5bi74b7t"]
 
 [ext_resource type="Script" path="res://scenes/stages/stage.gd" id="1_ftdj2"]
-[ext_resource type="TileSet" uid="uid://bg5p7gvp0w1gu" path="res://tilesets/smog.tres" id="2_qit38"]
+[ext_resource type="TileSet" uid="uid://hdv5uqnnqxhl" path="res://tilesets/smog.tres" id="2_qit38"]
 [ext_resource type="AudioStream" uid="uid://dl6htgsqlehwg" path="res://music/Smog Stage.mp3" id="4_k636r"]
 [ext_resource type="PackedScene" uid="uid://blmlnutul2hyu" path="res://scenes/objects/level_objects/yoku_block.tscn" id="4_w5jdc"]
 [ext_resource type="TileSet" uid="uid://di2ls6ayshosr" path="res://tilesets/layout.tres" id="6_7fnf5"]

@@ -457,65 +457,27 @@ dest_Y = 1
 scrollX2 = 3
 scrollY1 = 1
 scrollY2 = 3
-direction = 2
-
-[node name="Screen Trigger6" parent="Level Objects/Triggers" instance=ExtResource("14_l15w7")]
-position = Vector2(-251.955, -507)
-scale = Vector2(1.01, 1)
-dest_Y = 1
-scrollX2 = 3
-scrollY1 = 1
-scrollY2 = 3
-direction = 2
-
-[node name="Screen Trigger7" parent="Level Objects/Triggers" instance=ExtResource("14_l15w7")]
-position = Vector2(-240.245, -507)
-scale = Vector2(1.01, 1)
-dest_Y = 1
-scrollX2 = 3
-scrollY1 = 1
-scrollY2 = 3
-direction = 2
 
 [node name="Screen Trigger4" parent="Level Objects/Triggers" instance=ExtResource("14_l15w7")]
 position = Vector2(-235.525, -144)
 scale = Vector2(0.1, 7.935)
 scrollX1 = 3
 scrollY1 = 2
-direction = 1
 screenmode = 3
-
-[node name="Screen Trigger8" parent="Level Objects/Triggers" instance=ExtResource("14_l15w7")]
-position = Vector2(-236.409, -631)
-scale = Vector2(-0.025, 16.545)
-scrollX1 = 3
-direction = 1
-screenmode = 3
-
-[node name="Screen Trigger9" parent="Level Objects/Triggers" instance=ExtResource("14_l15w7")]
-position = Vector2(-218.396, -642.325)
-scale = Vector2(0.035, 26.95)
-dest_X = 4
-scrollX1 = 4
-scrollX2 = 6
-direction = 1
 
 [node name="Screen Trigger5" parent="Level Objects/Triggers" instance=ExtResource("14_l15w7")]
 position = Vector2(-218.045, -145)
 scale = Vector2(0.1, 7.935)
-dest_X = 4
-dest_Y = 2
 scrollX1 = 4
 scrollX2 = 6
 scrollY1 = 1
 scrollY2 = 2
-direction = 1
 
 [node name="Screen Trigger3" parent="Level Objects/Triggers" instance=ExtResource("14_l15w7")]
-position = Vector2(-82.2727, -270)
+position = Vector2(-84.8636, -285)
 scrollX1 = 11
 scrollY1 = 2
-scrollY2 = 5
+scrollY2 = 4
 screenmode = 2
 
 [node name="Ice" type="Area2D" parent="."]

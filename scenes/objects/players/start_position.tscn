@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://bingbkdyjdsbs"]
+[gd_scene load_steps=3 format=3 uid="uid://bingbkdyjdsbs"]
 
+[ext_resource type="Script" path="res://scenes/objects/players/start_position.gd" id="1_v27av"]
 [ext_resource type="Texture2D" uid="uid://dl4uojxtlp1pf" path="res://sprites/players/Player Start.png" id="1_wc46e"]
 
 [node name="StartPosition" type="Marker2D"]
+script = ExtResource("1_v27av")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 editor_description = "The start position for any player character."
