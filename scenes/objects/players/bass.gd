@@ -444,4 +444,4 @@ func dash_jump(direction, delta):
 
 
 func play_start_sound() -> void:
-	SoundManager.play("bass", "start")
+	pass#SoundManager.play("bass", "start")

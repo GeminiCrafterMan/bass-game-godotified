@@ -26,6 +26,8 @@ var numberOfTimesToRunStates = 0
 var isFirstFrameOfState = false
 var targetpos : float
 var currentSpeed = 0
+
+var fallstored : float
 #input related
 
 var JUMP_VELOCITY : int
@@ -33,6 +35,8 @@ var PEAK_VELOCITY : int
 var STOP_VELOCITY : int
 var JUMP_HEIGHT : int
 var FAST_FALL : int
+
+var transing : bool = false
 
 #consts
 const MAXSPEED = 100.0
@@ -176,9 +180,20 @@ func _physics_process(delta: float) -> void:
 
 
 	# Add the gravity.
-	if (currentState != STATES.DEAD) and (currentState != STATES.TELEPORT):
-		if not is_on_floor():
-			velocity += get_gravity() * delta
+	if transing != true:
+		if (currentState != STATES.DEAD) and (currentState != STATES.TELEPORT):
+			if not is_on_floor():
+				velocity += get_gravity() * delta
+				if fallstored != 0:
+					velocity.y = fallstored
+					fallstored = 0
+	else:
+		if velocity.y != 0:
+			fallstored = velocity.y
+			velocity.y = 0
+		
+		
+		
 
 	if GameState.current_hp <= 0 && currentState != STATES.DEAD:
 		swapState = STATES.DEAD
@@ -258,100 +273,101 @@ func _physics_process(delta: float) -> void:
 	if (currentState != STATES.SLIDE) and (currentState != STATES.HURT) and (currentState != STATES.DEAD) and (currentState != STATES.TELEPORT):
 		$MainHitbox.set_disabled(false)
 		$SlideHitbox.set_disabled(true)
-
-	#INPUTS -lynn
-	var direction := Input.get_vector("move_left", "move_right", "move_down", "move_up")
-	#this cancels out any floats in the inputs and
-	#makes inputs to be purely digital (-1,0,1) rather than analouge
-	direction = Vector2(sign(direction.x), sign(direction.y))
-
-	#STATES -lynn
-	#always changed states by setting SWAPSTATE almost never set the current_state
-	#all states are formatted with a few things
-	#1st (optional) do firstframe setup for state, usually starting timers and such
-	#2nd the behavior of the state
-	#3rd the ways in which the state is exited, either through timers or input
-	#sometimes you need to put the exit above the firstFrame of the state
-	#depending what it does but dont worry abotu that for now
-	#EXTRA NOTE using a check for what the current animation is before setting a new one is a good
-	#way to tell what animation you are coming from and can add special code for when doing so
-	#good example is in the jump state I check if you are coming in from the shoot state and set the anim accordingly
-	numberOfTimesToRunStates = 1
-	isFirstFrameOfState = false
-	while numberOfTimesToRunStates > 0:
-		#STATES YOU WANT ANY ANIMATION TO BE CANCELLED WITH LIKE JUMPING AND SHOOTING GO HERE
-		#ALWAYS MAKE SURE TELEPORT IS IN THE BLACKLIST SO YOU CANT CANCEL IT
-		#other than this, mostly stick to swapping states from inside other states, these are just global cancels
-		if  (currentState != STATES.NONE) and (currentState != STATES.TELEPORT) and (currentState != STATES.DEAD):
-			#check for ladder
-			if (currentState != STATES.SLIDE) and (currentState != STATES.HURT) and  sign(direction.y) != 0:
-				if (ladder_check.is_colliding() or top_ladder_check.is_colliding()) and !Input.is_action_pressed("jump"):
-					for i in ladder_check.get_collision_count():
-						if ladder_check.get_collider(i).is_in_group("ladder"):
-							if !(is_on_floor() and Input.is_action_pressed("move_down")):
-								global_position.x = ladder_check.get_collider(i).global_position.x
-								currentState = STATES.LADDER
-								# G: shut the FUCK UP x2
-								#print("Ladder'd")
-								swapState = STATES.NONE
-								isFirstFrameOfState = false
-							else:
-								global_position.y += 1
-
-
-
-
-			#check for jump
-			if ((Input.is_action_just_pressed("jump") and is_on_floor() and (!isFirstFrameOfState or (currentState == STATES.IDLE or currentState == STATES.WALK)) and currentState != STATES.HURT and currentState != STATES.LADDER and currentState != STATES.DEAD)):
-				if ($CeilingCheck.is_colliding() == false or (currentState != STATES.SLIDE) and (currentState != STATES.HURT)):
-					swapState = STATES.JUMP
-					if on_ice == true:
-						ice_jump = true
+	
+	if transing != true:
+		#INPUTS -lynn
+		var direction := Input.get_vector("move_left", "move_right", "move_down", "move_up")
+		#this cancels out any floats in the inputs and
+		#makes inputs to be purely digital (-1,0,1) rather than analouge
+		direction = Vector2(sign(direction.x), sign(direction.y))
+	
+		#STATES -lynn
+		#always changed states by setting SWAPSTATE almost never set the current_state
+		#all states are formatted with a few things
+		#1st (optional) do firstframe setup for state, usually starting timers and such
+		#2nd the behavior of the state
+		#3rd the ways in which the state is exited, either through timers or input
+		#sometimes you need to put the exit above the firstFrame of the state
+		#depending what it does but dont worry abotu that for now
+		#EXTRA NOTE using a check for what the current animation is before setting a new one is a good
+		#way to tell what animation you are coming from and can add special code for when doing so
+		#good example is in the jump state I check if you are coming in from the shoot state and set the anim accordingly
+		numberOfTimesToRunStates = 1
+		isFirstFrameOfState = false
+		while numberOfTimesToRunStates > 0:
+			#STATES YOU WANT ANY ANIMATION TO BE CANCELLED WITH LIKE JUMPING AND SHOOTING GO HERE
+			#ALWAYS MAKE SURE TELEPORT IS IN THE BLACKLIST SO YOU CANT CANCEL IT
+			#other than this, mostly stick to swapping states from inside other states, these are just global cancels
+			if  (currentState != STATES.NONE) and (currentState != STATES.TELEPORT) and (currentState != STATES.DEAD):
+				#check for ladder
+				if (currentState != STATES.SLIDE) and (currentState != STATES.HURT) and  sign(direction.y) != 0:
+					if (ladder_check.is_colliding() or top_ladder_check.is_colliding()) and !Input.is_action_pressed("jump"):
+						for i in ladder_check.get_collision_count():
+							if ladder_check.get_collider(i).is_in_group("ladder"):
+								if !(is_on_floor() and Input.is_action_pressed("move_down")):
+									global_position.x = ladder_check.get_collider(i).global_position.x
+									currentState = STATES.LADDER
+									# G: shut the FUCK UP x2
+									#print("Ladder'd")
+									swapState = STATES.NONE
+									isFirstFrameOfState = false
+								else:
+									global_position.y += 1
+	
+	
+	
+	
+				#check for jump
+				if ((Input.is_action_just_pressed("jump") and is_on_floor() and (!isFirstFrameOfState or (currentState == STATES.IDLE or currentState == STATES.WALK)) and currentState != STATES.HURT and currentState != STATES.LADDER and currentState != STATES.DEAD)):
+					if ($CeilingCheck.is_colliding() == false or (currentState != STATES.SLIDE) and (currentState != STATES.HURT)):
+						swapState = STATES.JUMP
+						if on_ice == true:
+							ice_jump = true
+						StepTime = 0
+						JumpHeight = 0
+	
+				#set player to jumping state if not on ground
+				if !is_on_floor() and currentState != STATES.JUMP and currentState != STATES.HURT and currentState != STATES.LADDER and currentState != STATES.DEAD:
+					#we set current state here or else it will acivate first frame which will make the character jump
 					StepTime = 0
-					JumpHeight = 0
-
-			#set player to jumping state if not on ground
-			if !is_on_floor() and currentState != STATES.JUMP and currentState != STATES.HURT and currentState != STATES.LADDER and currentState != STATES.DEAD:
-				#we set current state here or else it will acivate first frame which will make the character jump
-				StepTime = 0
-				currentState = STATES.JUMP
+					currentState = STATES.JUMP
+					swapState = STATES.NONE
+					if on_ice == true:
+							ice_jump = true
+					isFirstFrameOfState = false
+	
+			match currentState:
+				STATES.TELEPORT:
+					state_teleport(direction, delta)
+				STATES.IDLE:
+					state_idle(direction, delta)
+				STATES.WALK:
+					state_walk(direction, delta)
+				STATES.SLIDE:
+					state_slide(direction, delta)
+				STATES.JUMP:
+					state_jump(direction, delta)
+				STATES.LADDER:
+					state_ladder(direction, delta)
+				STATES.HURT:
+					state_hurt(direction, delta)
+				STATES.DEAD:
+					state_dead(direction, delta)
+	
+			#this will boot back into loop if state has changed
+			#the reason we do this is so when you do inputs there isnt even a
+			#single frame on input lag, it just immedatley changes state within the current cycle
+			#-lynn
+			if swapState != STATES.NONE:
+				# G: shut the FUCK UP
+				#print("changed state to: " + str(swapState))
+				currentState = swapState
 				swapState = STATES.NONE
-				if on_ice == true:
-						ice_jump = true
-				isFirstFrameOfState = false
-
-		match currentState:
-			STATES.TELEPORT:
-				state_teleport(direction, delta)
-			STATES.IDLE:
-				state_idle(direction, delta)
-			STATES.WALK:
-				state_walk(direction, delta)
-			STATES.SLIDE:
-				state_slide(direction, delta)
-			STATES.JUMP:
-				state_jump(direction, delta)
-			STATES.LADDER:
-				state_ladder(direction, delta)
-			STATES.HURT:
-				state_hurt(direction, delta)
-			STATES.DEAD:
-				state_dead(direction, delta)
-
-		#this will boot back into loop if state has changed
-		#the reason we do this is so when you do inputs there isnt even a
-		#single frame on input lag, it just immedatley changes state within the current cycle
-		#-lynn
-		if swapState != STATES.NONE:
-			# G: shut the FUCK UP
-			#print("changed state to: " + str(swapState))
-			currentState = swapState
-			swapState = STATES.NONE
-			isFirstFrameOfState = true
-			numberOfTimesToRunStates += 1
-
-		numberOfTimesToRunStates -= 1
-	move_and_slide()
+				isFirstFrameOfState = true
+				numberOfTimesToRunStates += 1
+	
+			numberOfTimesToRunStates -= 1
+		move_and_slide()
 	if (currentState != STATES.DEAD) and (currentState != STATES.TELEPORT):
 		weapon_buster()
 		do_charge_palette()
@@ -605,7 +621,7 @@ func state_hurt(_direction: Vector2, _delta: float) -> void:
 		swapState = STATES.IDLE
 		starburst.visible = false
 	else:
-		velocity.x = sprite.scale.x * 20
+		velocity.x = sprite.scale.x * -20
 	if isFirstFrameOfState == true:
 		if is_on_floor():
 			velocity.y = -70
@@ -798,21 +814,23 @@ func handle_weapons():
 func weapon_buster(): # G: Maestro can't charge his buster, but Copy Robot *can*.
 	if (GameState.current_weapon == GameState.WEAPONS.BUSTER and Input.is_action_just_pressed("shoot")) or Input.is_action_just_pressed("buster"):
 		if (currentState != STATES.SLIDE) and (currentState != STATES.HURT) and (GameState.onscreen_bullets < 3):
-			shot_type = 0
-			attack_timer.start(0.3)
-			GameState.onscreen_bullets += 1
-			projectile = projectile_scenes[0].instantiate()
-			get_parent().add_child(projectile)
-			projectile.position.x = position.x + (sprite.scale.x * 18)
-			projectile.position.y = position.y + 4
-			projectile.velocity.x = sprite.scale.x * 350
-			projectile.scale.x = sprite.scale.x
-			Charge = 0
-			return
+			if transing != true:
+				shot_type = 0
+				attack_timer.start(0.3)
+				GameState.onscreen_bullets += 1
+				projectile = projectile_scenes[0].instantiate()
+				get_parent().add_child(projectile)
+				projectile.position.x = position.x + (sprite.scale.x * 18)
+				projectile.position.y = position.y + 4
+				projectile.velocity.x = sprite.scale.x * 350
+				projectile.scale.x = sprite.scale.x
+				Charge = 0
+				return
 
 func weapon_blaze():
 
-	if Input.is_action_just_pressed("shoot"):
+	if Input.is_action_just_pressed("shoot") and transing != true:
+			
 
 		var space : int = 18
 		if shield == null && shield2 == null && shield3 == null && shield4 == null && (GameState.weapon_energy[GameState.WEAPONS.BLAZE] >= 1 or GameState.infinite_ammo == true) && GameState.onscreen_sp_bullets == 0:
@@ -877,122 +895,125 @@ func weapon_blaze():
 
 func weapon_smog():
 	if Input.is_action_just_pressed("shoot") && (currentState != STATES.SLIDE) and (currentState != STATES.HURT) and GameState.onscreen_sp_bullets < 1:
-		anim.seek(0)
-		shot_type = 1
-		attack_timer.start(0.3)
-		GameState.onscreen_sp_bullets += 1
-		projectile = weapon_scenes[1].instantiate()
-		get_parent().add_child(projectile)
-
-		projectile.position.x = position.x + sprite.scale.x * 15
-		projectile.position.y = position.y + 4
-		projectile.velocity.x = sprite.scale.x * 100
-		projectile.scale.x = sprite.scale.x
-		return
-
-func weapon_shark():
-	if Input.is_action_just_pressed("shoot") && (currentState != STATES.SLIDE) and (currentState != STATES.HURT) && is_on_floor() && (GameState.weapon_energy[GameState.WEAPONS.SHARK] >= 5 or GameState.infinite_ammo == true):
-		if GameState.onscreen_sp_bullets < 1:
-			if GameState.infinite_ammo == false:
-				GameState.weapon_energy[GameState.WEAPONS.SHARK] -= 5
+		if transing != true:
 			anim.seek(0)
-			shot_type = 4
-			attack_timer.start(0.51)
+			shot_type = 1
+			attack_timer.start(0.3)
 			GameState.onscreen_sp_bullets += 1
-			projectile = weapon_scenes[4].instantiate()
+			projectile = weapon_scenes[1].instantiate()
 			get_parent().add_child(projectile)
 
 			projectile.position.x = position.x + sprite.scale.x * 15
-			projectile.position.y = position.y - 3
-			projectile.velocity.x = sprite.scale.x * 65
+			projectile.position.y = position.y + 4
+			projectile.velocity.x = sprite.scale.x * 100
 			projectile.scale.x = sprite.scale.x
 			return
 
+func weapon_shark():
+	if Input.is_action_just_pressed("shoot") && (currentState != STATES.SLIDE) and (currentState != STATES.HURT) && is_on_floor() && (GameState.weapon_energy[GameState.WEAPONS.SHARK] >= 5 or GameState.infinite_ammo == true):
+		if transing != true:
+			if GameState.onscreen_sp_bullets < 1:
+				if GameState.infinite_ammo == false:
+					GameState.weapon_energy[GameState.WEAPONS.SHARK] -= 5
+				anim.seek(0)
+				shot_type = 4
+				attack_timer.start(0.51)
+				GameState.onscreen_sp_bullets += 1
+				projectile = weapon_scenes[4].instantiate()
+				get_parent().add_child(projectile)
+	
+				projectile.position.x = position.x + sprite.scale.x * 15
+				projectile.position.y = position.y - 3
+				projectile.velocity.x = sprite.scale.x * 65
+				projectile.scale.x = sprite.scale.x
+				return
+
 func weapon_origami():
 	if Input.is_action_just_pressed("shoot") && (GameState.weapon_energy[GameState.WEAPONS.ORIGAMI] >= 1 or GameState.infinite_ammo == true) && GameState.onscreen_sp_bullets < 4:
-		if GameState.infinite_ammo == false:
-			GameState.weapon_energy[GameState.WEAPONS.ORIGAMI] -= 1
-		anim.seek(0)
-		shot_type = 2
-		attack_timer.start(0.3)
-		GameState.onscreen_sp_bullets += 3
-		projectile = weapon_scenes[0].instantiate()
-
-		#SHOOT FORWARD
-		if !Input.is_action_pressed("move_up") && !Input.is_action_pressed("move_down"):
-			get_parent().add_child(projectile)
-			projectile.position.x = position.x + (sprite.scale.x * 9)
-			projectile.position.y = position.y + 2
-			projectile.scale.x = -sprite.scale.x
-			projectile.velocity.x = sprite.scale.x * ORIGAMI_SPEED
-
+		if transing != true:
+			if GameState.infinite_ammo == false:
+				GameState.weapon_energy[GameState.WEAPONS.ORIGAMI] -= 1
+			anim.seek(0)
+			shot_type = 2
+			attack_timer.start(0.3)
+			GameState.onscreen_sp_bullets += 3
 			projectile = weapon_scenes[0].instantiate()
-			get_parent().add_child(projectile)
-			projectile.position.x = position.x + (sprite.scale.x * 9)
-			projectile.position.y = position.y + 2
-			projectile.scale.x = -sprite.scale.x
-			projectile.velocity.x = sprite.scale.x * ORIGAMI_SPEED * 0.775
-			projectile.velocity.y = -ORIGAMI_SPEED * 0.225
+	
+			#SHOOT FORWARD
+			if !Input.is_action_pressed("move_up") && !Input.is_action_pressed("move_down"):
+				get_parent().add_child(projectile)
+				projectile.position.x = position.x + (sprite.scale.x * 9)
+				projectile.position.y = position.y + 2
+				projectile.scale.x = -sprite.scale.x
+				projectile.velocity.x = sprite.scale.x * ORIGAMI_SPEED
+	
+				projectile = weapon_scenes[0].instantiate()
+				get_parent().add_child(projectile)
+				projectile.position.x = position.x + (sprite.scale.x * 9)
+				projectile.position.y = position.y + 2
+				projectile.scale.x = -sprite.scale.x
+				projectile.velocity.x = sprite.scale.x * ORIGAMI_SPEED * 0.775
+				projectile.velocity.y = -ORIGAMI_SPEED * 0.225
+	
+				projectile = weapon_scenes[0].instantiate()
+				get_parent().add_child(projectile)
+				projectile.position.x = position.x + (sprite.scale.x * 9)
+				projectile.position.y = position.y + 2
+				projectile.scale.x = -sprite.scale.x
+				projectile.velocity.x = sprite.scale.x * ORIGAMI_SPEED * 0.775
+				projectile.velocity.y =  ORIGAMI_SPEED * 0.225
+	
+			if Input.is_action_pressed("move_up"):
+				projectile = weapon_scenes[0].instantiate()
+				get_parent().add_child(projectile)
+				projectile.position.x = position.x + (sprite.scale.x * 9)
+				projectile.position.y = position.y + 2
+				projectile.scale.x = -sprite.scale.x
+				projectile.velocity.x = sprite.scale.x * ORIGAMI_SPEED * 0.5
+				projectile.velocity.y =  -ORIGAMI_SPEED * 0.5
+	
+				projectile = weapon_scenes[0].instantiate()
+				get_parent().add_child(projectile)
+				projectile.position.x = position.x + (sprite.scale.x * 9)
+				projectile.position.y = position.y + 2
+				projectile.scale.x = -sprite.scale.x
+				projectile.velocity.x = sprite.scale.x * ORIGAMI_SPEED * 0.775
+				projectile.velocity.y =  -ORIGAMI_SPEED * 0.225
+	
+				projectile = weapon_scenes[0].instantiate()
+				get_parent().add_child(projectile)
+				projectile.position.x = position.x + (sprite.scale.x * 9)
+				projectile.position.y = position.y + 2
+				projectile.scale.x = -sprite.scale.x
+				projectile.velocity.x = sprite.scale.x * ORIGAMI_SPEED *  0.225
+				projectile.velocity.y =  -ORIGAMI_SPEED * 0.775
+	
+			if Input.is_action_pressed("move_down"):
+				projectile = weapon_scenes[0].instantiate()
+				get_parent().add_child(projectile)
+				projectile.position.x = position.x + (sprite.scale.x * 9)
+				projectile.position.y = position.y + 2
+				projectile.scale.x = -sprite.scale.x
+				projectile.velocity.x = sprite.scale.x * ORIGAMI_SPEED *  0.225
+				projectile.velocity.y =  ORIGAMI_SPEED * 0.775
+	
+				projectile = weapon_scenes[0].instantiate()
+				get_parent().add_child(projectile)
+				projectile.position.x = position.x + (sprite.scale.x * 9)
+				projectile.position.y = position.y + 2
+				projectile.scale.x = -sprite.scale.x
+				projectile.velocity.x = sprite.scale.x * ORIGAMI_SPEED * 0.5
+				projectile.velocity.y =  ORIGAMI_SPEED * 0.5
+	
+				projectile = weapon_scenes[0].instantiate()
+				get_parent().add_child(projectile)
+				projectile.position.x = position.x + (sprite.scale.x * 9)
+				projectile.position.y = position.y + 2
+				projectile.scale.x = -sprite.scale.x
+				projectile.velocity.x = sprite.scale.x * ORIGAMI_SPEED * 0.775
+				projectile.velocity.y =  ORIGAMI_SPEED * 0.225
 
-			projectile = weapon_scenes[0].instantiate()
-			get_parent().add_child(projectile)
-			projectile.position.x = position.x + (sprite.scale.x * 9)
-			projectile.position.y = position.y + 2
-			projectile.scale.x = -sprite.scale.x
-			projectile.velocity.x = sprite.scale.x * ORIGAMI_SPEED * 0.775
-			projectile.velocity.y =  ORIGAMI_SPEED * 0.225
-
-		if Input.is_action_pressed("move_up"):
-			projectile = weapon_scenes[0].instantiate()
-			get_parent().add_child(projectile)
-			projectile.position.x = position.x + (sprite.scale.x * 9)
-			projectile.position.y = position.y + 2
-			projectile.scale.x = -sprite.scale.x
-			projectile.velocity.x = sprite.scale.x * ORIGAMI_SPEED * 0.5
-			projectile.velocity.y =  -ORIGAMI_SPEED * 0.5
-
-			projectile = weapon_scenes[0].instantiate()
-			get_parent().add_child(projectile)
-			projectile.position.x = position.x + (sprite.scale.x * 9)
-			projectile.position.y = position.y + 2
-			projectile.scale.x = -sprite.scale.x
-			projectile.velocity.x = sprite.scale.x * ORIGAMI_SPEED * 0.775
-			projectile.velocity.y =  -ORIGAMI_SPEED * 0.225
-
-			projectile = weapon_scenes[0].instantiate()
-			get_parent().add_child(projectile)
-			projectile.position.x = position.x + (sprite.scale.x * 9)
-			projectile.position.y = position.y + 2
-			projectile.scale.x = -sprite.scale.x
-			projectile.velocity.x = sprite.scale.x * ORIGAMI_SPEED *  0.225
-			projectile.velocity.y =  -ORIGAMI_SPEED * 0.775
-
-		if Input.is_action_pressed("move_down"):
-			projectile = weapon_scenes[0].instantiate()
-			get_parent().add_child(projectile)
-			projectile.position.x = position.x + (sprite.scale.x * 9)
-			projectile.position.y = position.y + 2
-			projectile.scale.x = -sprite.scale.x
-			projectile.velocity.x = sprite.scale.x * ORIGAMI_SPEED *  0.225
-			projectile.velocity.y =  ORIGAMI_SPEED * 0.775
-
-			projectile = weapon_scenes[0].instantiate()
-			get_parent().add_child(projectile)
-			projectile.position.x = position.x + (sprite.scale.x * 9)
-			projectile.position.y = position.y + 2
-			projectile.scale.x = -sprite.scale.x
-			projectile.velocity.x = sprite.scale.x * ORIGAMI_SPEED * 0.5
-			projectile.velocity.y =  ORIGAMI_SPEED * 0.5
-
-			projectile = weapon_scenes[0].instantiate()
-			get_parent().add_child(projectile)
-			projectile.position.x = position.x + (sprite.scale.x * 9)
-			projectile.position.y = position.y + 2
-			projectile.scale.x = -sprite.scale.x
-			projectile.velocity.x = sprite.scale.x * ORIGAMI_SPEED * 0.775
-			projectile.velocity.y =  ORIGAMI_SPEED * 0.225
-
-		return
+			return
 
 func weapon_guerilla():
 	if Input.is_action_just_pressed("shoot") && (GameState.weapon_energy[GameState.WEAPONS.GUERRILLA] >= 2 or GameState.infinite_ammo == true) && GameState.onscreen_sp_bullets <= 2:

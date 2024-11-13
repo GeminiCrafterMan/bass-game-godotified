@@ -329,4 +329,4 @@ func disable_pogo():
 	anim.play("RESET")
 
 func play_start_sound() -> void:
-	SoundManager.play("copy_robot", "start")
+	pass#SoundManager.play("copy_robot", "start")

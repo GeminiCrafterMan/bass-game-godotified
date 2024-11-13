@@ -3,13 +3,14 @@
 [ext_resource type="Script" path="res://scenes/objects/level_objects/screentrigger.gd" id="1_fadgo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xl1gt"]
-size = Vector2(8, 8)
+size = Vector2(1, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_po74n"]
-size = Vector2(8, 8)
+size = Vector2(1, 1)
 
 [node name="Screen Trigger" type="StaticBody2D"]
-collision_layer = 32
+editor_description = "Triggers a screen change."
+collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_fadgo")
 

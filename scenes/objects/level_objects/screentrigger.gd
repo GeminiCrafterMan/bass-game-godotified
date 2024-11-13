@@ -1,9 +1,6 @@
 extends StaticBody2D
 
 class_name ScreenChange
-@export var dest_X : int
-@export var dest_Y : int
-
 @export var scrollX1 : int
 @export var scrollX2 : int
 @export var scrollY1 : int
@@ -30,4 +27,4 @@ func _on_body_body_entered(body):
 	
 	GameState.screenmode = screenmode
 	GameState.transdir = direction
-	#GameState.screentransiton = 1
+	GameState.screentransiton = 25
