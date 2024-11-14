@@ -26,14 +26,11 @@ func _physics_process(delta):
 	
 	
 func _process(delta):
-	
-	
 	if GameState.camposy >= 280:
 		$Level.position.y = -900
 		$CanvasLayer/Shade2.visible = false
 		$CanvasLayer/Shade3.visible = true
 		$CanvasLayer/Shade3.position.y = 0
-		
 	else:
 		if GameState.camposy < 110:	
 			$CanvasLayer/Shade2.position.y = level + 189
