@@ -819,3 +819,5 @@ script = ExtResource("8_tjlhw")
 label = "bass"
 bus = "Sound"
 events = Array[ExtResource("9_fd281")]([SubResource("Resource_0aldu"), SubResource("Resource_5g5pw")])
+
+[connection signal="teleported" from="." to="." method="_on_teleported"]

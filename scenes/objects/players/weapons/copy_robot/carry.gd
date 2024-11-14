@@ -10,7 +10,7 @@ var flashtimer : int
 func _ready():
 	Interval.start(0.1)
 
-func _process(_delta):
+func _physics_process(_delta):
 	if Interval.is_stopped():
 		timer += 1
 		Interval.start(0.8)
@@ -19,7 +19,7 @@ func _process(_delta):
 				GameState.weapon_energy[GameState.WEAPONS.CARRY] -= 1
 	
 	if GameState.player != null:
-		$AnimatedSprite2D.material.set_shader_parameter("palette", get_node(GameState.player).get_node("Sprite2D").material.get_shader_parameter("palette"))
+		$AnimatedSprite2D.material.set_shader_parameter("palette", GameState.player.get_node("Sprite2D").material.get_shader_parameter("palette"))
 	
 	if GameState.current_weapon != GameState.WEAPONS.CARRY && $AnimatedSprite2D.animation != "explode":
 		Interval.start(5)

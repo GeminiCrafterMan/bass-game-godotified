@@ -11,7 +11,7 @@ func _physics_process(_delta):
 	move_and_slide()
 	
 	if GameState.player != null:
-		$AnimatedSprite2D.material.set_shader_parameter("palette", get_node(GameState.player).get_node("Sprite2D").material.get_shader_parameter("palette"))
+		$AnimatedSprite2D.material.set_shader_parameter("palette", GameState.player.get_node("Sprite2D").material.get_shader_parameter("palette"))
 	
 	if GameState.current_weapon != 7: # I'd use the enum, but I can't unless I make it global, which wouldn't be a good idea.
 		GameState.onscreen_sp_bullets = 0

@@ -53,7 +53,7 @@ func _physics_process(_delta):
 				position.y += 3
 		stun -= 1
 			
-		if (position.y > GameState.playerposy - 10) and (position.y < GameState.playerposy + 15):
+		if (position.y > GameState.player.position.y - 10) and (position.y < GameState.player.position.y + 15):
 			$Timer.start(0.002)
 			if stun < 1:
 				position.x += direction * 2

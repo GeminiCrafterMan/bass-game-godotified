@@ -55,8 +55,9 @@ var style := Style.HIDDEN:
 				$DebugMenu/VBoxContainer/TotalGraph.visible = style == Style.VISIBLE_DETAILED
 				$DebugMenu/VBoxContainer/CPUGraph.visible = style == Style.VISIBLE_DETAILED
 				$DebugMenu/VBoxContainer/GPUGraph.visible = style == Style.VISIBLE_DETAILED
-				information.visible = style == Style.VISIBLE_DETAILED
-				settings.visible = style == Style.VISIBLE_DETAILED
+				# Too tall to display
+				#information.visible = style == Style.VISIBLE_DETAILED
+				#settings.visible = style == Style.VISIBLE_DETAILED
 
 # Value of `Time.get_ticks_usec()` on the previous frame.
 var last_tick := 0

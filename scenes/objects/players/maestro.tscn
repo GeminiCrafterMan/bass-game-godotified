@@ -533,22 +533,27 @@ shape = SubResource("RectangleShape2D_1cspv")
 disabled = true
 
 [node name="StateTimer" type="Timer" parent="."]
+process_callback = 0
 one_shot = true
 autostart = true
 
 [node name="InvulTimer" type="Timer" parent="."]
+process_callback = 0
 one_shot = true
 autostart = true
 
 [node name="PainTimer" type="Timer" parent="."]
+process_callback = 0
 one_shot = true
 autostart = true
 
 [node name="SlideTimer" type="Timer" parent="."]
+process_callback = 0
 wait_time = 0.4
 one_shot = true
 
 [node name="FireDelay" type="Timer" parent="."]
+process_callback = 0
 wait_time = 0.4
 one_shot = true
 

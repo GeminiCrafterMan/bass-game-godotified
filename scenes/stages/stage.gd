@@ -68,10 +68,10 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	process_camera()
+
+func _physics_process(_delta: float):
 	process_refills()
 	process_drops()
-	
-func _physics_process(delta):
 	if GameState.screentransiton > 0:
 		GameState.screentransiton -= 1
 	

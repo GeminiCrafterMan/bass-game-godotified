@@ -4,7 +4,7 @@ func _unhandled_input(event):
 		match event.keycode:
 			KEY_ESCAPE:
 				if GameState.player:
-					get_node(GameState.player).reset(true) # Reset EVERYTHING about the player
+					GameState.player.reset(true) # Reset EVERYTHING about the player
 					GameState.player = null
 				get_tree().change_scene_to_file("res://scenes/menus/stage_select.tscn")
 			KEY_F1: # Refill health
@@ -15,8 +15,8 @@ func _unhandled_input(event):
 			#KEY_F4: # Kill current boss or bring him down to 1HP
 			KEY_F5: # Reload the current level.
 				if GameState.player:
-					if get_node(GameState.player):
-						get_node(GameState.player).reset(true) # Reset EVERYTHING about the player
+					if GameState.player:
+						GameState.player.reset(true) # Reset EVERYTHING about the player
 						GameState.player = null
 				get_tree().reload_current_scene()
 			KEY_F6: # Switch characters... despite the character scene only loading upon level load. /shrug

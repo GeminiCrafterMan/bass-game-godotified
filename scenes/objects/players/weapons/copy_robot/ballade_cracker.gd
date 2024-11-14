@@ -14,7 +14,7 @@ func _physics_process(_delta):
 		queue_free()
 	
 	if GameState.player != null:
-		$AnimatedSprite2D.material.set_shader_parameter("palette", get_node(GameState.player).get_node("Sprite2D").material.get_shader_parameter("palette"))
+		$AnimatedSprite2D.material.set_shader_parameter("palette", GameState.player.get_node("Sprite2D").material.get_shader_parameter("palette"))
 	
 
 func _on_visible_on_screen_notifier_2d_screen_exited():

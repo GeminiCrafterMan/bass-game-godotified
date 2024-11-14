@@ -158,8 +158,8 @@ shape = SubResource("RectangleShape2D_wp5vq")
 debug_color = Color(1, 0.00392157, 0.0705882, 0.419608)
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="hurt/Hurtbox"]
-position = Vector2(0, 5.96046e-08)
-scale = Vector2(0.9, 1.05)
+position = Vector2(-8, -9)
+rect = Rect2(0, 0, 16, 18)
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_wp5vq")
@@ -170,3 +170,4 @@ one_shot = true
 
 [connection signal="body_entered" from="hitable" to="." method="_on_hitable_body_entered"]
 [connection signal="body_entered" from="hurt" to="." method="_on_hurt_body_entered"]
+[connection signal="screen_exited" from="hurt/Hurtbox/VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

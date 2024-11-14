@@ -9,7 +9,7 @@ func _ready():
 	Atk_Dmg = 4
 	Cur_HP = 4
 
-func _process(delta):
+func _physics_process(delta):
 	if Cur_HP <= 0:
 		projectile = preload("res://scenes/objects/explosion_1.tscn").instantiate()
 		get_parent().add_child(projectile)

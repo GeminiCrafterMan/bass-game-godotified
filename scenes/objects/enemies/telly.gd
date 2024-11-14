@@ -1,15 +1,18 @@
 extends Enemy_Template
 
+
+var telly_hole : Telly_Hole
 @onready var projectile
 @onready var timer = $Timer
+@onready var player := GameState.player as CharacterBody2D
 func _ready():
 	$Sprite.play("Spawn")
 	$Timer.start(0.75)
 	Atk_Dmg = 2
 	Cur_HP = 1
-	
+
 	Dmg_Vals = [
-		1,	#0  Bass Buster 
+		1,	#0  Bass Buster
 		1,	#1  Copy Buster
 		2,	#2  Copy Buster, medium shot
 		4,	#3  Copy Buster, charge shot
@@ -37,7 +40,7 @@ func _ready():
 		0	# Whatever's next...
 ]
 
-func _process(_delta):
+func _physics_process(_delta):
 	if Cur_HP <= 0:
 		projectile = preload("res://scenes/objects/explosion_1.tscn").instantiate()
 		get_parent().add_child(projectile)
@@ -49,17 +52,15 @@ func _process(_delta):
 			projectile.position.x = position.x
 			projectile.position.y = position.y
 			projectile.dropped = true
-		GameState.tellies -= 1
 		queue_free()
-		
-	
+
 	if $Timer.is_stopped():
 		$Sprite.play("Move")
 
 	if $Sprite.animation == "Move":
-		position.x = move_toward(position.x, GameState.playerposx, 0.3)
-		position.y = move_toward(position.y, GameState.playerposy, 0.3)
-		
+		position.x = move_toward(position.x, GameState.player.position.x, 0.3)
+		position.y = move_toward(position.y, GameState.player.position.y, 0.3)
+
 
 func _on_hitable_body_entered(weapon): # needs to be redefined because damage values
 	if Cur_Inv <= 0 or weapon.W_Type == 8 or weapon.W_Type == 11 or weapon.W_Type == 22:
@@ -83,7 +84,10 @@ func _on_hitable_body_entered(weapon): # needs to be redefined because damage va
 
 func _on_hurt_body_entered(body):
 	body.DmgQueue = Atk_Dmg
-	
+
 func _on_visible_on_screen_notifier_2d_screen_exited():
-	GameState.tellies -= 1
 	queue_free()
+
+func _exit_tree() -> void:
+	if telly_hole:
+		telly_hole.num_tellies -= 1

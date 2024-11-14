@@ -8,12 +8,8 @@ var level
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	GameState.playerposy = 0
-	GameState.camposy = 0
-	GameState.camposx = 0
 	level = position.y + 3
 	$CanvasLayer/Shade2.position.y = level + 304
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):

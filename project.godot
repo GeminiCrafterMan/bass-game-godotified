@@ -41,6 +41,7 @@ GameState="*res://autoload/game_state.tscn"
 DebugMenu="*res://addons/debug_menu/debug_menu.tscn"
 SoundManager="*res://addons/resonate/sound_manager/sound_manager.gd"
 MusicManager="*res://addons/resonate/music_manager/music_manager.gd"
+DiscordRPCLoader="*res://addons/discord-rpc-gd/nodes/discord_autoload.gd"
 
 [display]
 
@@ -53,10 +54,12 @@ window/stretch/scale_mode="integer"
 
 movie_writer/movie_file="C:/Users/Poly/Documents/bass-game-godotified/lol.avi"
 movie_writer/disable_vsync=true
+version_control/plugin_name="GitPlugin"
+version_control/autoload_on_startup=true
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/AS2P/plugin.cfg", "res://addons/debug_menu/plugin.cfg", "res://addons/resonate/plugin.cfg")
+enabled=PackedStringArray("res://addons/AS2P/plugin.cfg", "res://addons/debug_menu/plugin.cfg")
 
 [global_group]
 
@@ -164,6 +167,10 @@ debug_health={
 2d_physics/layer_4="Player Projectiles"
 2d_physics/layer_5="Breakable Blocks"
 2d_physics/layer_6="Hurts Player"
+
+[physics]
+
+2d/run_on_separate_thread=true
 
 [rendering]
 

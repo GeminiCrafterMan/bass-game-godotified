@@ -60,8 +60,8 @@ theme_override_constants/separation = 0
 modulate = Color(0, 1, 0, 1)
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 5
 theme_override_constants/line_spacing = 0
+theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 18
 text = "60 FPS"
 horizontal_alignment = 2
@@ -291,7 +291,7 @@ size_flags_horizontal = 8
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 12
-text = "FPS: ↑"
+text = "FPS: "
 vertical_alignment = 1
 
 [node name="Graph" type="Panel" parent="DebugMenu/VBoxContainer/FPSGraph"]
@@ -313,7 +313,7 @@ size_flags_horizontal = 8
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 12
-text = "Total: ↓"
+text = "Total: "
 vertical_alignment = 1
 
 [node name="Graph" type="Panel" parent="DebugMenu/VBoxContainer/TotalGraph"]
@@ -335,7 +335,7 @@ size_flags_horizontal = 8
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 12
-text = "CPU: ↓"
+text = "CPU: "
 vertical_alignment = 1
 
 [node name="Graph" type="Panel" parent="DebugMenu/VBoxContainer/CPUGraph"]
@@ -357,7 +357,7 @@ size_flags_horizontal = 8
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 12
-text = "GPU: ↓"
+text = "GPU: "
 vertical_alignment = 1
 
 [node name="Graph" type="Panel" parent="DebugMenu/VBoxContainer/GPUGraph"]
@@ -368,6 +368,7 @@ mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ki0n8")
 
 [node name="Information" type="Label" parent="DebugMenu/VBoxContainer"]
+visible = false
 modulate = Color(1, 1, 1, 0.752941)
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -379,6 +380,7 @@ NVIDIA GeForce RTX 1234, 123.45.67"
 horizontal_alignment = 2
 
 [node name="Settings" type="Label" parent="DebugMenu/VBoxContainer"]
+visible = false
 modulate = Color(0.8, 0.84, 1, 0.752941)
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)

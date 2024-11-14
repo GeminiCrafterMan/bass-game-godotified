@@ -3,15 +3,11 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://8mdvvlmmrxfn"
-path="res://.godot/imported/HurtSweat.png-a7d01a68109ef957ccfb41b40451fb12.ctex"
-metadata={
-"vram_texture": false
-}
+valid=false
 
 [deps]
 
 source_file="res://sprites/players/HurtSweat.png"
-dest_files=["res://.godot/imported/HurtSweat.png-a7d01a68109ef957ccfb41b40451fb12.ctex"]
 
 [params]
 

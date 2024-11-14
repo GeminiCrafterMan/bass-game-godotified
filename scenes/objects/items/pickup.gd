@@ -93,14 +93,21 @@ func _ready():
 				1:
 					$AnimatedSprite2D.play("STnk")
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if not Engine.is_editor_hint():
 		if $Timer.is_stopped() && collected == true:
 			queue_free()
 				
 		if GameState.player != null:
-			$AnimatedSprite2D.material.set_shader_parameter("palette", get_node(GameState.player).get_node("Sprite2D").material.get_shader_parameter("palette"))
-			$Sprite2D.material.set_shader_parameter("palette", get_node(GameState.player).get_node("Sprite2D").material.get_shader_parameter("palette"))
+			$AnimatedSprite2D.material.set_shader_parameter("palette", GameState.player.get_node("Sprite2D").material.get_shader_parameter("palette"))
+			$Sprite2D.material.set_shader_parameter("palette", GameState.player.get_node("Sprite2D").material.get_shader_parameter("palette"))
+			
+	if has_gravity == true:
+		if not Engine.is_editor_hint():
+			# Add the gravity.
+			if not is_on_floor():
+				velocity += get_gravity() * delta
+			move_and_slide()
 
 func _on_touch_body_entered(body):
 	if body.is_in_group("player"):
@@ -142,11 +149,3 @@ func _on_touch_body_entered(body):
 						GameState.player_lives += 1
 					1:
 						GameState.STanks += 1
-
-func _physics_process(delta: float) -> void:
-	if has_gravity == true:
-		if not Engine.is_editor_hint():
-			# Add the gravity.
-			if not is_on_floor():
-				velocity += get_gravity() * delta
-			move_and_slide()

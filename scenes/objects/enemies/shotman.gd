@@ -41,7 +41,7 @@ func _ready():
 	]
 	$Timer.start(0.5)
 
-func _process(_delta):
+func _physics_process(_delta):
 	if Cur_HP <= 0:
 		projectile = preload("res://scenes/objects/explosion_1.tscn").instantiate()
 		get_parent().add_child(projectile)

@@ -11,8 +11,8 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 func _physics_process(_delta: float) -> void:
 	move_and_collide(Vector2.UP * (_delta * 15), false, 0.08, true)
 	if GameState.player != null:
-		$Graphics/Top.material.set_shader_parameter("palette", get_node(GameState.player).get_node("Sprite2D").material.get_shader_parameter("palette"))
-		$Graphics/Bottom.material.set_shader_parameter("palette", get_node(GameState.player).get_node("Sprite2D").material.get_shader_parameter("palette"))
+		$Graphics/Top.material.set_shader_parameter("palette", GameState.player.get_node("Sprite2D").material.get_shader_parameter("palette"))
+		$Graphics/Bottom.material.set_shader_parameter("palette", GameState.player.get_node("Sprite2D").material.get_shader_parameter("palette"))
 
 	if GameState.current_weapon != 11: # Would use the enum, but... you get the idea by now
 		GameState.onscreen_sp_bullets -= 1

@@ -2,10 +2,11 @@ extends CharacterBody2D
 
 class_name MaestroPlayer
 
-#signals
+#region Signals
 signal teleported
+#endregion
 
-#enums
+#region Enums
 enum STATES {
 	NONE,
 	TELEPORT,
@@ -18,29 +19,33 @@ enum STATES {
 	HURT,
 	DEAD
 }
+#endregion
 
-#state related
-var currentState = STATES.TELEPORT
-var swapState = STATES.NONE
-var numberOfTimesToRunStates = 0
-var isFirstFrameOfState = false
+# state related
+var currentState := STATES.TELEPORT
+var swapState := STATES.NONE
+var numberOfTimesToRunStates := 0
+var isFirstFrameOfState := false
 var targetpos : float
-var currentSpeed = 0
-
+var currentSpeed := 0
 var fallstored : float
 #input related
 
-var JUMP_VELOCITY : int
-var PEAK_VELOCITY : int
-var STOP_VELOCITY : int
-var JUMP_HEIGHT : int
-var FAST_FALL : int
+
+#region Exports
+# input related
+@export var JUMP_VELOCITY: int = -225
+@export var PEAK_VELOCITY: int = -90
+@export var STOP_VELOCITY: int = -80
+@export var JUMP_HEIGHT: int = 13
+@export var FAST_FALL: int = 400
+@export var MAXSPEED: int = 100
+@export var RUNSPEED: int = 70
+#endregion
 
 var transing : bool = false
 
 #consts
-const MAXSPEED = 100.0
-const RUNSPEED = 70.0
 const EXPLOSION_SPEEDS : Array[Vector2] = [ #G: Hey look, I can actually pretty much just copy what I had for the Genesis version...
 # G (but from the Genesis): okay this kind of makes no sense but it also works to help visualize the orbs
 								Vector2(0, -150),
@@ -51,31 +56,29 @@ const EXPLOSION_SPEEDS : Array[Vector2] = [ #G: Hey look, I can actually pretty 
 		Vector2(-100, 100),							Vector2(100, 100),
 								Vector2(0, 150)
 ]
+# weapon constants
+const ORIGAMI_SPEED := 350
+const CRACKER_SPEED := 450
 
-#Wepon consts
-const ORIGAMI_SPEED = 350
-const CRACKER_SPEED = 450
-
-#refrences
-@onready var ladder_check = $LadderCheck
-@onready var top_ladder_check = $TopLadderCheck
-@onready var state_timer = $StateTimer
-@onready var invul_timer = $InvulTimer
-@onready var pain_timer = $PainTimer
-@onready var slide_timer = $SlideTimer
-@onready var attack_timer = $FireDelay
-@onready var sprite = $Sprite2D
-@onready var anim = $AnimationPlayer
-@onready var starburst = $FX/Starburst
-@onready var sweat = $FX/Sweat
-@onready var FX
+#region References
+@onready var ladder_check: ShapeCast2D = $LadderCheck
+@onready var top_ladder_check: ShapeCast2D = $TopLadderCheck
+@onready var state_timer: Timer = $StateTimer
+@onready var invul_timer: Timer = $InvulTimer
+@onready var pain_timer: Timer = $PainTimer
+@onready var slide_timer: Timer = $SlideTimer
+@onready var attack_timer: Timer = $FireDelay
+@onready var sprite: Sprite2D = $Sprite2D
+@onready var anim: AnimationPlayer = $AnimationPlayer
+@onready var starburst: AnimatedSprite2D = $FX/Starburst
+@onready var sweat: AnimatedSprite2D = $FX/Sweat
+@onready var FX: Node2D
 @onready var projectile
 @onready var shield
 @onready var shield2
 @onready var shield3
 @onready var shield4
-
-
+#endregion
 
 #other vars
 var DmgQueue : int # make the game not crash when you touch an enemy
@@ -91,7 +94,6 @@ var no_grounded_movement : bool
 var in_water : bool
 var on_ice : bool
 var ice_jump : bool
-
 
 #Attack vars
 var shot_type = 0
@@ -141,8 +143,9 @@ var weapon_scenes = [
 ]
 
 func _ready():
-	GameState.player = self.get_path()
-	#start the teleport animation
+	GameState.player = self
+
+	# start the teleport animation
 	GameState.onscreen_bullets = 0
 	GameState.onscreen_sp_bullets = 0
 	state_timer.start(0.5)
@@ -150,21 +153,11 @@ func _ready():
 	currentState = STATES.TELEPORT
 	anim.play("Teleport")
 
-
-	JUMP_VELOCITY = -225
-	PEAK_VELOCITY = -90
-	STOP_VELOCITY = -80
-	JUMP_HEIGHT = 13
-	FAST_FALL = 400
-
-
 func _physics_process(delta: float) -> void:
-	
 	progress = anim.get_current_animation_position()
 
-	GameState.playerposx = position.x
-	GameState.playerposy = position.y
-	GameState.playerstate = currentState
+	GameState.player.position.x = position.x
+	GameState.player.position.y = position.y
 
 	if GameState.onscreen_sp_bullets < 0:
 		GameState.onscreen_sp_bullets = 0
@@ -373,9 +366,7 @@ func _physics_process(delta: float) -> void:
 		do_charge_palette()
 		scythe_charge_palette()
 
-# ===============
-# STATE FUNCTIONS
-# ===============
+#region States
 ## Teleport state
 func state_teleport(_direction: Vector2, _delta: float) -> void:
 	teleport()
@@ -656,6 +647,7 @@ func state_dead(_direction: Vector2, _delta: float) -> void:
 		#Reset the stage
 		reset(false)
 		get_tree().reload_current_scene()
+#endregion States
 
 # ==================
 # MOVEMENT FUNCTIONS
@@ -718,7 +710,7 @@ func ice_jump_move(direction, delta):
 	else:
 		velocity.x = lerpf(velocity.x, 0, delta * 4)
 
-
+#region Weapons
 func do_charge_palette():
 	if Charge == 0 or Charge < 37: # no charge
 		set_current_weapon_palette()
@@ -809,7 +801,6 @@ func handle_weapons():
 			weapon_quint() # Copy Robot only, because I don't wanna mess with Maestro and Sakugarne...
 		_:
 			return
-
 
 func weapon_buster(): # G: Maestro can't charge his buster, but Copy Robot *can*.
 	if (GameState.current_weapon == GameState.WEAPONS.BUSTER and Input.is_action_just_pressed("shoot")) or Input.is_action_just_pressed("buster"):
@@ -1090,7 +1081,7 @@ func weapon_reaper():
 				if GameState.infinite_ammo == false:
 					GameState.weapon_energy[GameState.WEAPONS.REAPER] -= 4
 				GameState.onscreen_sp_bullets += 2
-				
+
 				projectile = weapon_scenes[6].instantiate()
 				get_parent().add_child(projectile)
 				projectile.position.x = position.x + (sprite.scale.x * 21)
@@ -1132,9 +1123,6 @@ func weapon_reaper():
 		SoundManager.instance_poly("player", "charge").release()
 		return
 
-
-
-
 func weapon_carry():
 	if Input.is_action_just_pressed("shoot") && (GameState.weapon_energy[GameState.WEAPONS.CARRY] >= 3 or GameState.infinite_ammo == true) && GameState.onscreen_sp_bullets < 3:
 		anim.seek(0)
@@ -1169,7 +1157,6 @@ func weapon_arrow():
 		projectile.velocity.x = sprite.scale.x * 0.001
 		projectile.scale.x = sprite.scale.x
 
-
 func weapon_punk():
 	if Input.is_action_just_pressed("shoot") && (GameState.weapon_energy[GameState.WEAPONS.PUNK] >= 1 or GameState.infinite_ammo == true) && GameState.onscreen_sp_bullets < 4:
 		if GameState.infinite_ammo == false:
@@ -1188,7 +1175,6 @@ func weapon_punk():
 		projectile.velocity.y = -450
 		projectile.velocity.x = sprite.scale.x * 95
 	return
-
 
 func weapon_ballade():
 	if Input.is_action_just_pressed("shoot") && (GameState.weapon_energy[GameState.WEAPONS.BALLADE] >= 3 or GameState.infinite_ammo == true) && GameState.onscreen_sp_bullets == 0:
@@ -1223,19 +1209,17 @@ func weapon_ballade():
 
 func weapon_quint():
 	return
+#endregion
 
 func _DamageAndInvincible():
 
 	if !invul_timer.is_stopped():
-
-
 		InvincFrames += 1
 		if InvincFrames >= 2:
 			sprite.visible = false
 		if InvincFrames == 3:
 			InvincFrames = 0
 			sprite.visible = true
-
 	else:
 		sprite.visible = true
 

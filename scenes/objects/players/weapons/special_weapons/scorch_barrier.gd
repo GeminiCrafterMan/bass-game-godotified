@@ -3,13 +3,13 @@ extends CharacterBody2D
 const trailscn = preload("res://scenes/objects/players/weapons/special_weapons/scorch_barrier_trail.tscn")
 var trail
 
-var W_Type = 4	# This is Scorch Barrier!!!
+var W_Type = 4 # This is Scorch Barrier!!!
 const FOLLOW_SPEED = 4.0 # follow speed
 var player
 @onready var parent = get_parent().get_parent()
 
-var baseposx : int
-var baseposy : int
+var baseposx : float
+var baseposy : float
 
 var theta : int
 
@@ -49,7 +49,7 @@ func _physics_process(_delta):
 		durability = 0
 		
 	if GameState.player != null:
-		$MainSprite.material.set_shader_parameter("palette", get_node(GameState.player).get_node("Sprite2D").material.get_shader_parameter("palette"))
+		$MainSprite.material.set_shader_parameter("palette", GameState.player.get_node("Sprite2D").material.get_shader_parameter("palette"))
 	
 	
 	if wet == false:

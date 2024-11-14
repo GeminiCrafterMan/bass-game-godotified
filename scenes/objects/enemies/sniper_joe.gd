@@ -39,7 +39,7 @@ func _ready():
 		0	# Whatever's next...
 ]
 
-func _process(_delta):
+func _physics_process(_delta):
 	if Cur_HP <= 0:
 		projectile = preload("res://scenes/objects/explosion_1.tscn").instantiate()
 		get_parent().add_child(projectile)
@@ -68,7 +68,7 @@ func _process(_delta):
 		
 	if $Sprite.animation == "Idle":
 		if (GameState.player != null): # Null check!
-			if get_node(GameState.player).position.x > position.x:
+			if GameState.player.position.x > position.x:
 				scale.x = -1
 			else:
 				scale.x = 1

@@ -18,7 +18,7 @@ func _ready():
 		projectile.position.x = offset.x+2
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _physics_process(delta):
 	if wait > 30:
 		queue_free()
 	wait = wait + 1

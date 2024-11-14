@@ -197,7 +197,7 @@ func _init():
 			jump_velocity, min_jump_height, default_gravity)
 
 func _ready():
-	GameState.player = self.get_path()
+	GameState.player = self
 	if is_coyote_time_enabled:
 		add_child(coyote_timer)
 		coyote_timer.wait_time = coyote_time

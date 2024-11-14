@@ -35,7 +35,7 @@ var Cur_Inv = 0
 var Max_HP = 3
 var Cur_HP = 3
 
-func _process(_delta):
+func _physics_process(_delta):
 	if Cur_HP <= 0:
 		queue_free()
 	if Cur_Inv > 0:

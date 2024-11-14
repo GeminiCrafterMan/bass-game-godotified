@@ -10,7 +10,7 @@ func _ready():
 	await Fade.fade_in().finished
 	%Player.grab_focus()
 
-func _process(delta):
+func _physics_process(_delta):
 	if timer == 0:
 		$Darkness.hide()
 		%Player.grab_focus()

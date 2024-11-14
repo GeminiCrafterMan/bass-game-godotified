@@ -28,7 +28,7 @@ var projectile_scenes = [preload("res://scenes/objects/players/weapons/bass/bust
 func _ready():
 	$SpawnSound.play()
 
-func _process(delta):
+func _physics_process(delta):
 	timer = (timer + 1)
 	if timer > 850:
 		if $AnimatedSprite2D.animation != "explode":

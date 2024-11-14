@@ -3,15 +3,11 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bot48w7086agv"
-path="res://.godot/imported/HurtStar.png-48c1a092a522c5b5764b38052694dc4b.ctex"
-metadata={
-"vram_texture": false
-}
+valid=false
 
 [deps]
 
 source_file="res://sprites/players/HurtStar.png"
-dest_files=["res://.godot/imported/HurtStar.png-48c1a092a522c5b5764b38052694dc4b.ctex"]
 
 [params]
 

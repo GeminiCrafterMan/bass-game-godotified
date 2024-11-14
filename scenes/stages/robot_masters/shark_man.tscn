@@ -1,7 +1,7 @@
 [gd_scene load_steps=33 format=4 uid="uid://cs8f1cfciw7mk"]
 
 [ext_resource type="Script" path="res://scenes/stages/stage.gd" id="1_kfbs7"]
-[ext_resource type="TileSet" uid="uid://c853gfhwokgru" path="res://tilesets/shark.tres" id="2_nfhkc"]
+[ext_resource type="TileSet" uid="uid://u7uxnx7lf5p3" path="res://tilesets/shark.tres" id="2_nfhkc"]
 [ext_resource type="Script" path="res://scenes/stages/robot_masters/underwater_bg.gd" id="3_nw6ge"]
 [ext_resource type="Script" path="res://scenes/stages/robot_masters/shark_water.gd" id="3_w273k"]
 [ext_resource type="AudioStream" uid="uid://dbonx07udvi5f" path="res://music/Shark Stage.mp3" id="4_oivl1"]
@@ -326,7 +326,6 @@ one_shot = true
 autostart = true
 
 [node name="Shader" type="ColorRect" parent="Background/Water"]
-visible = false
 z_index = 20
 material = SubResource("ShaderMaterial_dfkf4")
 offset_left = 14.0

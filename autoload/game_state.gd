@@ -1,12 +1,20 @@
 extends CanvasLayer
 
-#enums
+#region Enums
 enum WEAPONS {BUSTER, BLAZE, VIDEO, SMOG, SHARK, ORIGAMI, GALE, GUERRILLA, REAPER, PROTO, TREBLE, CARRY, ARROW, ENKER, PUNK, BALLADE, QUINT}
 enum PALETTE {NONE, MD, NES, DOOM, PICO8, GB, VB, C64, CGA, G4, G8, G16}
+#endregion
 
-# constants
+#region Schemas
+var modSchema = Z.schema({
+	"name": Z.string().non_empty(),
+	"author": Z.string().non_empty(),
+	"version": Z.string().non_empty(),
+	"characterName": Z.string().non_empty(),
+})
+#endregion
 
-# variables
+#region Variables
 ## List of characters. Mods can add to this to add their own characters.
 var characters : Array[String] = [
 	"res://scenes/objects/players/maestro.tscn",
@@ -15,21 +23,21 @@ var characters : Array[String] = [
 	"res://scenes/objects/players/maestro.tscn" # Megaman
 ]
 ## List of life icon PNGs.
-var lifeIcons = [
+var lifeIcons : Array[String] = [
 	"res://sprites/players/maestro/life.png",
 	"res://sprites/players/bass/life.png",
 	"res://sprites/players/copy_robot/life.png",
 	"res://sprites/players/megaman/life.png"
 ]
 ## List of stage select portrait PNGs.
-var stageSelectPlayerPortraits = [
+var stageSelectPlayerPortraits : Array[String] = [
 	"res://sprites/players/maestro/stageselect.png",
 	"res://sprites/players/bass/stageselect.png",
 	"res://sprites/players/copy_robot/stageselect.png",
 	"res://sprites/players/megaman/stageselect.png"
 ]
 ## List of stage select color translations. G: ...I couldn't make this pick Maestro's by default.
-var stageSelectColorTranslations = [
+var stageSelectColorTranslations : Array[String] = [
 	"res://sprites/players/maestro/stageseltrans.png",
 	"res://sprites/players/bass/stageseltrans.png",
 	"res://sprites/players/copy_robot/stageseltrans.png",
@@ -42,6 +50,7 @@ var character_selected : int
 var player # absolute path to player node
 var player_lives : int = 3
 
+# TODO: Could be improved using object pooling
 var onscreen_bullets : int
 var onscreen_sp_bullets : int
 
@@ -67,10 +76,6 @@ var transdir : int
 
 var checkpoint
 
-
-var tellies : int
-
-
 var current_weapon : int
 var old_weapon : int
 var current_hp = 28
@@ -81,14 +86,10 @@ var STanks = 0
 var max_hp = 28 # G: upgradeable # M: not upgradable anymore # G: yeah but mod characters :))
 var healamt = 0
 var ammoamt = 0
-
 var droptimer : int
 var itemtimer : int
 
-
 var PROGRESSDICT = {
-	"NumberOfScrews" : 0,
-	"NumberOfLives": 0,
 	"BlazeDead": false,
 	"VideoDead": false,
 	"OrigamiDead": false,
@@ -130,6 +131,7 @@ var weapon_energy : Array = [
 	28,	# Ballade Cracker
 	28	# Sakugarne
 ]
+
 var max_weapon_energy : Array = [
 # G: Energy use is always 1, *no matter what*. Increase energy and max_energy values to have larger shot counts.
 # M: what the hell are you talking about???
@@ -154,10 +156,11 @@ var max_weapon_energy : Array = [
 	28,	# Ballade Cracker
 	28	# Sakugarne
 ]
+
 var weapons_unlocked = [
-	#Buster, under no circumstances should this be disabled
+	# Buster, under no circumstances should this be disabled
 	true, # Buster
-	#Special weapons shared between Bass and Copy Robot
+	# Special weapons shared between Bass and Copy Robot
 	false, # Blaze
 	false, # Video
 	false, # Smog
@@ -177,6 +180,7 @@ var weapons_unlocked = [
 	false, # Ballade Cracker
 	false, # Sakugarne
 ]
+
 var modules_enabled = [
 	true, # nothing lol
 	false, # Blast Jump
@@ -189,39 +193,56 @@ var modules_enabled = [
 	false, # Spirit Dash
 	false, # Proto Shield
 ]
-
+#endregion
 
 func refill_health() -> void:
 	current_hp = max_hp # Reset HP
-	
+
 func refill_ammo() -> void:
 	for n in weapon_energy.size():
 		weapon_energy[n] = max_weapon_energy[n] # Reset WE
 
-func _ready() -> void:
-	# This could fail if, for example, mod.pck cannot be found.
-	var success = ProjectSettings.load_resource_pack("res://mod.pck")
-
-	if success:
-		print("mod.pck loaded!")
-		var file = FileAccess.open("res://mod.json", FileAccess.READ)
-		var json = JSON.new()
-		var data = json.parse(file.get_as_text(), true)
-		# Save data
-		# ...
-		# Retrieve data
-		if data == OK:
-			var data_received = json.data
-			if typeof(data_received) == TYPE_ARRAY:
-				print(data_received) # Prints array
-				characters.append(json.data[0])
-				lifeIcons.append(json.data[1])
-				stageSelectPlayerPortraits.append(json.data[2])
-				stageSelectColorTranslations.append(json.data[3])
-				maxCharacterID = characters.size() - 1
-			else:
-				print("Unexpected data")
-		else:
-			print("JSON Parse Error: ", json.get_error_message(), " in ", file, " at line ", json.get_error_line())
+func load_custom() -> void:
+	var file_names: Array[String]
+	var dir = DirAccess.open("res://custom")
+	if dir:
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+		while file_name != "":
+			if not dir.current_is_dir() and file_name.ends_with(".pck"):
+				print("Found custom file: " + file_name)
+				file_names.append(file_name)
+			file_name = dir.get_next()
 	else:
-		print("mod.pck not found!")
+		if OS.is_debug_build():
+			push_warning("No custom folder found")
+
+	for file in file_names:
+		var resource_loaded = ProjectSettings.load_resource_pack(str("res://custom/", file))
+
+		if resource_loaded:
+			print(file + " loaded as resource")
+			var mod_config = FileAccess.open("res://mod.json", FileAccess.READ)
+			var json = JSON.new()
+			var data = json.parse(mod_config.get_as_text())
+
+			if data == OK:
+				var result = modSchema.parse(json.data)
+				if result.ok():
+					# TODO: Add proper schema validation instead assuming JSON data is correct just because it's an array
+					
+					characters.append(str("res://scenes/objects/players/", result.data.characterName, '/', result.data.characterName, ".tscn" ))
+					lifeIcons.append(str("res://sprites/players/", result.data.characterName, "/life.png"))
+					stageSelectPlayerPortraits.append(str("res://sprites/players/", result.data.characterName, "/stageselect.png"))
+					stageSelectColorTranslations.append(str("res://sprites/players/", result.data.characterName, "/stageseltrans.png"))
+					maxCharacterID = characters.size() - 1
+					print("Added character '", result.data.name, "' by '", result.data.author, '\'')
+				else:
+					push_error("mod.json is malformed: ", result.error)
+			else:
+				push_error("JSON parse Error: ", json.get_error_message(), " in ", mod_config, " at line ", json.get_error_line())
+		else:
+			push_error("Failed to load " + file + " as custom")
+
+func _ready() -> void:
+	load_custom()
