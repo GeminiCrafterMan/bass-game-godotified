@@ -598,6 +598,7 @@ dropped = false
 has_gravity = false
 
 [node name="LayoutMap" type="Node2D" parent="."]
+visible = false
 position = Vector2(0, 224)
 scale = Vector2(24, 13.5)
 
@@ -623,7 +624,7 @@ position = Vector2(4336, 1350.75)
 shape = SubResource("RectangleShape2D_n1ace")
 
 [node name="StartPosition" parent="." instance=ExtResource("5_rk30x")]
-position = Vector2(68, 136)
+position = Vector2(72, 144)
 screenmode = 1
 scrollX1 = 1
 scrollX2 = 1
