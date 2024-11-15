@@ -8,6 +8,7 @@ var level
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	GameState.camposy = 0
 	level = position.y + 3
 	$CanvasLayer/Shade2.position.y = level + 304
 

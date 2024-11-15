@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://csa620pihkaf"]
+[gd_scene load_steps=13 format=3 uid="uid://csa620pihkaf"]
 
 [ext_resource type="Script" path="res://scenes/objects/players/weapons/special_weapons/rolling_bomb.gd" id="1_kvwvl"]
 [ext_resource type="Texture2D" uid="uid://b0wmbfr68jjcj" path="res://sprites/players/copy_robot/weapons/BusterSmall.png" id="2_e3u38"]
@@ -49,13 +49,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bjbb8"]
-size = Vector2(12, 12)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_31c0o"]
-size = Vector2(12, 6)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_fc76y"]
-size = Vector2(6, 12)
+size = Vector2(10, 10)
 
 [node name="RollingBomb" type="CharacterBody2D"]
 collision_layer = 8
@@ -86,20 +80,36 @@ bus = &"SFX"
 stream = ExtResource("5_tb2vm")
 bus = &"SFX"
 
-[node name="TopBox" type="CollisionShape2D" parent="."]
-position = Vector2(0, -9)
-shape = SubResource("RectangleShape2D_31c0o")
+[node name="BottomCast1" type="RayCast2D" parent="."]
+position = Vector2(6, 5)
+target_position = Vector2(1, 2)
 
-[node name="BotBox" type="CollisionShape2D" parent="."]
-position = Vector2(0, 9)
-shape = SubResource("RectangleShape2D_31c0o")
+[node name="BottomCast2" type="RayCast2D" parent="."]
+position = Vector2(-6, 5)
+target_position = Vector2(-1, 2)
 
-[node name="LftBox" type="CollisionShape2D" parent="."]
-position = Vector2(-9, 0)
-shape = SubResource("RectangleShape2D_fc76y")
+[node name="FrontCast1" type="RayCast2D" parent="."]
+position = Vector2(5, -6)
+target_position = Vector2(2, -1)
 
-[node name="RgtBox" type="CollisionShape2D" parent="."]
-position = Vector2(9, 0)
-shape = SubResource("RectangleShape2D_fc76y")
+[node name="FrontCast2" type="RayCast2D" parent="."]
+position = Vector2(5, 6)
+target_position = Vector2(2, 1)
+
+[node name="BackCast1" type="RayCast2D" parent="."]
+position = Vector2(-5, 6)
+target_position = Vector2(-2, 1)
+
+[node name="BackCast2" type="RayCast2D" parent="."]
+position = Vector2(-5, -6)
+target_position = Vector2(-2, -1)
+
+[node name="TopCast1" type="RayCast2D" parent="."]
+position = Vector2(-6, -5)
+target_position = Vector2(-1, -2)
+
+[node name="TopCast2" type="RayCast2D" parent="."]
+position = Vector2(6, -5)
+target_position = Vector2(1, -2)
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

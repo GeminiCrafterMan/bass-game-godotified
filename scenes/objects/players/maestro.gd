@@ -654,7 +654,7 @@ func state_dead(_direction: Vector2, _delta: float) -> void:
 # ==================
 func default_movement(direction, delta):
 	#movement in state
-	if direction.x:
+	if direction.x and (no_grounded_movement == false or is_on_floor() == false):
 
 		if is_on_floor() == true && no_grounded_movement == true:
 			if on_ice == false:

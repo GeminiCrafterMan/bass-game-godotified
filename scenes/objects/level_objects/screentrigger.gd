@@ -17,14 +17,12 @@ class_name ScreenChange
 @export var screenmode : int
 
 func _on_body_body_entered(body):
-	GameState.scrollX1 = scrollX1
-	GameState.scrollX2 = scrollX2
-	GameState.scrollY1 = scrollY1
-	GameState.scrollY2 = scrollY2
-	
-	#GameState.dest_X = dest_X
-	#GameState.dest_Y = dest_Y
-	
-	GameState.screenmode = screenmode
-	GameState.transdir = direction
-	GameState.screentransiton = 25
+	if body.is_in_group("player"):
+		GameState.scrollX1 = scrollX1
+		GameState.scrollX2 = scrollX2
+		GameState.scrollY1 = scrollY1
+		GameState.scrollY2 = scrollY2
+
+		GameState.screenmode = screenmode
+		GameState.transdir = direction
+		GameState.screentransiton = 25

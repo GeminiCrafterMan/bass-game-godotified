@@ -19,31 +19,55 @@ func _ready():
 func _physics_process(_delta):
 	if GameState.current_weapon != GameState.WEAPONS.GUERRILLA:
 		queue_free()
-	
-	pass
-	#if CurrentDir == DIRECTION.NONE:
-		#if $BotBox.is_colliding(): # G: I had to fix the node's name to use the proper case. This might not have been an issue on Windows, but it sure was here on Linux.
-			#CurrentDir = DIRECTION.RIGHT 
-		#if $RgtBox.is_colliding():
-			#CurrentDir = DIRECTION.UP 
-		#if $LftBox.is_colliding():
-			#CurrentDir = DIRECTION.UP 
+
+	if CurrentDir == DIRECTION.NONE:
+		velocity.x = 100
+		velocity.y = 150
+		if $BottomCast1.is_colliding() or $BottomCast2.is_colliding():
+			CurrentDir = DIRECTION.RIGHT 
+			
+		if $FrontCast1.is_colliding() or $FrontCast2.is_colliding():
+			CurrentDir = DIRECTION.UP 
 		
 	if CurrentDir == DIRECTION.LEFT:
-		velocity.x -= 200
+		velocity.x = -200
 		velocity.y = 0
+		if !$TopCast1.is_colliding() and !$TopCast2.is_colliding():
+			CurrentDir = DIRECTION.DOWN
 	
 	if CurrentDir == DIRECTION.RIGHT:
 		velocity.x = 200
 		velocity.y = 0
+		if $FrontCast1.is_colliding() or $FrontCast2.is_colliding():
+			CurrentDir = DIRECTION.UP 
+		if !$BottomCast1.is_colliding() and !$BottomCast2.is_colliding():
+			CurrentDir = DIRECTION.DOWN
 	
 	if CurrentDir == DIRECTION.UP:
 		velocity.x = 0
 		velocity.y = -200
-	
+		if !$FrontCast1.is_colliding() and !$FrontCast2.is_colliding():
+			CurrentDir = DIRECTION.RIGHT
+			velocity.x = 200
+			velocity.y = 0
+			
+		if $TopCast1.is_colliding() or $TopCast2.is_colliding():
+			CurrentDir = DIRECTION.LEFT
+			velocity.x = -200
+			velocity.y = 0
+		
 	if CurrentDir == DIRECTION.DOWN:
 		velocity.x = 0
 		velocity.y = 200
+		if $BottomCast1.is_colliding() or $BottomCast2.is_colliding():
+			CurrentDir = DIRECTION.RIGHT
+			velocity.x = 200
+			velocity.y = 0
+		if !$BackCast1.is_colliding() and !$BackCast2.is_colliding():
+			CurrentDir = DIRECTION.LEFT
+			velocity.x = -200
+			velocity.y = 0
+	
 		
 	
 			
