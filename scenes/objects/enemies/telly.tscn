@@ -168,6 +168,10 @@ debug_color = Color(0, 1, 0.0705882, 0.419608)
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
 
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(0, 1.66893e-06)
+scale = Vector2(1.2, 1.3)
+
 [connection signal="body_entered" from="hitable" to="." method="_on_hitable_body_entered"]
 [connection signal="body_entered" from="hurt" to="." method="_on_hurt_body_entered"]
 [connection signal="screen_exited" from="hurt/Hurtbox/VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

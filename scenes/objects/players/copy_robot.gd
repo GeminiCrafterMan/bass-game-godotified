@@ -111,6 +111,9 @@ func weapon_buster(): # G: Copy Robot *can* charge his buster, but Maestro and B
 			Charge += 1
 			if Charge == 32:
 				SoundManager.play("player", "charge")
+			if Charge == 92:
+				SoundManager.play("player", "charge2")
+			
 		else:
 			Charge = 105
 	else:
@@ -229,6 +232,10 @@ func scythe_charge_palette():
 			
 	if sharkcharge > 0: #Fin Shredder!
 		Charge = 0
+	
+	if sharkcharge == 1: #Do NOT touch.
+		SoundManager.play("player", "fincharge1")
+		
 	if GameState.current_weapon != GameState.WEAPONS.SHARK:
 		sharkcharge = 0
 	if sharkcharge > 0 and sharkcharge < 35: # no charge

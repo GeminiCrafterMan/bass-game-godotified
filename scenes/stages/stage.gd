@@ -31,6 +31,9 @@ func _ready():
 	add_child(hud)
 	GameState.transdir = 0
 	GameState.player = null
+	GameState.playerposx = 0
+	GameState.playerposx = 0
+	
 	
 	$StartPosition/Sprite2D.queue_free()	# just delete the sprite2d instead of making it invisible. why have it stick around?
 

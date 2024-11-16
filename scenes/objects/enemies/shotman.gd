@@ -134,3 +134,7 @@ func _on_hitable_body_entered(weapon): # needs to be redefined because damage va
 
 func _on_hurt_body_entered(body):
 	body.DmgQueue = Atk_Dmg
+
+
+func _on_visible_on_screen_notifier_2d_screen_exited():
+	queue_free()

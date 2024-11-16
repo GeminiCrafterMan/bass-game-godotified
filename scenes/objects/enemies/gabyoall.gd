@@ -10,6 +10,7 @@ func _ready():
 	Atk_Dmg = 4
 	Cur_HP = 2
 	
+	
 	Dmg_Vals = [
 		1,	#0  Bass Buster 
 		1,	#1  Copy Buster
@@ -40,7 +41,7 @@ func _ready():
 ]
 
 func _physics_process(_delta):
-	if $Timer.is_stopped():
+	if $Timer.is_stopped() and position != null:
 		if stun < 1:
 			position.x += direction * 1
 			if $Sprite.animation != "Slow" or !$Sprite.is_playing():
@@ -52,20 +53,22 @@ func _physics_process(_delta):
 			if !$LeftFloorCheck.is_colliding() && !$RightFloorCheck.is_colliding():
 				position.y += 3
 		stun -= 1
-			
-		if (position.y > GameState.player.position.y - 10) and (position.y < GameState.player.position.y + 15):
-			$Timer.start(0.002)
-			if stun < 1:
-				position.x += direction * 2
-				if $Sprite.animation != "Fast" or !$Sprite.is_playing():
-					$Sprite.play("Fast")
-					$Sprite.set_frame_and_progress(0,0)
-		else:
-			if stun > 1:
-				$Timer.start(0.01)
+		if GameState.player != null:
+			if (position.y > GameState.player.position.y - 10) and (position.y < GameState.player.position.y + 15):
+				$Timer.start(0.002)
+				if stun < 1:
+					position.x += direction * 2
+					if $Sprite.animation != "Fast" or !$Sprite.is_playing():
+						$Sprite.play("Fast")
+						$Sprite.set_frame_and_progress(0,0)
 			else:
-				$Timer.start(0.03)
-	
+				if stun > 1:
+					$Timer.start(0.01)
+				else:
+					$Timer.start(0.03)
+		else:
+					$Timer.start(0.03)
+					
 	if $RightDirCheck.is_colliding() && direction == 1:
 		direction = -1
 	
@@ -122,3 +125,7 @@ func _on_hitable_body_entered(weapon): # needs to be redefined because damage va
 
 func _on_hurt_body_entered(body):
 	body.DmgQueue = Atk_Dmg
+
+
+func _on_visible_on_screen_notifier_2d_screen_exited():
+	queue_free()

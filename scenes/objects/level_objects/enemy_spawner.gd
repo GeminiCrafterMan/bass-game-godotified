@@ -1,0 +1,62 @@
+@tool
+
+extends Node2D
+
+class_name enemy_spawn
+var oldposx
+var oldposy
+var oldtype : int
+var oldsubtype : int
+var olddirection: int
+
+@export var type : int
+@export var direction : int
+@export var subtype : int
+@onready var baby
+var enemytype = [
+	preload("res://scenes/objects/enemies/sniper_joe.tscn"),
+	preload("res://scenes/objects/enemies/gabyoall.tscn"),
+	preload("res://scenes/objects/enemies/shotman.tscn")
+]
+
+func _on_visible_on_screen_notifier_2d_screen_entered():
+	if not Engine.is_editor_hint():
+		if baby == null:
+			baby = enemytype[type].instantiate()
+			get_parent().add_child(baby)
+			baby.position.x = position.x
+			baby.position.y = position.y
+			if direction == 1: 
+				baby.scale.x = -1
+			
+			baby.position.x = position.x
+			baby.position.y = position.y
+
+func _process(delta):
+	if not Engine.is_editor_hint():
+		return
+	if Engine.is_editor_hint():
+		if baby == null:
+			baby = enemytype[type].instantiate()
+			get_parent().add_child(baby)
+			baby.position.x = position.x
+			baby.position.y = position.y
+			
+		if baby != null:
+			if oldposx != position.x:
+				baby.queue_free()
+			if oldposy != position.y:
+				baby.queue_free()
+			if oldtype != type:
+				baby.queue_free()
+			if oldsubtype != subtype:
+				baby.queue_free()
+			if olddirection != direction:
+				baby.queue_free()
+		
+		oldposx = position.x
+		oldposy = position.y
+		oldtype = type
+	else:
+		pass
+		

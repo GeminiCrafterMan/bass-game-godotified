@@ -140,3 +140,7 @@ func _on_hurt_body_entered(body):
 func _on_reflect_body_entered(weapon):
 	timer = timer + 18
 	weapon.reflect()
+
+
+func _on_visible_on_screen_notifier_2d_screen_exited():
+	queue_free()
