@@ -93,6 +93,7 @@ func weapon_buster(): # G: Copy Robot *can* charge his buster, but Maestro and B
 				projectile.scale.x = sprite.scale.x
 				Charge = 0
 				SoundManager.instance_poly("player", "charge1").release()
+				SoundManager.instance_poly("player", "charge2").release()
 				return
 			if Charge >= 92: # da big boi
 				shot_type = 0
@@ -105,9 +106,11 @@ func weapon_buster(): # G: Copy Robot *can* charge his buster, but Maestro and B
 				projectile.velocity.x = sprite.scale.x * 350
 				projectile.scale.x = sprite.scale.x
 				Charge = 0
+				SoundManager.instance_poly("player", "charge1").release()
+				SoundManager.instance_poly("player", "charge2").release()
 				return
 	if (GameState.current_weapon == GameState.WEAPONS.BUSTER and Input.is_action_pressed("shoot")) or Input.is_action_pressed("buster"):
-		if Charge < 110:
+		if Charge < 111:
 			Charge += 1
 			if Charge == 32:
 				SoundManager.play("player", "charge1")
@@ -115,7 +118,7 @@ func weapon_buster(): # G: Copy Robot *can* charge his buster, but Maestro and B
 				SoundManager.play("player", "charge2")
 			
 		else:
-			Charge = 105
+			Charge = 103
 	else:
 		Charge = 0
 		return
