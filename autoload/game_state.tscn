@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://c47mx5wylf3tx"]
+[gd_scene load_steps=29 format=3 uid="uid://c47mx5wylf3tx"]
 
 [ext_resource type="Shader" path="res://shaders/adapt-to-palette.gdshader" id="1_pa1af"]
 [ext_resource type="Texture2D" uid="uid://by5c77ukdjdng" path="res://shaders/palettes/megadrive.png" id="3_dsie5"]
@@ -12,8 +12,9 @@
 [ext_resource type="AudioStream" uid="uid://ds4m68uui1avq" path="res://sounds/switch.wav" id="9_nvips"]
 [ext_resource type="AudioStream" uid="uid://dr1p57c1kr6na" path="res://sounds/warp.wav" id="10_ci65t"]
 [ext_resource type="AudioStream" uid="uid://cojuek45oo3hj" path="res://sounds/playerhurt.wav" id="11_laubh"]
-[ext_resource type="AudioStream" uid="uid://rm3ckgibk0u5" path="res://sounds/charge.wav" id="13_j2a7b"]
+[ext_resource type="AudioStream" uid="uid://rm3ckgibk0u5" path="res://sounds/charge1.wav" id="13_j2a7b"]
 [ext_resource type="AudioStream" uid="uid://dix6rlhdr84oa" path="res://sounds/mega_death.wav" id="14_h8glo"]
+[ext_resource type="AudioStream" uid="uid://dnnvv4semeufh" path="res://sounds/charge2.ogg" id="14_mhalj"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8gmku"]
 shader = ExtResource("1_pa1af")
@@ -83,11 +84,19 @@ streams = Array[AudioStream]([ExtResource("11_laubh")])
 
 [sub_resource type="Resource" id="Resource_u7f0v"]
 script = ExtResource("5_smetb")
-name = "charge"
+name = "charge1"
 bus = ""
 volume = 0.0
 pitch = 1.0
 streams = Array[AudioStream]([ExtResource("13_j2a7b")])
+
+[sub_resource type="Resource" id="Resource_x8sw4"]
+script = ExtResource("5_smetb")
+name = "charge2"
+bus = ""
+volume = 0.0
+pitch = 1.0
+streams = Array[AudioStream]([ExtResource("14_mhalj")])
 
 [sub_resource type="Resource" id="Resource_4yx0t"]
 script = ExtResource("5_smetb")
@@ -204,6 +213,6 @@ events = Array[ExtResource("5_smetb")]([SubResource("Resource_d851w")])
 script = ExtResource("4_xeyqw")
 label = "player"
 bus = "Sound"
-events = Array[ExtResource("5_smetb")]([SubResource("Resource_esc75"), SubResource("Resource_ftt4s"), SubResource("Resource_d8o2y"), SubResource("Resource_ssl5j"), SubResource("Resource_5giha"), SubResource("Resource_67msd"), SubResource("Resource_u7f0v"), SubResource("Resource_4yx0t")])
+events = Array[ExtResource("5_smetb")]([SubResource("Resource_esc75"), SubResource("Resource_ftt4s"), SubResource("Resource_d8o2y"), SubResource("Resource_ssl5j"), SubResource("Resource_5giha"), SubResource("Resource_67msd"), SubResource("Resource_u7f0v"), SubResource("Resource_x8sw4"), SubResource("Resource_4yx0t")])
 
 [node name="Transiton" type="Timer" parent="."]

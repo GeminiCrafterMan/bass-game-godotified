@@ -92,7 +92,7 @@ func weapon_buster(): # G: Copy Robot *can* charge his buster, but Maestro and B
 				projectile.velocity.x = sprite.scale.x * 350
 				projectile.scale.x = sprite.scale.x
 				Charge = 0
-				SoundManager.instance_poly("player", "charge").release()
+				SoundManager.instance_poly("player", "charge1").release()
 				return
 			if Charge >= 92: # da big boi
 				shot_type = 0
@@ -110,8 +110,8 @@ func weapon_buster(): # G: Copy Robot *can* charge his buster, but Maestro and B
 		if Charge < 110:
 			Charge += 1
 			if Charge == 32:
-				SoundManager.play("player", "charge")
-			if Charge == 92:
+				SoundManager.play("player", "charge1")
+			if Charge == 105:
 				SoundManager.play("player", "charge2")
 			
 		else:
@@ -180,12 +180,13 @@ func weapon_shark():
 		if sharkcharge < 78:
 			sharkcharge += 1
 			if sharkcharge == 26:
-				SoundManager.play("player", "charge")
+				SoundManager.play("player", "charge1")
 		else:
 			sharkcharge = 77
 	else:
 		Charge = 0
-		SoundManager.instance_poly("player", "charge").release()
+		SoundManager.instance_poly("player", "charge1").release()
+		SoundManager.instance_poly("player", "charge2").release()
 		return
 		
 func weapon_quint():

@@ -1115,12 +1115,15 @@ func weapon_reaper():
 		if ScytheCharge < 78:
 			ScytheCharge += 1
 			if ScytheCharge == 13:
-				SoundManager.play("player", "charge")
+				SoundManager.play("player", "charge1")
+			if ScytheCharge == 76:
+				SoundManager.play("player", "charge2")
 		else:
 			ScytheCharge = 77
 	else:
 		Charge = 0
-		SoundManager.instance_poly("player", "charge").release()
+		SoundManager.instance_poly("player", "charge1").release()
+		SoundManager.instance_poly("player", "charge2").release()
 		return
 
 func weapon_carry():
