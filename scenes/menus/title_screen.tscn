@@ -67,6 +67,18 @@ theme = ExtResource("5_v27ry")
 text = "PRESS START"
 flat = true
 
+[node name="ItemList2" type="ItemList" parent="CenterContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/panel = SubResource("StyleBoxFlat_l4n2s")
+allow_search = false
+auto_height = true
+item_count = 4
+item_0/text = "EASY"
+item_1/text = "NORMAL"
+item_2/text = "HARD"
+item_3/text = "SUPER HARD"
+
 [node name="HSlider" type="HSlider" parent="."]
 offset_left = 8.0
 offset_right = 178.0
@@ -115,3 +127,4 @@ popup/item_1/id = 1
 
 [connection signal="item_selected" from="CenterContainer/HBoxContainer/VBoxContainer/ItemList" to="." method="_on_item_list_item_selected"]
 [connection signal="pressed" from="CenterContainer/HBoxContainer/VBoxContainer/StartButton" to="." method="_on_startbutton_pressed"]
+[connection signal="item_selected" from="CenterContainer/HBoxContainer/VBoxContainer/ItemList2" to="." method="_on_item_list_2_item_selected"]

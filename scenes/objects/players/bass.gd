@@ -348,6 +348,8 @@ func weapon_buster():
 				projectile.position.x = position.x + sprite.scale.x * 5
 				projectile.position.y = position.y + 5
 				projectile.scale.x = sprite.scale.x
+				if GameState.onscreen_bullets == 1 or GameState.onscreen_bullets == 3:
+					projectile.frames = 1
 				# inputs
 				if Input.is_action_pressed("move_up"):
 					if Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right"):

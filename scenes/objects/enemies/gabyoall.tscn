@@ -134,8 +134,8 @@ scale = Vector2(1.45, 1.2)
 enable_node_path = NodePath("../VisibleOnScreenNotifier2D")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-position = Vector2(0.5, -4.5)
-scale = Vector2(9.75, 1.25)
+position = Vector2(0.5, 4.76837e-06)
+scale = Vector2(9.75, 6)
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.5

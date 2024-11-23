@@ -110,6 +110,7 @@ var PROGRESSDICT = {
 	"HaveProtoKey4": false
 }
 
+var difficulty : int
 var infinite_ammo : bool = false
 var weapon_energy : Array = [
 	0,	# Buster

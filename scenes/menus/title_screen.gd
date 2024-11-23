@@ -16,3 +16,7 @@ func _on_startbutton_pressed():
 
 func _on_item_list_item_selected(index):
 	GameState.character_selected = index
+
+
+func _on_item_list_2_item_selected(index):
+	GameState.difficulty = index

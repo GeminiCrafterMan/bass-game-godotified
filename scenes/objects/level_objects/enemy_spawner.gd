@@ -12,6 +12,7 @@ var olddirection: int
 @export var type : int
 @export var direction : int
 @export var subtype : int
+@export var difficulty : int
 @onready var baby
 var enemytype = [
 	preload("res://scenes/objects/enemies/sniper_joe.tscn"),
@@ -21,6 +22,8 @@ var enemytype = [
 
 func _on_visible_on_screen_notifier_2d_screen_entered():
 	if not Engine.is_editor_hint():
+		if (GameState.difficulty == null) or (difficulty > GameState.difficulty):
+			queue_free()
 		if baby == null:
 			baby = enemytype[type].instantiate()
 			get_parent().add_child(baby)

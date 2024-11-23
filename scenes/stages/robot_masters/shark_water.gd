@@ -41,4 +41,4 @@ func _process(delta):
 		$CanvasLayer/Shade3.visible = false
 		
 	if GameState.camposx >= 5280 && GameState.camposy <= 900:
-		$CanvasLayer/Shade3.position.y = 851 - GameState.camposy
+		$CanvasLayer/Shade3.position.y = 818 - GameState.camposy
