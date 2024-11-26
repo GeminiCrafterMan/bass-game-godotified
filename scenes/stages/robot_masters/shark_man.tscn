@@ -4,7 +4,7 @@
 [ext_resource type="TileSet" uid="uid://u7uxnx7lf5p3" path="res://tilesets/shark.tres" id="2_nfhkc"]
 [ext_resource type="Script" path="res://scenes/stages/robot_masters/underwater_bg.gd" id="3_nw6ge"]
 [ext_resource type="Script" path="res://scenes/stages/robot_masters/shark_water.gd" id="3_w273k"]
-[ext_resource type="AudioStream" uid="uid://dbonx07udvi5f" path="res://music/Shark Stage.mp3" id="4_oivl1"]
+[ext_resource type="AudioStream" uid="uid://cervppwr7dxyl" path="res://music/Shark Stage.wav" id="5_e10ll"]
 [ext_resource type="PackedScene" uid="uid://bingbkdyjdsbs" path="res://scenes/objects/players/start_position.tscn" id="5_rk30x"]
 [ext_resource type="PackedScene" uid="uid://bobtsvomowe28" path="res://scenes/objects/items/pickup.tscn" id="6_wepat"]
 [ext_resource type="PackedScene" uid="uid://mi0hw7tknuco" path="res://scenes/objects/level_objects/spike.tscn" id="10_xpgq4"]
@@ -466,7 +466,7 @@ limit_top = 8
 limit_bottom = 9000000
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_oivl1")
+stream = ExtResource("5_e10ll")
 volume_db = -10.0
 bus = &"Music"
 

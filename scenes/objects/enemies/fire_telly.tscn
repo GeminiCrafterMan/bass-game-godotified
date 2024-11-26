@@ -66,7 +66,7 @@ size = Vector2(15.5, 22.25)
 
 [node name="Fire Telly" type="CharacterBody2D"]
 collision_layer = 0
-collision_mask = 2
+collision_mask = 0
 script = ExtResource("1_tkaau")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
@@ -92,6 +92,11 @@ collision_mask = 2
 position = Vector2(0.25, -0.125)
 shape = SubResource("RectangleShape2D_n4pww")
 debug_color = Color(1, 0, 0, 0.623529)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+autostart = true
 
 [connection signal="body_entered" from="hitable" to="." method="_on_hitable_body_entered"]
 [connection signal="body_entered" from="hurt" to="." method="_on_hurt_body_entered"]

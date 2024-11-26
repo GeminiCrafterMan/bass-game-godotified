@@ -11,7 +11,7 @@
 [ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="9_7wv41"]
 [ext_resource type="PackedScene" uid="uid://bingbkdyjdsbs" path="res://scenes/objects/players/start_position.tscn" id="10_4y8fd"]
 [ext_resource type="Texture2D" uid="uid://edbqmmirmmjl" path="res://sprites/enemies/joetestcycle.png" id="10_27246"]
-[ext_resource type="PackedScene" path="res://scenes/objects/enemies/fire_telly.tscn" id="11_axrym"]
+[ext_resource type="PackedScene" uid="uid://dbe5k0gifos3i" path="res://scenes/objects/enemies/fire_telly.tscn" id="11_axrym"]
 [ext_resource type="PackedScene" uid="uid://cwqbm80i7pv6x" path="res://scenes/objects/level_objects/ladder_hitbox.tscn" id="11_n5yro"]
 [ext_resource type="PackedScene" uid="uid://mi0hw7tknuco" path="res://scenes/objects/level_objects/spike.tscn" id="12_1njev"]
 [ext_resource type="PackedScene" uid="uid://u68yemonosg8" path="res://scenes/objects/level_objects/button.tscn" id="13_rn21y"]
@@ -206,7 +206,19 @@ material = SubResource("ShaderMaterial_rpvm6")
 position = Vector2(904, 280)
 
 [node name="Fire Telly" parent="Level Objects/Enemies" instance=ExtResource("11_axrym")]
-position = Vector2(456, 0)
+position = Vector2(416, 256)
+
+[node name="Gabyoall" parent="Level Objects/Enemies" instance=ExtResource("19_6557c")]
+position = Vector2(344, 443)
+
+[node name="Gabyoall2" parent="Level Objects/Enemies" instance=ExtResource("19_6557c")]
+position = Vector2(197, 459)
+
+[node name="Gabyoall3" parent="Level Objects/Enemies" instance=ExtResource("19_6557c")]
+position = Vector2(505, 459)
+
+[node name="Hole" parent="Level Objects/Enemies" instance=ExtResource("14_le30n")]
+position = Vector2(1144, 296)
 
 [node name="Breakable Blocks" type="Node2D" parent="Level Objects"]
 
@@ -318,6 +330,10 @@ position = Vector2(288, 464)
 [node name="BreakableBlock42" parent="Level Objects/Breakable Blocks" instance=ExtResource("8_ugwe1")]
 position = Vector2(288, 448)
 
+[node name="ShredderBlock" parent="Level Objects/Breakable Blocks" instance=ExtResource("15_jodyc")]
+position = Vector2(-16, 552)
+style = 0
+
 [node name="Ladders" type="Node2D" parent="Level Objects"]
 
 [node name="LadderHitbox" parent="Level Objects/Ladders" instance=ExtResource("11_n5yro")]
@@ -341,18 +357,22 @@ scale = Vector2(2, 8)
 [node name="Spike" parent="Level Objects/Spikes" instance=ExtResource("12_1njev")]
 position = Vector2(352, 584)
 scale = Vector2(14, 1)
+damage = 80
 
 [node name="Spike2" parent="Level Objects/Spikes" instance=ExtResource("12_1njev")]
 position = Vector2(768, 968)
 scale = Vector2(96, 1)
+damage = 80
 
 [node name="Spike3" parent="Level Objects/Spikes" instance=ExtResource("12_1njev")]
 position = Vector2(1296, 504)
 scale = Vector2(6, 1)
+damage = 80
 
 [node name="Spike4" parent="Level Objects/Spikes" instance=ExtResource("12_1njev")]
 position = Vector2(1488, 504)
 scale = Vector2(6, 1)
+damage = 80
 
 [node name="Items" type="Node2D" parent="Level Objects"]
 
@@ -422,9 +442,6 @@ has_gravity = false
 [node name="Button" parent="Level Objects" instance=ExtResource("13_rn21y")]
 position = Vector2(440, 296)
 
-[node name="Gabyoall" parent="Level Objects" instance=ExtResource("19_6557c")]
-position = Vector2(344, 443)
-
 [node name="StartPosition" parent="." instance=ExtResource("10_4y8fd")]
 position = Vector2(320, 304)
 
@@ -434,19 +451,6 @@ offset_top = 976.0
 offset_right = 1624.0
 offset_bottom = 1016.0
 text = "If you can see these arrows, something went wrong."
-
-[node name="Hole" parent="." instance=ExtResource("14_le30n")]
-position = Vector2(1144, 296)
-
-[node name="BreakableBlock" parent="." instance=ExtResource("15_jodyc")]
-position = Vector2(-16, 552)
-style = 0
-
-[node name="Gabyoall" parent="." instance=ExtResource("19_6557c")]
-position = Vector2(197, 459)
-
-[node name="Gabyoall2" parent="." instance=ExtResource("19_6557c")]
-position = Vector2(505, 459)
 
 [node name="Screen Trigger" parent="." instance=ExtResource("21_55y2w")]
 position = Vector2(321, 306)

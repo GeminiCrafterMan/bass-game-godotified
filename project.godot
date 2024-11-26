@@ -41,7 +41,6 @@ GameState="*res://autoload/game_state.tscn"
 DebugMenu="*res://addons/debug_menu/debug_menu.tscn"
 SoundManager="*res://addons/resonate/sound_manager/sound_manager.gd"
 MusicManager="*res://addons/resonate/music_manager/music_manager.gd"
-DiscordRPCLoader="*res://addons/discord-rpc-gd/nodes/discord_autoload.gd"
 
 [display]
 
