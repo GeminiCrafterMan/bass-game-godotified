@@ -29,6 +29,7 @@ var voffset : int = 8
 func _ready():
 	var hud = preload("res://scenes/hud.tscn").instantiate()
 	add_child(hud)
+	GameState.galeforce = 0
 	GameState.transdir = 0
 	GameState.player = null
 	GameState.playerposx = 0

@@ -52,7 +52,7 @@ func _init() -> void:
 		preload("res://scenes/objects/players/weapons/special_weapons/fin_shredder.tscn"),
 		preload("res://scenes/objects/players/weapons/special_weapons/boomer_scythe.tscn"),
 		preload("res://scenes/objects/players/weapons/special_weapons/charge_scythe.tscn"),
-		
+		preload("res://scenes/objects/players/weapons/special_weapons/wild_gale.tscn")
 	]
 
 func _ready() -> void:

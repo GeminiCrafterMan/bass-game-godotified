@@ -53,7 +53,7 @@ func _physics_process(_delta):
 			projectile.position.y = position.y
 			projectile.dropped = true
 		queue_free()
-	
+		
 	if Cur_Inv > 0:
 		Cur_Inv -= 1
 		if Cur_Inv % 2 == 0:
@@ -65,54 +65,57 @@ func _physics_process(_delta):
 			print("appear!")
 	else:
 		$Sprite.visible = true
+			
+	if blown == false:
+		if $Sprite.animation == "Idle":
+			if (GameState.player != null): # Null check!
+				if GameState.player.position.x > position.x:
+					scale.x = -1
+				else:
+					scale.x = 1
 		
-	if $Sprite.animation == "Idle":
-		if (GameState.player != null): # Null check!
-			if GameState.player.position.x > position.x:
-				scale.x = -1
-			else:
-				scale.x = 1
+		timer = timer -1
+		if timer > 300:
+			timer = 300
+		
+		if timer < 0 && $Sprite.animation == "Idle":
+			$Sprite.play("SwitchAtk")
+			$reflect/ShieldHitbox.set_disabled(true)
+			timer = 10
 	
-	timer = timer -1
-	if timer > 300:
-		timer = 300
+		if timer < 0 && $Sprite.animation == "SwitchAtk":	
+			$Sprite.play("Attack")
+			$Sprite.set_frame_and_progress(1, 1)
+			attacks = 3
+			
+		if timer < 0 && $Sprite.animation == "Attack" &&  attacks == 0:
+			$Sprite.play("SwitchDef")
+			timer = 10
+		
+		if timer < 0 && $Sprite.animation == "Attack" &&  attacks > 0:
+			$Sprite.play("Attack")
+			$Sprite.set_frame_and_progress(0, 0)
+			
+			projectile = preload("res://scenes/objects/enemies/enemy_bullet1.tscn").instantiate()
+			get_parent().add_child(projectile)
+			projectile.position.x = position.x - (scale.x * 8)
+			projectile.position.y = position.y - 6
+			projectile.velocity.x = scale.x * -230
+			attacks = attacks - 1
+			timer = 24
+			if attacks > 0:
+				timer = 32
+			
+		
+			
+			
+		if timer < 0 && $Sprite.animation == "SwitchDef":	
+			$Sprite.play("Idle")
+			$reflect/ShieldHitbox.set_disabled(false)
+			timer = 250
 	
-	if timer < 0 && $Sprite.animation == "Idle":
-		$Sprite.play("SwitchAtk")
-		$reflect/ShieldHitbox.set_disabled(true)
-		timer = 10
-
-	if timer < 0 && $Sprite.animation == "SwitchAtk":	
-		$Sprite.play("Attack")
-		$Sprite.set_frame_and_progress(1, 1)
-		attacks = 3
-		
-	if timer < 0 && $Sprite.animation == "Attack" &&  attacks == 0:
-		$Sprite.play("SwitchDef")
-		timer = 10
-	
-	if timer < 0 && $Sprite.animation == "Attack" &&  attacks > 0:
-		$Sprite.play("Attack")
-		$Sprite.set_frame_and_progress(0, 0)
-		
-		projectile = preload("res://scenes/objects/enemies/enemy_bullet1.tscn").instantiate()
-		get_parent().add_child(projectile)
-		projectile.position.x = position.x - (scale.x * 8)
-		projectile.position.y = position.y - 6
-		projectile.velocity.x = scale.x * -230
-		attacks = attacks - 1
-		timer = 24
-		if attacks > 0:
-			timer = 32
-		
-	
-		
-		
-	if timer < 0 && $Sprite.animation == "SwitchDef":	
-		$Sprite.play("Idle")
-		$reflect/ShieldHitbox.set_disabled(false)
-		timer = 250
-
+	if blown == true:
+		position.x += GameState.galeforce*0.015
 
 func _on_hitable_body_entered(weapon): # needs to be redefined because damage values
 	if Cur_Inv <= 0 or weapon.W_Type == 8 or weapon.W_Type == 11 or weapon.W_Type == 22:
@@ -129,6 +132,12 @@ func _on_hitable_body_entered(weapon): # needs to be redefined because damage va
 					weapon.durability -= 4
 			Cur_HP -= Dmg_Vals[weapon.W_Type]
 			Cur_Inv = 3
+			if Cur_HP <= 0 and weapon.W_Type == 9:
+				Cur_HP = 999
+				blown = true
+				$hitable.queue_free()
+				$hurt.queue_free()
+				$Collision.queue_free()
 			if Cur_HP <= 0 or weapon.W_Type == 7 or weapon.W_Type == 11 or weapon.W_Type == 22 or weapon.W_Type == 23 or weapon.W_Type == 24:
 				weapon.kill()
 			else:

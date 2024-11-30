@@ -68,49 +68,50 @@ func _physics_process(_delta):
 	else:
 		$Sprite.visible = true
 	
-	
-	if $Sprite.animation == "Idle-1":
-		$Timer.start(0.2)
-		$Sprite.play("Attack-1")
-		attacks = 3
+	if blown == false:
+		if $Sprite.animation == "Idle-1":
+			$Timer.start(0.2)
+			$Sprite.play("Attack-1")
+			attacks = 3
+			
+		if $Timer.is_stopped() && attacks == 0 && $Sprite.animation == "Attack-1":
+			$Sprite.play("Switch-1")
+			$Timer.start(1.1)
+			attacks = 3
+			
+		if $Timer.is_stopped() && attacks == 0 && $Sprite.animation == "Attack-2":
+			$Sprite.play("Switch-2")
+			$Timer.start(1.1)
+			attacks = 3
+			
+		if $Timer.is_stopped() && ($Sprite.animation == "Switch-2" or $Sprite.animation == "Attack-1"):
+			$Sprite.play("Attack-1")
+			$Sprite.set_frame_and_progress(0, 0)
+			$Timer.start(0.45)
+			projectile = preload("res://scenes/objects/enemies/enemy_bullet2.tscn").instantiate()
+			get_parent().add_child(projectile)
+			projectile.position.x = position.x - (scale.x * 16)
+			projectile.position.y = position.y - 6
+			projectile.velocity.x = scale.x * -330
+			projectile.velocity.y = -120
+			attacks -= 1
+			
+		if $Timer.is_stopped() && ($Sprite.animation == "Switch-1" or $Sprite.animation == "Attack-2"):
+			$Sprite.play("Attack-2")
+			$Sprite.set_frame_and_progress(0, 0)
+			$Timer.start(0.45)
+			projectile = preload("res://scenes/objects/enemies/enemy_bullet2.tscn").instantiate()
+			get_parent().add_child(projectile)
+			projectile.position.x = position.x - (scale.x * 15)
+			projectile.position.y = position.y - 19
+			projectile.velocity.x = scale.x * -85
+			projectile.velocity.y = -370
+			attacks -= 1
 		
-	if $Timer.is_stopped() && attacks == 0 && $Sprite.animation == "Attack-1":
-		$Sprite.play("Switch-1")
-		$Timer.start(1.1)
-		attacks = 3
+	if blown == true:
+		position.x += GameState.galeforce*0.015
 		
-	if $Timer.is_stopped() && attacks == 0 && $Sprite.animation == "Attack-2":
-		$Sprite.play("Switch-2")
-		$Timer.start(1.1)
-		attacks = 3
 		
-	if $Timer.is_stopped() && ($Sprite.animation == "Switch-2" or $Sprite.animation == "Attack-1"):
-		$Sprite.play("Attack-1")
-		$Sprite.set_frame_and_progress(0, 0)
-		$Timer.start(0.45)
-		projectile = preload("res://scenes/objects/enemies/enemy_bullet2.tscn").instantiate()
-		get_parent().add_child(projectile)
-		projectile.position.x = position.x - (scale.x * 16)
-		projectile.position.y = position.y - 6
-		projectile.velocity.x = scale.x * -330
-		projectile.velocity.y = -120
-		attacks -= 1
-		
-	if $Timer.is_stopped() && ($Sprite.animation == "Switch-1" or $Sprite.animation == "Attack-2"):
-		$Sprite.play("Attack-2")
-		$Sprite.set_frame_and_progress(0, 0)
-		$Timer.start(0.45)
-		projectile = preload("res://scenes/objects/enemies/enemy_bullet2.tscn").instantiate()
-		get_parent().add_child(projectile)
-		projectile.position.x = position.x - (scale.x * 15)
-		projectile.position.y = position.y - 19
-		projectile.velocity.x = scale.x * -85
-		projectile.velocity.y = -370
-		attacks -= 1
-	
-	
-	
-	
 
 func _on_hitable_body_entered(weapon): # needs to be redefined because damage values
 	if Cur_Inv <= 0 or weapon.W_Type == 8 or weapon.W_Type == 11 or weapon.W_Type == 22 or weapon.W_Type == 23 or weapon.W_Type == 24:
@@ -127,6 +128,12 @@ func _on_hitable_body_entered(weapon): # needs to be redefined because damage va
 					weapon.durability -= 2
 			Cur_HP -= Dmg_Vals[weapon.W_Type]
 			Cur_Inv = 2
+			if Cur_HP <= 0 and weapon.W_Type == 9:
+				Cur_HP = 999
+				blown = true
+				$hitable.queue_free()
+				$hurt.queue_free()
+				$Collision.queue_free()
 			if Cur_HP <= 0 or weapon.W_Type == 7 or weapon.W_Type == 11 or weapon.W_Type == 22 or weapon.W_Type == 23 or weapon.W_Type == 24:
 				weapon.kill()
 			else:

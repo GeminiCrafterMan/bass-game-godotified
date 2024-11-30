@@ -5,6 +5,9 @@ class_name BassPlayer
 # References
 @onready var rapid_timer = $RapidTimer
 
+
+const ORIGAMI_SPEEDB := 450
+
 # Variables
 var buster_speed = 300
 var blast_jumped = false
@@ -51,8 +54,10 @@ func _init() -> void:
 		preload("res://scenes/objects/players/weapons/special_weapons/rolling_bomb.tscn"),
 		preload("res://scenes/objects/players/weapons/special_weapons/fin_shredder.tscn"),
 		preload("res://scenes/objects/players/weapons/special_weapons/boomer_scythe.tscn"),
-		preload("res://scenes/objects/players/weapons/special_weapons/charge_scythe.tscn")
+		preload("res://scenes/objects/players/weapons/special_weapons/charge_scythe.tscn"),
+		preload("res://scenes/objects/players/weapons/special_weapons/wild_gale.tscn")
 	]
+	
 
 func _ready() -> void:
 	super._ready()
@@ -367,9 +372,9 @@ func weapon_buster():
 			return
 
 func weapon_origami():
-	if Input.is_action_just_pressed("shoot") and (GameState.weapon_energy[GameState.WEAPONS.ORIGAMI] >= 1 or GameState.infinite_ammo == true) and GameState.onscreen_sp_bullets < 4:
+	if Input.is_action_just_pressed("shoot") and (GameState.weapon_energy[GameState.WEAPONS.ORIGAMI] >= 2 or GameState.infinite_ammo == true) and GameState.onscreen_sp_bullets < 1:
 		if GameState.infinite_ammo == false:
-			GameState.weapon_energy[GameState.WEAPONS.ORIGAMI] -= 1
+			GameState.weapon_energy[GameState.WEAPONS.ORIGAMI] -= 2
 		anim.seek(0)
 		shot_type = 2
 		attack_timer.start(0.3)
@@ -380,32 +385,41 @@ func weapon_origami():
 		projectile.position.x = position.x + (sprite.scale.x * 9)
 		projectile.position.y = position.y + 2
 		projectile.scale.x = -sprite.scale.x
-		projectile.velocity.x = sprite.scale.x * ORIGAMI_SPEED * 0.775
-		projectile.velocity.y = -ORIGAMI_SPEED * 0.225
+		projectile.velocity.x = sprite.scale.x * ORIGAMI_SPEEDB
 		
 		projectile = weapon_scenes[0].instantiate()
 		get_parent().add_child(projectile)
 		projectile.position.x = position.x + (sprite.scale.x * 9)
 		projectile.position.y = position.y + 2
 		projectile.scale.x = -sprite.scale.x
-		projectile.velocity.x = sprite.scale.x * ORIGAMI_SPEED * 0.775
-		projectile.velocity.y =  ORIGAMI_SPEED * 0.225
+		projectile.velocity.x = sprite.scale.x * ORIGAMI_SPEEDB * 0.6
+		projectile.velocity.y =  ORIGAMI_SPEEDB * 0.4
 		
 		projectile = weapon_scenes[0].instantiate()
 		get_parent().add_child(projectile)
 		projectile.position.x = position.x + (sprite.scale.x * 9)
 		projectile.position.y = position.y + 2
 		projectile.scale.x = -sprite.scale.x
-		projectile.velocity.x = sprite.scale.x * ORIGAMI_SPEED * 0.5
-		projectile.velocity.y =  ORIGAMI_SPEED * 0.5
+		projectile.velocity.x = sprite.scale.x * ORIGAMI_SPEEDB * 0.6
+		projectile.velocity.y =  -ORIGAMI_SPEEDB * 0.4
 		
 		projectile = weapon_scenes[0].instantiate()
 		get_parent().add_child(projectile)
 		projectile.position.x = position.x + (sprite.scale.x * 9)
 		projectile.position.y = position.y + 2
 		projectile.scale.x = -sprite.scale.x
-		projectile.velocity.x = sprite.scale.x * ORIGAMI_SPEED * 0.5
-		projectile.velocity.y =  -ORIGAMI_SPEED * 0.5
+		projectile.velocity.x = sprite.scale.x * ORIGAMI_SPEEDB * 0.825
+		projectile.velocity.y = -ORIGAMI_SPEEDB * 0.2
+		
+		projectile = weapon_scenes[0].instantiate()
+		get_parent().add_child(projectile)
+		projectile.position.x = position.x + (sprite.scale.x * 9)
+		projectile.position.y = position.y + 2
+		projectile.scale.x = -sprite.scale.x
+		projectile.velocity.x = sprite.scale.x * ORIGAMI_SPEEDB * 0.825
+		projectile.velocity.y =  ORIGAMI_SPEEDB * 0.2
+		
+		
 		return
 
 # ================

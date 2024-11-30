@@ -34,6 +34,7 @@ var Atk_Dmg = 4
 var Cur_Inv = 0
 var Max_HP = 3
 var Cur_HP = 3
+var blown : bool = false
 
 func _physics_process(_delta):
 	if Cur_HP <= 0:
@@ -62,6 +63,10 @@ func _on_hitable_body_entered(weapon): # needs to be redefined because damage va
 					weapon.durability -= 2
 			Cur_HP -= Dmg_Vals[weapon.W_Type]
 			Cur_Inv = 2
+			if Cur_HP <= 0 and weapon.W_Type == 9:
+				Cur_HP = 999
+				blown = true
+			
 			if Cur_HP <= 0 or weapon.W_Type == 7 or weapon.W_Type == 11 or weapon.W_Type == 22:
 				weapon.kill()
 			else:

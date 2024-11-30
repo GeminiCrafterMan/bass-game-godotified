@@ -1,35 +1,171 @@
-[gd_scene load_steps=6 format=3 uid="uid://cje40e48p05ju"]
+[gd_scene load_steps=6 format=3 uid="uid://cd6ylcbm7jxj3"]
 
 [ext_resource type="Script" path="res://scenes/objects/players/weapons/special_weapons/wild_gale.gd" id="1_5w3q0"]
-[ext_resource type="AudioStream" uid="uid://dcvhxvuushcu4" path="res://sounds/chargeshot.wav" id="5_4w222"]
-[ext_resource type="AudioStream" uid="uid://cs2dmn3ahpbea" path="res://sounds/pop.wav" id="6_syrm0"]
-[ext_resource type="AudioStream" uid="uid://mfk4w30lewvq" path="res://sounds/tink.wav" id="7_6a1ix"]
+[ext_resource type="AudioStream" uid="uid://bu17jfenhhtt8" path="res://sounds/explode.wav" id="2_675xj"]
+[ext_resource type="SpriteFrames" uid="uid://tap8fhypog1n" path="res://scenes/objects/players/weapons/special_weapons/galesprites.tres" id="2_g1mcd"]
+[ext_resource type="PackedScene" uid="uid://bn86qi7tnn4x0" path="res://scenes/objects/players/weapons/special_weapons/wild_gale_vfx.tscn" id="3_gcnlb"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0fvlc"]
-size = Vector2(397, 225)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lc3ro"]
 
-[node name="Wild Gale" type="CharacterBody2D"]
+[node name="WildGaleAtk" type="CharacterBody2D"]
+position = Vector2(-0.25, 0)
+scale = Vector2(1.02381, 1)
 collision_layer = 8
 collision_mask = 0
 script = ExtResource("1_5w3q0")
 
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-position = Vector2(1.19209e-07, 4.17233e-07)
-scale = Vector2(0.8, 0.8)
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_0fvlc")
+scale = Vector2(8.935, 33.325)
+shape = SubResource("RectangleShape2D_lc3ro")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+visible = false
+sprite_frames = ExtResource("2_g1mcd")
+autoplay = "default"
+frame_progress = 0.0437545
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-2.86102e-06, 0.499992)
+scale = Vector2(15.035, 4)
+
+[node name="FX" type="CharacterBody2D" parent="."]
+
+[node name="GaleFX" parent="FX" instance=ExtResource("3_gcnlb")]
+position = Vector2(17.8256, -7)
+
+[node name="GaleFX2" parent="FX" instance=ExtResource("3_gcnlb")]
+position = Vector2(-14.407, 56)
+
+[node name="GaleFX3" parent="FX" instance=ExtResource("3_gcnlb")]
+position = Vector2(80.3372, 21)
+
+[node name="GaleFX4" parent="FX" instance=ExtResource("3_gcnlb")]
+position = Vector2(42.2442, -64)
+
+[node name="GaleFX5" parent="FX" instance=ExtResource("3_gcnlb")]
+position = Vector2(-67.1511, -42)
+
+[node name="GaleFX6" parent="FX" instance=ExtResource("3_gcnlb")]
+position = Vector2(69.593, -26)
+
+[node name="GaleFX18" parent="FX" instance=ExtResource("3_gcnlb")]
+position = Vector2(45.5509, -155)
+
+[node name="GaleFX19" parent="FX" instance=ExtResource("3_gcnlb")]
+position = Vector2(-63.8444, -133)
+
+[node name="GaleFX20" parent="FX" instance=ExtResource("3_gcnlb")]
+position = Vector2(72.8997, -117)
+
+[node name="GaleFX7" parent="FX" instance=ExtResource("3_gcnlb")]
+position = Vector2(49.0814, 87)
+
+[node name="GaleFX11" parent="FX" instance=ExtResource("3_gcnlb")]
+position = Vector2(10.3882, 176)
+
+[node name="GaleFX12" parent="FX" instance=ExtResource("3_gcnlb")]
+position = Vector2(-21.8444, 239)
+
+[node name="GaleFX13" parent="FX" instance=ExtResource("3_gcnlb")]
+position = Vector2(72.8998, 204)
+
+[node name="GaleFX14" parent="FX" instance=ExtResource("3_gcnlb")]
+position = Vector2(34.8067, 119)
+
+[node name="GaleFX15" parent="FX" instance=ExtResource("3_gcnlb")]
+position = Vector2(-74.5885, 141)
+
+[node name="GaleFX16" parent="FX" instance=ExtResource("3_gcnlb")]
+position = Vector2(62.1556, 157)
+
+[node name="GaleFX17" parent="FX" instance=ExtResource("3_gcnlb")]
+position = Vector2(41.644, 270)
+
+[node name="GaleFX8" parent="FX" instance=ExtResource("3_gcnlb")]
+position = Vector2(-42.7325, 28)
+
+[node name="GaleFX9" parent="FX" instance=ExtResource("3_gcnlb")]
+position = Vector2(-16.3605, -33)
+
+[node name="GaleFX10" parent="FX" instance=ExtResource("3_gcnlb")]
+position = Vector2(-18.3139, -98)
+
+[node name="FX2" type="CharacterBody2D" parent="."]
+
+[node name="GaleFX" parent="FX2" instance=ExtResource("3_gcnlb")]
+position = Vector2(-3.66279, 16)
+
+[node name="GaleFX2" parent="FX2" instance=ExtResource("3_gcnlb")]
+position = Vector2(21.7325, 52)
+
+[node name="GaleFX3" parent="FX2" instance=ExtResource("3_gcnlb")]
+position = Vector2(-66.1744, 70)
+
+[node name="GaleFX4" parent="FX2" instance=ExtResource("3_gcnlb")]
+position = Vector2(54.9418, -90)
+
+[node name="GaleFX5" parent="FX2" instance=ExtResource("3_gcnlb")]
+position = Vector2(-56.407, -1)
+
+[node name="GaleFX6" parent="FX2" instance=ExtResource("3_gcnlb")]
+position = Vector2(-63.2442, -78)
+
+[node name="GaleFX7" parent="FX2" instance=ExtResource("3_gcnlb")]
+position = Vector2(-25.1512, 98)
+
+[node name="GaleFX8" parent="FX2" instance=ExtResource("3_gcnlb")]
+position = Vector2(-1.7093, -72)
+
+[node name="GaleFX9" parent="FX2" instance=ExtResource("3_gcnlb")]
+position = Vector2(43.2209, 36)
+
+[node name="GaleFX10" parent="FX2" instance=ExtResource("3_gcnlb")]
+position = Vector2(20.7558, -41)
+
+[node name="GaleFX11" parent="FX2" instance=ExtResource("3_gcnlb")]
+position = Vector2(63.1323, -261)
+
+[node name="GaleFX12" parent="FX2" instance=ExtResource("3_gcnlb")]
+position = Vector2(-48.2165, -172)
+
+[node name="GaleFX13" parent="FX2" instance=ExtResource("3_gcnlb")]
+position = Vector2(-55.0537, -249)
+
+[node name="GaleFX14" parent="FX2" instance=ExtResource("3_gcnlb")]
+position = Vector2(-16.9607, -73)
+
+[node name="GaleFX15" parent="FX2" instance=ExtResource("3_gcnlb")]
+position = Vector2(6.48119, -243)
+
+[node name="GaleFX16" parent="FX2" instance=ExtResource("3_gcnlb")]
+position = Vector2(51.4114, -135)
+
+[node name="GaleFX17" parent="FX2" instance=ExtResource("3_gcnlb")]
+position = Vector2(28.9463, -212)
+
+[node name="GaleFX18" parent="FX2" instance=ExtResource("3_gcnlb")]
+position = Vector2(56.2951, 152)
+
+[node name="GaleFX19" parent="FX2" instance=ExtResource("3_gcnlb")]
+position = Vector2(-55.0537, 241)
+
+[node name="GaleFX20" parent="FX2" instance=ExtResource("3_gcnlb")]
+position = Vector2(-61.8909, 164)
+
+[node name="GaleFX21" parent="FX2" instance=ExtResource("3_gcnlb")]
+position = Vector2(-23.7979, 340)
+
+[node name="GaleFX22" parent="FX2" instance=ExtResource("3_gcnlb")]
+position = Vector2(-0.356016, 170)
+
+[node name="GaleFX23" parent="FX2" instance=ExtResource("3_gcnlb")]
+position = Vector2(44.5742, 278)
+
+[node name="GaleFX24" parent="FX2" instance=ExtResource("3_gcnlb")]
+position = Vector2(22.1091, 201)
 
 [node name="SpawnSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("5_4w222")
-bus = &"SFX"
-
-[node name="HitSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("6_syrm0")
-bus = &"SFX"
-
-[node name="ReflectSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("7_6a1ix")
+stream = ExtResource("2_675xj")
 bus = &"SFX"
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

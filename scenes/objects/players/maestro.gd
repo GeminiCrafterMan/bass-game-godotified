@@ -139,7 +139,8 @@ var weapon_scenes = [
 	preload("res://scenes/objects/players/weapons/special_weapons/rolling_bomb.tscn"),
 	preload("res://scenes/objects/players/weapons/special_weapons/fin_shredder.tscn"),
 	preload("res://scenes/objects/players/weapons/special_weapons/boomer_scythe.tscn"),
-	preload("res://scenes/objects/players/weapons/special_weapons/charge_scythe.tscn")
+	preload("res://scenes/objects/players/weapons/special_weapons/charge_scythe.tscn"),
+	preload("res://scenes/objects/players/weapons/special_weapons/wild_gale.tscn")
 ]
 
 func _ready():
@@ -785,6 +786,8 @@ func handle_weapons():
 			weapon_shark()
 		GameState.WEAPONS.ORIGAMI:
 			weapon_origami()
+		GameState.WEAPONS.GALE:
+			weapon_gale()
 		GameState.WEAPONS.GUERRILLA:
 			weapon_guerilla()
 		GameState.WEAPONS.REAPER:
@@ -1006,6 +1009,26 @@ func weapon_origami():
 
 			return
 
+func weapon_gale():
+	if Input.is_action_just_pressed("shoot") && (GameState.weapon_energy[GameState.WEAPONS.GALE] >= 7 or GameState.infinite_ammo == true) && GameState.onscreen_sp_bullets < 1:
+		if transing != true:
+			if GameState.infinite_ammo == false:
+				GameState.weapon_energy[GameState.WEAPONS.GALE] -= 7
+			anim.seek(0)
+			GameState.onscreen_sp_bullets = 1
+			shot_type = 3
+			attack_timer.start(0.5)
+			projectile = weapon_scenes[7].instantiate()
+			
+			get_parent().add_child(projectile)
+			projectile.position.x = GameState.camposx + (-280 * sprite.scale.x) 
+			projectile.position.y = GameState.camposy
+			
+			projectile.scale.x = sprite.scale.x
+			projectile.velocity.x = sprite.scale.x
+			
+			return
+
 func weapon_guerilla():
 	if Input.is_action_just_pressed("shoot") && (GameState.weapon_energy[GameState.WEAPONS.GUERRILLA] >= 2 or GameState.infinite_ammo == true) && GameState.onscreen_sp_bullets <= 2:
 		if GameState.infinite_ammo == false:
@@ -1016,7 +1039,6 @@ func weapon_guerilla():
 		GameState.onscreen_sp_bullets += 1
 		projectile = weapon_scenes[3].instantiate()
 
-		#SHOOT FORWARD REGARDLESS
 		get_parent().add_child(projectile)
 		projectile.position.x = position.x + (sprite.scale.x * 18)
 		projectile.position.y = position.y + 4
