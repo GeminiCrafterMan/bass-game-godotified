@@ -94,6 +94,7 @@ var no_grounded_movement : bool
 var in_water : bool
 var on_ice : bool
 var ice_jump : bool
+var wind_push = 0
 
 #Attack vars
 var shot_type = 0
@@ -155,6 +156,8 @@ func _ready():
 	anim.play("Teleport")
 
 func _physics_process(delta: float) -> void:
+	
+	
 	progress = anim.get_current_animation_position()
 
 	GameState.player.position.x = position.x
@@ -187,7 +190,8 @@ func _physics_process(delta: float) -> void:
 			velocity.y = 0
 		
 		
-		
+	position.x += wind_push
+	
 
 	if GameState.current_hp <= 0 && currentState != STATES.DEAD:
 		swapState = STATES.DEAD

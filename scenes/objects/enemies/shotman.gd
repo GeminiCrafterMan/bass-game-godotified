@@ -111,7 +111,6 @@ func _physics_process(_delta):
 	if blown == true:
 		position.x += GameState.galeforce*0.015
 		
-		
 
 func _on_hitable_body_entered(weapon): # needs to be redefined because damage values
 	if Cur_Inv <= 0 or weapon.W_Type == 8 or weapon.W_Type == 11 or weapon.W_Type == 22 or weapon.W_Type == 23 or weapon.W_Type == 24:

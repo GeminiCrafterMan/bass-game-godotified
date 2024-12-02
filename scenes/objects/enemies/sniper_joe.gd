@@ -138,6 +138,7 @@ func _on_hitable_body_entered(weapon): # needs to be redefined because damage va
 				$hitable.queue_free()
 				$hurt.queue_free()
 				$Collision.queue_free()
+				$reflect.queue_free()
 			if Cur_HP <= 0 or weapon.W_Type == 7 or weapon.W_Type == 11 or weapon.W_Type == 22 or weapon.W_Type == 23 or weapon.W_Type == 24:
 				weapon.kill()
 			else:

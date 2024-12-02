@@ -5,26 +5,29 @@ class_name Fire_Telly
 var currentState : int = 0
 
 func _physics_process(delta: float) -> void:
-	health_check()
-	match currentState:
-		0: # Initialize
-			if GameState.player:
-				velocity.x = -40
-				if GameState.player.position.x > position.x:
-					velocity.x = -velocity.x
-					scale.x = -1
-				currentState = 1
-		1: # Move and check for player
-			$Sprite.play("default")
-			move_and_slide()
-			if (abs(abs(GameState.player.position.x) - abs(position.x)) <= 100) and $Timer.is_stopped():
-				currentState = 2
-		2: # Shoot, then reset to 1
-			$Sprite.play("drop")
-			await $Sprite.animation_finished
+	if blown == false:
+		health_check()
+		match currentState:
+			0: # Initialize
+				if GameState.player:
+					velocity.x = -40
+					if GameState.player.position.x > position.x:
+						velocity.x = -velocity.x
+						scale.x = -1
+					currentState = 1
+			1: # Move and check for player
+				$Sprite.play("default")
+				move_and_slide()
+				if (abs(abs(GameState.player.position.x) - abs(position.x)) <= 100) and $Timer.is_stopped():
+					currentState = 2
+			2: # Shoot, then reset to 1
+				$Sprite.play("drop")
+				await $Sprite.animation_finished
 			# drop projectile, add later
-			currentState = 1
-			$Timer.start()
+				currentState = 1
+				$Timer.start()
+	if blown == true:
+		position.x += GameState.galeforce*0.015
 		
 func _on_hitable_body_entered(weapon): # needs to be redefined because damage values
 	if Cur_Inv <= 0 or weapon.W_Type == 8 or weapon.W_Type == 11 or weapon.W_Type == 22 or weapon.W_Type == 23 or weapon.W_Type == 24:
@@ -41,6 +44,12 @@ func _on_hitable_body_entered(weapon): # needs to be redefined because damage va
 					weapon.durability -= 2
 			Cur_HP -= Dmg_Vals[weapon.W_Type]
 			Cur_Inv = 2
+			if Cur_HP <= 0 and weapon.W_Type == 9:
+				Cur_HP = 999
+				blown = true
+				$hitable.queue_free()
+				$hurt.queue_free()
+				$Collision.queue_free()
 			if Cur_HP <= 0 or weapon.W_Type == 7 or weapon.W_Type == 11 or weapon.W_Type == 22 or weapon.W_Type == 23 or weapon.W_Type == 24:
 				weapon.kill()
 			else:

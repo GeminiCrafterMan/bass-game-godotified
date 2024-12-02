@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://ccb265wd4npkn"]
+
+[ext_resource type="Script" path="res://scenes/objects/level_objects/wind.gd" id="1_mgssh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vk8e7"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_euuk7"]
+size = Vector2(16, 16)
+
+[node name="Wind" type="StaticBody2D"]
+collision_layer = 32
+collision_mask = 0
+script = ExtResource("1_mgssh")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_vk8e7")
+debug_color = Color(0, 1, 0.0705882, 0.419608)
+
+[node name="box" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="box"]
+shape = SubResource("RectangleShape2D_euuk7")
+debug_color = Color(0.690196, 1, 0.384314, 0.623529)
+
+[connection signal="body_entered" from="box" to="." method="_on_box_body_entered"]
+[connection signal="body_exited" from="box" to="." method="_on_box_body_exited"]

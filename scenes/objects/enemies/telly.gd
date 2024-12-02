@@ -53,13 +53,17 @@ func _physics_process(_delta):
 			projectile.position.y = position.y
 			projectile.dropped = true
 		queue_free()
-
-	if $Timer.is_stopped():
-		$Sprite.play("Move")
-
-	if $Sprite.animation == "Move":
-		position.x = move_toward(position.x, GameState.player.position.x, 0.3)
-		position.y = move_toward(position.y, GameState.player.position.y, 0.3)
+	if blown == false:
+		if $Timer.is_stopped():
+			$Sprite.play("Move")
+	
+		if $Sprite.animation == "Move":
+			position.x = move_toward(position.x, GameState.player.position.x, 0.3)
+			position.y = move_toward(position.y, GameState.player.position.y, 0.3)
+	
+	if blown == true:
+		position.x += GameState.galeforce*0.015
+		$Sprite.stop
 
 
 func _on_hitable_body_entered(weapon): # needs to be redefined because damage values
@@ -77,6 +81,12 @@ func _on_hitable_body_entered(weapon): # needs to be redefined because damage va
 					weapon.durability -= 3
 			Cur_HP -= Dmg_Vals[weapon.W_Type]
 			Cur_Inv = 2
+			if Cur_HP <= 0 and weapon.W_Type == 9:
+				Cur_HP = 999
+				blown = true
+				$hitable.queue_free()
+				$hurt.queue_free()
+				$Collision.queue_free()
 			if Cur_HP <= 0 or weapon.W_Type == 7 or weapon.W_Type == 11 or weapon.W_Type == 22:
 				weapon.kill()
 			else:

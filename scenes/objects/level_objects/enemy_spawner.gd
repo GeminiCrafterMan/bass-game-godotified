@@ -9,10 +9,10 @@ var oldtype : int
 var oldsubtype : int
 var olddirection: int
 
-@export var type : int
+@export var type : int ##The type of enemy.
 @export var direction : int
 @export var subtype : int
-@export var difficulty : int
+@export var difficulty : int ##0: Easy, 1: Normal, 2:Hard, 3:V.H.
 @onready var baby
 var enemytype = [
 	preload("res://scenes/objects/enemies/sniper_joe.tscn"),
