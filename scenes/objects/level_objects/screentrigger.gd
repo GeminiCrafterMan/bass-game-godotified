@@ -1,4 +1,4 @@
-extends StaticBody2D
+extends Area2D
 
 class_name ScreenChange
 @export var scrollX1 : int
@@ -14,13 +14,11 @@ var oldscalex
 var oldscaley
 
 @export var direction : int ##right = 1 down = 2 left = 3 up = 4
-@export var solid : bool ##turns solid after transition
-
-
 
 @export var screenmode : int
 
-func _on_body_body_entered(body):
+func _on_body_entered(body):
+	print("yo")
 	if body.is_in_group("player") && GameState.transdir == 0:
 		GameState.scrollX1 = scrollX1
 		GameState.scrollX2 = scrollX2
@@ -30,10 +28,3 @@ func _on_body_body_entered(body):
 		GameState.screenmode = screenmode
 		GameState.transdir = direction
 		GameState.screentransiton = 25
-
-
-
-func _on_body_body_exited(body):
-	if body.is_in_group("player") && solid == true:
-		$StaticBody2D/CollisionShape2D.disabled = false
-	

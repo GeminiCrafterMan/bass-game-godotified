@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=4 uid="uid://cs8f1cfciw7mk"]
+[gd_scene load_steps=66 format=4 uid="uid://cs8f1cfciw7mk"]
 
 [ext_resource type="Script" path="res://scenes/stages/stage.gd" id="1_kfbs7"]
 [ext_resource type="TileSet" uid="uid://u7uxnx7lf5p3" path="res://tilesets/shark.tres" id="2_nfhkc"]
@@ -28,6 +28,84 @@ size = Vector2(4650, 1779.13)
 size = Vector2(1963, 1313.89)
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ecfmk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fmmhc"]
+size = Vector2(1152, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xlnrw"]
+size = Vector2(384, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vep4a"]
+size = Vector2(8, 208)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_02oiw"]
+size = Vector2(208, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rgsdf"]
+size = Vector2(8, 208)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nnr3a"]
+size = Vector2(208, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_blgyj"]
+size = Vector2(8, 208)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ek8k1"]
+size = Vector2(208, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_itthr"]
+size = Vector2(1152, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t82as"]
+size = Vector2(8, 208)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qu5b5"]
+size = Vector2(208, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qo1cr"]
+size = Vector2(8, 208)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0w86k"]
+size = Vector2(208, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fj7wh"]
+size = Vector2(8, 208)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0lgne"]
+size = Vector2(208, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nr2gw"]
+size = Vector2(8, 208)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jgk6d"]
+size = Vector2(208, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qirwn"]
+size = Vector2(384, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4us7q"]
+size = Vector2(8, 208)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v816h"]
+size = Vector2(208, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mgnoy"]
+size = Vector2(8, 208)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yxu40"]
+size = Vector2(208, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pqie3"]
+size = Vector2(384, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n8unp"]
+size = Vector2(208, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dl2i7"]
+size = Vector2(384, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0xo5h"]
+size = Vector2(208, 2)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tltbo"]
 size = Vector2(146, 32)
@@ -573,29 +651,133 @@ damage = 4
 
 [node name="Triggers" type="Node2D" parent="."]
 position = Vector2(6336, 728)
-scale = Vector2(22, 1)
 
 [node name="Screen Trigger2" parent="Triggers" instance=ExtResource("14_l15w7")]
-position = Vector2(-261.818, -502)
-scale = Vector2(52.57, 3.62)
+position = Vector2(-5760, -504)
 scrollX2 = 3
 scrollY1 = 1
 scrollY2 = 3
 direction = 2
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Screen Trigger2"]
+shape = SubResource("RectangleShape2D_fmmhc")
+
+[node name="Screen Trigger3" parent="Triggers" instance=ExtResource("14_l15w7")]
+position = Vector2(-1920, -288)
+scrollX1 = 11
+scrollY1 = 2
+scrollY2 = 5
+direction = 2
+screenmode = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Screen Trigger3"]
+shape = SubResource("RectangleShape2D_xlnrw")
+
+[node name="Screen Trigger4" parent="Triggers" instance=ExtResource("14_l15w7")]
+position = Vector2(-5184, -144)
+scrollX1 = 3
+scrollY1 = 2
+scrollY2 = 3
+direction = 1
+screenmode = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Screen Trigger4"]
+shape = SubResource("RectangleShape2D_vep4a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Triggers/Screen Trigger4"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Screen Trigger4/StaticBody2D"]
+rotation = -1.57079
+shape = SubResource("RectangleShape2D_02oiw")
+one_way_collision = true
+one_way_collision_margin = 4.0
+
+[node name="Screen Trigger5" parent="Triggers" instance=ExtResource("14_l15w7")]
+position = Vector2(-4800, -176)
+scrollX1 = 4
+scrollX2 = 7
+scrollY1 = 1
+scrollY2 = 3
+direction = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Screen Trigger5"]
+shape = SubResource("RectangleShape2D_rgsdf")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Triggers/Screen Trigger5"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Screen Trigger5/StaticBody2D"]
+rotation = -1.57079
+shape = SubResource("RectangleShape2D_nnr3a")
+one_way_collision = true
+one_way_collision_margin = 4.0
+
 [node name="Screen Trigger6" parent="Triggers" instance=ExtResource("14_l15w7")]
-position = Vector2(-165.975, -221)
-scale = Vector2(0.875, 445)
+position = Vector2(-3648, -184)
 scrollX1 = 7
 scrollX2 = 10
 scrollY1 = 1
 scrollY2 = 3
 direction = 1
-solid = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Screen Trigger6"]
+shape = SubResource("RectangleShape2D_blgyj")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Triggers/Screen Trigger6"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Screen Trigger6/StaticBody2D"]
+rotation = -1.57079
+shape = SubResource("RectangleShape2D_ek8k1")
+one_way_collision = true
+one_way_collision_margin = 4.0
+
+[node name="Screen Trigger7" parent="Triggers" instance=ExtResource("14_l15w7")]
+position = Vector2(-4224, -504)
+scrollX1 = 4
+scrollX2 = 7
+scrollY1 = 1
+scrollY2 = 3
+direction = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Screen Trigger7"]
+shape = SubResource("RectangleShape2D_itthr")
+
+[node name="Screen Trigger8" parent="Triggers" instance=ExtResource("14_l15w7")]
+position = Vector2(-5184, -616)
+scrollX1 = 3
+direction = 1
+screenmode = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Screen Trigger8"]
+shape = SubResource("RectangleShape2D_t82as")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Triggers/Screen Trigger8"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Screen Trigger8/StaticBody2D"]
+rotation = -1.57079
+shape = SubResource("RectangleShape2D_qu5b5")
+one_way_collision = true
+one_way_collision_margin = 4.0
+
+[node name="Screen Trigger9" parent="Triggers" instance=ExtResource("14_l15w7")]
+position = Vector2(-4800, -616)
+scrollX1 = 4
+scrollX2 = 7
+direction = 1
+screenmode = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Screen Trigger9"]
+shape = SubResource("RectangleShape2D_qo1cr")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Triggers/Screen Trigger9"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Screen Trigger9/StaticBody2D"]
+rotation = -1.57079
+shape = SubResource("RectangleShape2D_0w86k")
+one_way_collision = true
+one_way_collision_margin = 4.0
 
 [node name="Screen Trigger10" parent="Triggers" instance=ExtResource("14_l15w7")]
-position = Vector2(-113.636, -380)
-scale = Vector2(0.335, 227.405)
+position = Vector2(-2496, -400)
 scrollX1 = 10
 scrollX2 = 12
 scrollY1 = 1
@@ -603,73 +785,19 @@ scrollY2 = 2
 direction = 1
 screenmode = 1
 
-[node name="Screen Trigger7" parent="Triggers" instance=ExtResource("14_l15w7")]
-position = Vector2(-193.179, -502.8)
-scale = Vector2(52.025, 3.62)
-scrollX1 = 4
-scrollX2 = 7
-scrollY1 = 1
-scrollY2 = 3
-direction = 2
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Screen Trigger10"]
+shape = SubResource("RectangleShape2D_fj7wh")
 
-[node name="Screen Trigger4" parent="Triggers" instance=ExtResource("14_l15w7")]
-position = Vector2(-235.525, -144)
-scale = Vector2(0.82, 55)
-scrollX1 = 3
-scrollY1 = 2
-scrollY2 = 3
-direction = 1
-solid = true
-screenmode = 3
+[node name="StaticBody2D" type="StaticBody2D" parent="Triggers/Screen Trigger10"]
 
-[node name="Screen Trigger8" parent="Triggers" instance=ExtResource("14_l15w7")]
-position = Vector2(-236.159, -614)
-scale = Vector2(0.221, 155)
-scrollX1 = 3
-direction = 1
-solid = true
-screenmode = 3
-
-[node name="Screen Trigger9" parent="Triggers" instance=ExtResource("14_l15w7")]
-position = Vector2(-217.318, -635)
-scale = Vector2(1.81, 188)
-scrollX1 = 4
-scrollX2 = 7
-direction = 1
-solid = true
-screenmode = 1
-
-[node name="Screen Trigger5" parent="Triggers" instance=ExtResource("14_l15w7")]
-position = Vector2(-218.045, -145)
-scale = Vector2(1.81, 32.415)
-scrollX1 = 4
-scrollX2 = 7
-scrollY1 = 1
-scrollY2 = 3
-direction = 1
-solid = true
-
-[node name="Screen Trigger3" parent="Triggers" instance=ExtResource("14_l15w7")]
-position = Vector2(-82.2727, -270)
-scale = Vector2(9.05, 1)
-scrollX1 = 11
-scrollY1 = 2
-scrollY2 = 5
-direction = 2
-screenmode = 2
-
-[node name="Screen Trigger11" parent="Triggers" instance=ExtResource("14_l15w7")]
-position = Vector2(-82.2727, -270)
-scale = Vector2(9.05, 1)
-scrollX1 = 11
-scrollY1 = 2
-scrollY2 = 5
-direction = 2
-screenmode = 2
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Screen Trigger10/StaticBody2D"]
+rotation = -1.57079
+shape = SubResource("RectangleShape2D_0lgne")
+one_way_collision = true
+one_way_collision_margin = 4.0
 
 [node name="Screen Trigger12" parent="Triggers" instance=ExtResource("14_l15w7")]
-position = Vector2(-95.6364, 231)
-scale = Vector2(0.33, 227.4)
+position = Vector2(-2112, 248)
 scrollX1 = 10
 scrollX2 = 11
 scrollY1 = 4
@@ -677,9 +805,31 @@ scrollY2 = 5
 direction = 3
 screenmode = 3
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Screen Trigger12"]
+shape = SubResource("RectangleShape2D_nr2gw")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Triggers/Screen Trigger12"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Screen Trigger12/StaticBody2D"]
+rotation = -4.71238
+shape = SubResource("RectangleShape2D_jgk6d")
+one_way_collision = true
+one_way_collision_margin = 4.0
+
+[node name="Screen Trigger13" parent="Triggers" instance=ExtResource("14_l15w7")]
+position = Vector2(-2304, 360)
+scrollX1 = 10
+scrollX2 = 11
+scrollY1 = 5
+scrollY2 = 8
+direction = 2
+screenmode = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Screen Trigger13"]
+shape = SubResource("RectangleShape2D_qirwn")
+
 [node name="Screen Trigger14" parent="Triggers" instance=ExtResource("14_l15w7")]
-position = Vector2(-9.27273, 473)
-scale = Vector2(0.335, 227.405)
+position = Vector2(-192, 464)
 scrollX1 = 16
 scrollX2 = 17
 scrollY1 = 5
@@ -687,9 +837,38 @@ scrollY2 = 6
 direction = 1
 screenmode = 3
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Screen Trigger14"]
+shape = SubResource("RectangleShape2D_4us7q")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Triggers/Screen Trigger14"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Screen Trigger14/StaticBody2D"]
+rotation = -1.57079
+shape = SubResource("RectangleShape2D_v816h")
+one_way_collision = true
+one_way_collision_margin = 4.0
+
+[node name="Screen Trigger15" parent="Triggers" instance=ExtResource("14_l15w7")]
+position = Vector2(-2112, 664)
+scrollX1 = 11
+scrollX2 = 16
+scrollY1 = 5
+scrollY2 = 7
+direction = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Screen Trigger15"]
+shape = SubResource("RectangleShape2D_mgnoy")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Triggers/Screen Trigger15"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Screen Trigger15/StaticBody2D"]
+rotation = 1.57079
+shape = SubResource("RectangleShape2D_yxu40")
+one_way_collision = true
+one_way_collision_margin = 4.0
+
 [node name="Screen Trigger16" parent="Triggers" instance=ExtResource("14_l15w7")]
-position = Vector2(-0.045, 353.61)
-scale = Vector2(4, 3)
+position = Vector2(-7.81268e-05, 360)
 scrollX1 = 16
 scrollX2 = 17
 scrollY1 = 4
@@ -697,9 +876,19 @@ scrollY2 = 5
 direction = 4
 screenmode = 3
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Screen Trigger16"]
+shape = SubResource("RectangleShape2D_pqie3")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Triggers/Screen Trigger16"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Screen Trigger16/StaticBody2D"]
+rotation = -3.14159
+shape = SubResource("RectangleShape2D_n8unp")
+one_way_collision = true
+one_way_collision_margin = 4.0
+
 [node name="Screen Trigger17" parent="Triggers" instance=ExtResource("14_l15w7")]
-position = Vector2(0, 151.62)
-scale = Vector2(4, 3)
+position = Vector2(0, 144)
 scrollX1 = 16
 scrollX2 = 17
 scrollY1 = 3
@@ -707,24 +896,16 @@ scrollY2 = 4
 direction = 4
 screenmode = 3
 
-[node name="Screen Trigger15" parent="Triggers" instance=ExtResource("14_l15w7")]
-position = Vector2(-96.0455, 664)
-scale = Vector2(1.3, 227.405)
-scrollX1 = 11
-scrollX2 = 16
-scrollY1 = 5
-scrollY2 = 7
-direction = 1
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Screen Trigger17"]
+shape = SubResource("RectangleShape2D_dl2i7")
 
-[node name="Screen Trigger13" parent="Triggers" instance=ExtResource("14_l15w7")]
-position = Vector2(-104.864, 359)
-scale = Vector2(4, 2)
-scrollX1 = 10
-scrollX2 = 11
-scrollY1 = 5
-scrollY2 = 8
-direction = 2
-screenmode = 2
+[node name="StaticBody2D" type="StaticBody2D" parent="Triggers/Screen Trigger17"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Screen Trigger17/StaticBody2D"]
+rotation = -3.14159
+shape = SubResource("RectangleShape2D_0xo5h")
+one_way_collision = true
+one_way_collision_margin = 4.0
 
 [node name="Ice" type="Area2D" parent="."]
 collision_mask = 3

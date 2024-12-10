@@ -1,39 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://de6y2454v43to"]
+[gd_scene load_steps=2 format=3 uid="uid://de6y2454v43to"]
 
 [ext_resource type="Script" path="res://scenes/objects/level_objects/screentrigger.gd" id="1_fadgo"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xl1gt"]
-size = Vector2(1, 1)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_po74n"]
-size = Vector2(1, 1)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_x6yxd"]
-size = Vector2(1, 1)
-
-[node name="Screen Trigger" type="StaticBody2D"]
+[node name="Screen Trigger" type="Area2D"]
 editor_description = "Triggers a screen change."
 collision_layer = 0
-collision_mask = 0
+collision_mask = 2
 script = ExtResource("1_fadgo")
 
-[node name="body" type="Area2D" parent="."]
-collision_layer = 4
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="body"]
-shape = SubResource("RectangleShape2D_xl1gt")
-debug_color = Color(1, 0, 1, 0.623529)
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_po74n")
-debug_color = Color(1, 0, 1, 0.623529)
-
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-shape = SubResource("RectangleShape2D_x6yxd")
-disabled = true
-
-[connection signal="body_entered" from="body" to="." method="_on_body_body_entered"]
-[connection signal="body_exited" from="body" to="." method="_on_body_body_exited"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
