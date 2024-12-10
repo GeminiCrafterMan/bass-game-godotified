@@ -576,7 +576,7 @@ position = Vector2(6336, 728)
 scale = Vector2(22, 1)
 
 [node name="Screen Trigger2" parent="Triggers" instance=ExtResource("14_l15w7")]
-position = Vector2(-262.397, -502.28)
+position = Vector2(-261.818, -502)
 scale = Vector2(52.57, 3.62)
 scrollX2 = 3
 scrollY1 = 1
@@ -591,6 +591,7 @@ scrollX2 = 10
 scrollY1 = 1
 scrollY2 = 3
 direction = 1
+solid = true
 
 [node name="Screen Trigger10" parent="Triggers" instance=ExtResource("14_l15w7")]
 position = Vector2(-113.636, -380)
@@ -618,21 +619,24 @@ scrollX1 = 3
 scrollY1 = 2
 scrollY2 = 3
 direction = 1
+solid = true
 screenmode = 3
 
 [node name="Screen Trigger8" parent="Triggers" instance=ExtResource("14_l15w7")]
-position = Vector2(-236.409, -614)
-scale = Vector2(0.001, 155)
+position = Vector2(-236.159, -614)
+scale = Vector2(0.221, 155)
 scrollX1 = 3
 direction = 1
+solid = true
 screenmode = 3
 
 [node name="Screen Trigger9" parent="Triggers" instance=ExtResource("14_l15w7")]
-position = Vector2(-218.286, -638.22)
+position = Vector2(-217.318, -635)
 scale = Vector2(1.81, 188)
 scrollX1 = 4
 scrollX2 = 7
 direction = 1
+solid = true
 screenmode = 1
 
 [node name="Screen Trigger5" parent="Triggers" instance=ExtResource("14_l15w7")]
@@ -643,6 +647,7 @@ scrollX2 = 7
 scrollY1 = 1
 scrollY2 = 3
 direction = 1
+solid = true
 
 [node name="Screen Trigger3" parent="Triggers" instance=ExtResource("14_l15w7")]
 position = Vector2(-82.2727, -270)
@@ -663,8 +668,8 @@ direction = 2
 screenmode = 2
 
 [node name="Screen Trigger12" parent="Triggers" instance=ExtResource("14_l15w7")]
-position = Vector2(-95.876, 231.535)
-scale = Vector2(0.335, 227.405)
+position = Vector2(-95.6364, 231)
+scale = Vector2(0.33, 227.4)
 scrollX1 = 10
 scrollX2 = 11
 scrollY1 = 4
