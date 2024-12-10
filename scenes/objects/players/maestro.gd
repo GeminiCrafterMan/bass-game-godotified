@@ -29,6 +29,7 @@ var isFirstFrameOfState := false
 var targetpos : float
 var currentSpeed := 0
 var fallstored : float
+var slowed : bool
 #input related
 
 
@@ -688,7 +689,10 @@ func default_movement(direction, delta):
 					velocity.x = lerpf(velocity.x, direction.x * MAXSPEED*1.5, delta * 2)
 
 				else:
-					currentSpeed = MAXSPEED
+					if slowed == true:
+						currentSpeed = MAXSPEED * 0.5
+					else:
+						currentSpeed = MAXSPEED
 				#shmoovve
 
 	else:

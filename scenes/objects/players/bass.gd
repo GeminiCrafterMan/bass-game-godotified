@@ -284,7 +284,9 @@ func state_jump(_direction: Vector2, _delta: float) -> void:
 
 	if is_on_floor() and !isFirstFrameOfState:
 		SoundManager.play("player", "land")
-		blast_jumped = false
+		if blast_jumped == true:
+			slowed = false
+			blast_jumped = false
 		swapState = STATES.IDLE
 		if on_ice == false:
 			ice_jump = false
@@ -431,6 +433,9 @@ func module_blaze() -> void:
 	velocity.y = -FAST_FALL
 	slide_timer.stop()
 	blast_jumped = true
+	dashing = false
+	slowed = true
+	ice_jump = false
 	projectile = projectile_scenes[1].instantiate()
 	get_parent().add_child(projectile)
 	projectile.position.x = position.x
