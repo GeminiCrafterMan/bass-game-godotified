@@ -338,7 +338,7 @@ position = Vector2(792, 336)
 scale = Vector2(1, 6)
 
 [node name="LadderHitbox11" parent="Level Objects/Ladders" instance=ExtResource("11_n5yro")]
-position = Vector2(40, 479)
+position = Vector2(40, 480)
 scale = Vector2(1, 12)
 
 [node name="LadderHitbox2" parent="Level Objects/Ladders" instance=ExtResource("11_n5yro")]

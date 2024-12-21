@@ -1,0 +1,55 @@
+[gd_scene load_steps=8 format=3 uid="uid://dk3d42ldsmpo7"]
+
+[ext_resource type="Script" path="res://scenes/objects/level_objects/boss_door.gd" id="1_f87d5"]
+[ext_resource type="AudioStream" uid="uid://xgre6yptpa2v" path="res://sounds/yoku.wav" id="3_bdqbr"]
+[ext_resource type="Texture2D" uid="uid://dlqjqpe0tstrq" path="res://sprites/objects/door.png" id="3_kjufa"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3htip"]
+atlas = ExtResource("3_kjufa")
+region = Rect2(0, 0, 0, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8kaqg"]
+atlas = ExtResource("3_kjufa")
+region = Rect2(0, 32, 0, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ydltv"]
+size = Vector2(4, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qkgg4"]
+size = Vector2(16, 64)
+
+[node name="BossDoor" type="StaticBody2D"]
+script = ExtResource("1_f87d5")
+
+[node name="YokuSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_bdqbr")
+max_distance = 9.22337e+18
+attenuation = 1e-05
+panning_strength = 0.0
+bus = &"SFX"
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 4.0
+one_shot = true
+
+[node name="Part1" type="Sprite2D" parent="."]
+position = Vector2(0, -16)
+texture = SubResource("AtlasTexture_3htip")
+
+[node name="Part2" type="Sprite2D" parent="."]
+position = Vector2(0, 16)
+texture = SubResource("AtlasTexture_8kaqg")
+
+[node name="CloseTrigger" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CloseTrigger" type="CollisionShape2D" parent="CloseTrigger"]
+position = Vector2(10, 0)
+shape = SubResource("RectangleShape2D_ydltv")
+debug_color = Color(0.981952, 0, 0.366536, 0.42)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_qkgg4")
+
+[connection signal="body_exited" from="CloseTrigger" to="." method="_on_close_trigger_body_exited"]

@@ -90,6 +90,19 @@ func process_drops():
 	
 func process_camera():
 	
+	if GameState.screentransiton != 0:
+		if GameState.transdir == 1 or GameState.transdir == 3:
+			if $Camera2D.position.y < (216*GameState.scrollY1) + 108  + 8:
+				$Camera2D.position.y += 8
+			if $Camera2D.position.y > (216*GameState.scrollY2) + 108  + 8:
+				$Camera2D.position.y -= 8
+				
+		if GameState.transdir == 0 or GameState.transdir == 2:
+			if $Camera2D.position.x < (384*GameState.scrollX1) + 192:
+				$Camera2D.position.x += 8
+			if $Camera2D.position.x > (384*GameState.scrollX2) + 192:
+				$Camera2D.position.x -= 8
+			
 	if GameState.transdir == 1 && ($Camera2D.position.x < (384*GameState.scrollX1) + 192):
 		if GameState.screentransiton == 0:
 			$Camera2D.position.x += 6
@@ -106,7 +119,7 @@ func process_camera():
 				player.position.y += 1
 			player.transing = true
 		
-	elif GameState.transdir == 3 && ($Camera2D.position.x > (384*GameState.scrollX2) - 192):
+	elif GameState.transdir == 3 && ($Camera2D.position.x > (384*GameState.scrollX2) + 192):
 		if GameState.screentransiton == 0:
 			$Camera2D.position.x -= 6
 		if player != null:
@@ -114,7 +127,7 @@ func process_camera():
 				player.position.x -= 0.5
 			player.transing = true
 		
-	elif GameState.transdir == 4 && ($Camera2D.position.y > (216*GameState.scrollY2)-108 + 8):
+	elif GameState.transdir == 4 && ($Camera2D.position.y > (216*GameState.scrollY2)+108 + 8):
 		if GameState.screentransiton == 0:
 			$Camera2D.position.y -= 6
 		if player != null:
@@ -132,51 +145,48 @@ func process_camera():
 		if (GameState.current_hp > 0):
 			if (player.currentState != player.STATES.TELEPORT):
 
-				if GameState.screenmode == 0 or GameState.screenmode == 1:
-					if player.position.x > (384*GameState.scrollX1) + 192 and player.position.x < (384*GameState.scrollX2) - 192:
-						$Camera2D.position.x = player.position.x
+				if player.position.x > (384*GameState.scrollX1) + 192 and player.position.x < (384*GameState.scrollX2) + 192:
+					$Camera2D.position.x = player.position.x
 
-				if GameState.screenmode == 1 or GameState.screenmode == 3:
-					if GameState.transdir == 0:
-						$Camera2D.position.y = (216*GameState.scrollY1) + 108  + 8
+				if GameState.transdir == 0:
+						
+					if (player.position.y > (216*GameState.scrollY1) + 108 + 8) && (player.position.y < (216*GameState.scrollY2) + 108 + 8):
+						if GameState.playerstate == 7:
+							$Camera2D.position.y = player.position.y
+					
+					if (player.position.y > (216*GameState.scrollY1) + 108 + 8):
+						if (player.position.y > $Camera2D.position.y) and player.velocity.y == 0:
+							$Camera2D.position.y += 3
 
-				if (GameState.screenmode == 0 or GameState.screenmode == 2):
+						if (player.position.y > $Camera2D.position.y + 20 ) and player.velocity.y != 0:
+							$Camera2D.position.y = player.position.y - 20
 
-					if GameState.transdir == 0:
-						if (player.position.y > (216*GameState.scrollY1) + 108 + 8):
-							if (player.position.y > $Camera2D.position.y) and player.velocity.y == 0:
-								$Camera2D.position.y += 3
-
-							if (player.position.y > $Camera2D.position.y + 20 ):
-								$Camera2D.position.y = player.position.y - 20
-
-						if (player.position.y < (216*GameState.scrollY2) - 108 + 8):
-							if (player.position.y < $Camera2D.position.y) and player.velocity.y == 0:
-								$Camera2D.position.y -= 3
+					if (player.position.y < (216*GameState.scrollY2) + 108 + 8):
+						if (player.position.y < $Camera2D.position.y) and player.velocity.y == 0:
+							$Camera2D.position.y -= 3
 								
-							if (player.position.y < $Camera2D.position.y - 20 ):
-								$Camera2D.position.y = player.position.y + 20
+						if (player.position.y < $Camera2D.position.y - 20 ) and player.velocity.y != 0:
+							$Camera2D.position.y = player.position.y + 20
 						
-					if GameState.screenmode == 2:
-						$Camera2D.position.x = (384*GameState.scrollX1)+192 
+					if $Camera2D.position.y < (216*GameState.scrollY1) + 108  + 8:
+						$Camera2D.position.y = (216*GameState.scrollY1) + 108  + 8
+					if $Camera2D.position.y > (216*GameState.scrollY2) + 108  + 8:
+						$Camera2D.position.y = (216*GameState.scrollY2) + 108  + 8
 						
-					if GameState.transdir == 0: 
-						if $Camera2D.position.y < (216*GameState.scrollY1) + 108  + 8:
-							$Camera2D.position.y = (216*GameState.scrollY1) + 108  + 8
-						if $Camera2D.position.y > (216*GameState.scrollY2) - 108  + 8:
-							$Camera2D.position.y = (216*GameState.scrollY2) - 108  + 8
+					
+					
 
 	else:
 
 		if $Camera2D.position.y < (216*GameState.scrollY1) + 108  + 8:
 			$Camera2D.position.y = (216*GameState.scrollY1) + 108  + 8
-		if $Camera2D.position.y > (216*GameState.scrollY2) - 108  + 8:
-			$Camera2D.position.y = (216*GameState.scrollY2) - 108  + 8
+		if $Camera2D.position.y > (216*GameState.scrollY2) + 108  + 8:
+			$Camera2D.position.y = (216*GameState.scrollY2) + 108  + 8
 
 		if $Camera2D.position.x < (384*GameState.scrollX1) + 192:
 			$Camera2D.position.x = (384*GameState.scrollX1) + 192
-		if $Camera2D.position.x > (384*GameState.scrollX2) - 192:
-			$Camera2D.position.x = (384*GameState.scrollX2) - 192
+		if $Camera2D.position.x > (384*GameState.scrollX2) + 192:
+			$Camera2D.position.x = (384*GameState.scrollX2) + 192
 
 	GameState.camposx = $Camera2D.position.x
 	GameState.camposy = $Camera2D.position.y

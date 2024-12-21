@@ -1,10 +1,10 @@
 extends Area2D
 
 class_name ScreenChange
-@export var scrollX1 : int
-@export var scrollX2 : int
-@export var scrollY1 : int
-@export var scrollY2 : int
+@export var scrollX1 : int ##Left bounds of the current room
+@export var scrollX2 : int ##Right bounds of the current room
+@export var scrollY1 : int ##Top bounds of the current room
+@export var scrollY2 : int ##Bottom bounds of the current room
 
 var icon
 var oldposx

@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://bksinirshmwgf"]
+[gd_scene load_steps=41 format=3 uid="uid://bksinirshmwgf"]
 
 [ext_resource type="Script" path="res://scenes/objects/players/maestro.gd" id="1_ct76e"]
 [ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="1_lnglj"]
@@ -483,10 +483,6 @@ size = Vector2(14, 26)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1cspv"]
 size = Vector2(16, 14)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_wph8j"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_fl2cb"]
-
 [node name="Maestro" type="CharacterBody2D" groups=["player", "splash"]]
 editor_description = "Maestro, the base class for every character."
 material = SubResource("ShaderMaterial_u81pt")
@@ -520,6 +516,7 @@ autoplay = "new_animation"
 frame_progress = 0.620748
 
 [node name="Sweat" type="AnimatedSprite2D" parent="FX"]
+visible = false
 position = Vector2(1.48619e-06, -17)
 sprite_frames = SubResource("SpriteFrames_dkj8m")
 
@@ -564,18 +561,23 @@ collision_mask = 17
 hit_from_inside = true
 collide_with_areas = true
 
-[node name="LadderCheck" type="ShapeCast2D" parent="."]
-visible = false
-position = Vector2(0, 7)
-shape = SubResource("RectangleShape2D_wph8j")
-target_position = Vector2(0, 0)
-max_results = 1
+[node name="LadderCheck1" type="RayCast2D" parent="."]
+position = Vector2(0, 2)
+target_position = Vector2(0, -12)
+collision_mask = 64
+hit_from_inside = true
 collide_with_areas = true
-collide_with_bodies = false
 
-[node name="TopLadderCheck" type="ShapeCast2D" parent="."]
-visible = false
-position = Vector2(0, -13)
-shape = SubResource("RectangleShape2D_fl2cb")
-target_position = Vector2(0, 0)
-max_results = 1
+[node name="LadderCheck2" type="RayCast2D" parent="."]
+position = Vector2(0, 7)
+target_position = Vector2(0, 9)
+collision_mask = 64
+hit_from_inside = true
+collide_with_areas = true
+
+[node name="LadderCheck3" type="RayCast2D" parent="."]
+position = Vector2(0, 16)
+target_position = Vector2(0, 2)
+collision_mask = 64
+hit_from_inside = true
+collide_with_areas = true

@@ -62,8 +62,9 @@ const ORIGAMI_SPEED := 350
 const CRACKER_SPEED := 450
 
 #region References
-@onready var ladder_check: ShapeCast2D = $LadderCheck
-@onready var top_ladder_check: ShapeCast2D = $TopLadderCheck
+@onready var top_ladder_check: RayCast2D = $LadderCheck1
+@onready var bottom_ladder_check: RayCast2D = $LadderCheck2
+@onready var floor_ladder_check: RayCast2D = $LadderCheck3
 @onready var state_timer: Timer = $StateTimer
 @onready var invul_timer: Timer = $InvulTimer
 @onready var pain_timer: Timer = $PainTimer
@@ -299,22 +300,11 @@ func _physics_process(delta: float) -> void:
 			#other than this, mostly stick to swapping states from inside other states, these are just global cancels
 			if  (currentState != STATES.NONE) and (currentState != STATES.TELEPORT) and (currentState != STATES.DEAD):
 				#check for ladder
-				if (currentState != STATES.SLIDE) and (currentState != STATES.HURT) and  sign(direction.y) != 0:
-					if (ladder_check.is_colliding() or top_ladder_check.is_colliding()) and !Input.is_action_pressed("jump"):
-						for i in ladder_check.get_collision_count():
-							if ladder_check.get_collider(i).is_in_group("ladder"):
-								if !(is_on_floor() and Input.is_action_pressed("move_down")):
-									global_position.x = ladder_check.get_collider(i).global_position.x
-									currentState = STATES.LADDER
-									# G: shut the FUCK UP x2
-									#print("Ladder'd")
-									swapState = STATES.NONE
-									isFirstFrameOfState = false
-								else:
-									global_position.y += 1
-	
-	
-	
+				if (currentState != STATES.SLIDE) and (currentState != STATES.HURT) and (currentState != STATES.LADDER) and  sign(direction.y) != 0 and !Input.is_action_pressed("jump"):
+					if (floor_ladder_check.is_colliding()) && Input.is_action_pressed("move_down") or (bottom_ladder_check.is_colliding() && Input.is_action_pressed("move_up")):
+						swapState = STATES.LADDER
+						if Input.is_action_pressed("move_down"):
+							position.y += 5
 	
 				#check for jump
 				if ((Input.is_action_just_pressed("jump") and is_on_floor() and (!isFirstFrameOfState or (currentState == STATES.IDLE or currentState == STATES.WALK)) and currentState != STATES.HURT and currentState != STATES.LADDER and currentState != STATES.DEAD)):
@@ -588,18 +578,12 @@ func state_ladder(_direction: Vector2, _delta: float) -> void:
 		velocity.y = sign(_direction.y) * -100
 	else:
 		velocity.y = 0
-
-	#this is a weird way to do this but whatever man lol
-	#check to see if still on ladder -lynn
-	var stillLadder = false
-	if ladder_check.is_colliding():
-		for i in ladder_check.get_collision_count():
-			if ladder_check.get_collider(i).is_in_group("ladder"):
-				stillLadder = true
-
-	if (stillLadder == false) or (Input.is_action_just_pressed("jump")) or (is_on_floor() and Input.is_action_pressed("move_down")):
-		currentState = STATES.IDLE
+		
+	if Input.is_action_pressed("jump") or (!top_ladder_check.is_colliding() and !bottom_ladder_check.is_colliding()) or (!floor_ladder_check.is_colliding() && is_on_floor() && Input.is_action_pressed("move_down")) && !isFirstFrameOfState:
 		velocity.y = 0
+		swapState = STATES.IDLE
+		velocity.y = 0
+
 
 ## Hurt state
 func state_hurt(_direction: Vector2, _delta: float) -> void:
