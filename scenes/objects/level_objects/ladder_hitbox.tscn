@@ -1,13 +1,26 @@
-[gd_scene load_steps=2 format=3 uid="uid://cwqbm80i7pv6x"]
+[gd_scene load_steps=4 format=3 uid="uid://cwqbm80i7pv6x"]
+
+[ext_resource type="Script" path="res://scenes/objects/level_objects/ladder_hitbox.gd" id="1_1mb4w"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_miopk"]
 size = Vector2(16, 16)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6djwd"]
+size = Vector2(16, 2)
+
 [node name="LadderHitbox" type="Area2D" groups=["ladder"]]
 collision_layer = 64
 collision_mask = 0
-monitoring = false
+script = ExtResource("1_1mb4w")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_miopk")
 debug_color = Color(0.905882, 0.905882, 0, 0.588235)
+
+[node name="Topbody" type="StaticBody2D" parent="."]
+collision_mask = 0
+
+[node name="TopBox" type="CollisionShape2D" parent="Topbody"]
+position = Vector2(0, -7)
+shape = SubResource("RectangleShape2D_6djwd")
+one_way_collision = true

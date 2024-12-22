@@ -164,7 +164,8 @@ func _physics_process(delta: float) -> void:
 
 	GameState.player.position.x = position.x
 	GameState.player.position.y = position.y
-
+	GameState.playerstate = currentState
+	
 	if GameState.onscreen_sp_bullets < 0:
 		GameState.onscreen_sp_bullets = 0
 
@@ -300,11 +301,21 @@ func _physics_process(delta: float) -> void:
 			#other than this, mostly stick to swapping states from inside other states, these are just global cancels
 			if  (currentState != STATES.NONE) and (currentState != STATES.TELEPORT) and (currentState != STATES.DEAD):
 				#check for ladder
-				if (currentState != STATES.SLIDE) and (currentState != STATES.HURT) and (currentState != STATES.LADDER) and  sign(direction.y) != 0 and !Input.is_action_pressed("jump"):
-					if (floor_ladder_check.is_colliding()) && Input.is_action_pressed("move_down") or (bottom_ladder_check.is_colliding() && Input.is_action_pressed("move_up")):
-						swapState = STATES.LADDER
-						if Input.is_action_pressed("move_down"):
-							position.y += 5
+				if (currentState != STATES.SLIDE) and (currentState != STATES.HURT) and (currentState != STATES.LADDER) and (swapState != STATES.LADDER) and  sign(direction.y) != 0 and !Input.is_action_pressed("jump"):
+					if is_on_floor():
+						if (floor_ladder_check.is_colliding() and Input.is_action_pressed("move_down") and !bottom_ladder_check.is_colliding()) or (bottom_ladder_check.is_colliding() && Input.is_action_pressed("move_up")):
+							GameState.playerstate = 7
+							isFirstFrameOfState = true
+							swapState = STATES.LADDER
+							print("ladderedfromfloor")
+							if Input.is_action_pressed("move_down"):
+								position.y += 50
+					else:
+						if (bottom_ladder_check.is_colliding()):
+							GameState.playerstate = 7
+							swapState = STATES.LADDER
+							print("laddered")
+						
 	
 				#check for jump
 				if ((Input.is_action_just_pressed("jump") and is_on_floor() and (!isFirstFrameOfState or (currentState == STATES.IDLE or currentState == STATES.WALK)) and currentState != STATES.HURT and currentState != STATES.LADDER and currentState != STATES.DEAD)):
@@ -554,7 +565,7 @@ func state_jump(_direction: Vector2, _delta: float) -> void:
 			ice_jump = false
 
 ## Ladder state
-func state_ladder(_direction: Vector2, _delta: float) -> void:
+func state_ladder(_direction: Vector2, _delta: float) -> void:	
 	if !attack_timer.is_stopped() or Input.is_action_just_pressed("buster") or Input.is_action_just_pressed("shoot"):
 		if _direction.x != 0:
 			sprite.scale.x = sign(_direction.x)
@@ -581,6 +592,7 @@ func state_ladder(_direction: Vector2, _delta: float) -> void:
 		
 	if Input.is_action_pressed("jump") or (!top_ladder_check.is_colliding() and !bottom_ladder_check.is_colliding()) or (!floor_ladder_check.is_colliding() && is_on_floor() && Input.is_action_pressed("move_down")) && !isFirstFrameOfState:
 		velocity.y = 0
+		print("unladder")
 		swapState = STATES.IDLE
 		velocity.y = 0
 

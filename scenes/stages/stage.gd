@@ -90,6 +90,7 @@ func process_drops():
 	
 func process_camera():
 	
+	
 	if GameState.screentransiton != 0:
 		if GameState.transdir == 1 or GameState.transdir == 3:
 			if $Camera2D.position.y < (216*GameState.scrollY1) + 108  + 8:
@@ -173,6 +174,8 @@ func process_camera():
 					if $Camera2D.position.y > (216*GameState.scrollY2) + 108  + 8:
 						$Camera2D.position.y = (216*GameState.scrollY2) + 108  + 8
 						
+			if player.position.y > $Camera2D.position.y + 120	:
+				GameState.current_hp = 0
 					
 					
 
