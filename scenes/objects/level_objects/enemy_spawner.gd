@@ -17,7 +17,8 @@ var olddirection: int
 var enemytype = [
 	preload("res://scenes/objects/enemies/sniper_joe.tscn"),
 	preload("res://scenes/objects/enemies/gabyoall.tscn"),
-	preload("res://scenes/objects/enemies/shotman.tscn")
+	preload("res://scenes/objects/enemies/shotman.tscn"),
+	preload("res://scenes/objects/enemies/wanaan_kai.tscn")
 ]
 
 func _on_visible_on_screen_notifier_2d_screen_entered():

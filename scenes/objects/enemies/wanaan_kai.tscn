@@ -1,0 +1,148 @@
+[gd_scene load_steps=17 format=3 uid="uid://crykwhhg70k4l"]
+
+[ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="1_jv75o"]
+[ext_resource type="Script" path="res://scenes/objects/enemies/wanaan_kai.gd" id="2_qlm5c"]
+[ext_resource type="Texture2D" uid="uid://bf8rhxomwmtao" path="res://sprites/enemies/wanaan_kai.png" id="3_6y2k2"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gtk0d"]
+shader = ExtResource("1_jv75o")
+shader_parameter/skip_first_row = true
+shader_parameter/use_palette_alpha = false
+shader_parameter/fps = 6.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3u8v0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ojfw"]
+atlas = ExtResource("3_6y2k2")
+region = Rect2(0, 24, 32, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8m0xr"]
+atlas = ExtResource("3_6y2k2")
+region = Rect2(0, 48, 32, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oxyei"]
+atlas = ExtResource("3_6y2k2")
+region = Rect2(0, 72, 32, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0xeo7"]
+atlas = ExtResource("3_6y2k2")
+region = Rect2(0, 72, 32, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bs88j"]
+atlas = ExtResource("3_6y2k2")
+region = Rect2(0, 0, 32, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_62nvj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ojfw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8m0xr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oxyei")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0xeo7")
+}],
+"loop": false,
+"name": &"finished",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bs88j")
+}],
+"loop": false,
+"name": &"ready",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wp5vq"]
+size = Vector2(36, 7.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wjkc6"]
+size = Vector2(16, 25)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_535dw"]
+size = Vector2(16, 25)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qufso"]
+size = Vector2(36, 18)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3bvfc"]
+size = Vector2(20, 2)
+
+[node name="Wanaan Kai" type="CharacterBody2D"]
+material = SubResource("ShaderMaterial_gtk0d")
+collision_layer = 0
+collision_mask = 3
+script = ExtResource("2_qlm5c")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_3u8v0")
+position = Vector2(0, -3)
+sprite_frames = SubResource("SpriteFrames_62nvj")
+animation = &"finished"
+autoplay = "ready"
+
+[node name="hitable" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 8
+
+[node name="IdleHitbox" type="CollisionShape2D" parent="hitable"]
+position = Vector2(0, 5)
+shape = SubResource("RectangleShape2D_wp5vq")
+
+[node name="AttackHitbox" type="CollisionShape2D" parent="hitable"]
+position = Vector2(0, -3.5)
+shape = SubResource("RectangleShape2D_wjkc6")
+disabled = true
+
+[node name="hurt" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="Hurtbox" type="CollisionShape2D" parent="hurt"]
+position = Vector2(0, -3.5)
+shape = SubResource("RectangleShape2D_535dw")
+disabled = true
+debug_color = Color(1, 0.00392157, 0.0705882, 0.419608)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(4.76837e-07, -4.5)
+scale = Vector2(2.2, 1.25)
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+position = Vector2(2.27374e-13, -4)
+scale = Vector2(4.9, 1.35)
+
+[node name="trigger" type="Area2D" parent="."]
+position = Vector2(0, 5)
+collision_layer = 4
+collision_mask = 0
+
+[node name="IdleHitbox" type="CollisionShape2D" parent="trigger"]
+position = Vector2(0, -5)
+shape = SubResource("RectangleShape2D_qufso")
+debug_color = Color(0, 1, 0, 0.419608)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 7)
+shape = SubResource("RectangleShape2D_3bvfc")
+
+[connection signal="body_entered" from="hitable" to="." method="_on_hitable_body_entered"]
+[connection signal="body_entered" from="hurt" to="." method="_on_hurt_body_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="body_entered" from="trigger" to="." method="_on_trigger_body_entered"]
