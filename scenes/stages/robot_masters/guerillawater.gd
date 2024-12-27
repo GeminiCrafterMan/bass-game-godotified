@@ -27,4 +27,4 @@ func _physics_process(delta):
 	
 	
 func _process(delta):
-		$CanvasLayer/Shade.position.y = level + 1552 - GameState.camposy
+		$CanvasLayer/Shade.position.y = level + 1600 - GameState.camposy
