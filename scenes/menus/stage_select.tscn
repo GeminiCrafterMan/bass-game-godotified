@@ -532,7 +532,6 @@ tile_map_data = PackedByteArray("AAAAABUAAAAAAAEAAAABABUAAAABAAEAAAAAAAMAAAAAAAE
 tile_set = ExtResource("2_knvnc")
 
 [node name="RowBright" type="AnimatedSprite2D" parent="Rows"]
-visible = false
 position = Vector2(-6, -3)
 scale = Vector2(393, 232)
 sprite_frames = SubResource("SpriteFrames_fsfe0")
