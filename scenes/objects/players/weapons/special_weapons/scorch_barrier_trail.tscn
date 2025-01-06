@@ -11,17 +11,17 @@ shader_parameter/skip_first_row = true
 shader_parameter/use_palette_alpha = false
 shader_parameter/fps = 6.0
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_agryb"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_nvnug"]
 atlas = ExtResource("2_cvex4")
-region = Rect2(0, 0, 20, 20)
+region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_s5e6j"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_kc1fo"]
 atlas = ExtResource("2_cvex4")
-region = Rect2(20, 0, 20, 20)
+region = Rect2(16, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_0j1jr"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_8vog6"]
 atlas = ExtResource("2_cvex4")
-region = Rect2(40, 0, 20, 20)
+region = Rect2(32, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2mal1"]
 atlas = ExtResource("3_02gku")
@@ -39,25 +39,19 @@ region = Rect2(48, 0, 24, 24)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_agryb")
+"texture": SubResource("AtlasTexture_nvnug")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_s5e6j")
+"texture": SubResource("AtlasTexture_kc1fo")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_s5e6j")
+"texture": SubResource("AtlasTexture_kc1fo")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0j1jr")
+"texture": SubResource("AtlasTexture_8vog6")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0j1jr")
-}, {
-"duration": 1.0,
-"texture": null
-}, {
-"duration": 1.0,
-"texture": null
+"texture": SubResource("AtlasTexture_8vog6")
 }],
 "loop": false,
 "name": &"Bass",

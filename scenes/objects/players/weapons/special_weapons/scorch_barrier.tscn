@@ -15,29 +15,29 @@ shader_parameter/skip_first_row = true
 shader_parameter/use_palette_alpha = false
 shader_parameter/fps = 6.0
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_74rfn"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_hlubr"]
 atlas = ExtResource("2_e0r6x")
-region = Rect2(40, 0, 20, 20)
+region = Rect2(32, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_kw5y1"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_lhvol"]
 atlas = ExtResource("2_e0r6x")
-region = Rect2(20, 0, 20, 20)
+region = Rect2(16, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ooxn3"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_0qahf"]
 atlas = ExtResource("2_e0r6x")
-region = Rect2(0, 0, 20, 20)
+region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_81xt0"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_rcb6y"]
 atlas = ExtResource("2_e0r6x")
-region = Rect2(0, 0, 20, 20)
+region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_d7eyt"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_vwwoe"]
 atlas = ExtResource("2_e0r6x")
-region = Rect2(20, 0, 20, 20)
+region = Rect2(16, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_240s1"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_sgt47"]
 atlas = ExtResource("2_e0r6x")
-region = Rect2(40, 0, 20, 20)
+region = Rect2(32, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cvpth"]
 atlas = ExtResource("3_88uls")
@@ -83,16 +83,16 @@ region = Rect2(48, 0, 16, 16)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_74rfn")
+"texture": SubResource("AtlasTexture_hlubr")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_kw5y1")
+"texture": SubResource("AtlasTexture_lhvol")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ooxn3")
+"texture": SubResource("AtlasTexture_0qahf")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ooxn3")
+"texture": SubResource("AtlasTexture_0qahf")
 }],
 "loop": false,
 "name": &"Bass",
@@ -100,13 +100,13 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_81xt0")
+"texture": SubResource("AtlasTexture_rcb6y")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_d7eyt")
+"texture": SubResource("AtlasTexture_vwwoe")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_240s1")
+"texture": SubResource("AtlasTexture_sgt47")
 }],
 "loop": true,
 "name": &"Bass-Move",
@@ -179,7 +179,7 @@ material = SubResource("ShaderMaterial_fyvtn")
 position = Vector2(-0.25, 0)
 scale = Vector2(1.02381, 1)
 sprite_frames = SubResource("SpriteFrames_tmmfq")
-animation = &"Copy-Move"
+animation = &"Bass"
 autoplay = "Bass"
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." groups=["scorch"]]
