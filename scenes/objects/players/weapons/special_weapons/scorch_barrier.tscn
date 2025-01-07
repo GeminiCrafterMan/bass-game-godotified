@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://biy1mk3b78gh"]
+[gd_scene load_steps=34 format=3 uid="uid://biy1mk3b78gh"]
 
 [ext_resource type="Script" path="res://scenes/objects/players/weapons/special_weapons/scorch_barrier.gd" id="1_emmpe"]
 [ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="2_ca07l"]
@@ -15,29 +15,53 @@ shader_parameter/skip_first_row = true
 shader_parameter/use_palette_alpha = false
 shader_parameter/fps = 6.0
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_hlubr"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_qxxqs"]
 atlas = ExtResource("2_e0r6x")
-region = Rect2(32, 0, 16, 16)
+region = Rect2(48, 32, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_lhvol"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_t4sru"]
 atlas = ExtResource("2_e0r6x")
-region = Rect2(16, 0, 16, 16)
+region = Rect2(32, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wk23t"]
+atlas = ExtResource("2_e0r6x")
+region = Rect2(48, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wbrbu"]
+atlas = ExtResource("2_e0r6x")
+region = Rect2(48, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0qahf"]
 atlas = ExtResource("2_e0r6x")
 region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_rcb6y"]
-atlas = ExtResource("2_e0r6x")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vwwoe"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_12qe0"]
 atlas = ExtResource("2_e0r6x")
 region = Rect2(16, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_sgt47"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_4qimc"]
 atlas = ExtResource("2_e0r6x")
 region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yhgaj"]
+atlas = ExtResource("2_e0r6x")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yx6wy"]
+atlas = ExtResource("2_e0r6x")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8tw6a"]
+atlas = ExtResource("2_e0r6x")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b2gqi"]
+atlas = ExtResource("2_e0r6x")
+region = Rect2(48, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_15sce"]
+atlas = ExtResource("2_e0r6x")
+region = Rect2(0, 16, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cvpth"]
 atlas = ExtResource("3_88uls")
@@ -83,34 +107,54 @@ region = Rect2(48, 0, 16, 16)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_hlubr")
+"texture": SubResource("AtlasTexture_qxxqs")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_lhvol")
+"texture": SubResource("AtlasTexture_t4sru")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0qahf")
+"texture": SubResource("AtlasTexture_wk23t")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0qahf")
+"texture": SubResource("AtlasTexture_wbrbu")
 }],
-"loop": false,
+"loop": true,
 "name": &"Bass",
 "speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_rcb6y")
+"texture": SubResource("AtlasTexture_0qahf")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_vwwoe")
+"texture": SubResource("AtlasTexture_12qe0")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_sgt47")
+"texture": SubResource("AtlasTexture_4qimc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yhgaj")
 }],
 "loop": true,
 "name": &"Bass-Move",
-"speed": 0.0
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yx6wy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8tw6a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b2gqi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_15sce")
+}],
+"loop": true,
+"name": &"Bass-Move2",
+"speed": 15.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -179,8 +223,9 @@ material = SubResource("ShaderMaterial_fyvtn")
 position = Vector2(-0.25, 0)
 scale = Vector2(1.02381, 1)
 sprite_frames = SubResource("SpriteFrames_tmmfq")
-animation = &"Bass"
+animation = &"Bass-Move"
 autoplay = "Bass"
+frame_progress = 0.594663
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." groups=["scorch"]]
 position = Vector2(-2.86102e-06, 0.499992)

@@ -24,7 +24,7 @@ func _on_hurt_body_entered(body):
 	body.DmgQueue = Atk_Dmg
 	if body.is_in_group("scorch"):
 		if GameState.character_selected != 2:
-			body.durability -= 3
-		else:
 			body.durability -= 2
+		else:
+			body.durability -= 1
 		queue_free()

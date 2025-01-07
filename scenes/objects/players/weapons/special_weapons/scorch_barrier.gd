@@ -72,8 +72,10 @@ func _physics_process(_delta):
 		$CollisionShape2D.set_deferred("disabled", false)
 	
 	if theta < 68:
-		theta += 3
-		
+		if GameState.character_selected == 2:
+			theta += 3
+		else:
+			theta += 3.5
 	else:
 		theta = 0
 	
@@ -104,31 +106,31 @@ func _physics_process(_delta):
 		if radius > 70:
 			radius = radius + 1
 	
-	if radius < 25:
+	if (GameState.character_selected == 2 and radius < 30) or (GameState.character_selected != 2 and radius < 25):
 		radius = radius + 1
-		
+
+	
 	position.x = dist + baseposx + cos(theta*0.09)*radius
 	position.y = baseposy + sin(theta*0.09)*radius
 	
-	if ($MainSprite.animation == "Bass" or $MainSprite.animation == "Copy" and radius == 25):
-		if GameState.character_selected == 2:
-			$MainSprite.play("Copy-Move")
-		else:
-			$MainSprite.play("Bass-Move")
-		
-	if ($MainSprite.animation == "Bass-Move" or $MainSprite.animation == "Copy-Move"):
+	if ($MainSprite.animation != "Wet"):
 		if (durability > 2):
 			trail = trailscn.instantiate()
 			get_parent().add_child(trail)
 			trail.position = position
 			trail.set_frame_and_progress(6-durability,0)
 		
-		if durability < 3:
-			$MainSprite.set_frame_and_progress(2,0)
-		elif durability < 5:
-			$MainSprite.set_frame_and_progress(1,0)
+		if durability >= 3:
+			if GameState.character_selected == 2:
+				$MainSprite.play("Copy-Move")
+			else:
+				$MainSprite.play("Bass-Move")
 		else:
-			$MainSprite.set_frame_and_progress(0,0)
+			if GameState.character_selected == 2:
+				$MainSprite.play("Copy-Move")
+			else:
+				$MainSprite.play("Bass-Move2")
+			
 			
 	#20*cos(pitch), 0, 8*sin(-pitch)
 	
