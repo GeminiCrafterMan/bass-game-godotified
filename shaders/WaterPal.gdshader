@@ -19,9 +19,9 @@ void fragment(){
 		pal = texture(originalPalette,vec2(i/amount,0)).rgb;
 		swap_pal = texture(swapPalette,vec2(i/amount,0)).rgb;
 		
-		if (distance(pal, color) < distance(new_color, color)) {
-			new_color = pal;
-			remap_color = swap_pal;
+		if (distance(pal, color) <= distance(new_color, color)) {
+		new_color = pal;
+		remap_color = swap_pal;
 			
 		}
 	}
