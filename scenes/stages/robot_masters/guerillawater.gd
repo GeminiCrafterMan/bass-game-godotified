@@ -12,7 +12,7 @@ func _ready():
 	GameState.camposx = 0
 	level = position.y + 3
 	$CanvasLayer/Shade.position.y = level + 304
-
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
 	if GameState.camposx > 4000:
