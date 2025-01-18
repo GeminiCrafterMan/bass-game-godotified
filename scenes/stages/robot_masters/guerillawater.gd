@@ -13,8 +13,8 @@ func _ready():
 	level = position.y + 3
 	$CanvasLayer/Shade.position.y = level + 304
 	
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _physics_process(delta):
+# Called every frame. '_delta' is the elapsed time since the previous frame.
+func _physics_process(_delta):
 	if GameState.camposx > 4000:
 		level = 440
 		$WaterLayer.autoscroll.x = 30
@@ -22,6 +22,6 @@ func _physics_process(delta):
 		level = 660
 	
 	
-func _process(delta):
+func _process(_delta):
 		$CanvasLayer/Shade.position.y = level + 1600 - GameState.camposy
 		$WaterLayer/Waves.position.y = level - 192

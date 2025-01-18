@@ -11,7 +11,7 @@ var player
 var baseposx : float
 var baseposy : float
 
-var theta : int
+var theta : float # changed from int to float
 
 var radius : int
 

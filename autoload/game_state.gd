@@ -56,7 +56,7 @@ var player_lives : int = 3
 var onscreen_bullets : int
 var onscreen_sp_bullets : int
 
-var galeforce : int
+var galeforce : float # converted from int to float
 
 var playerposx
 var playerposy

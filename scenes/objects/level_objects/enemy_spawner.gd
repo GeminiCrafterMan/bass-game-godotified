@@ -36,7 +36,7 @@ func _on_visible_on_screen_notifier_2d_screen_entered():
 			baby.position.x = position.x
 			baby.position.y = position.y
 
-func _process(delta):
+func _process(_delta):
 	if not Engine.is_editor_hint():
 		return
 	if Engine.is_editor_hint():

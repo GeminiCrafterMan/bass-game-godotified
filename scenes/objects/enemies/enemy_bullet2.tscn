@@ -1,11 +1,48 @@
 [gd_scene load_steps=14 format=3 uid="uid://8uk3aoc1sxgm"]
 
-[ext_resource type="Script" path="res://scenes/objects/enemies/enemy_bullet2.gd" id="1_5p8fc"]
 [ext_resource type="Texture2D" uid="uid://bs5dokmafjugl" path="res://sprites/players/bass/weapons/buster.png" id="2_7j310"]
 [ext_resource type="Texture2D" uid="uid://b0wmbfr68jjcj" path="res://sprites/players/copy_robot/weapons/BusterSmall.png" id="3_obtfk"]
 [ext_resource type="AudioStream" uid="uid://cq4lw880ecl7v" path="res://sounds/enemyattack.wav" id="4_d2hj0"]
 [ext_resource type="AudioStream" uid="uid://cs2dmn3ahpbea" path="res://sounds/pop.wav" id="5_wsj3i"]
 [ext_resource type="AudioStream" uid="uid://mfk4w30lewvq" path="res://sounds/tink.wav" id="6_8s5ro"]
+
+[sub_resource type="GDScript" id="GDScript_npklr"]
+script/source = "extends CharacterBody2D
+
+const Atk_Dmg = 2
+
+const SPEED = 300.0
+var gravity = 800
+
+
+
+func _ready():
+	$SpawnSound.play()
+
+func _physics_process(delta):
+	velocity.y += gravity * delta
+	move_and_slide()
+
+func _on_visible_on_screen_notifier_2d_screen_exited():
+	queue_free()
+
+func destroy():
+	$CollisionShape2D.set_deferred(\"disabled\", true)
+	$HitSound.play()
+	velocity.x = 0
+	velocity.y = 0
+	$AnimatedSprite2D.play(\"hit\")
+	await $AnimatedSprite2D.animation_finished
+	queue_free()
+
+func _on_hurt_body_entered(body):
+	body.DmgQueue = Atk_Dmg
+	if body.is_in_group(\"scorch\"):
+		if GameState.character_selected != 2:
+			body.durability -= 3
+		else:
+			body.durability -= 2
+"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7igmx"]
 atlas = ExtResource("2_7j310")
@@ -57,7 +94,7 @@ size = Vector2(8, 8)
 [node name="EnemyBullet" type="CharacterBody2D"]
 collision_layer = 32
 collision_mask = 0
-script = ExtResource("1_5p8fc")
+script = SubResource("GDScript_npklr")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_tmmfq")

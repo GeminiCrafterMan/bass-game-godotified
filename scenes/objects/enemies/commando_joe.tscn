@@ -1,8 +1,96 @@
 [gd_scene load_steps=19 format=3 uid="uid://b8vqvqer5c6o3"]
 
 [ext_resource type="Texture2D" uid="uid://dj6gd8ibp7013" path="res://sprites/enemies/chaingun_joe.png" id="1_aooud"]
-[ext_resource type="Script" path="res://scenes/objects/enemies/commando_joe.gd" id="1_dn881"]
 [ext_resource type="AudioStream" uid="uid://62xrmywm48ps" path="res://sounds/bustershot.wav" id="3_vk6v2"]
+
+[sub_resource type="GDScript" id="GDScript_oucvi"]
+script/source = "extends Enemy_Template
+
+class_name Commando_Joe
+@onready var projectile
+var timer : int
+var attacks : int
+
+func _ready():
+	Atk_Dmg = 2
+	Max_HP = 12
+	Cur_HP = 12
+	timer = 200
+
+func _physics_process(_delta):
+	if Cur_HP <= 0:
+		projectile = preload(\"res://scenes/objects/explosion_1.tscn\").instantiate()
+		get_parent().add_child(projectile)
+		projectile.position.x = position.x
+		projectile.position.y = position.y
+		queue_free()
+	if Cur_Inv > 0:
+		Cur_Inv -= 1
+		if Cur_Inv % 2 == 0:
+			visible = false
+		else:
+			visible = true
+	else:
+		visible = true
+	
+	timer = timer -1
+	if timer > 300:
+		timer = 300
+	
+	if timer < 0 && $AnimatedSprite2D.animation == \"Idle\":
+		$AnimatedSprite2D.play(\"SwitchAtk\")
+		$reflect/ShieldHitbox.set_disabled(true)
+		timer = 10
+
+	if timer < 0 && $AnimatedSprite2D.animation == \"SwitchAtk\":	
+		$AnimatedSprite2D.play(\"Attack\")
+		$AnimatedSprite2D.set_frame_and_progress(1, 1)
+		attacks = 8
+		
+	if timer < 0 && $AnimatedSprite2D.animation == \"Attack\" &&  attacks == 0:
+		$AnimatedSprite2D.play(\"SwitchDef\")
+		timer = 10
+	
+	if timer < 0 && $AnimatedSprite2D.animation == \"Attack\" &&  attacks > 0:
+		$AnimatedSprite2D.play(\"Attack\")
+		$AudioStreamPlayer.play()
+		$AnimatedSprite2D.set_frame_and_progress(0, 0)
+		
+		projectile = preload(\"res://scenes/objects/enemies/enemy_bullet1.tscn\").instantiate()
+		get_parent().add_child(projectile)
+		projectile.position.x = position.x - 8
+		projectile.position.y = position.y - 6
+		projectile.velocity.x = -250
+		attacks = attacks - 1
+		timer = 24
+		if attacks > 0:
+			timer = 4
+		
+	
+		
+		
+	if timer < 0 && $AnimatedSprite2D.animation == \"SwitchDef\":	
+		$AnimatedSprite2D.play(\"Idle\")
+		$reflect/ShieldHitbox.set_disabled(false)
+		timer = 250
+
+
+func _on_hitable_body_entered(weapon): # needs to be redefined because damage values
+	if Cur_Inv <= 0:
+		if Dmg_Vals[weapon.W_Type] == 0:
+			weapon.reflect()
+		else:
+			Cur_HP -= Dmg_Vals[weapon.W_Type]
+			Cur_Inv = 2
+			weapon.destroy()
+
+func _on_hurt_body_entered(body):
+	body.DmgQueue = Atk_Dmg
+
+func _on_reflect_body_entered(weapon):
+	timer = timer + 18
+	weapon.reflect()
+"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_q62rr"]
 atlas = ExtResource("1_aooud")
@@ -130,7 +218,7 @@ size = Vector2(21, 27)
 [node name="Commando Joe" type="CharacterBody2D"]
 collision_layer = 4
 collision_mask = 3
-script = ExtResource("1_dn881")
+script = SubResource("GDScript_oucvi")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(2, -4)

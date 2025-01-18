@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=4 uid="uid://by07rq184shwd"]
+[gd_scene load_steps=34 format=4 uid="uid://by07rq184shwd"]
 
 [ext_resource type="Script" path="res://scenes/stages/stage.gd" id="1_ac8st"]
 [ext_resource type="TileSet" uid="uid://bglohi0dt4uvq" path="res://tilesets/test_stage.tres" id="2_cu0lw"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://cwqbm80i7pv6x" path="res://scenes/objects/level_objects/ladder_hitbox.tscn" id="11_n5yro"]
 [ext_resource type="PackedScene" uid="uid://mi0hw7tknuco" path="res://scenes/objects/level_objects/spike.tscn" id="12_1njev"]
 [ext_resource type="PackedScene" uid="uid://u68yemonosg8" path="res://scenes/objects/level_objects/button.tscn" id="13_rn21y"]
+[ext_resource type="PackedScene" uid="uid://4y53jl5k7alp" path="res://scenes/objects/enemies/sutsi.tscn" id="14_2a8mj"]
 [ext_resource type="PackedScene" uid="uid://pqu0lvkmbufk" path="res://scenes/objects/enemies/telly_hole.tscn" id="14_le30n"]
 [ext_resource type="PackedScene" uid="uid://b8vqvqer5c6o3" path="res://scenes/objects/enemies/commando_joe.tscn" id="14_q1mcp"]
 [ext_resource type="PackedScene" uid="uid://bobtsvomowe28" path="res://scenes/objects/items/pickup.tscn" id="15_bvxqh"]
@@ -216,6 +217,9 @@ position = Vector2(505, 459)
 
 [node name="Hole" parent="Level Objects/Enemies" instance=ExtResource("14_le30n")]
 position = Vector2(1144, 296)
+
+[node name="Sutsi" parent="Level Objects/Enemies" instance=ExtResource("14_2a8mj")]
+position = Vector2(-480, 472)
 
 [node name="Breakable Blocks" type="Node2D" parent="Level Objects"]
 

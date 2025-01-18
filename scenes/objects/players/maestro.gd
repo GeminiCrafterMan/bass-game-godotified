@@ -27,7 +27,7 @@ var swapState := STATES.NONE
 var numberOfTimesToRunStates := 0
 var isFirstFrameOfState := false
 var targetpos : float
-var currentSpeed := 0
+var currentSpeed : float = 0 # converted from int to float
 var fallstored : float
 var slowed : bool
 #input related

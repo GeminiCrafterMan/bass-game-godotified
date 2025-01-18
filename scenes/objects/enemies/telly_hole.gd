@@ -1,3 +1,4 @@
+# This needs to be seperate from telly_hole.tscn because... reasons.
 class_name Telly_Hole extends Sprite2D
 
 static var num_tellies: int

@@ -13,7 +13,7 @@ func _ready():
 	$CanvasLayer/Shade2.position.y = level + 304
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _physics_process(delta):
+func _physics_process(_delta):
 	if GameState.camposy < 300:
 		if $Timer.is_stopped():
 			timer += 1
@@ -26,7 +26,7 @@ func _physics_process(delta):
 	level = position.y + 3
 	
 	
-func _process(delta):
+func _process(_delta):
 	if GameState.camposy >= 280:
 		$Level.position.y = -900
 		$CanvasLayer/Shade2.visible = false
