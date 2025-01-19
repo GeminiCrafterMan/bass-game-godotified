@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const W_Type = 9	# This is Wild Gale.
+const W_Type = GameState.DMGTYPE.CB_GALE
 @onready var direction
 
 func _ready():

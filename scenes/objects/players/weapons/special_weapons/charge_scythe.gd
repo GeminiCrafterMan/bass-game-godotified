@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const W_Type = 22	# This is Boomerang Scythe.
+const W_Type =  GameState.DMGTYPE.CB_REAPER_2
 var broken : bool
 var direction : int
 var state : int

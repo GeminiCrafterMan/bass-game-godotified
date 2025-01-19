@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://4y53jl5k7alp"]
+[gd_scene load_steps=10 format=3 uid="uid://km08inj7xc22"]
 
 [ext_resource type="PackedScene" uid="uid://d3snuiplufj8q" path="res://scenes/objects/enemies/enemy_template.tscn" id="1_q6u8v"]
+[ext_resource type="Script" path="res://scenes/objects/enemies/sutsi.gd" id="2_3hxlk"]
 [ext_resource type="Texture2D" uid="uid://dxesvfnjybpki" path="res://sprites/enemies/sutsi.png" id="2_q2aux"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_beai4"]
@@ -18,10 +19,6 @@ region = Rect2(0, 0, 32, 16)
 [sub_resource type="AtlasTexture" id="AtlasTexture_g8cbt"]
 atlas = ExtResource("2_q2aux")
 region = Rect2(0, 16, 32, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ey2yh"]
-atlas = ExtResource("2_q2aux")
-region = Rect2(32, 0, 32, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ydit3"]
 atlas = ExtResource("2_q2aux")
@@ -49,37 +46,10 @@ animations = [{
 }],
 "loop": true,
 "name": &"lazy",
-"speed": 5.0
+"speed": 4.0
 }, {
 "frames": [{
 "duration": 2.0,
-"texture": SubResource("AtlasTexture_ey2yh")
-}, {
-"duration": 2.0,
-"texture": SubResource("AtlasTexture_ydit3")
-}, {
-"duration": 2.0,
-"texture": SubResource("AtlasTexture_ey2yh")
-}, {
-"duration": 2.0,
-"texture": SubResource("AtlasTexture_ydit3")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ey2yh")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ydit3")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ey2yh")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ydit3")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ey2yh")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_ydit3")
 }],
 "loop": true,
@@ -89,6 +59,7 @@ animations = [{
 
 [node name="Sutsi" instance=ExtResource("1_q6u8v")]
 collision_layer = 0
+script = ExtResource("2_3hxlk")
 
 [node name="VisibleOnScreenEnabler2D" parent="." index="3"]
 position = Vector2(-1.72853e-06, 4.17233e-07)
@@ -96,5 +67,6 @@ scale = Vector2(1.6, 0.8)
 
 [node name="Sprite" type="AnimatedSprite2D" parent="." index="4"]
 sprite_frames = SubResource("SpriteFrames_4jmi0")
-animation = &"see"
+animation = &"lazy"
 autoplay = "lazy"
+frame_progress = 0.213892

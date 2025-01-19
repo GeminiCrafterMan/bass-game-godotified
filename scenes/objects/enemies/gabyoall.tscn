@@ -18,39 +18,42 @@ var direction : int
 var stun : int
 
 func _ready():
+	basedmg()
+	Dmg_Vals[GameState.DMGTYPE.CB_SMOG] = 1
+	Dmg_Vals[GameState.DMGTYPE.CB_REAPER_1] = 1
+	Dmg_Vals[GameState.DMGTYPE.CB_REAPER_2] = 1
+	Dmg_Vals[GameState.DMGTYPE.CB_GALE] = 2
+	Dmg_Vals[GameState.DMGTYPE.CB_ORIGAMI] = 1
+	Dmg_Vals[GameState.DMGTYPE.CB_GUERILLA] = 1
+	Dmg_Vals[GameState.DMGTYPE.CB_PROTO_1] = 1
+	Dmg_Vals[GameState.DMGTYPE.CB_PROTO_2] = 1
+	Dmg_Vals[GameState.DMGTYPE.CB_PROTO_3] = 2
+	
+	Dmg_Vals[GameState.DMGTYPE.CR_BUSTER_1] = 1
+	Dmg_Vals[GameState.DMGTYPE.CR_BUSTER_2] = 1
+	Dmg_Vals[GameState.DMGTYPE.CR_BUSTER_3] = 1
+	Dmg_Vals[GameState.DMGTYPE.CR_BLAZE] = 1
+	Dmg_Vals[GameState.DMGTYPE.CR_SHARK1] = 2
+	Dmg_Vals[GameState.DMGTYPE.CR_SHARK2] = 2
+	Dmg_Vals[GameState.DMGTYPE.CR_ARROW] = 2
+	Dmg_Vals[GameState.DMGTYPE.CR_ENKER] = 1
+	Dmg_Vals[GameState.DMGTYPE.CR_PUNK] = 1
+	Dmg_Vals[GameState.DMGTYPE.CR_BALLADE] = 1
+	Dmg_Vals[GameState.DMGTYPE.CR_QUINT1] = 1
+	Dmg_Vals[GameState.DMGTYPE.CR_QUINT2] = 1
+	
+	Dmg_Vals[GameState.DMGTYPE.BS_BUSTER] = 1
+	Dmg_Vals[GameState.DMGTYPE.BS_BLAZE] = 1
+	Dmg_Vals[GameState.DMGTYPE.BS_SHARK] = 2
+	Dmg_Vals[GameState.DMGTYPE.BS_TREBLE] = 1
+	
+	Dmg_Vals[GameState.DMGTYPE.MD_BLAZE] = 1
+	Dmg_Vals[GameState.DMGTYPE.MD_VIDEO] = 1
+	Dmg_Vals[GameState.DMGTYPE.MD_ORIGAMI] = 1
+	Dmg_Vals[GameState.DMGTYPE.MD_GUERILLA] = 1
 	direction = 1
 	Atk_Dmg = 4
 	Cur_HP = 2
-	
-	
-	Dmg_Vals = [
-		1,	#0  Bass Buster 
-		1,	#1  Copy Buster
-		1,	#2  Copy Buster, medium shot
-		1,	#3  Copy Buster, charge shot
-		1,	#4  Scorch Barrier
-		0,	#5  Freeze Frame (if it does damage like Time Stopper on Quick Man)
-		1,	#6  Poison Cloud
-		2,	#7  Fin Shredder
-		1,	#8  Origami Star
-		2,	#9  Wild Gale
-		1,	#10 Rolling Bomb(?)
-		1,	#11 Boomerang Scythe
-		1,	#12 Proto Buster medium shot
-		2,	#13 Proto Buster charged shot
-		2,	#14 Super Arrow
-		1,	#15 Mirror Buster
-		1,	#16 Screw Crusher
-		1,	#17 Ballade Cracker
-		2,	#18 Sakugarne (Physical hit)
-		1,	#19 Sakugarne (Rock)
-		1,	#20 Blast jump
-		1,	#21 Paper Cut slice
-		1,	#22 Charged Boomer Scythe
-		2,	#23 CR Fin Shredder
-		2,	#24 CR Double Fin Shredder
-		0	# Whatever's next...
-]
 
 func _physics_process(_delta):
 	if blown == false:
@@ -119,8 +122,8 @@ func _physics_process(_delta):
 	else:
 		$Sprite.visible = true
 	
-func _on_hitable_body_entered(weapon): # needs to be redefined because damage values
-	if Cur_Inv <= 0 or weapon.W_Type == 8 or weapon.W_Type == 11 or weapon.W_Type == 22:
+func _on_hitable_body_entered(weapon): # needs to be redefined because gabying on the all
+	if Cur_Inv <= 0:
 		if Dmg_Vals[weapon.W_Type] == 0:
 			weapon.reflect()
 		
@@ -132,7 +135,7 @@ func _on_hitable_body_entered(weapon): # needs to be redefined because damage va
 			weapon.kill()
 			Cur_HP = 0
 			
-		if weapon.W_Type == 9:
+		if weapon.W_Type == GameState.DMGTYPE.CB_GALE:
 			blown = true
 			Cur_HP = 999
 			$hitable.queue_free()

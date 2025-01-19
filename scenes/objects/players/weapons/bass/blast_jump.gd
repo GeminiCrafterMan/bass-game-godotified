@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const W_Type = 20	# This is Houshou-geki's blast jump wave.
+const W_Type = GameState.DMGTYPE.MD_BLAZE
 
 func _physics_process(delta):
 	if move_and_slide() == true:

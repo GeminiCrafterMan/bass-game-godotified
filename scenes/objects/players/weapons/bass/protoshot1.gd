@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const W_Type = 12	# This is Bass's medium Proto Buster shot.
+var W_Type = GameState.DMGTYPE.CB_PROTO_2
 
 func _ready():
 	$SpawnSound.play()

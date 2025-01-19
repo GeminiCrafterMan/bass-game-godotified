@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const W_Type = 17	# This is Ballade Cracker.
+const W_Type = GameState.DMGTYPE.CR_BALLADE
 
 func _ready():
 	$SpawnSound.play()

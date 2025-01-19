@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const W_Type = 8	# This is Origami Star.
+var W_Type = GameState.DMGTYPE.CB_ORIGAMI
 var broken
 
 func _ready():

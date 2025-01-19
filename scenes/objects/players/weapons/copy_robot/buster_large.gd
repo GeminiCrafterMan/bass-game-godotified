@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const W_Type = 3	# This is Copy Robot's large charge shot.
+const W_Type = GameState.DMGTYPE.CR_BUSTER_3
 
 func _ready():
 	$SpawnSound.play()

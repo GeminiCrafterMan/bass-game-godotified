@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const W_Type = 16	# This is Screw Crusher.
+var W_Type = GameState.DMGTYPE.CR_PUNK
 var gravity = 1400
 
 func _ready():

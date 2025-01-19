@@ -1,13 +1,13 @@
 extends CharacterBody2D
 
-var W_Type = 7	# This is Fin Shredder.
+var W_Type = GameState.DMGTYPE.BS_SHARK
 var dying : bool
 
 func _ready():
 	$SpawnSound.play()
 	if GameState.character_selected == 2:
 		$AnimatedSprite2D.play("Copy")
-		W_Type = 23 #CR's damage values
+		W_Type = GameState.DMGTYPE.CR_SHARK1
 		$BassHitbox.queue_free()
 	else:
 		$AnimatedSprite2D.play("Bass")

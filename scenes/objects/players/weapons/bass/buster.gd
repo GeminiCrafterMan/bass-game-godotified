@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-var W_Type = 0	# This is Bass's buster shot.
+var W_Type = GameState.DMGTYPE.BS_BUSTER
 var dead
 var speeded : bool
 var frames : int

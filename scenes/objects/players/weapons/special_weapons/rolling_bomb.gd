@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const W_Type = 10	#ROOOOOLLING BOMB
+var W_Type = GameState.DMGTYPE.CB_GUERILLA
 
 enum DIRECTION {
 	NONE, 

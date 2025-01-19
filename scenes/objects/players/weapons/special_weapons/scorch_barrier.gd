@@ -3,7 +3,7 @@ extends CharacterBody2D
 const trailscn = preload("res://scenes/objects/players/weapons/special_weapons/scorch_barrier_trail.tscn")
 var trail
 
-var W_Type = 4 # This is Scorch Barrier!!!
+var W_Type = GameState.DMGTYPE.BS_BLAZE
 const FOLLOW_SPEED = 4.0 # follow speed
 var player
 @onready var parent = get_parent().get_parent()
@@ -28,6 +28,10 @@ var fired : bool
 var left : bool
 
 func _ready():
+	if GameState.character_selected == 1:
+		W_Type = GameState.DMGTYPE.BS_BLAZE
+	if GameState.character_selected == 2:
+		W_Type = GameState.DMGTYPE.CR_BLAZE
 	$SpawnSound.play()
 	baseposx = position.x
 	baseposy = position.y

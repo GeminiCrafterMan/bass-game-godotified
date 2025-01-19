@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const W_Type = 6	# This is Poison Cloud.
+var W_Type = GameState.DMGTYPE.CB_SMOG
 
 var time : int
 

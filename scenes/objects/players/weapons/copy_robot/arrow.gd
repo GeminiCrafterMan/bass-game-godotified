@@ -1,7 +1,7 @@
 
 extends CharacterBody2D
 
-const W_Type = 14	# This is Copy Robot's Super Arrow.
+const W_Type = GameState.DMGTYPE.CR_ARROW
 
 var timer : int
 var flashtimer : int

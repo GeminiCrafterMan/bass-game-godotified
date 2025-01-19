@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const W_Type = 24	# This is CR's Double Fin Shredder!!
+var W_Type = GameState.DMGTYPE.CR_SHARK2
 var dying : bool
 var spins : int
 var detectpos

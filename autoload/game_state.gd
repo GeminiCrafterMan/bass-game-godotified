@@ -5,6 +5,57 @@ extends CanvasLayer
 #region Enums
 enum WEAPONS {BUSTER, BLAZE, VIDEO, SMOG, SHARK, ORIGAMI, GALE, GUERRILLA, REAPER, PROTO, TREBLE, CARRY, ARROW, ENKER, PUNK, BALLADE, QUINT}
 enum PALETTE {NONE, MD, NES, DOOM, PICO8, GB, VB, C64, CGA, G4, G8, G16}
+enum DMGTYPE
+{
+	#Shared DMG types between CR and Bass
+	CB_SMOG,
+	CB_REAPER_1,
+	CB_REAPER_2,
+	CB_ORIGAMI,
+	CB_GALE,
+	CB_GUERILLA,
+	CB_PROTO_1,
+	CB_PROTO_2,
+	CB_PROTO_3,
+	
+	#Copy Robot Weapons
+	CR_BUSTER_1,
+	CR_BUSTER_2,
+	CR_BUSTER_3,
+	CR_BLAZE,
+	CR_SHARK1,
+	CR_SHARK2,
+	CR_ARROW,
+	CR_ENKER,
+	CR_PUNK,
+	CR_BALLADE,
+	CR_QUINT1,
+	CR_QUINT2,
+	
+	#Bass Weapons
+	BS_BUSTER,
+	BS_BLAZE,
+	BS_SHARK,
+	BS_TREBLE,
+	
+	#Bass Modules
+	MD_BLAZE,
+	MD_VIDEO,
+	MD_ORIGAMI,
+	MD_GUERILLA,
+	
+	#MegaMan Weapons
+	MM_VOLT,
+	#Shared Proto/Rachel weps
+	
+	#ProtoMan Weapons
+	
+	#Rachel Weapons
+	
+	#Instant Kill
+	KILL
+}
+
 #endregion
 
 #region Schemas
