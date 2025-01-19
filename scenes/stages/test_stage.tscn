@@ -15,7 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://cwqbm80i7pv6x" path="res://scenes/objects/level_objects/ladder_hitbox.tscn" id="11_n5yro"]
 [ext_resource type="PackedScene" uid="uid://mi0hw7tknuco" path="res://scenes/objects/level_objects/spike.tscn" id="12_1njev"]
 [ext_resource type="PackedScene" uid="uid://u68yemonosg8" path="res://scenes/objects/level_objects/button.tscn" id="13_rn21y"]
-[ext_resource type="PackedScene" uid="uid://4y53jl5k7alp" path="res://scenes/objects/enemies/sutsi.tscn" id="14_2a8mj"]
+[ext_resource type="PackedScene" uid="uid://km08inj7xc22" path="res://scenes/objects/enemies/sutsi.tscn" id="14_2a8mj"]
 [ext_resource type="PackedScene" uid="uid://pqu0lvkmbufk" path="res://scenes/objects/enemies/telly_hole.tscn" id="14_le30n"]
 [ext_resource type="PackedScene" uid="uid://b8vqvqer5c6o3" path="res://scenes/objects/enemies/commando_joe.tscn" id="14_q1mcp"]
 [ext_resource type="PackedScene" uid="uid://bobtsvomowe28" path="res://scenes/objects/items/pickup.tscn" id="15_bvxqh"]
@@ -389,65 +389,55 @@ damage = 80
 [node name="Item" parent="Level Objects/Items" instance=ExtResource("15_bvxqh")]
 position = Vector2(24, 328)
 dropped = false
-has_gravity = false
 
 [node name="Item2" parent="Level Objects/Items" instance=ExtResource("15_bvxqh")]
 position = Vector2(40, 328)
 item_size = 1
 dropped = false
-has_gravity = false
 
 [node name="Item3" parent="Level Objects/Items" instance=ExtResource("15_bvxqh")]
 position = Vector2(56, 328)
 item_type = 1
 dropped = false
-has_gravity = false
 
 [node name="Item4" parent="Level Objects/Items" instance=ExtResource("15_bvxqh")]
 position = Vector2(72, 328)
 item_type = 1
 item_size = 1
 dropped = false
-has_gravity = false
 
 [node name="Item5" parent="Level Objects/Items" instance=ExtResource("15_bvxqh")]
 position = Vector2(88, 328)
 item_type = 2
 dropped = false
-has_gravity = false
 
 [node name="Item6" parent="Level Objects/Items" instance=ExtResource("15_bvxqh")]
 position = Vector2(104, 328)
 item_type = 2
 item_size = 1
 dropped = false
-has_gravity = false
 
 [node name="Item7" parent="Level Objects/Items" instance=ExtResource("15_bvxqh")]
 position = Vector2(40, 280)
 item_type = 3
 dropped = false
-has_gravity = false
 
 [node name="Item8" parent="Level Objects/Items" instance=ExtResource("15_bvxqh")]
 position = Vector2(56, 280)
 item_type = 3
 item_size = 1
 dropped = false
-has_gravity = false
 
 [node name="Item9" parent="Level Objects/Items" instance=ExtResource("15_bvxqh")]
 position = Vector2(72, 280)
 item_type = 4
 dropped = false
-has_gravity = false
 
 [node name="Item10" parent="Level Objects/Items" instance=ExtResource("15_bvxqh")]
 position = Vector2(88, 280)
 item_type = 4
 item_size = 1
 dropped = false
-has_gravity = false
 
 [node name="Button" parent="Level Objects" instance=ExtResource("13_rn21y")]
 position = Vector2(440, 296)

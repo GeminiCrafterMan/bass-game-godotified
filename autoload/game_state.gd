@@ -7,7 +7,7 @@ enum WEAPONS {BUSTER, BLAZE, VIDEO, SMOG, SHARK, ORIGAMI, GALE, GUERRILLA, REAPE
 enum PALETTE {NONE, MD, NES, DOOM, PICO8, GB, VB, C64, CGA, G4, G8, G16}
 enum DMGTYPE
 {
-	#Shared DMG types between CR and Bass
+	#Shared DMG types between CR and Bass (CB)
 	CB_SMOG,
 	CB_REAPER_1,
 	CB_REAPER_2,
@@ -18,7 +18,7 @@ enum DMGTYPE
 	CB_PROTO_2,
 	CB_PROTO_3,
 	
-	#Copy Robot Weapons
+	#Copy Robot Weapons (CR)
 	CR_BUSTER_1,
 	CR_BUSTER_2,
 	CR_BUSTER_3,
@@ -32,27 +32,28 @@ enum DMGTYPE
 	CR_QUINT1,
 	CR_QUINT2,
 	
-	#Bass Weapons
+	#Bass Weapons (BS)
 	BS_BUSTER,
 	BS_BLAZE,
 	BS_SHARK,
 	BS_TREBLE,
 	
-	#Bass Modules
+	#Bass Modules (MD)
 	MD_BLAZE,
 	MD_VIDEO,
 	MD_ORIGAMI,
 	MD_GUERILLA,
 	
-	#MegaMan Weapons
+	#MegaMan Weapons (MM)
 	MM_VOLT,
-	#Shared Proto/Rachel weps
 	
-	#ProtoMan Weapons
+	#Shared Proto/Rachel weps (PR)
 	
-	#Rachel Weapons
+	#ProtoMan Weapons (PM)
 	
-	#Instant Kill
+	#Rachel Weapons (RA)
+	
+	#Instant Kill (KILL)
 	KILL
 }
 
