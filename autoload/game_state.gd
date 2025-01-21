@@ -118,13 +118,17 @@ var camposx
 var camposy
 var screenmode
 
+#Current X and Y limits
 var scrollX1
 var scrollX2
 var scrollY1
 var scrollY2
 
-var dest_X
-var dest_Y
+#Old X and Y limits to respect the previous screen transition
+var scrollX3
+var scrollX4
+var scrollY3
+var scrollY4
 
 var screentransiton : int
 var transdir : int
@@ -138,7 +142,7 @@ var bolts = 0
 var ETanks = 0
 var WTanks = 0
 var STanks = 0
-var max_hp = 28 # G: upgradeable # M: not upgradable anymore # G: yeah but mod characters :))
+var max_hp = 28 # G: upgradeable # M: not upgradable anymore # G: yeah but mod characters :)) #M: what mod characters?
 var healamt = 0
 var ammoamt = 0
 var droptimer : int

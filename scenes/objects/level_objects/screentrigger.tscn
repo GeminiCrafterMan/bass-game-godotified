@@ -1,11 +1,26 @@
-[gd_scene load_steps=2 format=3 uid="uid://de6y2454v43to"]
+[gd_scene load_steps=3 format=3 uid="uid://de6y2454v43to"]
 
 [ext_resource type="Script" path="res://scenes/objects/level_objects/screentrigger.gd" id="1_fadgo"]
+[ext_resource type="Texture2D" uid="uid://bdqtosw4firfl" path="res://sprites/stg.png" id="2_08qod"]
 
 [node name="Screen Trigger" type="Area2D"]
 editor_description = "Triggers a screen change."
-collision_layer = 0
+collision_layer = 32768
 collision_mask = 2
 script = ExtResource("1_fadgo")
+
+[node name="Previews" type="Node2D" parent="."]
+
+[node name="TopLeft" type="Sprite2D" parent="Previews"]
+texture = ExtResource("2_08qod")
+
+[node name="TopRight" type="Sprite2D" parent="Previews"]
+texture = ExtResource("2_08qod")
+
+[node name="BottomLeft" type="Sprite2D" parent="Previews"]
+texture = ExtResource("2_08qod")
+
+[node name="BottomRight" type="Sprite2D" parent="Previews"]
+texture = ExtResource("2_08qod")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
