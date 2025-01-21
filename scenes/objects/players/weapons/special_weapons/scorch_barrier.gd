@@ -28,10 +28,10 @@ var fired : bool
 var left : bool
 
 func _ready():
-	if GameState.character_selected == 1:
-		W_Type = GameState.DMGTYPE.BS_BLAZE
 	if GameState.character_selected == 2:
 		W_Type = GameState.DMGTYPE.CR_BLAZE
+	else:
+		W_Type = GameState.DMGTYPE.BS_BLAZE
 	$SpawnSound.play()
 	baseposx = position.x
 	baseposy = position.y
@@ -58,7 +58,10 @@ func _physics_process(_delta):
 	
 	if wet == false:
 		if durability > 0:
-			W_Type = 4
+			if GameState.character_selected == 2:
+				W_Type = GameState.DMGTYPE.CR_BLAZE
+			else:
+				W_Type = GameState.DMGTYPE.BS_BLAZE
 			if ($MainSprite.animation == "Wet"):
 				if GameState.character_selected == 2:
 					$MainSprite.play("Copy")
@@ -66,7 +69,7 @@ func _physics_process(_delta):
 					$MainSprite.play("Bass")
 	else:
 		if durability > 0:
-			W_Type = 2
+			W_Type = GameState.DMGTYPE.CR_BUSTER_1
 			$MainSprite.play("Wet")
 	
 	if invul > 0:

@@ -60,11 +60,11 @@ func _physics_process(_delta):
 
 func _on_hitable_body_entered(weapon): # needs to be redefined because damage values
 	#Check for I-Frames or multihit
-	if Cur_Inv <= 0 or weapon.W_Type == GameState.DMGTYPE.CB_ORIGAMI or weapon.W_Type == GameState.DMGTYPE.CB_REAPER_1 or weapon.W_Type == GameState.DMGTYPE.CB_REAPER_2 or weapon.W_Type == GameState.DMGTYPE.MD_GUERILLA:
+	if Cur_Inv <= 0 or (weapon.W_Type == GameState.DMGTYPE.CB_ORIGAMI or GameState.DMGTYPE.CB_REAPER_1 or GameState.DMGTYPE.CB_REAPER_2 or GameState.DMGTYPE.MD_GUERILLA):
 		#Does it do 0 damage?
 		if Dmg_Vals[weapon.W_Type] == 0:
 			#For these, have the projectile dissipate.
-			if weapon.W_Type == GameState.DMGTYPE.BS_SHARK or weapon.W_Type == GameState.DMGTYPE.CR_SHARK1 or weapon.W_Type == GameState.DMGTYPE.CR_SHARK2:
+			if (weapon.W_Type == GameState.DMGTYPE.BS_SHARK or GameState.DMGTYPE.CR_SHARK1 or GameState.DMGTYPE.CR_SHARK2):
 				weapon.destroy()
 			#For all others, the projectile bounces off. Plink!
 			else:
@@ -88,7 +88,7 @@ func _on_hitable_body_entered(weapon): # needs to be redefined because damage va
 				blown = true
 			
 			#If the projectile kills, or are the below weapons on hit, go to the kill state!
-			if Cur_HP <= 0 or weapon.W_Type == GameState.DMGTYPE.CR_SHARK1 or weapon.W_Type == GameState.DMGTYPE.CR_SHARK2 or weapon.W_Type == GameState.DMGTYPE.BS_SHARK:
+			if Cur_HP <= 0 or (weapon.W_Type == GameState.DMGTYPE.CR_SHARK1 or GameState.DMGTYPE.CR_SHARK2 or GameState.DMGTYPE.BS_SHARK):
 				weapon.kill()
 			else:
 				#If neither of these conditions are met, whatever!

@@ -1,8 +1,78 @@
-[gd_scene load_steps=10 format=3 uid="uid://km08inj7xc22"]
+[gd_scene load_steps=12 format=3 uid="uid://km08inj7xc22"]
 
-[ext_resource type="PackedScene" uid="uid://d3snuiplufj8q" path="res://scenes/objects/enemies/enemy_template.tscn" id="1_q6u8v"]
-[ext_resource type="Script" path="res://scenes/objects/enemies/sutsi.gd" id="2_3hxlk"]
 [ext_resource type="Texture2D" uid="uid://dxesvfnjybpki" path="res://sprites/enemies/sutsi.png" id="2_q2aux"]
+
+[sub_resource type="GDScript" id="GDScript_4n32e"]
+script/source = "extends Enemy_Template
+
+@onready var projectile
+
+const SPEED = 20.0
+const REACTIONTIME = 40
+var state : int = 0
+var dir : float
+
+func _ready():
+	basedmg()
+	if (GameState.player == null) or (GameState.player.position.x < position.x):
+		velocity.x = -SPEED
+	else:
+		scale.x *= -1
+		velocity.x = SPEED
+
+func _physics_process(_delta):
+	if Cur_HP <= 0:
+		projectile = preload(\"res://scenes/objects/explosion_1.tscn\").instantiate()
+		get_parent().add_child(projectile)
+		projectile.position.x = position.x
+		projectile.position.y = position.y
+		print(\"yeouch!\")
+		if GameState.droptimer < 3:
+			projectile = preload(\"res://scenes/objects/items/pickup.tscn\").instantiate()
+			get_parent().add_child(projectile)
+			projectile.position.x = position.x
+			projectile.position.y = position.y
+			projectile.dropped = true
+		queue_free()
+		
+	if Cur_Inv > 0:
+		Cur_Inv -= 1
+		if Cur_Inv % 2 == 0:
+			$Sprite.visible = false
+			print(\"disappear!\")
+		
+		else:
+			$Sprite.visible = true
+			print(\"appear!\")
+	else:
+		$Sprite.visible = true
+		
+	if blown == false:
+		if state == 0:
+			if GameState.player != null:
+				if position.x < abs(GameState.player.position.x) + 50:
+					$Sprite.play(\"see\")
+					state = 1
+		if state > 1 && state < REACTIONTIME:
+			state += 1
+		if state == REACTIONTIME:
+			if GameState.player != null:
+				$Sprite.play(\"charge\")
+				look_at(GameState.player.position)
+				velocity=Vector2(SPEED,0).rotated(dir)
+				state += 1
+				
+		move_and_slide()
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wjvmq"]
+size = Vector2(32, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wsdxd"]
+size = Vector2(32, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wstdr"]
+size = Vector2(32, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_beai4"]
 atlas = ExtResource("2_q2aux")
@@ -57,16 +127,38 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="Sutsi" instance=ExtResource("1_q6u8v")]
+[node name="Sutsi" type="CharacterBody2D"]
 collision_layer = 0
-script = ExtResource("2_3hxlk")
+script = SubResource("GDScript_4n32e")
 
-[node name="VisibleOnScreenEnabler2D" parent="." index="3"]
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_wjvmq")
+debug_color = Color(0, 1, 0.0705882, 0.419608)
+
+[node name="hitable" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 8
+
+[node name="MainHitbox" type="CollisionShape2D" parent="hitable"]
+shape = SubResource("RectangleShape2D_wsdxd")
+
+[node name="hurt" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="MainHitbox" type="CollisionShape2D" parent="hurt"]
+shape = SubResource("RectangleShape2D_wstdr")
+debug_color = Color(1, 0.00392157, 0.0705882, 0.419608)
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
 position = Vector2(-1.72853e-06, 4.17233e-07)
 scale = Vector2(1.6, 0.8)
 
-[node name="Sprite" type="AnimatedSprite2D" parent="." index="4"]
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_4jmi0")
 animation = &"lazy"
 autoplay = "lazy"
 frame_progress = 0.213892
+
+[connection signal="body_entered" from="hitable" to="." method="_on_hitable_body_entered"]
+[connection signal="body_entered" from="hurt" to="." method="_on_hurt_body_entered"]
