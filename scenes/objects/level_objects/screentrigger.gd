@@ -34,12 +34,13 @@ func _on_body_entered(body):
 		if ladderonly == false or GameState.playerstate == 7:
 			if scrollX1 != GameState.scrollX1 or scrollX2 != GameState.scrollX2 or scrollY1 != GameState.scrollY1 or scrollY2 != GameState.scrollY2:
 				
-				#set these to make sure
+				#old screen bounds
 				GameState.scrollX3 = GameState.scrollX1
 				GameState.scrollX4 = GameState.scrollY2
 				GameState.scrollY3 = GameState.scrollX1
 				GameState.scrollY4 = GameState.scrollY2
 				
+				#new screen bounds
 				GameState.scrollX1 = scrollX1
 				GameState.scrollX2 = scrollX2
 				GameState.scrollY1 = scrollY1

@@ -74,7 +74,7 @@ func _process(_delta):
 	process_camera()
 
 func _physics_process(_delta: float):
-	if GameState.player != null:
+	if GameState.player != null and GameState.screentransiton == 0:
 		if GameState.player.position.x < $Camera2D.position.x - 184:
 			GameState.player.position.x = $Camera2D.position.x  - 184
 		if GameState.player.position.x > $Camera2D.position.x + 184:
@@ -199,10 +199,10 @@ func process_camera():
 			if $Camera2D.position.y > (224*GameState.scrollY2) + 104  + 8:
 				$Camera2D.position.y -= 8
 				
-			if $Camera2D.position.y < (224*GameState.scrollY3) + 104  + 8:
-				$Camera2D.position.y = (224*GameState.scrollY3) + 104  + 8
-			if $Camera2D.position.y > (224*GameState.scrollY4) + 104  + 8:
-				$Camera2D.position.y = (224*GameState.scrollY4) + 104  + 8
+			#if $Camera2D.position.y < (224*GameState.scrollY3) + 104  + 8:
+			#	$Camera2D.position.y = (224*GameState.scrollY3) + 104  + 8
+			#if $Camera2D.position.y > (224*GameState.scrollY4) + 104  + 8:
+			#	$Camera2D.position.y = (224*GameState.scrollY4) + 104  + 8
 				
 		if GameState.transdir == 2 or GameState.transdir == 4:
 			if $Camera2D.position.x < (384*GameState.scrollX1) + 192:
@@ -210,10 +210,10 @@ func process_camera():
 			if $Camera2D.position.x > (384*GameState.scrollX2) + 192:
 				$Camera2D.position.x -= 8
 				
-			if $Camera2D.position.x < (384*GameState.scrollX3) + 192:
-				$Camera2D.position.x = (384*GameState.scrollX4) + 192
-			if $Camera2D.position.x > (384*GameState.scrollX4) + 192:
-				$Camera2D.position.x = (384*GameState.scrollX4) + 192
+			#if $Camera2D.position.x < (384*GameState.scrollX3) + 192:
+			#	$Camera2D.position.x += 8
+			#if $Camera2D.position.x > (384*GameState.scrollX4) + 192:
+			#	$Camera2D.position.x -= 8
 				
 func process_refills():
 	if (player != null): # Null check!
