@@ -7,18 +7,16 @@ script/source = "extends Enemy_Template
 
 @onready var projectile
 
-const SPEED = 20.0
-const REACTIONTIME = 40
+const SPEED = 40.0
+const CHARGESPEED = 100.0
+const REACTIONTIME = 30
 var state : int = 0
 var dir : float
 
 func _ready():
 	basedmg()
-	if (GameState.player == null) or (GameState.player.position.x < position.x):
-		velocity.x = -SPEED
-	else:
-		scale.x *= -1
-		velocity.x = SPEED
+	Cur_HP = 6
+	velocity.x = -scale.x * SPEED
 
 func _physics_process(_delta):
 	if Cur_HP <= 0:
@@ -50,19 +48,72 @@ func _physics_process(_delta):
 	if blown == false:
 		if state == 0:
 			if GameState.player != null:
-				if position.x < abs(GameState.player.position.x) + 50:
+				if position.x < abs(GameState.player.position.x) + 100 and position.x > abs(GameState.player.position.x) - 100:
 					$Sprite.play(\"see\")
 					state = 1
-		if state > 1 && state < REACTIONTIME:
+		if state > 0 && state < REACTIONTIME:
 			state += 1
+			velocity.x = 0
 		if state == REACTIONTIME:
+			$Sprite.play(\"charge\")
 			if GameState.player != null:
-				$Sprite.play(\"charge\")
-				look_at(GameState.player.position)
-				velocity=Vector2(SPEED,0).rotated(dir)
+				$Pointer.look_at(GameState.player.position)
+				velocity.x = cos($Pointer.rotation) * CHARGESPEED * scale.x
+				velocity.y = sin($Pointer.rotation) * CHARGESPEED
 				state += 1
+				if velocity.x > 0:
+					scale.x = -1
+				else:
+					scale.x = 1
 				
 		move_and_slide()
+
+
+func _on_visible_on_screen_notifier_2d_screen_exited():
+	queue_free()
+
+func _on_hitable_body_entered(weapon): # needs to be redefined because damage values
+	#Check for I-Frames or multihit
+	if Cur_Inv <= 0 or (weapon.W_Type == GameState.DMGTYPE.CB_ORIGAMI or GameState.DMGTYPE.CB_REAPER_1 or GameState.DMGTYPE.CB_REAPER_2 or GameState.DMGTYPE.MD_GUERILLA):
+		#Does it do 0 damage?
+		if Dmg_Vals[weapon.W_Type] == 0:
+			#For these, have the projectile dissipate.
+			if (weapon.W_Type == GameState.DMGTYPE.BS_SHARK or GameState.DMGTYPE.CR_SHARK1 or GameState.DMGTYPE.CR_SHARK2):
+				weapon.destroy()
+			#For all others, the projectile bounces off. Plink!
+			else:
+				weapon.reflect()
+		#Cool, it does damage!!
+		else:
+			if state > REACTIONTIME:
+				if weapon.is_in_group(\"scorch\"):
+					velocity.x *= 0.3
+					velocity.y *= 0.3
+				else:
+					velocity.x *= 0.9
+					velocity.y *= 0.9
+			#Is it Scorch Barrier?
+			if weapon.is_in_group(\"scorch\"):
+				#For most characters, reduce durability by...
+				if GameState.character_selected != 2:
+					weapon.durability -= 1
+				#Copy robot isn't so lucky...
+				else:
+					weapon.durability -= 2
+			#Look up the damage type and do damage according to it.
+			Cur_HP -= Dmg_Vals[weapon.W_Type]
+			Cur_Inv = 2
+			#If the enemy is killed by Wild Gale, let em get blown away!
+			if Cur_HP <= 0 and weapon.W_Type == GameState.DMGTYPE.CB_GALE:
+				Cur_HP = 999
+				blown = true
+			
+			#If the projectile kills, or are the below weapons on hit, go to the kill state!
+			if Cur_HP <= 0 or (weapon.W_Type == GameState.DMGTYPE.CR_SHARK1 or GameState.DMGTYPE.CR_SHARK2 or GameState.DMGTYPE.BS_SHARK):
+				weapon.kill()
+			else:
+				#If neither of these conditions are met, whatever!
+				weapon.destroy()
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wjvmq"]
@@ -129,6 +180,7 @@ animations = [{
 
 [node name="Sutsi" type="CharacterBody2D"]
 collision_layer = 0
+collision_mask = 0
 script = SubResource("GDScript_4n32e")
 
 [node name="Collision" type="CollisionShape2D" parent="."]
@@ -160,5 +212,12 @@ animation = &"lazy"
 autoplay = "lazy"
 frame_progress = 0.213892
 
+[node name="Pointer" type="Node2D" parent="."]
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(2.84217e-14, 0)
+scale = Vector2(2.2, 1.25)
+
 [connection signal="body_entered" from="hitable" to="." method="_on_hitable_body_entered"]
 [connection signal="body_entered" from="hurt" to="." method="_on_hurt_body_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
