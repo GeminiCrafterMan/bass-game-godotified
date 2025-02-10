@@ -9,7 +9,7 @@ size = Vector2(16, 16)
 size = Vector2(16, 2)
 
 [node name="LadderHitbox" type="Area2D" groups=["ladder"]]
-collision_layer = 64
+collision_layer = 65
 collision_mask = 0
 script = ExtResource("1_1mb4w")
 
@@ -24,3 +24,5 @@ collision_mask = 0
 position = Vector2(0, -7)
 shape = SubResource("RectangleShape2D_6djwd")
 one_way_collision = true
+
+[node name="snapHere" type="Marker2D" parent="."]

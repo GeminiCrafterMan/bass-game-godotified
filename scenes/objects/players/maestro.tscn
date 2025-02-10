@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://bksinirshmwgf"]
+[gd_scene load_steps=49 format=3 uid="uid://bksinirshmwgf"]
 
 [ext_resource type="Script" path="res://scenes/objects/players/maestro.gd" id="1_ct76e"]
 [ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="1_lnglj"]
@@ -14,6 +14,12 @@ shader_parameter/use_palette_alpha = false
 shader_parameter/fps = 6.0
 shader_parameter/palette = ExtResource("4_sovti")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2jp8q"]
+size = Vector2(12, 26)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7k36u"]
+size = Vector2(14, 8)
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dtetj"]
 shader = ExtResource("1_lnglj")
 shader_parameter/skip_first_row = true
@@ -21,8 +27,20 @@ shader_parameter/use_palette_alpha = false
 shader_parameter/fps = 6.0
 shader_parameter/palette = ExtResource("4_sovti")
 
+[sub_resource type="Animation" id="Animation_yvrgq"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_gfxrd"]
+resource_name = "regular"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pkaf2"]
+_data = {
+"RESET": SubResource("Animation_yvrgq"),
+"regular": SubResource("Animation_gfxrd")
+}
+
 [sub_resource type="Animation" id="Animation_kvtkx"]
-resource_name = "Dead"
+resource_name = "DEAD"
 length = 0.2
 loop_mode = 1
 tracks/0/type = "value"
@@ -39,6 +57,39 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_sun07"]
+resource_name = "FALL"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.133333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [8, 7]
+}
+
+[sub_resource type="Animation" id="Animation_lxvy4"]
+resource_name = "FALL_SHIELD"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [25, 7]
+}
+
+[sub_resource type="Animation" id="Animation_iqo4o"]
+resource_name = "FALL_SHOOT"
 length = 0.2
 loop_mode = 1
 tracks/0/type = "value"
@@ -51,7 +102,23 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [8]
+"values": [18]
+}
+
+[sub_resource type="Animation" id="Animation_mno6c"]
+resource_name = "FALL_THROW"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.125),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [23, 24]
 }
 
 [sub_resource type="Animation" id="Animation_kapwp"]
@@ -70,6 +137,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_1pvat"]
+resource_name = "HURT"
 length = 0.2
 loop_mode = 1
 tracks/0/type = "value"
@@ -86,6 +154,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_srkdc"]
+resource_name = "IDLE"
 length = 1.5
 loop_mode = 1
 tracks/0/type = "value"
@@ -102,6 +171,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_wjtks"]
+resource_name = "IDLE_SHIELD"
 length = 0.4
 loop_mode = 1
 tracks/0/type = "value"
@@ -118,6 +188,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_o4kk7"]
+resource_name = "IDLE_SHOOT"
 length = 0.2
 loop_mode = 1
 tracks/0/type = "value"
@@ -134,6 +205,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_5warb"]
+resource_name = "IDLE_THROW"
 length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -149,6 +221,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_l71ad"]
+resource_name = "JUMP"
 length = 0.2
 loop_mode = 1
 tracks/0/type = "value"
@@ -162,6 +235,55 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [6]
+}
+
+[sub_resource type="Animation" id="Animation_rcr71"]
+resource_name = "JUMP_SHIELD"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [25, 7]
+}
+
+[sub_resource type="Animation" id="Animation_pye4t"]
+resource_name = "JUMP_SHOOT"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [18]
+}
+
+[sub_resource type="Animation" id="Animation_udgb2"]
+resource_name = "JUMP_THROW"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.125),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [23, 24]
 }
 
 [sub_resource type="Animation" id="Animation_3e4rw"]
@@ -180,53 +302,8 @@ tracks/0/keys = {
 "values": [7]
 }
 
-[sub_resource type="Animation" id="Animation_rcr71"]
-length = 0.4
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [25, 7]
-}
-
-[sub_resource type="Animation" id="Animation_pye4t"]
-length = 0.2
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [18]
-}
-
-[sub_resource type="Animation" id="Animation_udgb2"]
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.125),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [23, 24]
-}
-
 [sub_resource type="Animation" id="Animation_q4t3d"]
+resource_name = "LADDER"
 length = 0.4
 loop_mode = 1
 tracks/0/type = "value"
@@ -302,6 +379,7 @@ tracks/1/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_ybh4h"]
+resource_name = "SLIDE"
 length = 0.2
 loop_mode = 1
 tracks/0/type = "value"
@@ -318,7 +396,8 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_awquw"]
-length = 0.111111
+resource_name = "STEP"
+length = 0.200003
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -333,6 +412,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_ubhby"]
+resource_name = "TELEPORT"
 length = 0.2
 loop_mode = 1
 tracks/0/type = "value"
@@ -349,6 +429,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_1nvuj"]
+resource_name = "TELEPORT_LANDING"
 length = 0.4
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -362,8 +443,23 @@ tracks/0/keys = {
 "update": 1,
 "values": [33, 32, 31, 30, 29, 28, 27, 26]
 }
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.366667),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"stopTeleportingFuckingIdiot"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_xy5yj"]
+resource_name = "WALK"
 length = 0.466744
 loop_mode = 1
 tracks/0/type = "value"
@@ -380,6 +476,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_nbhxj"]
+resource_name = "WALKING_SHOOT"
 length = 0.466744
 loop_mode = 1
 tracks/0/type = "value"
@@ -397,29 +494,32 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_atfpo"]
 _data = {
-"Dead": SubResource("Animation_kvtkx"),
-"Fall": SubResource("Animation_sun07"),
+"DEAD": SubResource("Animation_kvtkx"),
+"FALL": SubResource("Animation_sun07"),
+"FALL_SHIELD": SubResource("Animation_lxvy4"),
+"FALL_SHOOT": SubResource("Animation_iqo4o"),
+"FALL_THROW": SubResource("Animation_mno6c"),
 "FinShredder": SubResource("Animation_kapwp"),
-"Hurt": SubResource("Animation_1pvat"),
-"Idle": SubResource("Animation_srkdc"),
-"Idle-Shield": SubResource("Animation_wjtks"),
-"Idle-Shoot": SubResource("Animation_o4kk7"),
-"Idle-Throw": SubResource("Animation_5warb"),
-"Jump": SubResource("Animation_l71ad"),
+"HURT": SubResource("Animation_1pvat"),
+"IDLE": SubResource("Animation_srkdc"),
+"IDLE_SHIELD": SubResource("Animation_wjtks"),
+"IDLE_SHOOT": SubResource("Animation_o4kk7"),
+"IDLE_THROW": SubResource("Animation_5warb"),
+"JUMP": SubResource("Animation_l71ad"),
+"JUMP_SHIELD": SubResource("Animation_rcr71"),
+"JUMP_SHOOT": SubResource("Animation_pye4t"),
+"JUMP_THROW": SubResource("Animation_udgb2"),
 "Jump Transition": SubResource("Animation_3e4rw"),
-"Jump-Shield": SubResource("Animation_rcr71"),
-"Jump-Shoot": SubResource("Animation_pye4t"),
-"Jump-Throw": SubResource("Animation_udgb2"),
-"Ladder": SubResource("Animation_q4t3d"),
+"LADDER": SubResource("Animation_q4t3d"),
 "Ladder-Shoot": SubResource("Animation_3ovpa"),
 "Ladder-Up": SubResource("Animation_mei8y"),
 "RESET": SubResource("Animation_5p383"),
-"Slide": SubResource("Animation_ybh4h"),
-"Step": SubResource("Animation_awquw"),
-"Teleport": SubResource("Animation_ubhby"),
-"Teleport In": SubResource("Animation_1nvuj"),
-"Walk": SubResource("Animation_xy5yj"),
-"Walk-Shoot": SubResource("Animation_nbhxj")
+"SLIDE": SubResource("Animation_ybh4h"),
+"STEP": SubResource("Animation_awquw"),
+"TELEPORT": SubResource("Animation_ubhby"),
+"TELEPORT_LANDING": SubResource("Animation_1nvuj"),
+"WALK": SubResource("Animation_xy5yj"),
+"WALKING_SHOOT": SubResource("Animation_nbhxj")
 }
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_biy2v"]
@@ -481,7 +581,7 @@ animations = [{
 size = Vector2(14, 26)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1cspv"]
-size = Vector2(16, 14)
+size = Vector2(13, 14)
 
 [node name="Maestro" type="CharacterBody2D" groups=["player", "splash"]]
 editor_description = "Maestro, the base class for every character."
@@ -491,17 +591,36 @@ collision_mask = 17
 floor_snap_length = 5.0
 script = ExtResource("1_ct76e")
 
+[node name="hurtboxArea" type="Area2D" parent="." groups=["player"]]
+collision_layer = 4
+collision_mask = 2
+
+[node name="mainHurtbox" type="CollisionShape2D" parent="hurtboxArea"]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_2jp8q")
+debug_color = Color(1, 0.85, 0, 0.419608)
+
+[node name="slideHurtbox" type="CollisionShape2D" parent="hurtboxArea"]
+position = Vector2(0, 12)
+shape = SubResource("RectangleShape2D_7k36u")
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_dtetj")
 texture = ExtResource("4_w3lef")
 hframes = 35
-frame = 21
+frame = 7
+
+[node name="shifter" type="AnimationPlayer" parent="."]
+root_node = NodePath("../hurtboxArea")
+libraries = {
+"": SubResource("AnimationLibrary_pkaf2")
+}
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_atfpo")
 }
-autoplay = "Teleport"
+autoplay = "TELEPORT"
 
 [node name="FX" type="Node2D" parent="."]
 position = Vector2(0, 2)
@@ -520,14 +639,13 @@ visible = false
 position = Vector2(1.48619e-06, -17)
 sprite_frames = SubResource("SpriteFrames_dkj8m")
 
-[node name="MainHitbox" type="CollisionShape2D" parent="."]
+[node name="mainCollision" type="CollisionShape2D" parent="."]
 position = Vector2(0, 3)
 shape = SubResource("RectangleShape2D_5u3na")
 
-[node name="SlideHitbox" type="CollisionShape2D" parent="."]
-position = Vector2(0, 9)
+[node name="slideCollision" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 9)
 shape = SubResource("RectangleShape2D_1cspv")
-disabled = true
 
 [node name="StateTimer" type="Timer" parent="."]
 process_callback = 0
@@ -554,30 +672,39 @@ process_callback = 0
 wait_time = 0.4
 one_shot = true
 
-[node name="CeilingCheck" type="RayCast2D" parent="."]
-position = Vector2(0, 11)
-target_position = Vector2(0, -12)
-collision_mask = 17
+[node name="upLadder" type="RayCast2D" parent="."]
+position = Vector2(0, 15.67)
+target_position = Vector2(0, -10)
+collision_mask = 64
 hit_from_inside = true
 collide_with_areas = true
 
-[node name="LadderCheck1" type="RayCast2D" parent="."]
+[node name="downLadder" type="RayCast2D" parent="."]
+position = Vector2(0, 17)
+target_position = Vector2(0, 4.665)
+collision_mask = 64
+hit_from_inside = true
+collide_with_areas = true
+
+[node name="ceilCheck" type="RayCast2D" parent="."]
 position = Vector2(0, 2)
-target_position = Vector2(0, -12)
-collision_mask = 64
-hit_from_inside = true
-collide_with_areas = true
+target_position = Vector2(0, -7)
 
-[node name="LadderCheck2" type="RayCast2D" parent="."]
-position = Vector2(0, 7)
-target_position = Vector2(0, 9)
-collision_mask = 64
-hit_from_inside = true
-collide_with_areas = true
+[node name="states" type="RichTextLabel" parent="."]
+offset_left = -36.0
+offset_top = -29.0
+offset_right = 43.0
+offset_bottom = 11.0
+bbcode_enabled = true
+text = "state
+goes here"
 
-[node name="LadderCheck3" type="RayCast2D" parent="."]
-position = Vector2(0, 16)
-target_position = Vector2(0, 2)
-collision_mask = 64
-hit_from_inside = true
-collide_with_areas = true
+[node name="ShootTimer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 0.35
+one_shot = true
+
+[connection signal="area_entered" from="hurtboxArea" to="." method="_on_hurtbox_area_area_entered"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="animationPlayerFinished"]
+[connection signal="timeout" from="SlideTimer" to="." method="_on_slide_timer_timeout"]
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
