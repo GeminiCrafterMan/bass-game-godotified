@@ -12,7 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://c0y41m5w7nbwe" path="res://shaders/palettes/water/shark2.png" id="7_fkwms"]
 [ext_resource type="PackedScene" uid="uid://mi0hw7tknuco" path="res://scenes/objects/level_objects/spike.tscn" id="10_xpgq4"]
 [ext_resource type="PackedScene" uid="uid://el66rgn1gkh3" path="res://scenes/objects/level_objects/teleporter.tscn" id="12_41205"]
-[ext_resource type="TileSet" uid="uid://di2ls6ayshosr" path="res://tilesets/layout.tres" id="12_sg45s"]
+[ext_resource type="TileSet" uid="uid://bp0hrrsh7jne5" path="res://tilesets/layout.tres" id="12_sg45s"]
 [ext_resource type="PackedScene" uid="uid://cumiv05286vqn" path="res://scenes/objects/level_objects/enemy_spawner.tscn" id="13_3iom0"]
 [ext_resource type="PackedScene" uid="uid://de6y2454v43to" path="res://scenes/objects/level_objects/screentrigger.tscn" id="14_l15w7"]
 

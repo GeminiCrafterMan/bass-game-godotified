@@ -16,7 +16,7 @@ enum STATES {
 	WALK,
 	SLIDE,
 	JUMP,
-	JUMP_TRANS,
+	FALL_START,
 	FALL,
 	FALL_SHOOT,
 	LADDER,
@@ -58,12 +58,14 @@ var underRoof : bool
 #region Exports
 # input related
 @export var JUMP_VELOCITY: int = -225
-@export var PEAK_VELOCITY: int = -90
-@export var STOP_VELOCITY: int = -80
-@export var JUMP_HEIGHT: int = 13
+@export var PEAK_VELOCITY: int = -150
+@export var STOP_VELOCITY: int = -150
+@export var JUMP_HEIGHT: int = 15
 @export var FAST_FALL: int = 400
+@export var WATER_FAST_FALL: int = 200
 @export var MAXSPEED: int = 100
-@export var RUNSPEED: int = 70
+@export var RUNSPEED: int = 80
+@export var ICE_FRICTION: int = 0.95
 #endregion
 
 var transing : bool = false
@@ -121,6 +123,7 @@ var in_water : bool
 var on_ice : bool
 var ice_jump : bool
 var wind_push = 0
+var fall_timer: int
 
 #Attack vars
 var shot_type = 0
@@ -214,10 +217,12 @@ func _physics_process(delta: float) -> void:
 			processCharge()
 			ladderCheck()
 		STATES.IDLE_THROW:
-			velocity.x = 0
+			if on_ice != true:
+				velocity.x = 0
 			checkForFloor()
 		STATES.IDLE_SHIELD:
-			velocity.x = 0
+			if on_ice != true:
+				velocity.x = 0
 			checkForFloor()
 		STATES.STEP:
 			step(delta)
@@ -243,7 +248,7 @@ func _physics_process(delta: float) -> void:
 			processShoot()
 			processCharge()
 			ladderCheck()
-		STATES.FALL, STATES.FALL_SHOOT, STATES.FALL_THROW, STATES.FALL_SHIELD:
+		STATES.FALL_START, STATES.FALL, STATES.FALL_SHOOT, STATES.FALL_THROW, STATES.FALL_SHIELD:
 			fall()
 			applyGrav(delta)
 			allowLeftRight(delta)
@@ -251,7 +256,7 @@ func _physics_process(delta: float) -> void:
 			processCharge()
 			ladderCheck()
 		STATES.SLIDE:
-			sliding()
+			sliding(delta)
 			processJump()
 			processCharge()
 			ladderCheck()
@@ -263,6 +268,7 @@ func _physics_process(delta: float) -> void:
 			applyGrav(delta)
 		STATES.DEAD:
 			dead()
+	position.x += wind_push
 	animationMatching()
 	move_and_slide()
 
@@ -278,11 +284,12 @@ func applyGrav(delta):
 			if fallstored != 0:
 				velocity.y = fallstored
 				fallstored = 0
+			if FAST_FALL < velocity.y:
+				velocity.y = FAST_FALL
 	else:
 		if velocity.y != 0:
 			fallstored = velocity.y
 			velocity.y = 0
-	position.x += wind_push
 
 func teleporting():
 	if is_on_floor() && currentState == STATES.TELEPORT:
@@ -291,12 +298,13 @@ func teleporting():
 func idle(delta):
 	if direction.x != 0 && velocity.x == 0:
 		if currentState == STATES.IDLE or currentState == STATES.IDLE_SHOOT:
-			position.x += direction.x
-			velocity.x = 0
+			if on_ice != true:
+				position.x += direction.x
+				velocity.x = 0
 			StepTime = 0
 			currentState = STATES.STEP
 	if direction.x == 0 && on_ice == true:
-		velocity.x = lerpf(velocity.x, 0, delta * 2)
+		velocity.x = lerpf(velocity.x, 0, delta * 4)
 	else:
 		velocity.x = 0
 
@@ -306,7 +314,7 @@ func step(delta):
 		currentState = STATES.IDLE
 	else:
 		sprite.scale.x = direction.x
-	if StepTime > 6:
+	if StepTime > 3:
 		currentState = STATES.WALK
 
 func walk():
@@ -317,14 +325,14 @@ func allowLeftRight(delta):
 	if direction.x != 0:
 		sprite.scale.x = direction.x
 		if on_ice == true:
-				if (sprite.scale.x != sign(direction.x)) and currentSpeed != 0:
-					if is_on_floor() == true && on_ice == true:
-						if velocity.x <= -MAXSPEED && velocity.x >= MAXSPEED:
-							velocity.x = lerpf(velocity.x, direction.x * MAXSPEED, delta * 3)
-					else:
-						currentSpeed = MAXSPEED
+			if (sprite.scale.x != sign(direction.x)) and currentSpeed != 0:
 				if is_on_floor() == true && on_ice == true:
-					velocity.x = lerpf(velocity.x, direction.x * MAXSPEED*1.5, delta * 2)
+					if velocity.x <= -MAXSPEED && velocity.x >= MAXSPEED:
+						velocity.x = lerpf(velocity.x, sprite.scale.x * 250, delta * 4)
+				else:
+					currentSpeed = MAXSPEED
+			if is_on_floor() == true && on_ice == true:
+				velocity.x = lerpf(velocity.x, sprite.scale.x * MAXSPEED * 1.25, delta * 4)
 		elif slowed == true:
 			pass
 		else:
@@ -340,7 +348,7 @@ func allowLeftRight(delta):
 
 func checkForFloor():
 	if !is_on_floor():
-		currentState = STATES.FALL
+		currentState = STATES.FALL_START
 
 func processJump():
 	if Input.is_action_just_pressed("jump") && direction.y != -1:
@@ -357,17 +365,17 @@ func Jump():
 		if (JumpHeight == JUMP_HEIGHT):
 			JumpHeight = 80
 			velocity.y = PEAK_VELOCITY
-			currentState = STATES.FALL
+			currentState = STATES.FALL_START
 		if (Input.is_action_just_released("jump")):
 			JumpHeight = 80
 			velocity.y = STOP_VELOCITY
-			currentState = STATES.FALL
+			currentState = STATES.FALL_START
 	if direction.x == 0:
 		velocity.x = 0
 	if is_on_ceiling():
 		JumpHeight = 80
 		velocity.y = STOP_VELOCITY
-		currentState = STATES.FALL
+		currentState = STATES.FALL_START
 
 func fall():
 	if direction.x == 0:
@@ -377,22 +385,29 @@ func fall():
 			currentState = STATES.WALK
 		else:
 			currentState = STATES.IDLE
+	if currentState == STATES.FALL_START:
+		fall_timer += 1
+		if fall_timer > 10:
+			currentState = STATES.FALL
+	else:
+		fall_timer = 0
 
 func ladderCheck():
-	if direction.y == 1 && $upLadder.is_colliding():
-		ladderArea = $upLadder.get_collider()
-		ladderArea.refreshCollis(true)
-		currentState = STATES.LADDER
-		velocity.x = 0
-		velocity.y = 0
-		position.x = ladderArea.position.x
-	if direction.y == -1 && $downLadder.is_colliding():
-		ladderArea = $downLadder.get_collider()
-		ladderArea.refreshCollis(false)
-		currentState = STATES.LADDER
-		velocity.x = 0
-		velocity.y = 0
-		position.x = ladderArea.position.x
+	if !Input.is_action_pressed("jump"):
+		if direction.y == 1 && $upLadder.is_colliding():
+			ladderArea = $upLadder.get_collider()
+			ladderArea.refreshCollis(true)
+			currentState = STATES.LADDER
+			velocity.x = 0
+			velocity.y = 0
+			position.x = ladderArea.position.x
+		if direction.y == -1 && $downLadder.is_colliding():
+			ladderArea = $downLadder.get_collider()
+			ladderArea.refreshCollis(false)
+			currentState = STATES.LADDER
+			velocity.x = 0
+			velocity.y = 0
+			position.x = ladderArea.position.x
 
 func ladder():
 	if direction.y != 0:
@@ -406,6 +421,7 @@ func ladder():
 		velocity.y = 0
 		currentState = STATES.IDLE
 	if Input.is_action_just_pressed("jump") && is_on_floor() == false:
+		velocity.y = 0
 		currentState = STATES.FALL
 
 
@@ -419,7 +435,8 @@ func _on_collision_area_area_exited(area: Area2D) -> void:
 
 func slideProcess():
 	if direction.y == -1 && Input.is_action_just_pressed("jump"):
-		velocity.x = 200 * sprite.scale.x
+		if on_ice != true:
+			velocity.x = 200 * sprite.scale.x
 		currentState = STATES.SLIDE
 		$mainCollision.disabled = true
 		slide_timer.start(0.4)
@@ -433,10 +450,14 @@ func slideProcess():
 		FX.position.y = position.y+8
 		SoundManager.play("player", "slide")
 
-func sliding():
-	if direction.x != 0:
-		velocity.x = 200 * direction.x
-		sprite.scale.x = direction.x
+func sliding(delta):
+	if on_ice != true:
+		if direction.x != 0:
+			velocity.x = 200 * direction.x
+			sprite.scale.x = direction.x
+	else:
+		velocity.x = lerpf(velocity.x, sprite.scale.x * 250, delta * 4)
+			
 	if !is_on_floor():
 		velocity.x = 0
 		currentState = STATES.FALL
@@ -448,7 +469,8 @@ func _on_slide_timer_timeout() -> void:
 		print("keep sliding")
 		slide_timer.start(0.1)
 	else:
-		velocity.x = 0
+		if on_ice != true:
+			velocity.x = 0
 		currentState = STATES.IDLE
 		$mainCollision.disabled = false
 
@@ -556,7 +578,7 @@ func busterAnimMatch():
 		anim.seek(getFrame)
 	elif currentState == STATES.JUMP:
 		currentState = STATES.JUMP_SHOOT
-	elif currentState == STATES.FALL:
+	elif currentState == STATES.FALL or currentState == STATES.FALL_START:
 		currentState = STATES.FALL_SHOOT
 
 func shieldAnimMatch():
