@@ -217,12 +217,8 @@ func _physics_process(delta: float) -> void:
 			processCharge()
 			ladderCheck()
 		STATES.IDLE_THROW:
-			if on_ice != true:
-				velocity.x = 0
 			checkForFloor()
 		STATES.IDLE_SHIELD:
-			if on_ice != true:
-				velocity.x = 0
 			checkForFloor()
 		STATES.STEP:
 			step(delta)
@@ -296,14 +292,13 @@ func teleporting():
 		currentState = STATES.TELEPORT_LANDING
 
 func idle(delta):
-	if direction.x != 0 && velocity.x == 0:
-		if currentState == STATES.IDLE or currentState == STATES.IDLE_SHOOT:
-			if on_ice != true:
-				position.x += direction.x
-				velocity.x = 0
-			StepTime = 0
-			currentState = STATES.STEP
-	if direction.x == 0 && on_ice == true:
+	if direction.x != 0:
+		if on_ice == false:
+			position.x += direction.x
+			velocity.x = 0
+		StepTime = 0
+		currentState = STATES.STEP
+	if on_ice == true:
 		velocity.x = lerpf(velocity.x, 0, delta * 4)
 	else:
 		velocity.x = 0
@@ -314,7 +309,7 @@ func step(delta):
 		currentState = STATES.IDLE
 	else:
 		sprite.scale.x = direction.x
-	if StepTime > 3:
+	if StepTime > 4:
 		currentState = STATES.WALK
 
 func walk():
@@ -475,9 +470,16 @@ func _on_slide_timer_timeout() -> void:
 		$mainCollision.disabled = false
 
 func _on_hurtbox_area_area_entered(area: Area2D) -> void:
-	print("wee")
 	if area.is_in_group("hitbox"):
 		hitByThing()
+
+func _on_water_check(area: Area2D) -> void:
+	if area.is_in_group("splash"):
+		var splash = preload("res://scenes/objects/splash.tscn").instantiate()
+		add_child(splash)
+		splash.name = "splashie"
+		splash.top_level = true
+		splash.global_position = $waterCheck.global_position
 
 func hitByThing():
 	invul(true)
@@ -1143,3 +1145,7 @@ func reset(everything: bool) -> void:
 				#velocity.x = lerpf(direction.x * 50, 0, delta * 7)
 	#else:
 		#velocity.x = lerpf(velocity.x, 0, delta * 4)
+
+
+func _on_water_check_area_exited(area: Area2D) -> void:
+	pass # Replace with function body.

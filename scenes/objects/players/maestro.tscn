@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://bksinirshmwgf"]
+[gd_scene load_steps=50 format=3 uid="uid://bksinirshmwgf"]
 
 [ext_resource type="Script" path="res://scenes/objects/players/maestro.gd" id="1_ct76e"]
 [ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="1_lnglj"]
@@ -103,6 +103,23 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [18]
+}
+
+[sub_resource type="Animation" id="Animation_3e4rw"]
+resource_name = "FALL_START"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [6, 7]
 }
 
 [sub_resource type="Animation" id="Animation_mno6c"]
@@ -476,23 +493,6 @@ tracks/0/keys = {
 "values": [15, 16, 17, 16]
 }
 
-[sub_resource type="Animation" id="Animation_3e4rw"]
-resource_name = "FALL_START"
-length = 0.2
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.0666667),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [6, 7]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_atfpo"]
 _data = {
 "DEAD": SubResource("Animation_kvtkx"),
@@ -583,6 +583,9 @@ size = Vector2(14, 26)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1cspv"]
 size = Vector2(13, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r35an"]
+size = Vector2(1, 0)
 
 [node name="Maestro" type="CharacterBody2D" groups=["player", "splash"]]
 editor_description = "Maestro, the base class for every character."
@@ -705,7 +708,19 @@ process_callback = 0
 wait_time = 0.35
 one_shot = true
 
+[node name="waterCheck" type="Area2D" parent="."]
+position = Vector2(0, 1)
+collision_layer = 4
+collision_mask = 2
+
+[node name="boop" type="CollisionShape2D" parent="waterCheck"]
+shape = SubResource("RectangleShape2D_r35an")
+debug_color = Color(0.969991, 0, 0.457701, 0.42)
+
 [connection signal="area_entered" from="hurtboxArea" to="." method="_on_hurtbox_area_area_entered"]
+[connection signal="body_entered" from="hurtboxArea" to="." method="_on_hurtbox_area_body_entered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="animationPlayerFinished"]
 [connection signal="timeout" from="SlideTimer" to="." method="_on_slide_timer_timeout"]
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
+[connection signal="area_entered" from="waterCheck" to="." method="_on_water_check"]
+[connection signal="area_exited" from="waterCheck" to="." method="_on_water_check"]

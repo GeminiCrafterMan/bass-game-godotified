@@ -270,16 +270,6 @@ func _on_water_body_entered(wet):
 	if wet.is_in_group("scorch"):
 		wet.wet = true
 		
-	
-
-func _on_splash_zone_body_entered(body):
-	if body.is_in_group("splash"):
-		splash = preload("res://scenes/objects/splash.tscn").instantiate()
-		add_child(splash)
-		splash.position.x = body.position.x
-		splash.position.y = body.position.y + body.velocity.y * 0.0005
-		#wet.is_wet = false
-
 
 func _on_ice_body_entered(body):
 	if body.is_in_group("player"):
