@@ -65,7 +65,9 @@ var underRoof : bool
 @export var WATER_FAST_FALL: int = 200
 @export var MAXSPEED: int = 100
 @export var RUNSPEED: int = 80
-@export var ICE_FRICTION: int = 0.95
+
+@export var ICE_FLOOR_WEIGHT: float = 3
+@export var ICE_AIR_WEIGHT: float = 2
 #endregion
 
 var transing : bool = false
@@ -180,6 +182,7 @@ func _ready():
 	state_timer.start(0.5)
 	invul_timer.start(0.01)
 	currentState = STATES.TELEPORT
+	velocity.y = 50
 	SoundManager.play("player", "warp")
 	print(GameState.current_hp)
 
@@ -212,20 +215,25 @@ func _physics_process(delta: float) -> void:
 			slideProcess()
 			checkForFloor()
 			processJump()
-			switchWeapons()
 			processShoot()
+			processBuster()
 			processCharge()
 			ladderCheck()
 		STATES.IDLE_THROW:
 			checkForFloor()
+			processJump()
+			processShoot()
 		STATES.IDLE_SHIELD:
 			checkForFloor()
+			processShoot()
+			
 		STATES.STEP:
 			step(delta)
 			checkForFloor()
 			slideProcess()
 			processJump()
 			processShoot()
+			processBuster()
 			processCharge()
 			ladderCheck()
 		STATES.WALK, STATES.WALKING_SHOOT:
@@ -235,30 +243,36 @@ func _physics_process(delta: float) -> void:
 			processJump()
 			allowLeftRight(delta)
 			processShoot()
+			processBuster()
 			processCharge()
 			ladderCheck()
 		STATES.JUMP, STATES.JUMP_SHOOT, STATES.JUMP_THROW, STATES.JUMP_SHIELD:
-			Jump()
+			Jump(delta)
 			applyGrav(delta)
 			allowLeftRight(delta)
 			processShoot()
+			processBuster()
 			processCharge()
 			ladderCheck()
 		STATES.FALL_START, STATES.FALL, STATES.FALL_SHOOT, STATES.FALL_THROW, STATES.FALL_SHIELD:
-			fall()
+			fall(delta)
 			applyGrav(delta)
 			allowLeftRight(delta)
 			processShoot()
+			processBuster()
 			processCharge()
 			ladderCheck()
 		STATES.SLIDE:
 			sliding(delta)
-			processJump()
+			if !$ceilCheck.is_colliding():
+				processJump()
 			processCharge()
 			ladderCheck()
 		STATES.LADDER:
 			ladder()
 			processCharge()
+			processShoot()
+			processBuster()
 		STATES.HURT:
 			hurt()
 			applyGrav(delta)
@@ -266,6 +280,7 @@ func _physics_process(delta: float) -> void:
 			dead()
 	position.x += wind_push
 	animationMatching()
+	switchWeapons()
 	move_and_slide()
 
 #region Character Things
@@ -289,6 +304,7 @@ func applyGrav(delta):
 
 func teleporting():
 	if is_on_floor() && currentState == STATES.TELEPORT:
+		teleported.emit()
 		currentState = STATES.TELEPORT_LANDING
 
 func idle(delta):
@@ -299,7 +315,7 @@ func idle(delta):
 		StepTime = 0
 		currentState = STATES.STEP
 	if on_ice == true:
-		velocity.x = lerpf(velocity.x, 0, delta * 4)
+		velocity.x = lerpf(velocity.x, 0, delta * ICE_FLOOR_WEIGHT)
 	else:
 		velocity.x = 0
 
@@ -323,13 +339,16 @@ func allowLeftRight(delta):
 			if (sprite.scale.x != sign(direction.x)) and currentSpeed != 0:
 				if is_on_floor() == true && on_ice == true:
 					if velocity.x <= -MAXSPEED && velocity.x >= MAXSPEED:
-						velocity.x = lerpf(velocity.x, sprite.scale.x * 250, delta * 4)
+						velocity.x = lerpf(velocity.x, sprite.scale.x * 250, delta * ICE_FLOOR_WEIGHT)
 				else:
 					currentSpeed = MAXSPEED
 			if is_on_floor() == true && on_ice == true:
-				velocity.x = lerpf(velocity.x, sprite.scale.x * MAXSPEED * 1.25, delta * 4)
+				velocity.x = lerpf(velocity.x, sprite.scale.x * MAXSPEED * 1.25, delta * ICE_FLOOR_WEIGHT)
+		elif is_on_floor() == false && ice_jump == true:
+				velocity.x = lerpf(velocity.x, sprite.scale.x * MAXSPEED * 1.25, delta * ICE_AIR_WEIGHT)
 		elif slowed == true:
 			pass
+			
 		else:
 			velocity.x = MAXSPEED * direction.x
 			sprite.scale.x = direction.x
@@ -349,10 +368,14 @@ func processJump():
 	if Input.is_action_just_pressed("jump") && direction.y != -1:
 		velocity.y = JUMP_VELOCITY
 		currentState = STATES.JUMP
+		slide_timer.stop()
+		$mainCollision.disabled = false
 		JumpHeight = 0
 		SoundManager.play("player", "jump")
 
-func Jump():
+func Jump(delta):
+	if on_ice == true:
+		ice_jump = true
 	if velocity.y < 0 && JumpHeight != 80:
 		if (JumpHeight < JUMP_HEIGHT && Input.is_action_pressed("jump")):
 			velocity.y = JUMP_VELOCITY
@@ -365,17 +388,24 @@ func Jump():
 			JumpHeight = 80
 			velocity.y = STOP_VELOCITY
 			currentState = STATES.FALL_START
-	if direction.x == 0:
-		velocity.x = 0
+	if direction.x == 0 :
+		if ice_jump == false:
+			velocity.x = 0
+		else:
+			velocity.x = lerpf(velocity.x, 0, delta * ICE_AIR_WEIGHT)
 	if is_on_ceiling():
 		JumpHeight = 80
 		velocity.y = STOP_VELOCITY
 		currentState = STATES.FALL_START
 
-func fall():
-	if direction.x == 0:
-		velocity.x = 0
+func fall(delta):
+	if direction.x == 0 :
+		if ice_jump == false:
+			velocity.x = 0
+		else:
+			velocity.x = lerpf(velocity.x, 0, delta * ICE_AIR_WEIGHT)
 	if is_on_floor():
+		ice_jump = false
 		if direction.x != 0:
 			currentState = STATES.WALK
 		else:
@@ -429,7 +459,7 @@ func _on_collision_area_area_exited(area: Area2D) -> void:
 		print("not touching ladder...")
 
 func slideProcess():
-	if direction.y == -1 && Input.is_action_just_pressed("jump"):
+	if direction.y == -1 && Input.is_action_just_pressed("jump") or Input.is_action_just_pressed("dash"):
 		if on_ice != true:
 			velocity.x = 200 * sprite.scale.x
 		currentState = STATES.SLIDE
@@ -446,13 +476,18 @@ func slideProcess():
 		SoundManager.play("player", "slide")
 
 func sliding(delta):
-	if on_ice != true:
-		if direction.x != 0:
-			velocity.x = 200 * direction.x
-			sprite.scale.x = direction.x
+	if on_ice == false:
+		velocity.x = 200 * sprite.scale.x
 	else:
 		velocity.x = lerpf(velocity.x, sprite.scale.x * 250, delta * 4)
-			
+	
+	if direction.x != 0:
+		if direction.x + sprite.scale.x == 0:
+			if $ceilCheck.is_colliding():
+				sprite.scale.x = direction.x
+			else:
+				slide_timer.start(0.001)
+	
 	if !is_on_floor():
 		velocity.x = 0
 		currentState = STATES.FALL
@@ -464,10 +499,16 @@ func _on_slide_timer_timeout() -> void:
 		print("keep sliding")
 		slide_timer.start(0.1)
 	else:
-		if on_ice != true:
-			velocity.x = 0
-		currentState = STATES.IDLE
 		$mainCollision.disabled = false
+		if !is_on_floor():
+			pass
+		if on_ice == false:
+			velocity.x = 0
+		if direction.x:
+			currentState = STATES.WALK
+		else:
+			currentState = STATES.IDLE
+		
 
 func _on_hurtbox_area_area_entered(area: Area2D) -> void:
 	if area.is_in_group("hitbox"):
@@ -586,6 +627,7 @@ func busterAnimMatch():
 func shieldAnimMatch():
 	$ShootTimer.start()
 	if currentState == STATES.IDLE or currentState == STATES.STEP or currentState == STATES.WALK:
+		velocity.x = 0
 		currentState = STATES.IDLE_SHIELD
 	elif currentState == STATES.JUMP:
 		currentState = STATES.JUMP_SHIELD
@@ -595,6 +637,7 @@ func shieldAnimMatch():
 func throwAnimMatch():
 	$ShootTimer.start()
 	if currentState == STATES.IDLE or currentState == STATES.STEP or currentState == STATES.WALK:
+		velocity.x = 0
 		currentState = STATES.IDLE_THROW
 	elif currentState == STATES.JUMP:
 		currentState = STATES.JUMP_THROW
@@ -668,6 +711,11 @@ func processCharge():
 			WEAPONS.REAPER:
 				throwAnimMatch()
 				weapon_reaper()
+
+func processBuster():
+	if Input.is_action_just_pressed("buster"):
+		busterAnimMatch()
+		weapon_buster()
 
 func weapon_buster():
 	if GameState.onscreen_bullets < 3:
@@ -776,7 +824,7 @@ func weapon_shark():
 				return
 
 func weapon_origami():
-	if Input.is_action_just_pressed("shoot") && (GameState.weapon_energy[GameState.WEAPONS.ORIGAMI] >= 1 or GameState.infinite_ammo == true) && GameState.onscreen_sp_bullets < 4:
+	if Input.is_action_just_pressed("shoot") && (GameState.weapon_energy[GameState.WEAPONS.ORIGAMI] >= 1 or GameState.infinite_ammo == true) && GameState.onscreen_sp_bullets < 5:
 		if transing != true:
 			if GameState.infinite_ammo == false:
 				GameState.weapon_energy[GameState.WEAPONS.ORIGAMI] -= 1

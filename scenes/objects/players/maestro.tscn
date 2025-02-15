@@ -612,7 +612,7 @@ shape = SubResource("RectangleShape2D_7k36u")
 material = SubResource("ShaderMaterial_dtetj")
 texture = ExtResource("4_w3lef")
 hframes = 35
-frame = 7
+frame = 33
 
 [node name="shifter" type="AnimationPlayer" parent="."]
 root_node = NodePath("../hurtboxArea")
@@ -714,6 +714,7 @@ collision_layer = 4
 collision_mask = 2
 
 [node name="boop" type="CollisionShape2D" parent="waterCheck"]
+position = Vector2(0, 7.5)
 shape = SubResource("RectangleShape2D_r35an")
 debug_color = Color(0.969991, 0, 0.457701, 0.42)
 

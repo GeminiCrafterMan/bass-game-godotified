@@ -55,9 +55,7 @@ func _init() -> void:
 		preload("res://scenes/objects/players/weapons/special_weapons/wild_gale.tscn")
 	]
 
-func _ready() -> void:
-	super._ready()
-	attack_timer = $FireDelay
+
 
 # ================
 # WEAPON FUNCTIONS
@@ -267,70 +265,70 @@ func mount_sakugarne() -> void:
 
 # Modified states for Sakugarne
 ## Idle state
-func state_idle(_direction: Vector2, _delta: float) -> void:
-	if pogo == true:
-		swapState = STATES.JUMP
-	else:
-		super.state_idle(_direction, _delta)
-## Walk state
-func state_walk(_direction: Vector2, _delta: float) -> void:
-	if pogo == true:
-		swapState = STATES.JUMP
-	else:
-		super.state_walk(_direction, _delta)
+#func state_idle(_direction: Vector2, _delta: float) -> void:
+#	if pogo == true:
+#		swapState = STATES.JUMP
+#	else:
+#		super.state_idle(_direction, _delta)
+### Walk state
+#func state_walk(_direction: Vector2, _delta: float) -> void:
+#	if pogo == true:
+#		swapState = STATES.JUMP
+#	else:
+#		super.state_walk(_direction, _delta)
 
 ## Jump state
-func state_jump(_direction: Vector2, _delta: float) -> void:
-	if pogo == true:
-		state_pogo(_direction, _delta)
-	else:
-		super.state_jump(_direction, _delta)
-
-func state_pogo(_direction: Vector2, _delta: float) -> void:
-	if Input.is_action_just_pressed("switch_left") or Input.is_action_just_pressed("switch_right") or GameState.weapon_energy[GameState.WEAPONS.QUINT] < 1:
-		disable_pogo()
+#func state_jump(_direction: Vector2, _delta: float) -> void:
+#	if pogo == true:
+#		state_pogo(_direction, _delta)
+#	else:
+#		super.state_jump(_direction, _delta)
+#
+#func state_pogo(_direction: Vector2, _delta: float) -> void:
+#	if Input.is_action_just_pressed("switch_left") or Input.is_action_just_pressed("switch_right") or GameState.weapon_energy[GameState.WEAPONS.QUINT] < 1:
+#		disable_pogo()
 	#setup needed on first frame of new state
-	if isFirstFrameOfState:
-		if Input.is_action_pressed("jump"):
-			velocity.y = JUMP_VELOCITY*1.5
-			anim.play("Saku-High")
-			SoundManager.play("player", "jump")
-		else:
-			velocity.y = JUMP_VELOCITY
-			anim.play("Saku-Low")
-			SoundManager.play("player", "jump")
-	#set animation based on falling for rising
-	if velocity.y < 0 && JumpHeight != 80:
-		if (JumpHeight < JUMP_HEIGHT):
-			if Input.is_action_pressed("jump"):
-				velocity.y = JUMP_VELOCITY*1.5
-			else:
-				velocity.y = JUMP_VELOCITY
-			JumpHeight += 1
-		if (JumpHeight == JUMP_HEIGHT):
-			JumpHeight = 80
-			velocity.y = PEAK_VELOCITY
+#	if isFirstFrameOfState:
+#		if Input.is_action_pressed("jump"):
+#			velocity.y = JUMP_VELOCITY*1.5
+#			anim.play("Saku-High")
+#			SoundManager.play("player", "jump")
+#		else:
+#			velocity.y = JUMP_VELOCITY
+#			anim.play("Saku-Low")
+#			SoundManager.play("player", "jump")
+#	#set animation based on falling for rising
+#	if velocity.y < 0 && JumpHeight != 80:
+#		if (JumpHeight < JUMP_HEIGHT):
+#			if Input.is_action_pressed("jump"):
+#				velocity.y = JUMP_VELOCITY*1.5
+#			else:
+#v				velocity.y = JUMP_VELOCITY
+#			JumpHeight += 1
+#		if (JumpHeight == JUMP_HEIGHT):
+#			JumpHeight = 80
+#			velocity.y = PEAK_VELOCITY
 
 	#movement in state
-	default_movement(_direction, _delta)
+#	default_movement(_direction, _delta)
 
-	if $SakugarneArea.thing != null and !isFirstFrameOfState:
-		if $SakugarneArea.thing.has_method("_on_hitable_body_entered"):
-			var W_Type = 18 # Sakugarne physical hit
-			$SakugarneArea.thing._on_hitable_body_entered($SakugarneArea)
-		$SakugarneArea.thing = null
-		swapState = STATES.JUMP
-		ice_jump = false
+#v	if $SakugarneArea.thing != null and !isFirstFrameOfState:
+#		if $SakugarneArea.thing.has_method("_on_hitable_body_entered"):
+#			var W_Type = 18 # Sakugarne physical hit
+#			$SakugarneArea.thing._on_hitable_body_entered($SakugarneArea)
+#v		$SakugarneArea.thing = null
+#		swapState = STATES.JUMP
+#		ice_jump = false
 
 ## Hurt state
-func state_hurt(_direction: Vector2, _delta: float) -> void:
-	disable_pogo()
-	super.state_hurt(_direction, _delta)
+#func state_hurt(_direction: Vector2, _delta: float) -> void:
+#	disable_pogo()
+#	super.state_hurt(_direction, _delta)
 
 ## Death state
-func state_dead(_direction: Vector2, _delta: float) -> void:
-	disable_pogo()
-	super.state_dead(_direction, _delta)
+#func state_dead(_direction: Vector2, _delta: float) -> void:
+#	disable_pogo()
+#	super.state_dead(_direction, _delta)
 
 ## Disable Sakugarne
 func disable_pogo():
@@ -341,3 +339,7 @@ func disable_pogo():
 
 func play_start_sound() -> void:
 	pass#SoundManager.play("copy_robot", "start")
+
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	pass # Replace with function body.

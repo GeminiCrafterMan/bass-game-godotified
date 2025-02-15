@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://cnpcm2juvcutu"]
+[gd_scene load_steps=56 format=3 uid="uid://cnpcm2juvcutu"]
 
 [ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="1_hk0hv"]
 [ext_resource type="Script" path="res://scenes/objects/players/copy_robot.gd" id="2_we56i"]
@@ -15,6 +15,12 @@ shader = ExtResource("1_hk0hv")
 shader_parameter/skip_first_row = true
 shader_parameter/use_palette_alpha = false
 shader_parameter/fps = 6.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rq8vj"]
+size = Vector2(12, 26)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l5wgv"]
+size = Vector2(14, 8)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7773x"]
 shader = ExtResource("1_hk0hv")
@@ -100,22 +106,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [29]
-}
-
-[sub_resource type="Animation" id="Animation_edosb"]
-length = 1.5
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.0833333, 0.166667, 0.25, 0.333333, 0.416667, 0.5, 0.583333, 0.666667, 0.75, 0.833333, 0.916667, 1, 1.08333, 1.16667, 1.25, 1.33333, 1.41667),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 2, 3]
 }
 
 [sub_resource type="Animation" id="Animation_30cjn"]
@@ -454,68 +444,6 @@ tracks/0/keys = {
 "values": [33, 34]
 }
 
-[sub_resource type="Animation" id="Animation_33c1p"]
-length = 0.111111
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.0555556),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [4, 5]
-}
-
-[sub_resource type="Animation" id="Animation_p6ymo"]
-length = 0.2
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [28]
-}
-
-[sub_resource type="Animation" id="Animation_dbqgi"]
-length = 0.4
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [27, 26, 25, 24, 23, 22, 21, 20]
-}
-
-[sub_resource type="Animation" id="Animation_uaigh"]
-length = 0.700117
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.116686, 0.233372, 0.350058, 0.466744, 0.583431),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [6, 7, 8, 9, 10, 11]
-}
-
 [sub_resource type="Animation" id="Animation_jomt1"]
 length = 0.700117
 loop_mode = 1
@@ -532,6 +460,89 @@ tracks/0/keys = {
 "values": [14, 15, 16, 17, 18, 19]
 }
 
+[sub_resource type="Animation" id="Animation_dbqgi"]
+resource_name = "TELEPORT_LANDING"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [27, 26, 25, 24, 23, 22, 21, 20]
+}
+
+[sub_resource type="Animation" id="Animation_edosb"]
+resource_name = "IDLE"
+length = 1.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0833333, 0.166667, 0.25, 0.333333, 0.416667, 0.5, 0.583333, 0.666667, 0.75, 0.833333, 0.916667, 1, 1.08333, 1.16667, 1.25, 1.33333, 1.41667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_33c1p"]
+resource_name = "STEP"
+length = 0.111111
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0555556),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_uaigh"]
+resource_name = "WALK"
+length = 0.700117
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.116686, 0.233372, 0.350058, 0.466744, 0.583431),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [6, 7, 8, 9, 10, 11]
+}
+
+[sub_resource type="Animation" id="Animation_p6ymo"]
+resource_name = "TELEPORT"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [28]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_mvjlo"]
 _data = {
 "Dead": SubResource("Animation_p42vu"),
@@ -539,7 +550,7 @@ _data = {
 "Fall": SubResource("Animation_q4ygw"),
 "FinShredder": SubResource("Animation_lgup5"),
 "Hurt": SubResource("Animation_i4l8q"),
-"Idle": SubResource("Animation_edosb"),
+"IDLE": SubResource("Animation_edosb"),
 "Idle-Shield": SubResource("Animation_30cjn"),
 "Idle-Shoot": SubResource("Animation_evk1v"),
 "Idle-Throw": SubResource("Animation_sub63"),
@@ -553,13 +564,13 @@ _data = {
 "Ladder-Throw": SubResource("Animation_674xt"),
 "Ladder-Up": SubResource("Animation_73g7h"),
 "RESET": SubResource("Animation_p32gw"),
+"STEP": SubResource("Animation_33c1p"),
 "Saku-High": SubResource("Animation_t3b0n"),
 "Saku-Low": SubResource("Animation_hs1xi"),
 "Slide": SubResource("Animation_h6n08"),
-"Step": SubResource("Animation_33c1p"),
-"Teleport": SubResource("Animation_p6ymo"),
-"Teleport In": SubResource("Animation_dbqgi"),
-"Walk": SubResource("Animation_uaigh"),
+"TELEPORT": SubResource("Animation_p6ymo"),
+"TELEPORT_LANDING": SubResource("Animation_dbqgi"),
+"WALK": SubResource("Animation_uaigh"),
 "Walk-Shoot": SubResource("Animation_jomt1")
 }
 
@@ -664,12 +675,28 @@ func reflect() -> void:
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m4t6e"]
 size = Vector2(16, 16)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ey3o7"]
+size = Vector2(1, 0)
+
 [node name="Copy Robot" type="CharacterBody2D" groups=["player", "splash"]]
 material = SubResource("ShaderMaterial_qymoq")
 collision_layer = 2
 collision_mask = 17
 floor_snap_length = 5.0
 script = ExtResource("2_we56i")
+
+[node name="hurtboxArea" type="Area2D" parent="." groups=["player"]]
+collision_layer = 4
+collision_mask = 2
+
+[node name="mainHurtbox" type="CollisionShape2D" parent="hurtboxArea"]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_rq8vj")
+debug_color = Color(1, 0.85, 0, 0.419608)
+
+[node name="slideHurtbox" type="CollisionShape2D" parent="hurtboxArea"]
+position = Vector2(0, 12)
+shape = SubResource("RectangleShape2D_l5wgv")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_7773x")
@@ -681,7 +708,7 @@ frame = 30
 libraries = {
 "": SubResource("AnimationLibrary_mvjlo")
 }
-autoplay = "Teleport"
+autoplay = "TELEPORT"
 
 [node name="FX" type="Node2D" parent="."]
 position = Vector2(0, 2)
@@ -764,5 +791,29 @@ shape = SubResource("RectangleShape2D_m4t6e")
 [node name="Timer" type="Timer" parent="SakugarneArea"]
 one_shot = true
 
+[node name="states" type="RichTextLabel" parent="."]
+offset_left = -36.0
+offset_top = -20.0
+offset_right = 43.0
+offset_bottom = 20.0
+bbcode_enabled = true
+text = "state
+goes here"
+
+[node name="ShootTimer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 0.35
+one_shot = true
+
+[node name="waterCheck" type="Area2D" parent="."]
+position = Vector2(0, 1)
+collision_layer = 4
+collision_mask = 2
+
+[node name="boop" type="CollisionShape2D" parent="waterCheck"]
+shape = SubResource("RectangleShape2D_ey3o7")
+debug_color = Color(0.969991, 0, 0.457701, 0.42)
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="body_entered" from="SakugarneArea" to="SakugarneArea" method="_on_body_entered"]
 [connection signal="timeout" from="SakugarneArea/Timer" to="SakugarneArea" method="_on_timer_timeout"]
