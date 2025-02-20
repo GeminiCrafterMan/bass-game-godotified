@@ -1103,12 +1103,8 @@ position = Vector2(4336, 1348.64)
 shape = SubResource("RectangleShape2D_n1ace")
 
 [node name="StartPosition" parent="." instance=ExtResource("5_rk30x")]
-position = Vector2(72, 144)
-screenmode = 1
-scrollX1 = 1
-scrollX2 = 1
-scrollY1 = 1
-scrollY2 = 1
+position = Vector2(245, 81)
+scrollX2 = 3
 
 [node name="TransTimer" type="Timer" parent="."]
 one_shot = true

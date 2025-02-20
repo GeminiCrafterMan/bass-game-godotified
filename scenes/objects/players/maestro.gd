@@ -182,7 +182,7 @@ func _ready():
 	state_timer.start(0.5)
 	invul_timer.start(0.01)
 	currentState = STATES.TELEPORT
-	velocity.y = 50
+	position.y = targetpos
 	SoundManager.play("player", "warp")
 	print(GameState.current_hp)
 
@@ -206,83 +206,84 @@ func _physics_process(delta: float) -> void:
 	#this cancels out any floats in the inputs and makes inputs to be purely digital (-1,0,1) rather than analouge
 	direction = Vector2(sign(direction.x), sign(direction.y))
 	$states.text = "[center]%s[/center]" % STATES.keys()[currentState]
-	match currentState:
-		STATES.TELEPORT, STATES.TELEPORT_LANDING:
-			teleporting()
-			applyGrav(delta)
-		STATES.IDLE, STATES.IDLE_SHOOT:
-			idle(delta)
-			slideProcess()
-			checkForFloor()
-			processJump()
-			processShoot()
-			processBuster()
-			processCharge()
-			ladderCheck()
-		STATES.IDLE_THROW:
-			checkForFloor()
-			processJump()
-			processShoot()
-		STATES.IDLE_SHIELD:
-			checkForFloor()
-			processShoot()
-			
-		STATES.STEP:
-			step(delta)
-			checkForFloor()
-			slideProcess()
-			processJump()
-			processShoot()
-			processBuster()
-			processCharge()
-			ladderCheck()
-		STATES.WALK, STATES.WALKING_SHOOT:
-			walk()
-			slideProcess()
-			checkForFloor()
-			processJump()
-			allowLeftRight(delta)
-			processShoot()
-			processBuster()
-			processCharge()
-			ladderCheck()
-		STATES.JUMP, STATES.JUMP_SHOOT, STATES.JUMP_THROW, STATES.JUMP_SHIELD:
-			Jump(delta)
-			applyGrav(delta)
-			allowLeftRight(delta)
-			processShoot()
-			processBuster()
-			processCharge()
-			ladderCheck()
-		STATES.FALL_START, STATES.FALL, STATES.FALL_SHOOT, STATES.FALL_THROW, STATES.FALL_SHIELD:
-			fall(delta)
-			applyGrav(delta)
-			allowLeftRight(delta)
-			processShoot()
-			processBuster()
-			processCharge()
-			ladderCheck()
-		STATES.SLIDE:
-			sliding(delta)
-			if !$ceilCheck.is_colliding():
+	if transing != true:
+		match currentState:
+			STATES.TELEPORT, STATES.TELEPORT_LANDING:
+				teleporting()
+				applyGrav(delta)
+			STATES.IDLE, STATES.IDLE_SHOOT:
+				idle(delta)
+				slideProcess()
+				checkForFloor()
 				processJump()
-			processCharge()
-			ladderCheck()
-		STATES.LADDER:
-			ladder()
-			processCharge()
-			processShoot()
-			processBuster()
-		STATES.HURT:
-			hurt()
-			applyGrav(delta)
-		STATES.DEAD:
-			dead()
-	position.x += wind_push
-	animationMatching()
-	switchWeapons()
-	move_and_slide()
-
+				processShoot()
+				processBuster()
+				processCharge()
+				ladderCheck()
+			STATES.IDLE_THROW:
+				checkForFloor()
+				processJump()
+				processShoot()
+			STATES.IDLE_SHIELD:
+				checkForFloor()
+				processShoot()
+				
+			STATES.STEP:
+				step(delta)
+				checkForFloor()
+				slideProcess()
+				processJump()
+				processShoot()
+				processBuster()
+				processCharge()
+				ladderCheck()
+			STATES.WALK, STATES.WALKING_SHOOT:
+				walk()
+				slideProcess()
+				checkForFloor()
+				processJump()
+				allowLeftRight(delta)
+				processShoot()
+				processBuster()
+				processCharge()
+				ladderCheck()
+			STATES.JUMP, STATES.JUMP_SHOOT, STATES.JUMP_THROW, STATES.JUMP_SHIELD:
+				Jump(delta)
+				applyGrav(delta)
+				allowLeftRight(delta)
+				processShoot()
+				processBuster()
+				processCharge()
+				ladderCheck()
+			STATES.FALL_START, STATES.FALL, STATES.FALL_SHOOT, STATES.FALL_THROW, STATES.FALL_SHIELD:
+				fall(delta)
+				applyGrav(delta)
+				allowLeftRight(delta)
+				processShoot()
+				processBuster()
+				processCharge()
+				ladderCheck()
+			STATES.SLIDE:
+				sliding(delta)
+				if !$ceilCheck.is_colliding():
+					processJump()
+				processCharge()
+				ladderCheck()
+			STATES.LADDER:
+				ladder()
+				processCharge()
+				processShoot()
+				processBuster()
+			STATES.HURT:
+				hurt()
+				applyGrav(delta)
+			STATES.DEAD:
+				dead()
+		position.x += wind_push
+		animationMatching()
+		switchWeapons()
+		move_and_slide()
+	
 #region Character Things
 
 func invul(arg):
@@ -304,6 +305,7 @@ func applyGrav(delta):
 
 func teleporting():
 	if is_on_floor() && currentState == STATES.TELEPORT:
+		position.y += 5
 		teleported.emit()
 		currentState = STATES.TELEPORT_LANDING
 
