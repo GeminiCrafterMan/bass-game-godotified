@@ -283,6 +283,7 @@ func _physics_process(delta: float) -> void:
 		animationMatching()
 		switchWeapons()
 		move_and_slide()
+		
 	
 #region Character Things
 
@@ -941,13 +942,13 @@ func weapon_guerilla():
 		attack_timer.start(0.3)
 		GameState.onscreen_sp_bullets += 1
 		projectile = weapon_scenes[3].instantiate()
-
 		get_parent().add_child(projectile)
+		projectile.direction = sprite.scale.x
 		projectile.position.x = position.x + (sprite.scale.x * 18)
 		projectile.position.y = position.y + 4
-		projectile.velocity.x = sprite.scale.x * 20
-		projectile.velocity.y = 10
-		projectile.scale.x = sprite.scale.x
+		#projectile.velocity.x = sprite.scale.x * 20
+		#projectile.velocity.y = 10
+		#projectile.scale.x = sprite.scale.x
 
 func weapon_reaper():
 	if Input.is_action_just_released("shoot"):

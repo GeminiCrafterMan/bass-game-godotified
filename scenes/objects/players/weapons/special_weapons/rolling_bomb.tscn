@@ -52,8 +52,8 @@ animations = [{
 size = Vector2(10, 10)
 
 [node name="RollingBomb" type="CharacterBody2D"]
-collision_layer = 8
-collision_mask = 0
+position = Vector2(0, 1)
+collision_layer = 9
 script = ExtResource("1_kvwvl")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -79,36 +79,20 @@ bus = &"SFX"
 stream = ExtResource("5_tb2vm")
 bus = &"SFX"
 
-[node name="BottomCast1" type="RayCast2D" parent="."]
-position = Vector2(6, 5)
-target_position = Vector2(1, 2)
+[node name="checkDR" type="RayCast2D" parent="."]
+target_position = Vector2(6, 6)
+collision_mask = 17
 
-[node name="BottomCast2" type="RayCast2D" parent="."]
-position = Vector2(-6, 5)
-target_position = Vector2(-1, 2)
+[node name="checkDL" type="RayCast2D" parent="."]
+target_position = Vector2(-6, 6)
+collision_mask = 17
 
-[node name="FrontCast1" type="RayCast2D" parent="."]
-position = Vector2(5, -6)
-target_position = Vector2(2, -1)
+[node name="checkUL" type="RayCast2D" parent="."]
+target_position = Vector2(-6, -6)
+collision_mask = 17
 
-[node name="FrontCast2" type="RayCast2D" parent="."]
-position = Vector2(5, 6)
-target_position = Vector2(2, 1)
-
-[node name="BackCast1" type="RayCast2D" parent="."]
-position = Vector2(-5, 6)
-target_position = Vector2(-2, 1)
-
-[node name="BackCast2" type="RayCast2D" parent="."]
-position = Vector2(-5, -6)
-target_position = Vector2(-2, -1)
-
-[node name="TopCast1" type="RayCast2D" parent="."]
-position = Vector2(-6, -5)
-target_position = Vector2(-1, -2)
-
-[node name="TopCast2" type="RayCast2D" parent="."]
-position = Vector2(6, -5)
-target_position = Vector2(1, -2)
+[node name="checkUR" type="RayCast2D" parent="."]
+target_position = Vector2(6, -6)
+collision_mask = 17
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
