@@ -1,11 +1,11 @@
 [gd_scene load_steps=19 format=4 uid="uid://dko1ldfifobnn"]
 
-[ext_resource type="Script" path="res://scenes/stages/stage.gd" id="1_vyele"]
+[ext_resource type="Script" uid="uid://b2eex0cx7l5sm" path="res://scenes/stages/stage.gd" id="1_vyele"]
 [ext_resource type="AudioStream" uid="uid://6eg00db4lry5" path="res://music/Guerrilla Stage.mp3" id="4_6r0jx"]
 [ext_resource type="PackedScene" uid="uid://bingbkdyjdsbs" path="res://scenes/objects/players/start_position.tscn" id="6_211mx"]
 [ext_resource type="Material" uid="uid://uh2c8jbp8qwd" path="res://shaders/WaterPalette.tres" id="6_dpouu"]
 [ext_resource type="TileSet" uid="uid://bp0hrrsh7jne5" path="res://tilesets/layout.tres" id="6_l04i1"]
-[ext_resource type="Script" path="res://scenes/stages/robot_masters/guerillawater.gd" id="6_yvf52"]
+[ext_resource type="Script" uid="uid://dbi7odalb3sng" path="res://scenes/stages/robot_masters/guerillawater.gd" id="6_yvf52"]
 [ext_resource type="TileSet" uid="uid://bdqyt5eh73er6" path="res://tilesets/guerilla.tres" id="7_3buwc"]
 [ext_resource type="PackedScene" uid="uid://cumiv05286vqn" path="res://scenes/objects/level_objects/enemy_spawner.tscn" id="7_di2dm"]
 [ext_resource type="PackedScene" uid="uid://cwqbm80i7pv6x" path="res://scenes/objects/level_objects/ladder_hitbox.tscn" id="8_4rf7o"]

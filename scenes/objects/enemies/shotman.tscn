@@ -1,6 +1,6 @@
 [gd_scene load_steps=26 format=3 uid="uid://da1cskv133mma"]
 
-[ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="1_wnmae"]
+[ext_resource type="Shader" uid="uid://b3xb8j1icuyp" path="res://shaders/PaletteSwap.gdshader" id="1_wnmae"]
 [ext_resource type="Texture2D" uid="uid://b20hoyjtxmjyv" path="res://sprites/enemies/shotman.png" id="3_j7me5"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gtk0d"]

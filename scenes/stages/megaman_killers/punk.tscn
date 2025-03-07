@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=4 uid="uid://cth72ok3av1mk"]
 
-[ext_resource type="Script" path="res://scenes/stages/stage.gd" id="1_02ro2"]
+[ext_resource type="Script" uid="uid://b2eex0cx7l5sm" path="res://scenes/stages/stage.gd" id="1_02ro2"]
 [ext_resource type="Texture2D" uid="uid://63kwqi5jdugg" path="res://sprites/tilesets/Test.png" id="2_1skpi"]
 [ext_resource type="PackedScene" uid="uid://bingbkdyjdsbs" path="res://scenes/objects/players/start_position.tscn" id="2_v08m0"]
 [ext_resource type="AudioStream" uid="uid://doqx1myqj5gjm" path="res://music/Punk Stage.mp3" id="3_7w14q"]

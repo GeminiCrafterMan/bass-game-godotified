@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=4 uid="uid://cjnw7w724yfff"]
 
-[ext_resource type="Script" path="res://scenes/stages/stage.gd" id="1_jhd4h"]
+[ext_resource type="Script" uid="uid://b2eex0cx7l5sm" path="res://scenes/stages/stage.gd" id="1_jhd4h"]
 [ext_resource type="TileSet" uid="uid://cdpb0nep4t1x8" path="res://tilesets/gale.tres" id="2_d6oeb"]
 [ext_resource type="AudioStream" uid="uid://cvc3u3vsgfwx3" path="res://music/Gale Stage.mp3" id="4_f0hss"]
 [ext_resource type="PackedScene" uid="uid://bingbkdyjdsbs" path="res://scenes/objects/players/start_position.tscn" id="5_6e181"]
-[ext_resource type="TileSet" uid="uid://di2ls6ayshosr" path="res://tilesets/layout.tres" id="5_muxqw"]
+[ext_resource type="TileSet" uid="uid://bp0hrrsh7jne5" path="res://tilesets/layout.tres" id="5_muxqw"]
 
 [node name="Gale Woman" type="Node2D"]
 script = ExtResource("1_jhd4h")

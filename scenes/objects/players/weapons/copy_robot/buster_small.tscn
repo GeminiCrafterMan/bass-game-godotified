@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://c1nko4yyonafj"]
 
-[ext_resource type="Script" path="res://scenes/objects/players/weapons/copy_robot/buster_small.gd" id="1_ibwb5"]
+[ext_resource type="Script" uid="uid://cm8w86jwnp3vb" path="res://scenes/objects/players/weapons/copy_robot/buster_small.gd" id="1_ibwb5"]
 [ext_resource type="Texture2D" uid="uid://b0wmbfr68jjcj" path="res://sprites/players/copy_robot/weapons/BusterSmall.png" id="1_mtts4"]
 [ext_resource type="AudioStream" uid="uid://62xrmywm48ps" path="res://sounds/bustershot.wav" id="3_nyin2"]
 [ext_resource type="AudioStream" uid="uid://cs2dmn3ahpbea" path="res://sounds/pop.wav" id="4_6625l"]

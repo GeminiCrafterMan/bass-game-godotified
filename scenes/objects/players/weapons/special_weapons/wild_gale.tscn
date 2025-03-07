@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://cd6ylcbm7jxj3"]
 
-[ext_resource type="Script" path="res://scenes/objects/players/weapons/special_weapons/wild_gale.gd" id="1_5w3q0"]
+[ext_resource type="Script" uid="uid://bbiuf8i2rjrtf" path="res://scenes/objects/players/weapons/special_weapons/wild_gale.gd" id="1_5w3q0"]
 [ext_resource type="AudioStream" uid="uid://bu17jfenhhtt8" path="res://sounds/explode.wav" id="2_675xj"]
 [ext_resource type="SpriteFrames" uid="uid://tap8fhypog1n" path="res://scenes/objects/players/weapons/special_weapons/galesprites.tres" id="2_g1mcd"]
 [ext_resource type="PackedScene" uid="uid://bn86qi7tnn4x0" path="res://scenes/objects/players/weapons/special_weapons/wild_gale_vfx.tscn" id="3_gcnlb"]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=17 format=3 uid="uid://tx1vu14121vl"]
 
-[ext_resource type="Script" path="res://scenes/objects/players/weapons/copy_robot/carry.gd" id="1_5wtve"]
-[ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="2_3r7wh"]
+[ext_resource type="Script" uid="uid://cxf1dcyj7dply" path="res://scenes/objects/players/weapons/copy_robot/carry.gd" id="1_5wtve"]
+[ext_resource type="Shader" uid="uid://b3xb8j1icuyp" path="res://shaders/PaletteSwap.gdshader" id="2_3r7wh"]
 [ext_resource type="Texture2D" uid="uid://bql3s3j2cwxi4" path="res://sprites/players/weapons/Carry.png" id="2_ctx24"]
 [ext_resource type="Texture2D" uid="uid://dgiwcwe0dt077" path="res://sprites/explosion.png" id="3_e47br"]
 

@@ -1,6 +1,6 @@
 [gd_scene load_steps=17 format=3 uid="uid://crykwhhg70k4l"]
 
-[ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="1_jv75o"]
+[ext_resource type="Shader" uid="uid://b3xb8j1icuyp" path="res://shaders/PaletteSwap.gdshader" id="1_jv75o"]
 [ext_resource type="Texture2D" uid="uid://bf8rhxomwmtao" path="res://sprites/enemies/wanaan_kai.png" id="3_6y2k2"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gtk0d"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://de6y2454v43to"]
 
-[ext_resource type="Script" path="res://scenes/objects/level_objects/screentrigger.gd" id="1_fadgo"]
+[ext_resource type="Script" uid="uid://b3jcoinl7xvat" path="res://scenes/objects/level_objects/screentrigger.gd" id="1_fadgo"]
 [ext_resource type="Texture2D" uid="uid://bdqtosw4firfl" path="res://sprites/stg.png" id="2_08qod"]
 
 [node name="Screen Trigger" type="Area2D"]

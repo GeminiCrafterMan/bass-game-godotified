@@ -1,7 +1,7 @@
 [gd_scene load_steps=72 format=3 uid="uid://kfk1dq7hqeyc"]
 
-[ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="1_wqydu"]
-[ext_resource type="Script" path="res://scenes/objects/players/bass-old.gd" id="2_32p0t"]
+[ext_resource type="Shader" uid="uid://b3xb8j1icuyp" path="res://shaders/PaletteSwap.gdshader" id="1_wqydu"]
+[ext_resource type="Script" uid="uid://dxsi1x2id3bt" path="res://scenes/objects/players/bass-old.gd" id="2_32p0t"]
 [ext_resource type="AudioStream" uid="uid://d2oevy2xek073" path="res://sounds/jump.wav" id="4_5r8ce"]
 [ext_resource type="AudioStream" uid="uid://cgaetckoiu15m" path="res://sounds/land.wav" id="5_kmkt0"]
 [ext_resource type="AudioStream" uid="uid://h87d8b65n30n" path="res://sounds/slide.wav" id="6_5ybya"]
@@ -9,8 +9,7 @@
 [ext_resource type="AudioStream" uid="uid://bgfwytu8kifqv" path="res://sounds/blastjump.wav" id="8_kmhid"]
 [ext_resource type="AudioStream" uid="uid://pk86bd6damih" path="res://sounds/start_bass.wav" id="9_p48mi"]
 [ext_resource type="AudioStream" uid="uid://dr1p57c1kr6na" path="res://sounds/warp.wav" id="10_fwuoh"]
-[ext_resource type="AudioStream" uid="uid://dtctuhq14tsqk" path="res://sounds/charge1.wav" id="11_0h476"]
-[ext_resource type="AudioStream" uid="uid://ctn1jvbasggdq" path="res://sounds/charge2.wav" id="12_r5fxw"]
+[ext_resource type="AudioStream" uid="uid://rm3ckgibk0u5" path="res://sounds/charge1.wav" id="11_0h476"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qymoq"]
 shader = ExtResource("1_wqydu")
@@ -542,6 +541,9 @@ size = Vector2(14, 26)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3mf6s"]
 size = Vector2(16, 14)
 
+[sub_resource type="Resource" id="Resource_uxsry"]
+metadata/__load_path__ = "res://sounds/charge2.wav"
+
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 material = SubResource("ShaderMaterial_qymoq")
 collision_layer = 2
@@ -598,7 +600,7 @@ bus = &"SFX"
 stream = ExtResource("11_0h476")
 
 [node name="Charge2" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource("12_r5fxw")
+stream = SubResource("Resource_uxsry")
 
 [node name="CeilingCheck" type="RayCast2D" parent="."]
 position = Vector2(0, 12)

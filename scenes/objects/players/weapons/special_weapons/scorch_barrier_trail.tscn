@@ -1,9 +1,9 @@
 [gd_scene load_steps=14 format=3 uid="uid://ci7n06prxygqd"]
 
-[ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="1_ektrl"]
+[ext_resource type="Shader" uid="uid://b3xb8j1icuyp" path="res://shaders/PaletteSwap.gdshader" id="1_ektrl"]
 [ext_resource type="Texture2D" uid="uid://dvjjfk8p26ypa" path="res://sprites/players/weapons/Blaze1.png" id="2_cvex4"]
 [ext_resource type="Texture2D" uid="uid://bswfxxprmqqcy" path="res://sprites/players/weapons/Blaze2.png" id="3_02gku"]
-[ext_resource type="Script" path="res://scenes/objects/players/weapons/special_weapons/scorch_barrier_trail.gd" id="3_h1715"]
+[ext_resource type="Script" uid="uid://x32bxnqjysdv" path="res://scenes/objects/players/weapons/special_weapons/scorch_barrier_trail.gd" id="3_h1715"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1028d"]
 shader = ExtResource("1_ektrl")

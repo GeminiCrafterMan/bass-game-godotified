@@ -1,7 +1,7 @@
 [gd_scene load_steps=34 format=3 uid="uid://biy1mk3b78gh"]
 
-[ext_resource type="Script" path="res://scenes/objects/players/weapons/special_weapons/scorch_barrier.gd" id="1_emmpe"]
-[ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="2_ca07l"]
+[ext_resource type="Script" uid="uid://i1llq8yq18p8" path="res://scenes/objects/players/weapons/special_weapons/scorch_barrier.gd" id="1_emmpe"]
+[ext_resource type="Shader" uid="uid://b3xb8j1icuyp" path="res://shaders/PaletteSwap.gdshader" id="2_ca07l"]
 [ext_resource type="Texture2D" uid="uid://dvjjfk8p26ypa" path="res://sprites/players/weapons/Blaze1.png" id="2_e0r6x"]
 [ext_resource type="Texture2D" uid="uid://bswfxxprmqqcy" path="res://sprites/players/weapons/Blaze2.png" id="3_88uls"]
 [ext_resource type="Texture2D" uid="uid://gu0ow5kip6hj" path="res://sprites/players/weapons/Blaze3.png" id="4_3y8vu"]

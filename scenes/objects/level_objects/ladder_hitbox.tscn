@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cwqbm80i7pv6x"]
 
-[ext_resource type="Script" path="res://scenes/objects/level_objects/ladder_hitbox.gd" id="1_1mb4w"]
+[ext_resource type="Script" uid="uid://tcfpfjtqc2nt" path="res://scenes/objects/level_objects/ladder_hitbox.gd" id="1_1mb4w"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_miopk"]
 size = Vector2(16, 16)

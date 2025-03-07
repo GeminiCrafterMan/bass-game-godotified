@@ -1,10 +1,10 @@
 [gd_scene load_steps=7 format=4 uid="uid://ido5yfmbgfpr"]
 
-[ext_resource type="Script" path="res://scenes/stages/stage.gd" id="1_ars04"]
+[ext_resource type="Script" uid="uid://b2eex0cx7l5sm" path="res://scenes/stages/stage.gd" id="1_ars04"]
 [ext_resource type="TileSet" uid="uid://bglohi0dt4uvq" path="res://tilesets/test_stage.tres" id="3_5wrhc"]
 [ext_resource type="PackedScene" uid="uid://cwqbm80i7pv6x" path="res://scenes/objects/level_objects/ladder_hitbox.tscn" id="4_777xu"]
 [ext_resource type="AudioStream" uid="uid://cdbs7vh1x6kx" path="res://music/Origami Stage.mp3" id="4_othwr"]
-[ext_resource type="TileSet" uid="uid://di2ls6ayshosr" path="res://tilesets/layout.tres" id="5_ebi54"]
+[ext_resource type="TileSet" uid="uid://bp0hrrsh7jne5" path="res://tilesets/layout.tres" id="5_ebi54"]
 [ext_resource type="PackedScene" uid="uid://bingbkdyjdsbs" path="res://scenes/objects/players/start_position.tscn" id="5_kjluu"]
 
 [node name="Origami Man" type="Node2D"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=34 format=4 uid="uid://by07rq184shwd"]
 
-[ext_resource type="Script" path="res://scenes/stages/stage.gd" id="1_ac8st"]
+[ext_resource type="Script" uid="uid://b2eex0cx7l5sm" path="res://scenes/stages/stage.gd" id="1_ac8st"]
 [ext_resource type="TileSet" uid="uid://bglohi0dt4uvq" path="res://tilesets/test_stage.tres" id="2_cu0lw"]
 [ext_resource type="PackedScene" uid="uid://7vytwtvvonec" path="res://scenes/objects/enemies/jumbro.tscn" id="3_8qce2"]
 [ext_resource type="PackedScene" uid="uid://bpd4uso3ynaeo" path="res://scenes/objects/enemies/metall.tscn" id="5_pn607"]
@@ -8,7 +8,7 @@
 [ext_resource type="AudioStream" uid="uid://djxcyatg2dd7s" path="res://music/Test Stage.mp3" id="7_lu0fe"]
 [ext_resource type="PackedScene" uid="uid://dmulyeg8hg6yt" path="res://scenes/objects/enemies/sniper_joe.tscn" id="8_ffb0a"]
 [ext_resource type="PackedScene" uid="uid://ba1usu2a5isjc" path="res://scenes/objects/level_objects/breakable_block.tscn" id="8_ugwe1"]
-[ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="9_7wv41"]
+[ext_resource type="Shader" uid="uid://b3xb8j1icuyp" path="res://shaders/PaletteSwap.gdshader" id="9_7wv41"]
 [ext_resource type="PackedScene" uid="uid://bingbkdyjdsbs" path="res://scenes/objects/players/start_position.tscn" id="10_4y8fd"]
 [ext_resource type="Texture2D" uid="uid://edbqmmirmmjl" path="res://sprites/enemies/joetestcycle.png" id="10_27246"]
 [ext_resource type="PackedScene" uid="uid://dbe5k0gifos3i" path="res://scenes/objects/enemies/fire_telly.tscn" id="11_axrym"]
@@ -52,10 +52,10 @@ normal = Vector2(1, 0)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rpvm6"]
 shader = ExtResource("9_7wv41")
+shader_parameter/palette = ExtResource("10_27246")
 shader_parameter/skip_first_row = true
 shader_parameter/use_palette_alpha = false
 shader_parameter/fps = 6.0
-shader_parameter/palette = ExtResource("10_27246")
 
 [node name="TestStage" type="Node2D"]
 position = Vector2(256, 176)

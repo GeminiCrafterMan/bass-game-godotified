@@ -1,7 +1,7 @@
 [gd_scene load_steps=21 format=3 uid="uid://bqbwmsfh5qlvm"]
 
-[ext_resource type="Script" path="res://scenes/objects/players/weapons/special_weapons/boomer_scythe.gd" id="1_6qpuw"]
-[ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="2_5bwt5"]
+[ext_resource type="Script" uid="uid://70y5ivifopt5" path="res://scenes/objects/players/weapons/special_weapons/boomer_scythe.gd" id="1_6qpuw"]
+[ext_resource type="Shader" uid="uid://b3xb8j1icuyp" path="res://shaders/PaletteSwap.gdshader" id="2_5bwt5"]
 [ext_resource type="Texture2D" uid="uid://00oaip42cg81" path="res://sprites/players/weapons/Scythe.png" id="3_rorby"]
 [ext_resource type="Texture2D" uid="uid://b0wmbfr68jjcj" path="res://sprites/players/copy_robot/weapons/BusterSmall.png" id="4_vdnrb"]
 [ext_resource type="AudioStream" uid="uid://dcvhxvuushcu4" path="res://sounds/chargeshot.wav" id="5_1opp6"]

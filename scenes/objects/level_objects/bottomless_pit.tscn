@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://d088cfq81rloi"]
 
-[ext_resource type="Script" path="res://scenes/objects/level_objects/bottomless_pit.gd" id="1_a7nh2"]
+[ext_resource type="Script" uid="uid://dto1diorvqiav" path="res://scenes/objects/level_objects/bottomless_pit.gd" id="1_a7nh2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_euuk7"]
 size = Vector2(16, 16)

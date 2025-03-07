@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://blmlnutul2hyu"]
 
-[ext_resource type="Script" path="res://scenes/objects/level_objects/yoku_block.gd" id="1_jphyu"]
+[ext_resource type="Script" uid="uid://cxdfvnhix1m6l" path="res://scenes/objects/level_objects/yoku_block.gd" id="1_jphyu"]
 [ext_resource type="Texture2D" uid="uid://lgywvb01j6qj" path="res://sprites/objects/yoku_blocks/Test.png" id="2_vhyso"]
 [ext_resource type="AudioStream" uid="uid://xgre6yptpa2v" path="res://sounds/yoku.wav" id="3_y5jt4"]
 
@@ -90,8 +90,8 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_yg0oj"]
 _data = {
-"RESET": SubResource("Animation_8vlbv"),
-"default": SubResource("Animation_f24ot")
+&"RESET": SubResource("Animation_8vlbv"),
+&"default": SubResource("Animation_f24ot")
 }
 
 [node name="YokuBlock" type="StaticBody2D"]

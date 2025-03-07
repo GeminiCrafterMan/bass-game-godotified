@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://pqu0lvkmbufk"]
 
 [ext_resource type="Texture2D" uid="uid://by2d3btuav4sr" path="res://sprites/enemies/tellyspawner.png" id="1_4s5s2"]
-[ext_resource type="Script" path="res://scenes/objects/enemies/telly_hole.gd" id="1_geudw"]
+[ext_resource type="Script" uid="uid://bfikab6fm1nnq" path="res://scenes/objects/enemies/telly_hole.gd" id="1_geudw"]
 
 [node name="Telly Hole" type="Sprite2D"]
 texture = ExtResource("1_4s5s2")

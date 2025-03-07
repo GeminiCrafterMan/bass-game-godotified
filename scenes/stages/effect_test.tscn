@@ -1,6 +1,6 @@
 [gd_scene load_steps=16 format=4 uid="uid://barw7552744ls"]
 
-[ext_resource type="Script" path="res://scenes/stages/stage.gd" id="1_sm2fs"]
+[ext_resource type="Script" uid="uid://b2eex0cx7l5sm" path="res://scenes/stages/stage.gd" id="1_sm2fs"]
 [ext_resource type="TileSet" uid="uid://bglohi0dt4uvq" path="res://tilesets/test_stage.tres" id="2_pfg30"]
 [ext_resource type="AudioStream" uid="uid://djxcyatg2dd7s" path="res://music/Test Stage.mp3" id="3_0xyya"]
 [ext_resource type="PackedScene" uid="uid://bygcs4m5638w6" path="res://scenes/objects/enemies/gabyoall.tscn" id="16_8sqdo"]

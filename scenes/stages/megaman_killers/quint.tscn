@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=4 uid="uid://ci647b54eivj"]
 
-[ext_resource type="Script" path="res://scenes/stages/stage.gd" id="1_xwhf4"]
+[ext_resource type="Script" uid="uid://b2eex0cx7l5sm" path="res://scenes/stages/stage.gd" id="1_xwhf4"]
 [ext_resource type="AudioStream" uid="uid://djxcyatg2dd7s" path="res://music/Test Stage.mp3" id="3_4o3an"]
 [ext_resource type="TileSet" uid="uid://dnv2005q55t0x" path="res://tilesets/quint_1.tres" id="3_kt5w7"]
 [ext_resource type="PackedScene" uid="uid://bingbkdyjdsbs" path="res://scenes/objects/players/start_position.tscn" id="4_pi8v4"]

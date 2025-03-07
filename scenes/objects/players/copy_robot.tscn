@@ -1,13 +1,13 @@
 [gd_scene load_steps=56 format=3 uid="uid://cnpcm2juvcutu"]
 
-[ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="1_hk0hv"]
-[ext_resource type="Script" path="res://scenes/objects/players/copy_robot.gd" id="2_we56i"]
+[ext_resource type="Shader" uid="uid://b3xb8j1icuyp" path="res://shaders/PaletteSwap.gdshader" id="1_hk0hv"]
+[ext_resource type="Script" uid="uid://cdp8cckqtq8nw" path="res://scenes/objects/players/copy_robot.gd" id="2_we56i"]
 [ext_resource type="Texture2D" uid="uid://c18jx5q3e1uac" path="res://sprites/players/copy_robot/palettes/Copy Buster.png" id="3_ipvlp"]
 [ext_resource type="Texture2D" uid="uid://bot48w7086agv" path="res://sprites/players/HurtStar.png" id="4_a3x8f"]
 [ext_resource type="Texture2D" uid="uid://cc0x2byiwmvp1" path="res://sprites/players/copy_robot/copy_robot.png" id="5_a7tix"]
 [ext_resource type="Texture2D" uid="uid://8mdvvlmmrxfn" path="res://sprites/players/HurtSweat.png" id="5_am6d3"]
-[ext_resource type="Script" path="res://addons/resonate/sound_manager/sound_bank.gd" id="8_grc4d"]
-[ext_resource type="Script" path="res://addons/resonate/sound_manager/sound_event_resource.gd" id="9_l41df"]
+[ext_resource type="Script" uid="uid://cssuixyxxvnir" path="res://addons/resonate/sound_manager/sound_bank.gd" id="8_grc4d"]
+[ext_resource type="Script" uid="uid://cqvdhcbrf3nwt" path="res://addons/resonate/sound_manager/sound_event_resource.gd" id="9_l41df"]
 [ext_resource type="AudioStream" uid="uid://b5ogbbgcst441" path="res://sounds/start_copy.wav" id="9_xhkjd"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qymoq"]
@@ -24,10 +24,10 @@ size = Vector2(14, 8)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7773x"]
 shader = ExtResource("1_hk0hv")
+shader_parameter/palette = ExtResource("3_ipvlp")
 shader_parameter/skip_first_row = true
 shader_parameter/use_palette_alpha = false
 shader_parameter/fps = 6.0
-shader_parameter/palette = ExtResource("3_ipvlp")
 
 [sub_resource type="Animation" id="Animation_p42vu"]
 resource_name = "Dead"
@@ -545,33 +545,33 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_mvjlo"]
 _data = {
-"Dead": SubResource("Animation_p42vu"),
-"DoubleFinShredder": SubResource("Animation_7rapa"),
-"Fall": SubResource("Animation_q4ygw"),
-"FinShredder": SubResource("Animation_lgup5"),
-"Hurt": SubResource("Animation_i4l8q"),
-"IDLE": SubResource("Animation_edosb"),
-"Idle-Shield": SubResource("Animation_30cjn"),
-"Idle-Shoot": SubResource("Animation_evk1v"),
-"Idle-Throw": SubResource("Animation_sub63"),
-"Jump": SubResource("Animation_tb4da"),
-"Jump Transition": SubResource("Animation_c5o8q"),
-"Jump-Shield": SubResource("Animation_c04vi"),
-"Jump-Shoot": SubResource("Animation_j1aih"),
-"Jump-Throw": SubResource("Animation_rss1p"),
-"Ladder": SubResource("Animation_fspq0"),
-"Ladder-Shoot": SubResource("Animation_padrw"),
-"Ladder-Throw": SubResource("Animation_674xt"),
-"Ladder-Up": SubResource("Animation_73g7h"),
-"RESET": SubResource("Animation_p32gw"),
-"STEP": SubResource("Animation_33c1p"),
-"Saku-High": SubResource("Animation_t3b0n"),
-"Saku-Low": SubResource("Animation_hs1xi"),
-"Slide": SubResource("Animation_h6n08"),
-"TELEPORT": SubResource("Animation_p6ymo"),
-"TELEPORT_LANDING": SubResource("Animation_dbqgi"),
-"WALK": SubResource("Animation_uaigh"),
-"Walk-Shoot": SubResource("Animation_jomt1")
+&"Dead": SubResource("Animation_p42vu"),
+&"DoubleFinShredder": SubResource("Animation_7rapa"),
+&"Fall": SubResource("Animation_q4ygw"),
+&"FinShredder": SubResource("Animation_lgup5"),
+&"Hurt": SubResource("Animation_i4l8q"),
+&"IDLE": SubResource("Animation_edosb"),
+&"Idle-Shield": SubResource("Animation_30cjn"),
+&"Idle-Shoot": SubResource("Animation_evk1v"),
+&"Idle-Throw": SubResource("Animation_sub63"),
+&"Jump": SubResource("Animation_tb4da"),
+&"Jump Transition": SubResource("Animation_c5o8q"),
+&"Jump-Shield": SubResource("Animation_c04vi"),
+&"Jump-Shoot": SubResource("Animation_j1aih"),
+&"Jump-Throw": SubResource("Animation_rss1p"),
+&"Ladder": SubResource("Animation_fspq0"),
+&"Ladder-Shoot": SubResource("Animation_padrw"),
+&"Ladder-Throw": SubResource("Animation_674xt"),
+&"Ladder-Up": SubResource("Animation_73g7h"),
+&"RESET": SubResource("Animation_p32gw"),
+&"STEP": SubResource("Animation_33c1p"),
+&"Saku-High": SubResource("Animation_t3b0n"),
+&"Saku-Low": SubResource("Animation_hs1xi"),
+&"Slide": SubResource("Animation_h6n08"),
+&"TELEPORT": SubResource("Animation_p6ymo"),
+&"TELEPORT_LANDING": SubResource("Animation_dbqgi"),
+&"WALK": SubResource("Animation_uaigh"),
+&"Walk-Shoot": SubResource("Animation_jomt1")
 }
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_biy2v"]

@@ -1,9 +1,9 @@
 [gd_scene load_steps=68 format=4 uid="uid://cs8f1cfciw7mk"]
 
-[ext_resource type="Script" path="res://scenes/stages/stage.gd" id="1_kfbs7"]
+[ext_resource type="Script" uid="uid://b2eex0cx7l5sm" path="res://scenes/stages/stage.gd" id="1_kfbs7"]
 [ext_resource type="TileSet" uid="uid://u7uxnx7lf5p3" path="res://tilesets/shark.tres" id="2_nfhkc"]
-[ext_resource type="Script" path="res://scenes/stages/robot_masters/underwater_bg.gd" id="3_nw6ge"]
-[ext_resource type="Script" path="res://scenes/stages/robot_masters/shark_water.gd" id="3_w273k"]
+[ext_resource type="Script" uid="uid://b1ed7qapepvbg" path="res://scenes/stages/robot_masters/underwater_bg.gd" id="3_nw6ge"]
+[ext_resource type="Script" uid="uid://usau6ogddlsf" path="res://scenes/stages/robot_masters/shark_water.gd" id="3_w273k"]
 [ext_resource type="Texture2D" uid="uid://fklfu5btisd3" path="res://shaders/palettes/water/noeffect.png" id="5_160ol"]
 [ext_resource type="AudioStream" uid="uid://cervppwr7dxyl" path="res://music/Shark Stage.wav" id="5_e10ll"]
 [ext_resource type="PackedScene" uid="uid://bingbkdyjdsbs" path="res://scenes/objects/players/start_position.tscn" id="5_rk30x"]

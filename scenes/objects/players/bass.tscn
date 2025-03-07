@@ -1,14 +1,14 @@
 [gd_scene load_steps=60 format=3 uid="uid://bsy7vba3t8awq"]
 
-[ext_resource type="Script" path="res://scenes/objects/players/bass.gd" id="1_lug7r"]
-[ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="2_m015p"]
+[ext_resource type="Script" uid="uid://bsxw7au27mfj5" path="res://scenes/objects/players/bass.gd" id="1_lug7r"]
+[ext_resource type="Shader" uid="uid://b3xb8j1icuyp" path="res://shaders/PaletteSwap.gdshader" id="2_m015p"]
 [ext_resource type="Texture2D" uid="uid://c352q0axtprmr" path="res://sprites/players/bass/bass.png" id="3_gjpaj"]
 [ext_resource type="Texture2D" uid="uid://bot48w7086agv" path="res://sprites/players/HurtStar.png" id="4_pn11x"]
 [ext_resource type="Texture2D" uid="uid://8mdvvlmmrxfn" path="res://sprites/players/HurtSweat.png" id="5_sgfjj"]
-[ext_resource type="Script" path="res://addons/resonate/sound_manager/sound_bank.gd" id="8_tjlhw"]
+[ext_resource type="Script" uid="uid://cssuixyxxvnir" path="res://addons/resonate/sound_manager/sound_bank.gd" id="8_tjlhw"]
 [ext_resource type="AudioStream" uid="uid://bgfwytu8kifqv" path="res://sounds/blastjump.wav" id="8_xq33u"]
 [ext_resource type="AudioStream" uid="uid://pk86bd6damih" path="res://sounds/start_bass.wav" id="9_e7if1"]
-[ext_resource type="Script" path="res://addons/resonate/sound_manager/sound_event_resource.gd" id="9_fd281"]
+[ext_resource type="Script" uid="uid://cqvdhcbrf3nwt" path="res://addons/resonate/sound_manager/sound_event_resource.gd" id="9_fd281"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qymoq"]
 shader = ExtResource("2_m015p")
@@ -607,41 +607,41 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_knm54"]
 _data = {
-"Dash": SubResource("Animation_rlpjp"),
-"Dead": SubResource("Animation_uc8dv"),
-"Fall": SubResource("Animation_ibabb"),
-"FinShredder": SubResource("Animation_govqx"),
-"Hurt": SubResource("Animation_edvn7"),
-"Idle": SubResource("Animation_8pco5"),
-"Idle-Shield": SubResource("Animation_7lbq7"),
-"Idle-Shoot": SubResource("Animation_3wyk4"),
-"Idle-Shoot Steady": SubResource("Animation_17qx0"),
-"Idle-Shoot Steady Diagonal": SubResource("Animation_ui02v"),
-"Idle-Shoot Steady Down": SubResource("Animation_7sw26"),
-"Idle-Shoot Steady Up": SubResource("Animation_xvx7x"),
-"Idle-Throw": SubResource("Animation_3sett"),
-"Jump": SubResource("Animation_kg8lw"),
-"Jump Transition": SubResource("Animation_a5vmh"),
-"Jump-Shield": SubResource("Animation_8uyj2"),
-"Jump-Shoot": SubResource("Animation_n5jw4"),
-"Jump-Shoot Diagonal": SubResource("Animation_tbuh8"),
-"Jump-Shoot Down": SubResource("Animation_ayqyp"),
-"Jump-Shoot Up": SubResource("Animation_ri60d"),
-"Jump-Throw": SubResource("Animation_uwqs6"),
-"Ladder": SubResource("Animation_rc3eo"),
-"Ladder-Shoot": SubResource("Animation_a5pwf"),
-"Ladder-Shoot Diagonal": SubResource("Animation_kwtfk"),
-"Ladder-Shoot Down": SubResource("Animation_pnkuv"),
-"Ladder-Shoot Up": SubResource("Animation_h6dsx"),
-"Ladder-Throw": SubResource("Animation_7hbn4"),
-"Ladder-Up": SubResource("Animation_lauva"),
-"Mist Dash": SubResource("Animation_lyowt"),
-"RESET": SubResource("Animation_15kij"),
-"Step": SubResource("Animation_lvb1v"),
-"Teleport": SubResource("Animation_8m6b5"),
-"Teleport In": SubResource("Animation_beqyk"),
-"Walk": SubResource("Animation_uj5dp"),
-"Walk-Shoot": SubResource("Animation_kc2kp")
+&"Dash": SubResource("Animation_rlpjp"),
+&"Dead": SubResource("Animation_uc8dv"),
+&"Fall": SubResource("Animation_ibabb"),
+&"FinShredder": SubResource("Animation_govqx"),
+&"Hurt": SubResource("Animation_edvn7"),
+&"Idle": SubResource("Animation_8pco5"),
+&"Idle-Shield": SubResource("Animation_7lbq7"),
+&"Idle-Shoot": SubResource("Animation_3wyk4"),
+&"Idle-Shoot Steady": SubResource("Animation_17qx0"),
+&"Idle-Shoot Steady Diagonal": SubResource("Animation_ui02v"),
+&"Idle-Shoot Steady Down": SubResource("Animation_7sw26"),
+&"Idle-Shoot Steady Up": SubResource("Animation_xvx7x"),
+&"Idle-Throw": SubResource("Animation_3sett"),
+&"Jump": SubResource("Animation_kg8lw"),
+&"Jump Transition": SubResource("Animation_a5vmh"),
+&"Jump-Shield": SubResource("Animation_8uyj2"),
+&"Jump-Shoot": SubResource("Animation_n5jw4"),
+&"Jump-Shoot Diagonal": SubResource("Animation_tbuh8"),
+&"Jump-Shoot Down": SubResource("Animation_ayqyp"),
+&"Jump-Shoot Up": SubResource("Animation_ri60d"),
+&"Jump-Throw": SubResource("Animation_uwqs6"),
+&"Ladder": SubResource("Animation_rc3eo"),
+&"Ladder-Shoot": SubResource("Animation_a5pwf"),
+&"Ladder-Shoot Diagonal": SubResource("Animation_kwtfk"),
+&"Ladder-Shoot Down": SubResource("Animation_pnkuv"),
+&"Ladder-Shoot Up": SubResource("Animation_h6dsx"),
+&"Ladder-Throw": SubResource("Animation_7hbn4"),
+&"Ladder-Up": SubResource("Animation_lauva"),
+&"Mist Dash": SubResource("Animation_lyowt"),
+&"RESET": SubResource("Animation_15kij"),
+&"Step": SubResource("Animation_lvb1v"),
+&"Teleport": SubResource("Animation_8m6b5"),
+&"Teleport In": SubResource("Animation_beqyk"),
+&"Walk": SubResource("Animation_uj5dp"),
+&"Walk-Shoot": SubResource("Animation_kc2kp")
 }
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_biy2v"]

@@ -1,9 +1,9 @@
 [gd_scene load_steps=17 format=3 uid="uid://byypg6wqsdppo"]
 
 [ext_resource type="Texture2D" uid="uid://b0wmbfr68jjcj" path="res://sprites/players/copy_robot/weapons/BusterSmall.png" id="1_6vcoq"]
-[ext_resource type="Script" path="res://scenes/objects/players/weapons/copy_robot/buster_medium.gd" id="1_8dcat"]
+[ext_resource type="Script" uid="uid://bi5nag46c6k02" path="res://scenes/objects/players/weapons/copy_robot/buster_medium.gd" id="1_8dcat"]
 [ext_resource type="Texture2D" uid="uid://bwnmnn0441jru" path="res://sprites/players/copy_robot/weapons/BusterMedium.png" id="1_dl824"]
-[ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="1_xpas8"]
+[ext_resource type="Shader" uid="uid://b3xb8j1icuyp" path="res://shaders/PaletteSwap.gdshader" id="1_xpas8"]
 [ext_resource type="AudioStream" uid="uid://dcvhxvuushcu4" path="res://sounds/chargeshot.wav" id="4_4cbi1"]
 [ext_resource type="AudioStream" uid="uid://cs2dmn3ahpbea" path="res://sounds/pop.wav" id="5_pu124"]
 [ext_resource type="AudioStream" uid="uid://mfk4w30lewvq" path="res://sounds/tink.wav" id="6_7byil"]

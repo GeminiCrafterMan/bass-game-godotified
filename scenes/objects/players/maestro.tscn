@@ -1,7 +1,7 @@
 [gd_scene load_steps=50 format=3 uid="uid://bksinirshmwgf"]
 
-[ext_resource type="Script" path="res://scenes/objects/players/maestro.gd" id="1_ct76e"]
-[ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="1_lnglj"]
+[ext_resource type="Script" uid="uid://bmoeo1pjk4r87" path="res://scenes/objects/players/maestro.gd" id="1_ct76e"]
+[ext_resource type="Shader" uid="uid://b3xb8j1icuyp" path="res://shaders/PaletteSwap.gdshader" id="1_lnglj"]
 [ext_resource type="Texture2D" uid="uid://bgqo6j6piqevr" path="res://sprites/players/maestro/palettes/Maestro Buster.png" id="4_sovti"]
 [ext_resource type="Texture2D" uid="uid://oqtdb0ml6qhb" path="res://sprites/players/maestro/maestro.png" id="4_w3lef"]
 [ext_resource type="Texture2D" uid="uid://bot48w7086agv" path="res://sprites/players/HurtStar.png" id="5_lg5go"]
@@ -9,10 +9,10 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_u81pt"]
 shader = ExtResource("1_lnglj")
+shader_parameter/palette = ExtResource("4_sovti")
 shader_parameter/skip_first_row = true
 shader_parameter/use_palette_alpha = false
 shader_parameter/fps = 6.0
-shader_parameter/palette = ExtResource("4_sovti")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2jp8q"]
 size = Vector2(12, 26)
@@ -22,10 +22,10 @@ size = Vector2(14, 8)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dtetj"]
 shader = ExtResource("1_lnglj")
+shader_parameter/palette = ExtResource("4_sovti")
 shader_parameter/skip_first_row = true
 shader_parameter/use_palette_alpha = false
 shader_parameter/fps = 6.0
-shader_parameter/palette = ExtResource("4_sovti")
 
 [sub_resource type="Animation" id="Animation_yvrgq"]
 length = 0.001
@@ -35,8 +35,8 @@ resource_name = "regular"
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_pkaf2"]
 _data = {
-"RESET": SubResource("Animation_yvrgq"),
-"regular": SubResource("Animation_gfxrd")
+&"RESET": SubResource("Animation_yvrgq"),
+&"regular": SubResource("Animation_gfxrd")
 }
 
 [sub_resource type="Animation" id="Animation_kvtkx"]
@@ -495,32 +495,32 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_atfpo"]
 _data = {
-"DEAD": SubResource("Animation_kvtkx"),
-"FALL": SubResource("Animation_sun07"),
-"FALL_SHIELD": SubResource("Animation_lxvy4"),
-"FALL_SHOOT": SubResource("Animation_iqo4o"),
-"FALL_START": SubResource("Animation_3e4rw"),
-"FALL_THROW": SubResource("Animation_mno6c"),
-"FinShredder": SubResource("Animation_kapwp"),
-"HURT": SubResource("Animation_1pvat"),
-"IDLE": SubResource("Animation_srkdc"),
-"IDLE_SHIELD": SubResource("Animation_wjtks"),
-"IDLE_SHOOT": SubResource("Animation_o4kk7"),
-"IDLE_THROW": SubResource("Animation_5warb"),
-"JUMP": SubResource("Animation_l71ad"),
-"JUMP_SHIELD": SubResource("Animation_rcr71"),
-"JUMP_SHOOT": SubResource("Animation_pye4t"),
-"JUMP_THROW": SubResource("Animation_udgb2"),
-"LADDER": SubResource("Animation_q4t3d"),
-"Ladder-Shoot": SubResource("Animation_3ovpa"),
-"Ladder-Up": SubResource("Animation_mei8y"),
-"RESET": SubResource("Animation_5p383"),
-"SLIDE": SubResource("Animation_ybh4h"),
-"STEP": SubResource("Animation_awquw"),
-"TELEPORT": SubResource("Animation_ubhby"),
-"TELEPORT_LANDING": SubResource("Animation_1nvuj"),
-"WALK": SubResource("Animation_xy5yj"),
-"WALKING_SHOOT": SubResource("Animation_nbhxj")
+&"DEAD": SubResource("Animation_kvtkx"),
+&"FALL": SubResource("Animation_sun07"),
+&"FALL_SHIELD": SubResource("Animation_lxvy4"),
+&"FALL_SHOOT": SubResource("Animation_iqo4o"),
+&"FALL_START": SubResource("Animation_3e4rw"),
+&"FALL_THROW": SubResource("Animation_mno6c"),
+&"FinShredder": SubResource("Animation_kapwp"),
+&"HURT": SubResource("Animation_1pvat"),
+&"IDLE": SubResource("Animation_srkdc"),
+&"IDLE_SHIELD": SubResource("Animation_wjtks"),
+&"IDLE_SHOOT": SubResource("Animation_o4kk7"),
+&"IDLE_THROW": SubResource("Animation_5warb"),
+&"JUMP": SubResource("Animation_l71ad"),
+&"JUMP_SHIELD": SubResource("Animation_rcr71"),
+&"JUMP_SHOOT": SubResource("Animation_pye4t"),
+&"JUMP_THROW": SubResource("Animation_udgb2"),
+&"LADDER": SubResource("Animation_q4t3d"),
+&"Ladder-Shoot": SubResource("Animation_3ovpa"),
+&"Ladder-Up": SubResource("Animation_mei8y"),
+&"RESET": SubResource("Animation_5p383"),
+&"SLIDE": SubResource("Animation_ybh4h"),
+&"STEP": SubResource("Animation_awquw"),
+&"TELEPORT": SubResource("Animation_ubhby"),
+&"TELEPORT_LANDING": SubResource("Animation_1nvuj"),
+&"WALK": SubResource("Animation_xy5yj"),
+&"WALKING_SHOOT": SubResource("Animation_nbhxj")
 }
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_biy2v"]

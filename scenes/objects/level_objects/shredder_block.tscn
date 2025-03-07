@@ -1,6 +1,6 @@
 [gd_scene load_steps=26 format=3 uid="uid://cpke1tk508w3w"]
 
-[ext_resource type="Script" path="res://scenes/objects/level_objects/shredder_block.gd" id="1_ebv6d"]
+[ext_resource type="Script" uid="uid://d3ami6dt6cuhj" path="res://scenes/objects/level_objects/shredder_block.gd" id="1_ebv6d"]
 [ext_resource type="Texture2D" uid="uid://dnserh7g4o1ke" path="res://sprites/objects/shredder_blocks/Blaze.png" id="2_sceav"]
 [ext_resource type="Texture2D" uid="uid://di1wfh2x1b16k" path="res://sprites/big_explosion.png" id="3_muexw"]
 [ext_resource type="Texture2D" uid="uid://qmvendq018cq" path="res://sprites/objects/breakables/Test.png" id="4_5kab7"]

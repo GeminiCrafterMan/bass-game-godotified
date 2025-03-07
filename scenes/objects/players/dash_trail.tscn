@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://baxcw6x5prpdq"]
 
 [ext_resource type="Texture2D" uid="uid://ck4ah8n6qbedv" path="res://sprites/players/dashsmoke.png" id="1_3apsr"]
-[ext_resource type="Script" path="res://scenes/objects/players/dash_trail.gd" id="2_r6wpe"]
+[ext_resource type="Script" uid="uid://crrr77kldmmns" path="res://scenes/objects/players/dash_trail.gd" id="2_r6wpe"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oy65w"]
 atlas = ExtResource("1_3apsr")

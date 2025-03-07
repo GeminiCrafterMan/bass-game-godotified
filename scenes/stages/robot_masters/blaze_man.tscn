@@ -1,13 +1,13 @@
 [gd_scene load_steps=16 format=4 uid="uid://c1ixcvieoro3x"]
 
-[ext_resource type="Script" path="res://scenes/stages/stage.gd" id="1_eg6rr"]
+[ext_resource type="Script" uid="uid://b2eex0cx7l5sm" path="res://scenes/stages/stage.gd" id="1_eg6rr"]
 [ext_resource type="TileSet" uid="uid://clttejdjtwxdo" path="res://tilesets/blaze.tres" id="2_88tt2"]
 [ext_resource type="PackedScene" uid="uid://cwqbm80i7pv6x" path="res://scenes/objects/level_objects/ladder_hitbox.tscn" id="3_al1wc"]
 [ext_resource type="AudioStream" uid="uid://duondd8cgl7qr" path="res://music/Blaze Stage.mp3" id="4_bkhak"]
 [ext_resource type="PackedScene" uid="uid://ba1usu2a5isjc" path="res://scenes/objects/level_objects/breakable_block.tscn" id="5_6g85i"]
 [ext_resource type="PackedScene" uid="uid://dmulyeg8hg6yt" path="res://scenes/objects/enemies/sniper_joe.tscn" id="5_vsgpg"]
 [ext_resource type="PackedScene" uid="uid://bingbkdyjdsbs" path="res://scenes/objects/players/start_position.tscn" id="7_kik4n"]
-[ext_resource type="TileSet" uid="uid://di2ls6ayshosr" path="res://tilesets/layout.tres" id="8_bsbp6"]
+[ext_resource type="TileSet" uid="uid://bp0hrrsh7jne5" path="res://tilesets/layout.tres" id="8_bsbp6"]
 [ext_resource type="PackedScene" uid="uid://de6y2454v43to" path="res://scenes/objects/level_objects/screentrigger.tscn" id="9_5joqb"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_rsu2g"]

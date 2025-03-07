@@ -1,11 +1,11 @@
 [gd_scene load_steps=9 format=4 uid="uid://dqmd0sycqay4"]
 
-[ext_resource type="Script" path="res://scenes/stages/stage.gd" id="1_hs2cl"]
+[ext_resource type="Script" uid="uid://b2eex0cx7l5sm" path="res://scenes/stages/stage.gd" id="1_hs2cl"]
 [ext_resource type="Texture2D" uid="uid://63kwqi5jdugg" path="res://sprites/tilesets/Test.png" id="2_f0uie"]
-[ext_resource type="Script" path="res://scenes/objects/level_objects/bottomless_pit.gd" id="3_m068f"]
+[ext_resource type="Script" uid="uid://dto1diorvqiav" path="res://scenes/objects/level_objects/bottomless_pit.gd" id="3_m068f"]
 [ext_resource type="AudioStream" uid="uid://cb0vuiofgo415" path="res://music/Video Stage.mp3" id="4_waymo"]
 [ext_resource type="PackedScene" uid="uid://bingbkdyjdsbs" path="res://scenes/objects/players/start_position.tscn" id="5_bjw86"]
-[ext_resource type="TileSet" uid="uid://di2ls6ayshosr" path="res://tilesets/layout.tres" id="6_m3ilk"]
+[ext_resource type="TileSet" uid="uid://bp0hrrsh7jne5" path="res://tilesets/layout.tres" id="6_m3ilk"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dlclr"]
 resource_name = "Test"

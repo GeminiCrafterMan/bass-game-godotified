@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://dh8yln8lji7v2"]
 
-[ext_resource type="Script" path="res://addons/UniversalFade/Fade.gd" id="0"]
+[ext_resource type="Script" uid="uid://ct72lb2l4wlj8" path="res://addons/UniversalFade/Fade.gd" id="0"]
 
 [sub_resource type="Shader" id="5"]
 code = "shader_type canvas_item;
@@ -79,8 +79,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_q3e1t"]
 _data = {
-"FadeIn": SubResource("2"),
-"FadeOut": SubResource("3")
+&"FadeIn": SubResource("2"),
+&"FadeOut": SubResource("3")
 }
 
 [node name="Fade" type="CanvasLayer"]

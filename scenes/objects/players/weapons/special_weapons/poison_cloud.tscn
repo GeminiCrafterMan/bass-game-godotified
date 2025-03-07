@@ -1,8 +1,8 @@
 [gd_scene load_steps=19 format=3 uid="uid://u6gxe1pwy4p6"]
 
-[ext_resource type="Script" path="res://scenes/objects/players/weapons/special_weapons/poison_cloud.gd" id="1_s1qp0"]
+[ext_resource type="Script" uid="uid://bi7750osdsf5k" path="res://scenes/objects/players/weapons/special_weapons/poison_cloud.gd" id="1_s1qp0"]
 [ext_resource type="Texture2D" uid="uid://dl3vg2rlqgbds" path="res://sprites/players/weapons/Smog.png" id="2_ao8r2"]
-[ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="2_mdf0m"]
+[ext_resource type="Shader" uid="uid://b3xb8j1icuyp" path="res://shaders/PaletteSwap.gdshader" id="2_mdf0m"]
 [ext_resource type="Texture2D" uid="uid://b0wmbfr68jjcj" path="res://sprites/players/copy_robot/weapons/BusterSmall.png" id="4_c01uk"]
 [ext_resource type="AudioStream" uid="uid://dcvhxvuushcu4" path="res://sounds/chargeshot.wav" id="5_443cy"]
 [ext_resource type="AudioStream" uid="uid://cs2dmn3ahpbea" path="res://sounds/pop.wav" id="6_pvoxp"]

@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://b0opfnom6gmbo" path="res://scenes/module_tester.tscn" id="1_kxric"]
 [ext_resource type="Theme" uid="uid://c1bun7kn776g1" path="res://themes/ui_theme.tres" id="2_15wwj"]
 [ext_resource type="Texture2D" uid="uid://bgqo6j6piqevr" path="res://sprites/players/maestro/palettes/Maestro Buster.png" id="4_2rvml"]
-[ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="4_7y70l"]
+[ext_resource type="Shader" uid="uid://b3xb8j1icuyp" path="res://shaders/PaletteSwap.gdshader" id="4_7y70l"]
 [ext_resource type="Texture2D" uid="uid://s746ncdpglrq" path="res://sprites/hud/weapon_bar.png" id="5_1d45g"]
 [ext_resource type="Texture2D" uid="uid://culj6yyxpqgs1" path="res://sprites/players/bass/palettes/Bass Buster.png" id="5_nk4r6"]
 [ext_resource type="Texture2D" uid="uid://cuvb46u27vp7v" path="res://sprites/players/maestro/life.png" id="6_7hqwc"]
@@ -29,10 +29,10 @@ func _process(_delta: float) -> void:
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fqfbl"]
 shader = ExtResource("4_7y70l")
+shader_parameter/palette = ExtResource("4_2rvml")
 shader_parameter/skip_first_row = true
 shader_parameter/use_palette_alpha = false
 shader_parameter/fps = 6.0
-shader_parameter/palette = ExtResource("4_2rvml")
 
 [sub_resource type="GDScript" id="GDScript_lbnry"]
 resource_name = "Bars"
@@ -86,17 +86,17 @@ func process_refills():
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_w86cq"]
 shader = ExtResource("4_7y70l")
+shader_parameter/palette = ExtResource("5_nk4r6")
 shader_parameter/skip_first_row = true
 shader_parameter/use_palette_alpha = false
 shader_parameter/fps = 6.0
-shader_parameter/palette = ExtResource("5_nk4r6")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_o6d4v"]
 shader = ExtResource("4_7y70l")
+shader_parameter/palette = ExtResource("5_nk4r6")
 shader_parameter/skip_first_row = true
 shader_parameter/use_palette_alpha = false
 shader_parameter/fps = 6.0
-shader_parameter/palette = ExtResource("5_nk4r6")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6b278"]
 atlas = ExtResource("11_7y6ti")

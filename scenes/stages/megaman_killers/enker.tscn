@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=4 uid="uid://bophs1pbi3weo"]
 
-[ext_resource type="Script" path="res://scenes/stages/stage.gd" id="1_0xq3t"]
+[ext_resource type="Script" uid="uid://b2eex0cx7l5sm" path="res://scenes/stages/stage.gd" id="1_0xq3t"]
 [ext_resource type="Texture2D" uid="uid://63kwqi5jdugg" path="res://sprites/tilesets/Test.png" id="2_d3f13"]
 [ext_resource type="PackedScene" uid="uid://bingbkdyjdsbs" path="res://scenes/objects/players/start_position.tscn" id="2_kn8la"]
 [ext_resource type="AudioStream" uid="uid://5ujy4lng0s7r" path="res://music/Enker Stage.mp3" id="3_ws14o"]

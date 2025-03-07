@@ -1,7 +1,7 @@
 [gd_scene load_steps=67 format=3 uid="uid://cgxvrogoevp5o"]
 
-[ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="1_2lnav"]
-[ext_resource type="Script" path="res://scenes/startup.gd" id="1_3w825"]
+[ext_resource type="Shader" uid="uid://b3xb8j1icuyp" path="res://shaders/PaletteSwap.gdshader" id="1_2lnav"]
+[ext_resource type="Script" uid="uid://b8m4fceqv3gto" path="res://scenes/startup.gd" id="1_3w825"]
 [ext_resource type="Texture2D" uid="uid://c18jx5q3e1uac" path="res://sprites/players/copy_robot/palettes/Copy Buster.png" id="2_m0go3"]
 [ext_resource type="Texture2D" uid="uid://cc0x2byiwmvp1" path="res://sprites/players/copy_robot/copy_robot.png" id="3_l1cuq"]
 [ext_resource type="Texture2D" uid="uid://c352q0axtprmr" path="res://sprites/players/bass/bass.png" id="4_47uvv"]
@@ -125,10 +125,10 @@ animations = [{
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mhye2"]
 shader = ExtResource("1_2lnav")
+shader_parameter/palette = ExtResource("2_m0go3")
 shader_parameter/skip_first_row = true
 shader_parameter/use_palette_alpha = false
 shader_parameter/fps = 6.0
-shader_parameter/palette = ExtResource("2_m0go3")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qp4je"]
 atlas = ExtResource("3_l1cuq")

@@ -1,7 +1,7 @@
 [gd_scene load_steps=22 format=3 uid="uid://wnfydbxtfjs6"]
 
-[ext_resource type="Script" path="res://scenes/objects/players/weapons/copy_robot/cr_fin_shredder.gd" id="1_bs2ki"]
-[ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="2_8xx7m"]
+[ext_resource type="Script" uid="uid://doynum46p181w" path="res://scenes/objects/players/weapons/copy_robot/cr_fin_shredder.gd" id="1_bs2ki"]
+[ext_resource type="Shader" uid="uid://b3xb8j1icuyp" path="res://shaders/PaletteSwap.gdshader" id="2_8xx7m"]
 [ext_resource type="Texture2D" uid="uid://birsolsp1t1mb" path="res://sprites/players/weapons/Shark3.png" id="3_3tcdh"]
 [ext_resource type="AudioStream" uid="uid://cs2dmn3ahpbea" path="res://sounds/pop.wav" id="4_f802m"]
 [ext_resource type="AudioStream" uid="uid://bu17jfenhhtt8" path="res://sounds/explode.wav" id="5_nptya"]

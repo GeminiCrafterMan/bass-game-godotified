@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://24fx4bikiwj8"]
 
-[ext_resource type="Script" path="res://scenes/objects/players/weapons/copy_robot/sakugarne.gd" id="1_55noj"]
+[ext_resource type="Script" uid="uid://cuxnfl2ph0vic" path="res://scenes/objects/players/weapons/copy_robot/sakugarne.gd" id="1_55noj"]
 [ext_resource type="Texture2D" uid="uid://u24aydstm7qq" path="res://sprites/players/copy_robot/weapons/Sakugarne.png" id="2_wtqcc"]
 
 [sub_resource type="Animation" id="Animation_qfu3k"]
@@ -99,11 +99,11 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kdpa2"]
 _data = {
-"Fall": SubResource("Animation_qfu3k"),
-"Jump": SubResource("Animation_qwslq"),
-"RESET": SubResource("Animation_7nw1r"),
-"Teleport": SubResource("Animation_bejwg"),
-"Teleport In": SubResource("Animation_i1xtp")
+&"Fall": SubResource("Animation_qfu3k"),
+&"Jump": SubResource("Animation_qwslq"),
+&"RESET": SubResource("Animation_7nw1r"),
+&"Teleport": SubResource("Animation_bejwg"),
+&"Teleport In": SubResource("Animation_i1xtp")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p6uyj"]

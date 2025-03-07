@@ -1,6 +1,6 @@
 [gd_scene load_steps=16 format=3 uid="uid://bygcs4m5638w6"]
 
-[ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="1_wnmae"]
+[ext_resource type="Shader" uid="uid://b3xb8j1icuyp" path="res://shaders/PaletteSwap.gdshader" id="1_wnmae"]
 [ext_resource type="Texture2D" uid="uid://bs0cnp36htwuf" path="res://sprites/enemies/gabyoall.png" id="3_77mhf"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gtk0d"]

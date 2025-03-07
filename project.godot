@@ -17,11 +17,11 @@ universal_fade/patterns_directory="res://addons/UniversalFade/Patterns"
 config/name="Bass Game"
 config/version="0.2.7-alpha"
 run/main_scene="res://scenes/menus/title_screen.tscn"
-config/features=PackedStringArray("4.3", "Forward Plus")
+config/features=PackedStringArray("4.4", "Forward Plus")
 boot_splash/bg_color=Color(0, 0, 0, 1)
-boot_splash/image="res://sprites/menus/Title Screen - Logo.png"
 boot_splash/fullsize=false
 boot_splash/use_filter=false
+boot_splash/image="res://sprites/menus/Title Screen - Logo.png"
 config/icon="res://icon.png"
 
 [audio]

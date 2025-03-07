@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=4 uid="uid://c75rkf0piqm15"]
 
-[ext_resource type="Script" path="res://scenes/stages/stage.gd" id="1_n84sh"]
+[ext_resource type="Script" uid="uid://b2eex0cx7l5sm" path="res://scenes/stages/stage.gd" id="1_n84sh"]
 [ext_resource type="TileSet" uid="uid://e8umwfk2n51w" path="res://tilesets/reaper.tres" id="2_t16j4"]
 [ext_resource type="AudioStream" uid="uid://dosaova1esyap" path="res://music/Reaper Stage.mp3" id="4_5rcvl"]
 [ext_resource type="PackedScene" uid="uid://bingbkdyjdsbs" path="res://scenes/objects/players/start_position.tscn" id="5_amnbw"]
-[ext_resource type="TileSet" uid="uid://di2ls6ayshosr" path="res://tilesets/layout.tres" id="5_moi7m"]
+[ext_resource type="TileSet" uid="uid://bp0hrrsh7jne5" path="res://tilesets/layout.tres" id="5_moi7m"]
 
 [node name="Reaper Man" type="Node2D"]
 script = ExtResource("1_n84sh")

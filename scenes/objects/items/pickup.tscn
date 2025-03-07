@@ -1,8 +1,8 @@
 [gd_scene load_steps=34 format=3 uid="uid://bobtsvomowe28"]
 
-[ext_resource type="Script" path="res://scenes/objects/items/pickup.gd" id="1_6kmgf"]
+[ext_resource type="Script" uid="uid://rajqi524aw17" path="res://scenes/objects/items/pickup.gd" id="1_6kmgf"]
 [ext_resource type="Texture2D" uid="uid://dyecajv0oil0s" path="res://sprites/objects/items.png" id="2_20fia"]
-[ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="2_y512r"]
+[ext_resource type="Shader" uid="uid://b3xb8j1icuyp" path="res://shaders/PaletteSwap.gdshader" id="2_y512r"]
 [ext_resource type="Texture2D" uid="uid://culj6yyxpqgs1" path="res://sprites/players/bass/palettes/Bass Buster.png" id="3_6cakr"]
 [ext_resource type="AudioStream" uid="uid://cd1pt0mn386bt" path="res://sounds/bolts.wav" id="4_mliej"]
 [ext_resource type="Texture2D" uid="uid://cuvb46u27vp7v" path="res://sprites/players/maestro/life.png" id="4_o72oi"]
@@ -10,10 +10,10 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_58gkl"]
 shader = ExtResource("2_y512r")
+shader_parameter/palette = ExtResource("3_6cakr")
 shader_parameter/skip_first_row = true
 shader_parameter/use_palette_alpha = false
 shader_parameter/fps = 6.0
-shader_parameter/palette = ExtResource("3_6cakr")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3l2vc"]
 shader = ExtResource("2_y512r")

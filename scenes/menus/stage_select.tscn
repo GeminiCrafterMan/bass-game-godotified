@@ -1,7 +1,7 @@
 [gd_scene load_steps=49 format=4 uid="uid://bb1e018s8kwu7"]
 
-[ext_resource type="Script" path="res://scenes/menus/stage_select.gd" id="1_v0p28"]
-[ext_resource type="Shader" path="res://shaders/PaletteSwap.gdshader" id="2_7l8m0"]
+[ext_resource type="Script" uid="uid://crkniq5un5fve" path="res://scenes/menus/stage_select.gd" id="1_v0p28"]
+[ext_resource type="Shader" uid="uid://b3xb8j1icuyp" path="res://shaders/PaletteSwap.gdshader" id="2_7l8m0"]
 [ext_resource type="TileSet" uid="uid://buvesedl67lpj" path="res://tilesets/stage_select.tres" id="2_knvnc"]
 [ext_resource type="Texture2D" uid="uid://qwdi35jvf2y8" path="res://sprites/fade.png" id="3_dp4q6"]
 [ext_resource type="Texture2D" uid="uid://d2pc3xb3dsb3a" path="res://sprites/menus/Stage Select - Bosses.png" id="4_myqdi"]
