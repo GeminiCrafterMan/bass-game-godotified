@@ -258,7 +258,6 @@ func _on_water_body_exited(dry):
 
 
 func _on_water_body_entered(wet):
-	
 	if wet.is_in_group("player"):
 		wet.JUMP_VELOCITY = -285.0
 		wet.PEAK_VELOCITY = -110.0	

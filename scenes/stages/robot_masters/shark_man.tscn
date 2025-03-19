@@ -473,7 +473,7 @@ z_index = 2
 tile_map_data = PackedByteArray("AAAAAAsAAAAKAAgAAAABAAsAAAAKAAgAAAACAAsAAAAKAAgAAAADAAsAAAAKAAgAAAAEAAsAAAAKAAgAAAAFAAsAAAAKAAgAAAAGAAsAAAAKAAgAAAAHAAsAAAAKAAgAAAAIAAsAAAAKAAgAAAAJAAsAAAAKAAgAAAAKAAsAAAAKAAgAAAALAAsAAAAKAAgAAAAMAAsAAAAKAAgAAAANAAsAAAAKAAgAAAAOAAsAAAAKAAgAAAAPAAsAAAAKAAgAAAAQAAsAAAAKAAgAAAARAAsAAAAKAAgAAAASAAsAAAAKAAgAAAATAAsAAAAKAAgAAAAUAAsAAAAKAAgAAAAVAAsAAAAKAAgAAAAWAAsAAAAKAAgAAAAXAAsAAAAKAAgAAAA=")
 tile_set = ExtResource("2_nfhkc")
 
-[node name="SplashZone" type="Area2D" parent="Background/Water"]
+[node name="SplashZone" type="Area2D" parent="Background/Water" groups=["splash"]]
 position = Vector2(2000, -608)
 collision_layer = 14
 collision_mask = 14
@@ -673,35 +673,35 @@ position = Vector2(1912, 90)
 type = 1
 difficulty = 1
 
-[node name="Spike" parent="Level Objects" instance=ExtResource("10_xpgq4")]
+[node name="Spike" parent="Level Objects" groups=["hurts"] instance=ExtResource("10_xpgq4")]
 position = Vector2(3880, 1114.23)
 scale = Vector2(4, 1)
 physics_material_override = SubResource("PhysicsMaterial_ecfmk")
 damage = 50
 
-[node name="Spike2" parent="Level Objects" instance=ExtResource("10_xpgq4")]
+[node name="Spike2" parent="Level Objects" groups=["hurts"] instance=ExtResource("10_xpgq4")]
 position = Vector2(4184, 1114.11)
 scale = Vector2(4, 1)
 physics_material_override = SubResource("PhysicsMaterial_ecfmk")
 damage = 50
 
-[node name="Spike6" parent="Level Objects" instance=ExtResource("10_xpgq4")]
+[node name="Spike6" parent="Level Objects" groups=["hurts"] instance=ExtResource("10_xpgq4")]
 position = Vector2(4412, 1114.05)
 scale = Vector2(25, 1)
 physics_material_override = SubResource("PhysicsMaterial_ecfmk")
 damage = 50
 
-[node name="Spike3" parent="Level Objects" instance=ExtResource("10_xpgq4")]
+[node name="Spike3" parent="Level Objects" groups=["hurts"] instance=ExtResource("10_xpgq4")]
 position = Vector2(3863, 944.075)
 scale = Vector2(1, 6)
 damage = 50
 
-[node name="Spike4" parent="Level Objects" instance=ExtResource("10_xpgq4")]
+[node name="Spike4" parent="Level Objects" groups=["hurts"] instance=ExtResource("10_xpgq4")]
 position = Vector2(4201, 944.075)
 scale = Vector2(1, 6)
 damage = 50
 
-[node name="Spike5" parent="Level Objects" instance=ExtResource("10_xpgq4")]
+[node name="Spike5" parent="Level Objects" groups=["hurts"] instance=ExtResource("10_xpgq4")]
 position = Vector2(6336, 727.95)
 scale = Vector2(22, 1)
 damage = 4
@@ -1103,7 +1103,7 @@ position = Vector2(4336, 1348.64)
 shape = SubResource("RectangleShape2D_n1ace")
 
 [node name="StartPosition" parent="." instance=ExtResource("5_rk30x")]
-position = Vector2(245, 81)
+position = Vector2(77, 144)
 scrollX2 = 3
 
 [node name="TransTimer" type="Timer" parent="."]

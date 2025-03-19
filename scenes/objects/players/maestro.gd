@@ -39,6 +39,7 @@ enum WEAPONS {BUSTER, BLAZE, VIDEO, SMOG, SHARK, ORIGAMI, GALE, GUERRILLA, REAPE
 #endregion
 
 # state related
+var invincible = false
 var currentState := STATES.TELEPORT
 var currentWeapon := WEAPONS.BUSTER
 var swapState := STATES.NONE
@@ -57,10 +58,10 @@ var underRoof : bool
 
 #region Exports
 # input related
-@export var JUMP_VELOCITY: int = -225
-@export var PEAK_VELOCITY: int = -150
-@export var STOP_VELOCITY: int = -150
-@export var JUMP_HEIGHT: int = 15
+@export var JUMP_VELOCITY: int = -235
+@export var PEAK_VELOCITY: int = -120
+@export var STOP_VELOCITY: int = -120
+@export var JUMP_HEIGHT: int = 14
 @export var FAST_FALL: int = 400
 @export var WATER_FAST_FALL: int = 200
 @export var MAXSPEED: int = 100
@@ -190,6 +191,9 @@ func _ready():
 #function that applies gravity need to specify to only apply it during certain states since it will only execute on the correct states. It's also just nicer to look at.
 
 func _physics_process(delta: float) -> void:
+	if GameState.current_hp <= 0:
+		currentState = STATES.DEAD
+	
 	GameState.player.position.x = position.x
 	GameState.player.position.y = position.y
 	GameState.playerstate = currentState
@@ -220,13 +224,16 @@ func _physics_process(delta: float) -> void:
 				processBuster()
 				processCharge()
 				ladderCheck()
+				processDamage()
 			STATES.IDLE_THROW:
 				checkForFloor()
 				processJump()
 				processShoot()
+				processDamage()
 			STATES.IDLE_SHIELD:
 				checkForFloor()
 				processShoot()
+				processDamage()
 				
 			STATES.STEP:
 				step(delta)
@@ -237,6 +244,7 @@ func _physics_process(delta: float) -> void:
 				processBuster()
 				processCharge()
 				ladderCheck()
+				processDamage()
 			STATES.WALK, STATES.WALKING_SHOOT:
 				walk()
 				slideProcess()
@@ -247,6 +255,7 @@ func _physics_process(delta: float) -> void:
 				processBuster()
 				processCharge()
 				ladderCheck()
+				processDamage()
 			STATES.JUMP, STATES.JUMP_SHOOT, STATES.JUMP_THROW, STATES.JUMP_SHIELD:
 				Jump(delta)
 				applyGrav(delta)
@@ -255,6 +264,7 @@ func _physics_process(delta: float) -> void:
 				processBuster()
 				processCharge()
 				ladderCheck()
+				processDamage()
 			STATES.FALL_START, STATES.FALL, STATES.FALL_SHOOT, STATES.FALL_THROW, STATES.FALL_SHIELD:
 				fall(delta)
 				applyGrav(delta)
@@ -263,17 +273,20 @@ func _physics_process(delta: float) -> void:
 				processBuster()
 				processCharge()
 				ladderCheck()
+				processDamage()
 			STATES.SLIDE:
 				sliding(delta)
 				if !$ceilCheck.is_colliding():
 					processJump()
 				processCharge()
 				ladderCheck()
+				processDamage()
 			STATES.LADDER:
 				ladder()
 				processCharge()
 				processShoot()
 				processBuster()
+				processDamage()
 			STATES.HURT:
 				hurt()
 				applyGrav(delta)
@@ -372,9 +385,52 @@ func processJump():
 		velocity.y = JUMP_VELOCITY
 		currentState = STATES.JUMP
 		slide_timer.stop()
+		$hurtboxArea/mainHurtbox.set_disabled(false)
 		$mainCollision.disabled = false
 		JumpHeight = 0
 		SoundManager.play("player", "jump")
+
+func processDamage():
+	#Process the Invul Frames first!
+	if !invul_timer.is_stopped():
+		invincible = true
+		$hurtboxArea/mainHurtbox.set_disabled(true)
+		$hurtboxArea/slideHurtbox.set_disabled(true)
+		DmgQueue = 0
+		InvincFrames += 1
+		if InvincFrames >= 2:
+			sprite.visible = false
+		if InvincFrames == 3:
+			InvincFrames = 0
+			sprite.visible = true
+	else:
+		if invincible == true:
+			$FX/Starburst.visible = false
+			if currentState == STATES.SLIDE:
+				$hurtboxArea/slideHurtbox.set_disabled(false)
+			else:
+				$hurtboxArea/mainHurtbox.set_disabled(false)
+			invincible = false
+			
+		sprite.visible = true
+		
+	#If you're not invulnerable... eat shit!
+	if DmgQueue > 0:
+		$FX/Starburst.visible = true
+		$FX/Sweat.visible = true
+		$FX/Sweat.play("active")
+		invul_timer.start(1.0)
+		pain_timer.start(0.55)
+		GameState.current_hp -= DmgQueue
+		if GameState.current_hp >= 0:
+			currentState = STATES.HURT
+			velocity.x = sprite.scale.x * -20
+			if is_on_floor():
+				velocity.y = -70
+			else:
+				velocity.y = -90
+		DmgQueue = 0
+		SoundManager.play("player", "hurt")
 
 func Jump(delta):
 	if on_ice == true:
@@ -467,6 +523,7 @@ func slideProcess():
 			velocity.x = 200 * sprite.scale.x
 		currentState = STATES.SLIDE
 		$mainCollision.disabled = true
+		$hurtboxArea/mainHurtbox.set_disabled(true)
 		slide_timer.start(0.4)
 		FX = preload("res://scenes/objects/players/dash_trail.tscn").instantiate()
 		get_parent().add_child(FX)
@@ -496,13 +553,15 @@ func sliding(delta):
 		currentState = STATES.FALL
 	if Input.is_action_just_pressed("jump"):
 		$mainCollision.disabled = true
-
+		$hurtboxArea/mainHurtbox.set_disabled(true)
+		
 func _on_slide_timer_timeout() -> void:
 	if $ceilCheck.is_colliding():
 		print("keep sliding")
 		slide_timer.start(0.1)
 	else:
 		$mainCollision.disabled = false
+		$hurtboxArea/mainHurtbox.set_disabled(false)
 		if !is_on_floor():
 			pass
 		if on_ice == false:
@@ -513,9 +572,6 @@ func _on_slide_timer_timeout() -> void:
 			currentState = STATES.IDLE
 		
 
-func _on_hurtbox_area_area_entered(area: Area2D) -> void:
-	if area.is_in_group("hitbox"):
-		hitByThing()
 
 func _on_water_check(area: Area2D) -> void:
 	if area.is_in_group("splash"):
@@ -525,20 +581,7 @@ func _on_water_check(area: Area2D) -> void:
 		splash.top_level = true
 		splash.global_position = $waterCheck.global_position
 
-func hitByThing():
-	invul(true)
-	pain_timer.start()
-	GameState.current_hp -= DmgQueue
-	if GameState.current_hp >= 0:
-		currentState = STATES.HURT
-		velocity.x = sprite.scale.x * -20
-		if is_on_floor():
-			velocity.y = -70
-		else:
-			velocity.y = -90
-	else:
-		currentState = STATES.DEAD
-		SoundManager.play("player", "hurt")
+
 
 func hurt():
 	if pain_timer.is_stopped():
@@ -552,35 +595,9 @@ func death():
 	if pain_timer.is_stopped():
 		SoundManager.play("player", "death")
 
-
-#func _DamageAndInvincible():
-	#if !invul_timer.is_stopped():
-		#InvincFrames += 1
-		#if InvincFrames >= 2:
-			#sprite.visible = false
-		#if InvincFrames == 3:
-			#InvincFrames = 0
-			#sprite.visible = true
-	#else:
-		#sprite.visible = true
-	#if DmgQueue > 0:
-		#if !invul_timer.is_stopped():
-			#DmgQueue = 0
-		#else:
-			#if GameState.current_hp - DmgQueue > 0:
-				#GameState.current_hp -= DmgQueue
-			#else:
-				#GameState.current_hp = 0
-			#DmgQueue = 0
-			#currentState = STATES.HURT
-			#if GameState.current_hp <= 0:
-				#currentState = STATES.DEAD
-			#invul_timer.start(1)
-			#pain_timer.start(0.55)
-
 func dead():
-	$MainHitbox.set_disabled(true)
-	$SlideHitbox.set_disabled(true)
+	$hurtboxArea/mainHurtbox.set_disabled(true)
+	$hurtboxArea/slideHurtbox.set_disabled(true)
 	state_timer.start(5.00)
 	velocity.y = 0
 	velocity.x = 0
@@ -1196,7 +1213,3 @@ func reset(everything: bool) -> void:
 				#velocity.x = lerpf(direction.x * 50, 0, delta * 7)
 	#else:
 		#velocity.x = lerpf(velocity.x, 0, delta * 4)
-
-
-func _on_water_check_area_exited(area: Area2D) -> void:
-	pass # Replace with function body.

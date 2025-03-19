@@ -596,7 +596,7 @@ floor_snap_length = 5.0
 script = ExtResource("1_ct76e")
 
 [node name="hurtboxArea" type="Area2D" parent="." groups=["player"]]
-collision_layer = 4
+collision_layer = 36
 collision_mask = 2
 
 [node name="mainHurtbox" type="CollisionShape2D" parent="hurtboxArea"]
@@ -617,12 +617,12 @@ frame = 33
 [node name="shifter" type="AnimationPlayer" parent="."]
 root_node = NodePath("../hurtboxArea")
 libraries = {
-"": SubResource("AnimationLibrary_pkaf2")
+&"": SubResource("AnimationLibrary_pkaf2")
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_atfpo")
+&"": SubResource("AnimationLibrary_atfpo")
 }
 autoplay = "TELEPORT"
 
@@ -642,6 +642,7 @@ frame_progress = 0.620748
 visible = false
 position = Vector2(1.48619e-06, -17)
 sprite_frames = SubResource("SpriteFrames_dkj8m")
+animation = &"active"
 
 [node name="mainCollision" type="CollisionShape2D" parent="."]
 position = Vector2(0, 3)
@@ -663,6 +664,7 @@ autostart = true
 
 [node name="PainTimer" type="Timer" parent="."]
 process_callback = 0
+wait_time = 0.5
 one_shot = true
 autostart = true
 

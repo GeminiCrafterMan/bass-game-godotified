@@ -67,6 +67,7 @@ player=""
 scorch=""
 boomerang=""
 splash=""
+hurts="hurts the player and does damage!"
 
 [gui]
 
