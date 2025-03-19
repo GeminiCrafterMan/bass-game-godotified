@@ -101,7 +101,9 @@ func spawn():
 	#move_and_slide()
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
+	GameState.onscreen_sp_bullets -= 1
 	queue_free()
+	print("del bomb")
 
 func destroy():
 	$CollisionShape2D.set_deferred("disabled", true)
