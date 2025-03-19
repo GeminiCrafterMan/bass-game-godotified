@@ -617,12 +617,12 @@ frame = 33
 [node name="shifter" type="AnimationPlayer" parent="."]
 root_node = NodePath("../hurtboxArea")
 libraries = {
-"": SubResource("AnimationLibrary_pkaf2")
+&"": SubResource("AnimationLibrary_pkaf2")
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_atfpo")
+&"": SubResource("AnimationLibrary_atfpo")
 }
 autoplay = "TELEPORT"
 
