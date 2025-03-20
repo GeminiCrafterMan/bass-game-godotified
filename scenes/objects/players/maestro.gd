@@ -416,19 +416,22 @@ func processDamage():
 		
 	#If you're not invulnerable... eat shit!
 	if DmgQueue > 0:
-		$FX/Starburst.visible = true
-		$FX/Sweat.visible = true
-		$FX/Sweat.play("active")
+		GameState.current_hp -= DmgQueue
 		invul_timer.start(1.0)
 		pain_timer.start(0.55)
-		GameState.current_hp -= DmgQueue
-		if GameState.current_hp >= 0:
+		if GameState.current_hp > 0:
+			$FX/Starburst.visible = true
+			$FX/Sweat.visible = true
+			$FX/Sweat.play("active")
 			currentState = STATES.HURT
 			velocity.x = sprite.scale.x * -20
 			if is_on_floor():
 				velocity.y = -70
 			else:
 				velocity.y = -90
+		else:
+			currentState = STATES.DEAD
+			
 		DmgQueue = 0
 		SoundManager.play("player", "hurt")
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://bsy7vba3t8awq"]
+[gd_scene load_steps=61 format=3 uid="uid://bsy7vba3t8awq"]
 
 [ext_resource type="Script" uid="uid://bsxw7au27mfj5" path="res://scenes/objects/players/bass.gd" id="1_lug7r"]
 [ext_resource type="Shader" uid="uid://b3xb8j1icuyp" path="res://shaders/PaletteSwap.gdshader" id="2_m015p"]
@@ -22,6 +22,23 @@ shader_parameter/skip_first_row = true
 shader_parameter/use_palette_alpha = false
 shader_parameter/fps = 6.0
 
+[sub_resource type="Animation" id="Animation_uc8dv"]
+resource_name = "DEAD"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [26]
+}
+
 [sub_resource type="Animation" id="Animation_rlpjp"]
 length = 0.333333
 loop_mode = 1
@@ -36,23 +53,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [29]
-}
-
-[sub_resource type="Animation" id="Animation_uc8dv"]
-resource_name = "Dead"
-length = 0.2
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [26]
 }
 
 [sub_resource type="Animation" id="Animation_ibabb"]
@@ -105,6 +105,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_8pco5"]
+resource_name = "IDLE"
 length = 1.5
 loop_mode = 1
 tracks/0/type = "value"
@@ -528,6 +529,7 @@ tracks/2/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_lvb1v"]
+resource_name = "STEP"
 length = 0.111111
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -543,6 +545,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_8m6b5"]
+resource_name = "TELEPORT"
 length = 0.2
 loop_mode = 1
 tracks/0/type = "value"
@@ -559,6 +562,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_beqyk"]
+resource_name = "TELEPORT_LANDING"
 length = 0.4
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -607,12 +611,12 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_knm54"]
 _data = {
+&"DEAD": SubResource("Animation_uc8dv"),
 &"Dash": SubResource("Animation_rlpjp"),
-&"Dead": SubResource("Animation_uc8dv"),
 &"Fall": SubResource("Animation_ibabb"),
 &"FinShredder": SubResource("Animation_govqx"),
 &"Hurt": SubResource("Animation_edvn7"),
-&"Idle": SubResource("Animation_8pco5"),
+&"IDLE": SubResource("Animation_8pco5"),
 &"Idle-Shield": SubResource("Animation_7lbq7"),
 &"Idle-Shoot": SubResource("Animation_3wyk4"),
 &"Idle-Shoot Steady": SubResource("Animation_17qx0"),
@@ -637,9 +641,9 @@ _data = {
 &"Ladder-Up": SubResource("Animation_lauva"),
 &"Mist Dash": SubResource("Animation_lyowt"),
 &"RESET": SubResource("Animation_15kij"),
-&"Step": SubResource("Animation_lvb1v"),
-&"Teleport": SubResource("Animation_8m6b5"),
-&"Teleport In": SubResource("Animation_beqyk"),
+&"STEP": SubResource("Animation_lvb1v"),
+&"TELEPORT": SubResource("Animation_8m6b5"),
+&"TELEPORT_LANDING": SubResource("Animation_beqyk"),
 &"Walk": SubResource("Animation_uj5dp"),
 &"Walk-Shoot": SubResource("Animation_kc2kp")
 }
@@ -699,16 +703,6 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_bfqkg"]
-size = Vector2(14, 26)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_cvbnn"]
-size = Vector2(16, 14)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_i5nkw"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_lrnae"]
-
 [sub_resource type="Resource" id="Resource_0aldu"]
 script = ExtResource("9_fd281")
 name = "start"
@@ -725,6 +719,21 @@ volume = 0.0
 pitch = 1.0
 streams = Array[AudioStream]([ExtResource("8_xq33u")])
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v5lim"]
+size = Vector2(12, 26)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bkdc0"]
+size = Vector2(14, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3cb33"]
+size = Vector2(14, 26)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lw0ta"]
+size = Vector2(13, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vxmyy"]
+size = Vector2(1, 0)
+
 [node name="Bass" type="CharacterBody2D" groups=["player", "splash"]]
 material = SubResource("ShaderMaterial_qymoq")
 collision_layer = 2
@@ -740,9 +749,9 @@ frame = 25
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_knm54")
+&"": SubResource("AnimationLibrary_knm54")
 }
-autoplay = "Teleport"
+autoplay = "TELEPORT"
 
 [node name="FX" type="Node2D" parent="."]
 position = Vector2(0, 2)
@@ -758,15 +767,6 @@ autoplay = "new_animation"
 [node name="Sweat" type="AnimatedSprite2D" parent="FX"]
 position = Vector2(1.48619e-06, -17)
 sprite_frames = SubResource("SpriteFrames_0r7wu")
-
-[node name="MainHitbox" type="CollisionShape2D" parent="."]
-position = Vector2(0, 3)
-shape = SubResource("RectangleShape2D_bfqkg")
-
-[node name="SlideHitbox" type="CollisionShape2D" parent="."]
-position = Vector2(0, 9)
-shape = SubResource("RectangleShape2D_cvbnn")
-disabled = true
 
 [node name="StateTimer" type="Timer" parent="."]
 one_shot = true
@@ -793,31 +793,68 @@ autostart = true
 wait_time = 0.4
 one_shot = true
 
-[node name="CeilingCheck" type="RayCast2D" parent="."]
-visible = false
-position = Vector2(0, 12)
-target_position = Vector2(0, -12)
-
-[node name="LadderCheck" type="ShapeCast2D" parent="."]
-visible = false
-position = Vector2(0, 7)
-shape = SubResource("RectangleShape2D_i5nkw")
-target_position = Vector2(0, 0)
-max_results = 1
-collide_with_areas = true
-collide_with_bodies = false
-
-[node name="TopLadderCheck" type="ShapeCast2D" parent="."]
-visible = false
-position = Vector2(0, -13)
-shape = SubResource("RectangleShape2D_lrnae")
-target_position = Vector2(0, 0)
-max_results = 1
-
 [node name="SoundBank" type="Node" parent="."]
 script = ExtResource("8_tjlhw")
 label = "bass"
 bus = "Sound"
 events = Array[ExtResource("9_fd281")]([SubResource("Resource_0aldu"), SubResource("Resource_5g5pw")])
+
+[node name="states" type="RichTextLabel" parent="."]
+offset_left = -36.0
+offset_top = -29.0
+offset_right = 43.0
+offset_bottom = 11.0
+bbcode_enabled = true
+text = "state
+goes here"
+
+[node name="hurtboxArea" type="Area2D" parent="." groups=["player"]]
+collision_layer = 36
+collision_mask = 2
+
+[node name="mainHurtbox" type="CollisionShape2D" parent="hurtboxArea"]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_v5lim")
+debug_color = Color(1, 0.85, 0, 0.419608)
+
+[node name="slideHurtbox" type="CollisionShape2D" parent="hurtboxArea"]
+position = Vector2(0, 12)
+shape = SubResource("RectangleShape2D_bkdc0")
+
+[node name="mainCollision" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_3cb33")
+
+[node name="slideCollision" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 9)
+shape = SubResource("RectangleShape2D_lw0ta")
+
+[node name="upLadder" type="RayCast2D" parent="."]
+position = Vector2(0, 15.67)
+target_position = Vector2(0, -10)
+collision_mask = 64
+hit_from_inside = true
+collide_with_areas = true
+
+[node name="downLadder" type="RayCast2D" parent="."]
+position = Vector2(0, 17)
+target_position = Vector2(0, 4.665)
+collision_mask = 64
+hit_from_inside = true
+collide_with_areas = true
+
+[node name="ceilCheck" type="RayCast2D" parent="."]
+position = Vector2(0, 2)
+target_position = Vector2(0, -7)
+
+[node name="waterCheck" type="Area2D" parent="."]
+position = Vector2(0, 1)
+collision_layer = 4
+collision_mask = 2
+
+[node name="boop" type="CollisionShape2D" parent="waterCheck"]
+position = Vector2(0, 7.5)
+shape = SubResource("RectangleShape2D_vxmyy")
+debug_color = Color(0.969991, 0, 0.457701, 0.42)
 
 [connection signal="teleported" from="." to="." method="_on_teleported"]

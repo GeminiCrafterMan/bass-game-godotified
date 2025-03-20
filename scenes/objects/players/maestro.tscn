@@ -612,7 +612,6 @@ shape = SubResource("RectangleShape2D_7k36u")
 material = SubResource("ShaderMaterial_dtetj")
 texture = ExtResource("4_w3lef")
 hframes = 35
-frame = 33
 
 [node name="shifter" type="AnimationPlayer" parent="."]
 root_node = NodePath("../hurtboxArea")
