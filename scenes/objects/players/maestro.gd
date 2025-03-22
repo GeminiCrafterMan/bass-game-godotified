@@ -68,7 +68,7 @@ var underRoof : bool
 @export var RUNSPEED: int = 80
 
 @export var ICE_FLOOR_WEIGHT: float = 3
-@export var ICE_AIR_WEIGHT: float = 2
+@export var ICE_AIR_WEIGHT: float = 1
 #endregion
 
 var transing : bool = false
@@ -438,18 +438,20 @@ func processDamage():
 func Jump(delta):
 	if on_ice == true:
 		ice_jump = true
-	if velocity.y < 0 && JumpHeight != 80:
-		if (JumpHeight < JUMP_HEIGHT && Input.is_action_pressed("jump")):
-			velocity.y = JUMP_VELOCITY
-			JumpHeight += 1
-		if (JumpHeight == JUMP_HEIGHT):
-			JumpHeight = 80
-			velocity.y = PEAK_VELOCITY
-			currentState = STATES.FALL_START
-		if (Input.is_action_just_released("jump")):
-			JumpHeight = 80
-			velocity.y = STOP_VELOCITY
-			currentState = STATES.FALL_START
+	if (JumpHeight < JUMP_HEIGHT && Input.is_action_pressed("jump")):
+		velocity.y = JUMP_VELOCITY
+		JumpHeight += 1
+	if (JumpHeight == JUMP_HEIGHT):
+		JumpHeight = 80
+		velocity.y = PEAK_VELOCITY
+		currentState = STATES.FALL_START
+	if (Input.is_action_just_released("jump")):
+		JumpHeight = 80
+		velocity.y = STOP_VELOCITY
+		currentState = STATES.FALL_START
+	if velocity.y > 0:
+		JumpHeight = 80
+		currentState = STATES.FALL_START
 	if direction.x == 0 :
 		if ice_jump == false:
 			velocity.x = 0

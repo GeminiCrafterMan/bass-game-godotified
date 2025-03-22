@@ -15,13 +15,19 @@ func _ready():
 	
 # Called every frame. '_delta' is the elapsed time since the previous frame.
 func _physics_process(_delta):
+	if GameState.camposx < 4000:
+		level = 207
+		$WaterLayer.autoscroll.x = 30
 	if GameState.camposx > 4000:
 		level = 440
 		$WaterLayer.autoscroll.x = 30
 	if GameState.camposx > 5500:
-		level = 660
+		level = 664
+	$Water.position.y = level - 210
+	$SplashZone.position.y = level - 210
 	
 	
 func _process(_delta):
 		$CanvasLayer/Shade.position.y = level + 1600 - GameState.camposy
-		$WaterLayer/Waves.position.y = level - 192
+		$WaterLayer/Waves.position.y = level - 207
+		
