@@ -281,14 +281,5 @@ offset_right = 208.0
 offset_bottom = -50.0
 text = "One screen is 24x14 tiles."
 
-[node name="Breakables" type="Node2D" parent="."]
-position = Vector2(0, -58)
-
-[node name="BreakableBlock" parent="Breakables" instance=ExtResource("10_h5fbw")]
-position = Vector2(608, 234)
-
-[node name="BreakableBlock2" parent="Breakables" instance=ExtResource("10_h5fbw")]
-position = Vector2(624, 234)
-
-[node name="BreakableBlock3" parent="Breakables" instance=ExtResource("10_h5fbw")]
-position = Vector2(640, 234)
+[node name="BreakableBlock" parent="." instance=ExtResource("10_h5fbw")]
+position = Vector2(176, 48)

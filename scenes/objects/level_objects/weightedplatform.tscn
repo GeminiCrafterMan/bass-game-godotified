@@ -1,0 +1,121 @@
+[gd_scene load_steps=16 format=3 uid="uid://pptkgepiuq7x"]
+
+[ext_resource type="Script" uid="uid://b0nj4lkeg0ul7" path="res://scenes/objects/level_objects/weightedplatform.gd" id="1_oneki"]
+[ext_resource type="Texture2D" uid="uid://bc2fuukbieeon" path="res://sprites/objects/droppingplatform.png" id="2_10vsa"]
+[ext_resource type="Texture2D" uid="uid://cjv1snt4gwets" path="res://sprites/objects/droppingplatformanim.png" id="3_7vlc4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mfqma"]
+atlas = ExtResource("2_10vsa")
+region = Rect2(0, 0, 32, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_y1nx7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mfqma")
+}],
+"loop": true,
+"name": &"Blaze",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xtwb6"]
+atlas = ExtResource("3_7vlc4")
+region = Rect2(0, 24, 16, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dluka"]
+atlas = ExtResource("3_7vlc4")
+region = Rect2(0, 32, 16, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_01i0t"]
+atlas = ExtResource("3_7vlc4")
+region = Rect2(0, 40, 16, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qt2lw"]
+atlas = ExtResource("3_7vlc4")
+region = Rect2(0, 48, 16, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1e8rf"]
+atlas = ExtResource("3_7vlc4")
+region = Rect2(0, 0, 16, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4vfvq"]
+atlas = ExtResource("3_7vlc4")
+region = Rect2(0, 8, 16, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lur8g"]
+atlas = ExtResource("3_7vlc4")
+region = Rect2(0, 16, 16, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_o6h4x"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xtwb6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dluka")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_01i0t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qt2lw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1e8rf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4vfvq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lur8g")
+}],
+"loop": false,
+"name": &"Blaze",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5ngs7"]
+size = Vector2(32, 6)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oneki"]
+size = Vector2(32, 2)
+
+[node name="WeightedPlatform" type="StaticBody2D"]
+collision_layer = 16
+collision_mask = 17
+script = ExtResource("1_oneki")
+distance = null
+bottomlimit = null
+resistance_up = null
+resistance_down = null
+weighted = null
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_y1nx7")
+animation = &"Blaze"
+
+[node name="Wheel" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 4)
+sprite_frames = SubResource("SpriteFrames_o6h4x")
+animation = &"Blaze"
+frame = 5
+frame_progress = 1.0
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, -5)
+shape = SubResource("RectangleShape2D_5ngs7")
+one_way_collision = true
+debug_color = Color(0, 1, 0.0705882, 0.419608)
+
+[node name="trigger" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 3
+
+[node name="Hitbox" type="CollisionShape2D" parent="trigger"]
+position = Vector2(0, -10)
+shape = SubResource("RectangleShape2D_oneki")
+
+[connection signal="body_entered" from="trigger" to="." method="_on_trigger_body_entered"]
+[connection signal="body_exited" from="trigger" to="." method="_on_trigger_body_exited"]

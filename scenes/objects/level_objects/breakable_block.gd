@@ -1,5 +1,5 @@
 @tool
-class_name BreakableBlock
+class_name SteelBlock
 extends StaticBody2D
 
 const styles = [
